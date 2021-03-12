@@ -2,21 +2,21 @@ For each of you individually copy the checklist and check them of if it is done.
 
 <MyName>
   
-- [ ] Download and install Git
+- [x] Download and install Git
   
-- [ ] I have a GitHub account with a username that we can map to your real name
+- [x] I have a GitHub account with a username that we can map to your real name
 
-- [ ] Received a Taiga invite
+- [x] Received a Taiga invite
 
-- [ ] Accepted the Taiga invite
+- [x] Accepted the Taiga invite
 
-- [ ] Do you check Slack regularly
+- [x] Do you check Slack regularly
 
-- [ ] Did you contact your team members
+- [x] Did you contact your team members
 
-- [ ] Did you read the kickoff document
+- [x] Did you read the kickoff document
 
-- [ ] Did you understand the kickoff document
+- [x] Did you understand the kickoff document
 
 - [ ] Did you read the ProjectModuleConcepts document
 
