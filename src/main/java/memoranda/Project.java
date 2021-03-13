@@ -21,11 +21,11 @@ public interface Project {
    
     public static final int ACTIVE = 1;
     
-    public static final int COMPLETED = 2;
+    public static final int COMPLETED = 5; //was 2
     
     public static final int FROZEN = 4;
     
-    public static final int FAILED = 5;
+    public static final int FAILED = 2; //was 5
     
     String getID();
        

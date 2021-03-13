@@ -49,7 +49,7 @@ public class ProjectImpl implements Project {
      */
     public void setStartDate(CalendarDate date) {
         if (date != null)
-            setAttr("startDate", date.toString());
+            setAttr("startDate", CalendarDate.tomorrow().toString());
     }
 
     /**

@@ -73,13 +73,13 @@ public class CalendarDate {
 
     public static CalendarDate yesterday() {
         Calendar cal = Calendar.getInstance();
-        cal.roll(Calendar.DATE, false);
+        cal.roll(Calendar.DATE, true); //was false
         return new CalendarDate(cal);
     }
 
     public static CalendarDate tomorrow() {
         Calendar cal = Calendar.getInstance();
-        cal.roll(Calendar.DATE, true);
+        cal.roll(Calendar.DATE, false); //was true
         return new CalendarDate(cal);
     }
 
