@@ -62,9 +62,9 @@ public class StickerDialog extends JDialog {
 	Border border2;
 	Color[] colors =
 		{
+			Color.RED,
 			Color.YELLOW,
 			Color.ORANGE,
-			Color.RED,
 			Color.BLUE,
 			Color.GREEN,
 			Color.CYAN,
