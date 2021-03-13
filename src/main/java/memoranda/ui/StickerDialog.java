@@ -74,9 +74,9 @@ public class StickerDialog extends JDialog {
 			Color.PINK };
 	String[] colorLabels =
 		{
+			Local.getString("Red"),
 			Local.getString("Yellow"),
 			Local.getString("Orange"),
-			Local.getString("Red"),
 			Local.getString("Blue"),
 			Local.getString("Green"),
 			Local.getString("Cyan"),
