@@ -99,7 +99,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	void jbInit() throws Exception {
 		component1 = Box.createHorizontalStrut(20);
 		this.setLayout(borderLayout1);
-		topBar.setBackground(new Color(215, 225, 250));
+		topBar.setBackground(new Color(102, 255, 102));
 		topBar.setAlignmentX((float) 0.0);
 		topBar.setFloatable(false);
 		toolbarPanel.setLayout(borderLayout2);
