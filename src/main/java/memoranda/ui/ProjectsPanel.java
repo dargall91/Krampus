@@ -134,7 +134,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		flowLayout1.setVgap(0);
 
 		curProjectTitle.setFont(new java.awt.Font("Dialog", 1, 11));
-		curProjectTitle.setForeground(new Color(64, 70, 128));
+		curProjectTitle.setForeground(new Color(0, 255, 51));
 		curProjectTitle.setMaximumSize(new Dimension(32767, 22));
 		curProjectTitle.setPreferredSize(new Dimension(32767, 22));
 		curProjectTitle.setText(CurrentProject.get().getTitle());
