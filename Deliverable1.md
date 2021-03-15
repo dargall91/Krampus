@@ -1,5 +1,4 @@
 # Deliverable Information
-   > Please include your answers below in a good format so it is easy for me to see. For answers to questions please use these Blockquotes. Make sure you also check the kickoff document for more details. Also make sure this thing is well formatted and the links are links in here. 
 
 ## 1: Basic Information (needed before you start with your Sprint -- Sprint Planning)
 
@@ -14,7 +13,8 @@
 ### Sprint Planning (For Sprint 1-3)
 Document your Sprint Planning here. Also check the kickoff document for more details on what needs to be done. This is just the documentation. 
 
-**Sprint Goal:** Your Sprint goal
+**Sprint Goal:** 
+> 
 
 **How many User Stories did you add to the Product Backlog:**  Number
 
@@ -44,13 +44,11 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 | Date  | Attendees  |Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
-| 14MAR21  | All  |  Complete "Icebreaker" and discuss sprint1 planning |   |  |  |
+| 14MAR21  | All  |  Complete "Icebreaker" and discuss sprint1 planning | n/a | n/a  | n/a |
 |   |   |   |   |  |  |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:
-
-> Add rows as needed and add the number how many meetings for each team member:
 
 | Name | Meeting Attended |
 |---|---|
@@ -119,28 +117,127 @@ Answer as a team!
 
 > In this section I want you to point me to your main contributions (each of you individually). Some of the topcs are not needed for the first deliverables (you should know which things you should have done in this Sprint, if you don't then you have probably missed something):
 
-#### Team member A -- replace this with your name:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:
+#### Brian Pape:
+  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
     - link1
     - link2
 
-   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:
+  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:
+  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **How did you contribute to Static Analysis -- Sprint 3:
+  **How did you contribute to Static Analysis -- Sprint 3:**
+
+    - link1
+    - link2
+
+  **What was your main contribution to the Quality Policy documentation?:**
+
+    - info
+#### Chris Boveda:
+  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis -- Sprint 3:**
+
+    - link1
+    - link2
+
+  **What was your main contribution to the Quality Policy documentation?:**
+
+    - info
+
+#### Derek Argall:
+  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis -- Sprint 3:**
+
+    - link1
+    - link2
+
+  **What was your main contribution to the Quality Policy documentation?:**
+
+    - info
+
+#### John Thurstonson:
+  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis -- Sprint 3:**
+
+    - link1
+    - link2
+
+  **What was your main contribution to the Quality Policy documentation?:**
+
+    - info
+
+#### Kevin Dolan:
+  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - link1
+    - link2
+
+   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
  
- **What was your main contribution to the Quality Policy documentation?:
+ **What was your main contribution to the Quality Policy documentation?:**
 
     - info
 
@@ -150,7 +247,7 @@ Answer as a team!
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences
 - [X] Read the kickoff again to make sure you have all the details
 - [ ] User Stories that were not completed, were left in the Sprint and a copy created
-- [ ] Your Quality Policies are accurate and up to date
+- [x] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Brian Pape|
   - [ ] Chris Boveda
