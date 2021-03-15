@@ -13,6 +13,11 @@
 # JDT-specific (Eclipse Java Development Tools)		
 .classpath
 
+### IntelliJ ###
+.idea
+*.iml
+/out/
+
 ### Gradle ###
 .gradle
 /build/
