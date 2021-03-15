@@ -2,35 +2,37 @@
 
 ## 1: Basic Information (needed before you start with your Sprint -- Sprint Planning)
 
-**Topic you chose:** Bus Scheduling (#4)
+**Topic you chose:** 
+> Bus Scheduling (#4)
 
-**Sprint Number:** 1
+**Sprint Number:** 
+> 1
 
-**Scrum Master**: Chris Boveda
+**Scrum Master**: 
+> Chris Boveda
 
-**Git Master**: Kevin Dolan
+**Git Master**: 
+> Kevin Dolan
 
 ### Sprint Planning (For Sprint 1-3)
 Document your Sprint Planning here. Also check the kickoff document for more details on what needs to be done. This is just the documentation. 
 
 **Sprint Goal:** 
-> 
+> Our goal for Sprint 1 is to gain a more thorough understanding of the existing Memoranda system, resolve some critical bugs in the existing system, and lay the foundation for future changes.
 
-**How many User Stories did you add to the Product Backlog:**  Number
+**How many User Stories did you add to the Product Backlog:**
+> (7 from template board + however many we add)
 
 **How many User Stories did you add to this Sprint:** 
-> Answer the questions below about your Sprint Planning?
+> (7 from template board + however many we add)
 
 **Why did you add these US, why do you think you can get them done in the next Sprint?**
-
 > Your Answer
 
 **Why do you think these fit well with your Sprint goal? (details)**
-
 > Your Answer
 
 **Do you have a rough idea what you need to do? (if the answer is no then please let me know on Slack)**
-
 > Your Answer
 
 
