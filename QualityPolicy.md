@@ -11,6 +11,8 @@
   > - Pull requests in to Dev must be approved by another programmer, and may not be approved by the submitter.
   > - Pull requests in to Master may **only** be submitted by the sprint git master, and may **only** be approved by the product owner (professor). 
   > - **All pull requests in to Dev and Master should be fast-forwards**.
+  > - Commit messages shall follow the guidelines outlined in [this post](https://chris.beams.io/posts/git-commit/)
+  > - Pull requests shall have meaningful names and descriptions, and the default naming is to be avoided.
 
 **Unit Tests Blackbox** (start Sprint 2)
   > Your Blackbox testing policy 
