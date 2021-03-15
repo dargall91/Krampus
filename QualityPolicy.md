@@ -3,7 +3,14 @@
 > Check in Project: Module Concepts document on Canvas in the Project module for more details 
 
 **GitHub Workflow** (start Sprint 1)
-  > Your Workflow
+  > - The Master branch shall be protected, and always a working and stable version of the program.
+  > - The Dev branch shall also be protected and stable, but does not need to be a complete product.
+  > - One branch will be created for each user story, with additional branches created for individual tasks at the programmer's discretion.
+  > - Branch naming for stories and tasks shall follow the format: US#-Task#
+  > - Pull requests in to Dev require one tester, and the tester may be the submitter. Pull requests in to Master require two testers, and one of the testers may be the submitter.
+  > - Pull requests in to Dev must be approved by another programmer, and may not be approved by the submitter.
+  > - Pull requests in to Master may **only** be submitted by the sprint git master, and may **only** be approved by the product owner (professor). 
+  > - **All pull requests in to Dev and Master should be fast-forwards**.
 
 **Unit Tests Blackbox** (start Sprint 2)
   > Your Blackbox testing policy 
