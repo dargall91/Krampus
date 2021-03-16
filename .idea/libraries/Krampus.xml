@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Krampus">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/distributions/Krampus.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
