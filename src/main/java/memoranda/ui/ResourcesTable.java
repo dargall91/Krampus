@@ -120,10 +120,10 @@ public class ResourcesTable extends JTable {
     class ResourcesTableModel extends AbstractTableModel {
 
         String[] columnNames = {
-                Local.getString("Name"),
-                Local.getString("Type"),
-                Local.getString("Date modified"),
-                Local.getString("Path")};
+                Local.getString("Name Column"),
+                Local.getString("Type Column"),
+                Local.getString("Date modified Column"),
+                Local.getString("Path Column")};
 
         public String getColumnName(int i) {
             return columnNames[i];
