@@ -69,7 +69,7 @@ public class SearchPanel extends JPanel {
         this.setLayout(borderLayout1);
 
         jPanel1.setLayout(borderLayout2);
-        jPanel2.setLayout(borderLayout3);
+        //jPanel2.setLayout(borderLayout3);
         jPanel2.setBorder(titledBorder1);
         titledBorder1.setTitleFont(new java.awt.Font("Dialog", 1, 11));
         searchField.setFont(new java.awt.Font("Dialog", 1, 10));
