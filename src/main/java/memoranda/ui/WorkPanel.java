@@ -68,7 +68,7 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
-		agendaB.setBackground(Color.white);
+		/*agendaB.setBackground(Color.white);
 		agendaB.setMaximumSize(new Dimension(60, 80));
 		agendaB.setMinimumSize(new Dimension(30, 30));
 
@@ -92,7 +92,7 @@ public class WorkPanel extends JPanel {
 					"/ui/icons/agenda.png")));
 		agendaB.setOpaque(false);
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
-		agendaB.setSelected(true);
+		agendaB.setSelected(true);*/
 
 		eventsB.setBackground(Color.white);
 		eventsB.setMaximumSize(new Dimension(60, 80));
