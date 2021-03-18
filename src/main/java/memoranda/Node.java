@@ -6,17 +6,17 @@ public class Node {
     private String description;
     private Coordinate coords;
 
-    public Node(int id, String name, double latitude, double longitude){
+    public Node(int id, String name, Double latitude, Double longitude){
         this.id=id;
         this.name=name;
         coords=new Coordinate(latitude, longitude);
     }
 
-    public double getLatitude(){
+    public Double getLatitude(){
         return coords.getLatitude();
     }
 
-    public double getLongitude(){
+    public Double getLongitude(){
         return coords.getLongitude();
     }
 
