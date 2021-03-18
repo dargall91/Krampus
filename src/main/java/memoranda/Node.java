@@ -4,7 +4,7 @@ public class Node {
     private int id;
     private String name;
     private String description;
-    private doublelatitude;
+    private double latitude;
     private double longitude;
 
     public Node(int id, String name, double latitude, double longitude){

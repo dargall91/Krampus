@@ -472,4 +472,42 @@ public class FileStorage implements Storage {
         }
     }
 
+
+    // bmpwip
+    public NoteList openNodeList(Project prj) {
+        String fn = JN_DOCPATH + prj.getID() + File.separator + ".notes";
+        //System.out.println(fn);
+        if (documentExists(fn)) {
+            /*DEBUG*/
+            System.out.println(
+                    "[DEBUG] Open note list: "
+                            + JN_DOCPATH
+                            + prj.getID()
+                            + File.separator
+                            + ".notes");
+            return new NoteListImpl(openDocument(fn), prj);
+        }
+        else {
+            /*DEBUG*/
+            System.out.println("[DEBUG] New note list created");
+            return new NoteListImpl(prj);
+        }
+    }
+
+
+    // bmpwip
+    public void storeNodeList(NoteList nl, Project prj) {
+        /*DEBUG*/
+        System.out.println(
+                "[DEBUG] Save note list: "
+                        + JN_DOCPATH
+                        + prj.getID()
+                        + File.separator
+                        + ".notes");
+        saveDocument(
+                nl.getXMLContent(),
+                JN_DOCPATH + prj.getID() + File.separator + ".notes");
+    }
+
+
 }
