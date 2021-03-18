@@ -4,26 +4,28 @@ public class Node {
     private int id;
     private String name;
     private String description;
-    private double latitude;
-    private double longitude;
+    private Coordinate coords;
 
     public Node(int id, String name, double latitude, double longitude){
         this.id=id;
         this.name=name;
-        this.latitude=latitude;
-        this.longitude=longitude;
+        coords=new Coordinate(latitude, longitude);
     }
 
     public double getLatitude(){
-        return latitude;
+        return coords.getLatitude();
     }
 
     public double getLongitude(){
-        return longitude;
+        return coords.getLongitude();
     }
 
     public String getName(){
         return getName();
+    }
+
+    public void setDescription(String description){
+        this.description=description;
     }
 
     public String getDescription(){
