@@ -21,19 +21,19 @@ Document your Sprint Planning here. Also check the kickoff document for more det
 > Our goal for Sprint 1 is to gain a more thorough understanding of the existing Memoranda system, resolve some critical bugs in the existing system, and lay the foundation for future changes.
 
 **How many User Stories did you add to the Product Backlog:**
-> (7 from template board + however many we add)
+> We added 9 stories from the example Taiga board, and 8 additional stories that we developed ourselves.
 
 **How many User Stories did you add to this Sprint:** 
-> (7 from template board + however many we add)
+> We added the 7 stories from the example Taiga board Sprint 1, and 3 stories that we developed ourselves.
 
 **Why did you add these US, why do you think you can get them done in the next Sprint?**
-> Your Answer
+> We believe that we can complete all of the stories we have added. In addition to ensuring that the original requirements are met, we also wanted to build a foundation of the potential dependencies for future stories.
 
 **Why do you think these fit well with your Sprint goal? (details)**
-> Your Answer
+> These stories fit our sprint goal well, and follow the theme of setting up for future success.
 
 **Do you have a rough idea what you need to do? (if the answer is no then please let me know on Slack)**
-> Your Answer
+> Yes, each of our team members confirmed in our pre-sprint standup that they have a rough idea of what needs to be done. 
 
 
 
@@ -47,18 +47,18 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 14MAR21  | All  |  Complete "Icebreaker" and discuss sprint1 planning | n/a | n/a  | n/a |
-|   |   |   |   |  |  |
+| 17MAR21  | All  |  Complete Sprint1 Planning | n/a  | n/a | n/a |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended |
 |---|---|
-|Brian Pape| 1|
-|Chris Boveda| 1|
-|Derek Argall| 1|
-|John Thurstonson| 1|
-|Kevin Dolan| 1|
+|Brian Pape| 2|
+|Chris Boveda| 2|
+|Derek Argall| 2|
+|John Thurstonson| 2|
+|Kevin Dolan| 2|
 
 
 ## 3: After the Sprint
