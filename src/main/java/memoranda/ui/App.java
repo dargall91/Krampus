@@ -23,8 +23,6 @@ public class App {
 	// boolean packFrame = false;
 
 	static AppFrame frame = null;
-
-	private static int state;
 	
 	public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
 	public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
@@ -143,7 +141,6 @@ public class App {
 	public static void closeWindow() {
 		if (frame == null)
 			return;
-		state = frame.getExtendedState();
 		frame.setExtendedState(JFrame.ICONIFIED);
 	}
 
