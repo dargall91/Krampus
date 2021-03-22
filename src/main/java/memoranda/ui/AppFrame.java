@@ -669,6 +669,11 @@ public class AppFrame extends JFrame {
         App.closeWindow();
     }
 
+    public void doMaximize() {
+        exitNotify();
+        App.openWindow();
+    }
+
     //Help | About action performed
     public void jMenuHelpAbout_actionPerformed(ActionEvent e) {
          AppFrame_AboutBox dlg = new AppFrame_AboutBox(this);        
@@ -689,8 +694,14 @@ public class AppFrame extends JFrame {
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
+                    WindowEvent.WINDOW_ICONIFIED));
             doMinimize();
+        }
+
+        else if ((e.getID() == WindowEvent.WINDOW_ACTIVATED)) {
+            super.processWindowEvent(new WindowEvent(this,
+                    WindowEvent.WINDOW_ICONIFIED));
+            doMaximize();
         }
         else
             super.processWindowEvent(e);
