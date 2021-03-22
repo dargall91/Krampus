@@ -10,25 +10,25 @@ public class Coordinate {
         this.lon = lon;
     }
 
-    public Double getLatitude(){
+    public Double getLat(){
         return lat;
     }
 
-    public Double getLongitude() {
+    public Double getLon() {
         return lon;
     }
 
     public Double distanceTo(Coordinate c){
         // using cartesian distance formula (not accounting for spheroid characteristics)
-        return Math.sqrt(Math.pow(c.getLatitude()- lat, 2) + Math.pow(c.getLongitude()- lon, 2));
+        return Math.sqrt(Math.pow(c.getLat()- lat, 2) + Math.pow(c.getLon()- lon, 2));
     }
 
     public Double latitudeDelta(Coordinate c){
-        return Math.abs(c.getLatitude()- lat);
+        return Math.abs(c.getLat()- lat);
     }
 
     public Double longitudeDelta(Coordinate c){
-        return Math.abs(c.getLongitude()- lon);
+        return Math.abs(c.getLon()- lon);
     }
 
     public boolean northOf(Coordinate c){

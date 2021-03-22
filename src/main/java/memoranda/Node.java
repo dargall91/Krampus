@@ -3,34 +3,38 @@ package main.java.memoranda;
 public class Node {
     private int id;
     private String name;
-    private String description;
+
+    // JSON file spec does not include description
+//    private String description;
     private Coordinate coords;
 
-    public Node(int id, String name, Double latitude, Double longitude){
+    public Node(int id, String name, Double lat, Double lon){
         this.id=id;
         this.name=name;
-        coords=new Coordinate(latitude, longitude);
+        coords=new Coordinate(lat, lon);
     }
 
-    public Double getLatitude(){
-        return coords.getLatitude();
+    public Double getLat(){
+        return coords.getLat();
     }
 
-    public Double getLongitude(){
-        return coords.getLongitude();
+    public Double getLon(){
+        return coords.getLon();
     }
 
     public String getName(){
-        return getName();
+        return name;
     }
 
+    /*
     public void setDescription(String description){
         this.description=description;
     }
 
     public String getDescription(){
-        return getDescription();
+        return description;
     }
+     */
 
     public int getId() {
         return id;

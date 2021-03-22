@@ -508,6 +508,9 @@ public class FileStorage implements Storage {
 
     // bmpwip
     public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException {
+
+    }
+    public void storeNodeList() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode node = mapper.createArrayNode();
 
@@ -522,12 +525,14 @@ public class FileStorage implements Storage {
 
 
         /*DEBUG*/
+        /*
         System.out.println(
                 "[DEBUG] Save note list: "
                         + JN_DOCPATH
                         + prj.getID()
                         + File.separator
                         + ".notes");
+         */
 //        saveDocument(
 //                nl.getXMLContent(),
 //                JN_DOCPATH + prj.getID() + File.separator + ".notes");
