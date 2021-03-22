@@ -12,5 +12,14 @@ repositories {
 dependencies {
   compile 'com.io7m.xom:xom:1.2.+'
   compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
+  compile 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+  compile 'com.fasterxml.jackson.core:jackson-core:2.10.1'
 }
+
+//<dependency>
+ //   <groupId>com.fasterxml.jackson.core</groupId>
+  //  <artifactId>jackson-databind</artifactId>
+//    <version>${jackson.version}</version>
+//</dependency>
 
