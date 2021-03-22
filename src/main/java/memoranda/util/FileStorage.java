@@ -19,22 +19,19 @@ import java.net.URL;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import main.java.memoranda.EventsManager;
-import main.java.memoranda.Note;
-import main.java.memoranda.NoteList;
-import main.java.memoranda.NoteListImpl;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectManager;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.ResourcesListImpl;
-import main.java.memoranda.TaskList;
-import main.java.memoranda.TaskListImpl;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
 import nu.xom.DocType;
 import nu.xom.Document;
+
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.annotation.*;
 
 
 /**
@@ -473,8 +470,20 @@ public class FileStorage implements Storage {
     }
 
 
+    /*
+    {"nodes":[
+	{"id": "1", "lat":"33.304682", "lon": "-111.680727"},
+	{"id": "2",  "lat": "33.303659", "lon": "-111.680792"},
+	{"id": "3", "lat": "33.302548", "lon": "-111.675674"},
+	{"id": "4", "lat": "33.303597", "lon": "-111.673625"},
+	{"id": "5", "lat": "33.304628", "lon": "-111.675663"},
+	{"id": "6", "lat": "33.303175", "lon": "-111.678185"},
+	{"id": "7", "lat": "33.305103", "lon": "-111.677734"},
+	{"id": "8", "lat": "33.306529", "lon": "-111.680695"}
+]}
+     */
     // bmpwip
-    public NoteList openNodeList(Project prj) {
+    public NodeColl openNodeList(Project prj) {
         String fn = JN_DOCPATH + prj.getID() + File.separator + ".notes";
         //System.out.println(fn);
         if (documentExists(fn)) {
@@ -485,18 +494,33 @@ public class FileStorage implements Storage {
                             + prj.getID()
                             + File.separator
                             + ".notes");
-            return new NoteListImpl(openDocument(fn), prj);
+//            return new NoteListImpl(openDocument(fn), prj);
+            return new NodeColl();
         }
         else {
             /*DEBUG*/
             System.out.println("[DEBUG] New note list created");
-            return new NoteListImpl(prj);
+            return new NodeColl();
+//            return new NoteListImpl(prj);
         }
     }
 
 
     // bmpwip
-    public void storeNodeList(NoteList nl, Project prj) {
+    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode node = mapper.createArrayNode();
+
+        Node n=new Node(1, "busstop1", 1.23, 3.24);
+        String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(n);
+        System.out.println("jsonString="+jsonString);
+
+//        node.add()
+//        ObjectNode nodedata = mapper.createObjectNode();
+
+
+
+
         /*DEBUG*/
         System.out.println(
                 "[DEBUG] Save note list: "
@@ -504,9 +528,32 @@ public class FileStorage implements Storage {
                         + prj.getID()
                         + File.separator
                         + ".notes");
-        saveDocument(
-                nl.getXMLContent(),
-                JN_DOCPATH + prj.getID() + File.separator + ".notes");
+//        saveDocument(
+//                nl.getXMLContent(),
+//                JN_DOCPATH + prj.getID() + File.separator + ".notes");
+    }
+
+    public static void saveList(Document doc, String filePath) {
+        /**
+         * @todo: Configurable parameters
+         */
+        try {
+            /*The XOM bug: reserved characters are not escaped*/
+            //Serializer serializer = new Serializer(new FileOutputStream(filePath), "UTF-8");
+            //serializer.write(doc);
+
+            OutputStreamWriter fw =
+                    new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8");
+            fw.write(doc.toXML());
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException ex) {
+            new ExceptionDialog(
+                    ex,
+                    "Failed to write a document to " + filePath,
+                    "");
+        }
     }
 
 
