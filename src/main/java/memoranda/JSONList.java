@@ -1,2 +1,5 @@
-package main.java.memoranda;public interface JSONList {
+package main.java.memoranda;
+
+public interface JSONList {
+    void fd();
 }

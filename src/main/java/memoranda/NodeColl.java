@@ -11,18 +11,15 @@ import java.util.Iterator;
 
 public class NodeColl implements Iterable<Node>{
     private HashMap<Integer,Node> nodeList;
-//    private HashMap<String,Node> nodeListByName;
-
-
 
     public void addNode(Node n){
         nodeList.put(n.getId(), n);
     }
     public Node delNode(Integer id){
-        nodeList.remove(id);
+        return nodeList.remove(id);
     }
     public Node delNode(Node n){
-        nodeList.remove(n.getId(), n);
+        return nodeList.remove(n.getId());
     }
     public Node getNode(int id){
         return nodeList.get(id);
@@ -51,7 +48,4 @@ public class NodeColl implements Iterable<Node>{
             return it.next();
         }
     }
-//    public Node getNodeByName(String name){
-//        return nodeListByName.get(name);
-//    }
 }
