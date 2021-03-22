@@ -2,37 +2,37 @@ package main.java.memoranda;
 
 // supports up to 12 significant digits, 9 after decimal point
 public class Coordinate {
-    private Double latitude;
-    private Double longitude;
+    private Double lat;
+    private Double lon;
 
-    public Coordinate(Double latitude, Double longitude){
-        this.latitude=latitude;
-        this.longitude=longitude;
+    public Coordinate(Double lat, Double lon){
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public Double getLatitude(){
-        return latitude;
+        return lat;
     }
 
     public Double getLongitude() {
-        return longitude;
+        return lon;
     }
 
     public Double distanceTo(Coordinate c){
         // using cartesian distance formula (not accounting for spheroid characteristics)
-        return Math.sqrt(Math.pow(c.getLatitude()-latitude, 2) + Math.pow(c.getLongitude()-longitude, 2);
+        return Math.sqrt(Math.pow(c.getLatitude()- lat, 2) + Math.pow(c.getLongitude()- lon, 2));
     }
 
     public Double latitudeDelta(Coordinate c){
-        return Math.abs(c.getLatitude()-latitude);
+        return Math.abs(c.getLatitude()- lat);
     }
 
     public Double longitudeDelta(Coordinate c){
-        return Math.abs(c.getLongitude()-longitude);
+        return Math.abs(c.getLongitude()- lon);
     }
 
     public boolean northOf(Coordinate c){
-        return latitude-c.latitude > 0;
+        return lat -c.lat > 0;
     }
 
     public boolean eastOf(Coordinate c){
@@ -40,7 +40,7 @@ public class Coordinate {
     }
 
     public boolean southOf(Coordinate c){
-        return latitude-c.latitude < 0;
+        return lat -c.lat < 0;
     }
 
     public boolean westOf(Coordinate c){
@@ -51,10 +51,10 @@ public class Coordinate {
     public boolean equals(Object o){
         Integer sigDigits=9;
         Coordinate c=(Coordinate) o;
-        String lat1=((Double)(latitude*sigDigits)).toString().split(".")[0];
-        String lat2=((Double)(c.latitude*sigDigits)).toString().split(".")[0];
-        String long1=((Double)(latitude*sigDigits)).toString().split(".")[0];
-        String long2=((Double)(c.latitude*sigDigits)).toString().split(".")[0];
+        String lat1=((Double)(lat *sigDigits)).toString().split(".")[0];
+        String lat2=((Double)(c.lat *sigDigits)).toString().split(".")[0];
+        String long1=((Double)(lat *sigDigits)).toString().split(".")[0];
+        String long2=((Double)(c.lat *sigDigits)).toString().split(".")[0];
         return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
     }
 }
