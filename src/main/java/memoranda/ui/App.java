@@ -141,7 +141,13 @@ public class App {
 	public static void closeWindow() {
 		if (frame == null)
 			return;
-		frame.dispose();
+		frame.setExtendedState(JFrame.ICONIFIED);
+	}
+
+	public static void openWindow() {
+		if (frame == null)
+			return;
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 	/**
