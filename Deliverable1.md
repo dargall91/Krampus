@@ -171,8 +171,8 @@ Answer as a team!
 #### Derek Argall:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Krampus/commit/71c0920954fe15bcafabbf6960a15ba6d9617440
+    - https://github.com/amehlhase316/Krampus/commit/1d924c2536a5acdd0928c04dcc1964515ee302f1
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
