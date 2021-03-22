@@ -13,6 +13,12 @@ import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
 import main.java.memoranda.ResourcesList;
 import main.java.memoranda.TaskList;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import main.java.memoranda.*;
+
+import java.io.IOException;
+
 /**
  * 
  */
@@ -45,7 +51,11 @@ public interface Storage {
    
     ResourcesList openResourcesList(Project prj);
     void storeResourcesList(ResourcesList rl, Project prj);
-    
+
+    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException;
+    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException;
+    public void storeNodeList(Project prj) throws JsonProcessingException, IOException;
+
     void restoreContext();
     void storeContext(); 
        

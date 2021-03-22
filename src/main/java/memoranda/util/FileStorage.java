@@ -15,26 +15,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.Collection;
 
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import main.java.memoranda.EventsManager;
-import main.java.memoranda.Note;
-import main.java.memoranda.NoteList;
-import main.java.memoranda.NoteListImpl;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectManager;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.ResourcesListImpl;
-import main.java.memoranda.TaskList;
-import main.java.memoranda.TaskListImpl;
+import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
-import nu.xom.DocType;
 import nu.xom.Document;
+
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.*;
 
 
 /**
@@ -255,6 +250,11 @@ public class FileStorage implements Storage {
      */
     public void removeProjectStorage(Project prj) {
         String id = prj.getID();
+
+        /*DEBUG*/
+        System.out.println(
+                "[DEBUG] Remove/Delete project dir: " + JN_DOCPATH + prj.getID());
+
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
         for (int i = 0; i < files.length; i++)
@@ -471,5 +471,146 @@ public class FileStorage implements Storage {
                 "");
         }
     }
+
+
+    /*
+    // Required output format from @amehlhase
+
+    {"nodes":[
+	{"id": "1", "lat":"33.304682", "lon": "-111.680727"},
+	{"id": "2",  "lat": "33.303659", "lon": "-111.680792"},
+	{"id": "3", "lat": "33.302548", "lon": "-111.675674"},
+	{"id": "4", "lat": "33.303597", "lon": "-111.673625"},
+	{"id": "5", "lat": "33.304628", "lon": "-111.675663"},
+	{"id": "6", "lat": "33.303175", "lon": "-111.678185"},
+	{"id": "7", "lat": "33.305103", "lon": "-111.677734"},
+	{"id": "8", "lat": "33.306529", "lon": "-111.680695"}
+   ]}
+     */
+
+    /**
+     *
+     * @param prj
+     * @return
+     */
+    private String getNodeFileName(Project prj){
+        return JN_DOCPATH + prj.getID() + File.separator + "nodes.json";
+    }
+
+    /**
+     *
+     * @param prj
+     * @return
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException {
+
+        String fn = getNodeFileName(prj);
+
+        if (documentExists(fn)) {
+            /*DEBUG*/
+            System.out.println("[DEBUG] Open node file: " + fn);
+
+            return new NodeColl();
+        }
+        else {
+            /*DEBUG*/
+            System.out.println("[DEBUG] New empty node collction created");
+
+            return new NodeColl();
+        }
+    }
+
+    /**
+     *
+     * @param nodeColl
+     * @param prj
+     * @throws JsonProcessingException
+     */
+    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException {
+
+    }
+
+    /**
+     *
+     */
+    private class NodeJsonClassWrapper {
+        private Collection nodes;
+
+        /**
+         *
+         * @param nc
+         */
+        public NodeJsonClassWrapper(NodeColl nc){
+            this.nodes=nc.getNodeList().values();
+        }
+
+        /**
+         *
+         * @return
+         */
+        public Collection getNodes(){
+            return nodes;
+        }
+
+    }
+
+    /**
+     *
+     * @param prj
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public void storeNodeList(Project prj) throws JsonProcessingException, IOException {
+        String fn = getNodeFileName(prj);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+        ArrayNode node = mapper.createArrayNode();
+
+        NodeColl nc=new NodeColl();
+        Node n=new Node(1, "busstop1", 1.23, 3.24);
+        Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
+        nc.addNode(n);
+        nc.addNode(n2);
+
+        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new NodeJsonClassWrapper(nc));
+        System.out.println("jsonString collection="+js);
+
+//        node.add()
+//        ObjectNode nodedata = mapper.createObjectNode();
+
+        /*DEBUG*/
+        System.out.println("[DEBUG] Save note list: " + fn);
+
+//        saveDocument(
+//                nl.getXMLContent(),
+//                JN_DOCPATH + prj.getID() + File.separator + ".notes");
+    }
+
+    public static void saveList(Document doc, String filePath) {
+        /**
+         * @todo: Configurable parameters
+         */
+        try {
+            /*The XOM bug: reserved characters are not escaped*/
+            //Serializer serializer = new Serializer(new FileOutputStream(filePath), "UTF-8");
+            //serializer.write(doc);
+
+            OutputStreamWriter fw =
+                    new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8");
+            fw.write(doc.toXML());
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException ex) {
+            new ExceptionDialog(
+                    ex,
+                    "Failed to write a document to " + filePath,
+                    "");
+        }
+    }
+
 
 }
