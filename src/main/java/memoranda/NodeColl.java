@@ -12,6 +12,10 @@ import java.util.Iterator;
 public class NodeColl implements Iterable<Node>{
     private HashMap<Integer,Node> nodeList;
 
+    public NodeColl(){
+        nodeList=new HashMap<>();
+    }
+
     public void addNode(Node n){
         nodeList.put(n.getId(), n);
     }
@@ -23,6 +27,10 @@ public class NodeColl implements Iterable<Node>{
     }
     public Node getNode(int id){
         return nodeList.get(id);
+    }
+
+    public HashMap<Integer, Node> getNodeList(){
+        return nodeList;
     }
 
     @Override
