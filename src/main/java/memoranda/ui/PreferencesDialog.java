@@ -278,7 +278,8 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(closeHideRB, gbc);
-		jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		/*jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel3.setText(Local.getString("Look and feel:"));
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -334,7 +335,8 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(7, 20, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		GeneralPanel.add(lfClassName, gbc);
+		GeneralPanel.add(lfClassName, gbc);*/
+		
 		jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel4.setText(Local.getString("Startup:"));
 		gbc = new GridBagConstraints();
