@@ -1,8 +1,5 @@
 package main.java.memoranda.ui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import main.java.memoranda.util.CurrentStorage;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -41,8 +38,6 @@ public class WorkPanel extends JPanel {
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
-	public JButton loadJSONB = new JButton();
-	public JButton saveJSONB = new JButton();
 	JButton currentB = null;
 	Border border1;
 
@@ -201,24 +196,6 @@ public class WorkPanel extends JPanel {
 		filesB.setOpaque(false);
 		filesB.setMaximumSize(new Dimension(60, 80));
 		filesB.setBackground(Color.white);
-
-		saveJSONB.setMargin(new Insets(0, 0, 0, 0));
-		saveJSONB.setIcon(
-				new ImageIcon(
-						main.java.memoranda.ui.AppFrame.class.getResource(
-								"/ui/icons/savejson.png")));
-		saveJSONB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		saveJSONB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					CurrentStorage.get().storeNodeList();
-				} catch (JsonProcessingException jsonProcessingException) {
-					jsonProcessingException.printStackTrace();
-				}
-			}
-		});
-
-
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
@@ -228,7 +205,6 @@ public class WorkPanel extends JPanel {
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
-		toolBar.add(saveJSONB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
