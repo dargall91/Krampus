@@ -40,12 +40,20 @@ public class TestMemoranda {
     }
 
     @Test
-    void testWrite() throws JsonProcessingException, IOException {
+    void testWrite() throws JsonProcessingException, IOException, InterruptedException {
         Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
         FileStorage stg=new FileStorage();
         stg.createProjectStorage(prj);
 
-        stg.storeNodeList(prj);
+        NodeColl nc=new NodeColl();
+        Node n=new Node(1, "busstop1", 1.23, 3.24);
+        Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
+        nc.addNode(n);
+        nc.addNode(n2);
+
+        stg.storeNodeList(nc, prj);
+
+//        Thread.sleep(20000);
 
         stg.removeProjectStorage(prj);
 

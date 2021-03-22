@@ -490,6 +490,28 @@ public class FileStorage implements Storage {
 
     /**
      *
+     * @param s String (JSON for instance) to write to file
+     * @param fn Filename to write to
+     */
+    private void saveStringToFile(String s, String fn){
+        try {
+
+            OutputStreamWriter fw =
+                    new OutputStreamWriter(new FileOutputStream(fn), "UTF-8");
+            fw.write(s);
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException ex) {
+            new ExceptionDialog(
+                    ex,
+                    "Failed to write string to " + fn,
+                    "");
+        }
+    }
+
+    /**
+     *
      * @param prj
      * @return
      */
@@ -516,21 +538,12 @@ public class FileStorage implements Storage {
         }
         else {
             /*DEBUG*/
-            System.out.println("[DEBUG] New empty node collction created");
+            System.out.println("[DEBUG] New empty node collection created");
 
             return new NodeColl();
         }
     }
 
-    /**
-     *
-     * @param nodeColl
-     * @param prj
-     * @throws JsonProcessingException
-     */
-    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException {
-
-    }
 
     /**
      *
@@ -562,31 +575,19 @@ public class FileStorage implements Storage {
      * @throws JsonProcessingException
      * @throws IOException
      */
-    public void storeNodeList(Project prj) throws JsonProcessingException, IOException {
+    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException {
         String fn = getNodeFileName(prj);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
-        ArrayNode node = mapper.createArrayNode();
 
-        NodeColl nc=new NodeColl();
-        Node n=new Node(1, "busstop1", 1.23, 3.24);
-        Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
-        nc.addNode(n);
-        nc.addNode(n2);
-
-        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new NodeJsonClassWrapper(nc));
-        System.out.println("jsonString collection="+js);
-
-//        node.add()
-//        ObjectNode nodedata = mapper.createObjectNode();
+        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new NodeJsonClassWrapper(nodeColl));
 
         /*DEBUG*/
         System.out.println("[DEBUG] Save note list: " + fn);
+//        System.out.println("jsonString collection="+js);
 
-//        saveDocument(
-//                nl.getXMLContent(),
-//                JN_DOCPATH + prj.getID() + File.separator + ".notes");
+        saveStringToFile(js, fn);
     }
 
     public static void saveList(Document doc, String filePath) {

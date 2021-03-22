@@ -53,8 +53,7 @@ public interface Storage {
     void storeResourcesList(ResourcesList rl, Project prj);
 
     public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException;
-    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException;
-    public void storeNodeList(Project prj) throws JsonProcessingException, IOException;
+    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
 
     void restoreContext();
     void storeContext(); 
