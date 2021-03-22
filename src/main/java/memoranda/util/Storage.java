@@ -8,6 +8,12 @@
  */
 package main.java.memoranda.util;
 
+import main.java.memoranda.Note;
+import main.java.memoranda.NoteList;
+import main.java.memoranda.Project;
+import main.java.memoranda.ResourcesList;
+import main.java.memoranda.TaskList;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import main.java.memoranda.*;
 
