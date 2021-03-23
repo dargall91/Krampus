@@ -1,11 +1,9 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.DataCollection;
 import main.java.memoranda.util.DuplicateKeyException;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class DriverColl extends DataCollection<Driver> implements Iterable<Driver>{
