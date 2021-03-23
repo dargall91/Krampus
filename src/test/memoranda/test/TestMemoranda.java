@@ -53,9 +53,11 @@ public class TestMemoranda {
 
         stg.storeNodeList(nc, prj);
 
+        System.out.println("Load node list");
+        stg.loadNodeList(prj);
 //        Thread.sleep(20000);
 
-        stg.removeProjectStorage(prj);
+//        stg.removeProjectStorage(prj);
 
     }
 

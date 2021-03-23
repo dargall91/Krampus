@@ -7,19 +7,16 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package main.java.memoranda.util;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.URL;
-import java.util.Collection;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.util.*;
 
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
@@ -512,6 +509,18 @@ public class FileStorage implements Storage {
 
     /**
      *
+     * @param fn
+     * @return
+     */
+    private String loadStringFromFile(String fn) throws IOException {
+        InputStreamReader fr=new InputStreamReader(new FileInputStream(fn), StandardCharsets.UTF_8);
+
+        return null;
+
+    }
+
+    /**
+     *
      * @param prj
      * @return
      */
@@ -588,6 +597,59 @@ public class FileStorage implements Storage {
 //        System.out.println("jsonString collection="+js);
 
         saveStringToFile(js, fn);
+    }
+
+    public NodeColl loadNodeList(Project prj) throws JsonProcessingException, IOException{
+        String fn= getNodeFileName(prj);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+//        String json = "{ \"color\" : \"Black\", \"type\" : \"FIAT\" }";
+//        JsonNode jsonNode = objectMapper.readTree(json);
+//        String color = jsonNode.get("color").asText();
+
+
+        try {
+
+            // convert JSON file to map
+//            Map<?, ?> map = mapper.readValue(Paths.get(fn).toFile(), Map.class);
+//            List<Node> cw = Arrays.asList(mapper.readValue(Paths.get(fn).toFile(), Node[].class));
+            JsonNode jsonNode=mapper.readTree(new File(fn));
+            String all=jsonNode.toString();
+            System.out.println("jsonNode is object:"+jsonNode.isObject());
+            JsonNode next=jsonNode.get("nodes");
+            System.out.println("next="+next+" is object:"+next.isObject());
+            System.out.println("next as string:"+next.asText());
+            System.out.println("all="+all);
+            String nodes=jsonNode.get("nodes").asText();
+
+//            List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>(){});
+
+//            final JsonNode arrNode = new ObjectMapper().readTree(json).get("objects");
+//            if (arrNode.isArray()) {
+            for (JsonNode objNode : next){
+                System.out.println("entry="+objNode);
+            }
+//                for (final JsonNode objNode : arrNode) {
+//                    System.out.println(objNode);
+//                }
+//            }
+
+//            List<Node> hm=mapper.(next, new TypeReference<List<Node>>(){});
+//            for (String s:jsonNode.elements()){
+//                System.out.println("s="+s);
+//            }
+
+            // print map entries
+//            for (Map.Entry<?, ?> entry : map.entrySet()) {
+//                System.out.println(entry.getKey() + "=" + entry.getValue());
+//            }
+            System.out.println("nodes="+nodes);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     public static void saveList(Document doc, String filePath) {
