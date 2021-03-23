@@ -16,9 +16,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.util.*;
 
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
@@ -26,15 +23,22 @@ import javax.swing.text.html.HTMLEditorKit;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.type.MapType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import main.java.memoranda.*;
+import main.java.memoranda.EventsManager;
+import main.java.memoranda.Note;
+import main.java.memoranda.NoteList;
+import main.java.memoranda.NoteListImpl;
+import main.java.memoranda.Project;
+import main.java.memoranda.ProjectManager;
+import main.java.memoranda.ResourcesList;
+import main.java.memoranda.ResourcesListImpl;
+import main.java.memoranda.TaskList;
+import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
+import nu.xom.DocType;
 import nu.xom.Document;
 
 
