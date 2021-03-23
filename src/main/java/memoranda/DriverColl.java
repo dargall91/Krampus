@@ -8,14 +8,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class DriverColl extends DataCollection implements Iterable<Driver>{
-    private HashMap<Integer, Driver> driverList;
+public class DriverColl extends DataCollection<Driver> implements Iterable<Driver>{
+//    private HashMap<Integer, Driver> driverList;
 
     /**
      * create a new Driver collection
      */
     public DriverColl(){
-        driverList=new HashMap<>();
+        super();
+//        driverList=new HashMap<>();
     }
 
     /**
@@ -25,51 +26,29 @@ public class DriverColl extends DataCollection implements Iterable<Driver>{
      */
     public DriverColl(Collection<Driver> c) throws DuplicateKeyException {
         this();
-        for (Driver n:c){
-            addDriver(n);
+        for (Driver d:c){
+            System.out.println("adding driver"+d);
+            add(d);
         }
-    }
-
-    /**
-     * add a Driver
-     * @param d
-     */
-    public void addDriver(Driver d) throws DuplicateKeyException {
-        if (getDriver(d.getId()) != null){
-            throw new DuplicateKeyException("Key "+d.getId()+" already exists.");
-        }
-
-        // save the max ID
-        registerID(d.getId());
-        driverList.put(d.getId(), d);
     }
 
     /**
      *
-     * @param name
-     * @param phoneNumber
+     * @param d
      * @throws DuplicateKeyException
      */
-    public void createDriver(String name, String phoneNumber) throws DuplicateKeyException {
-        addDriver(new Driver(getUniqueID(), name, phoneNumber));
+    public void createUnique(Driver d) throws DuplicateKeyException {
+        add(new Driver(getUniqueID(), d.getName(), d.getPhoneNumber()));
     }
 
-    /**
-     * get Driver by ID
-     * @param id
-     * @return
-     */
-    public Driver getDriver(int id){
-        return driverList.get(id);
-    }
 
     /**
      * return collection of Drivers for json output
      * @return
      */
     @JsonProperty
-    public Collection<Driver> getDrivers(){
-        return driverList.values();
+    public Collection<IndexedObject> getDrivers(){
+        return getData();
     }
 
 
@@ -91,7 +70,7 @@ public class DriverColl extends DataCollection implements Iterable<Driver>{
         Collection coll;
         Iterator<Driver> it;
         public DriverIterator(){
-            coll=driverList.values();
+            coll=getData();
             it=coll.iterator();
         }
 
