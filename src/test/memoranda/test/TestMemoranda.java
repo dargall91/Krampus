@@ -3,6 +3,7 @@ package memoranda.test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.util.DuplicateKeyException;
 import nu.xom.Attribute;
 import nu.xom.Element;
 import org.junit.jupiter.api.*;
@@ -37,7 +38,7 @@ public class TestMemoranda {
      * test ability to add a node
      */
     @Test
-    void testAddNode(){
+    void testAddNode() throws DuplicateKeyException {
         NodeColl nc=new NodeColl();
         Node n=new Node(1, "test", 1.23, 3.45);
         nc.addNode(n);
@@ -51,7 +52,7 @@ public class TestMemoranda {
      * @throws InterruptedException
      */
     @Test
-    void testWrite() throws JsonProcessingException, IOException, InterruptedException {
+    void testWrite() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
         Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
         FileStorage stg=new FileStorage();
         stg.createProjectStorage(prj);

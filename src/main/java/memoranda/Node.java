@@ -27,6 +27,7 @@ public class Node {
         coords=new Coordinate(lat, lon);
     }
 
+
     /**
      * return distance to another node
      * @param n

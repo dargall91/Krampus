@@ -25,6 +25,8 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
@@ -41,7 +43,6 @@ import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
-import nu.xom.DocType;
 import nu.xom.Document;
 
 
@@ -508,7 +509,26 @@ public class FileStorage implements Storage {
      * @return
      */
     private String getNodeFileName(Project prj){
-        return JN_DOCPATH + prj.getID() + File.separator + "nodes.json";
+        return getFileName(prj, "nodes.json");
+    }
+
+    /**
+     *
+     * @param prj
+     * @return
+     */
+    private String getDriverFileName(Project prj){
+        return getFileName(prj, "driver.json");
+    }
+
+    /**
+     *
+     * @param prj
+     * @param filename
+     * @return
+     */
+    private String getFileName(Project prj, String filename){
+        return JN_DOCPATH + prj.getID() + File.separator + filename;
     }
 
 
@@ -546,7 +566,7 @@ public class FileStorage implements Storage {
      * @throws JsonProcessingException
      * @throws IOException
      */
-    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException{
+    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException {
         String fn= getNodeFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
@@ -571,6 +591,50 @@ public class FileStorage implements Storage {
 //                System.out.println("Found node in list="+n);
 //            }
         return nodeColl;
+
+    }
+
+
+    /**
+     *
+     * @param prj
+     * @return
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public DriverColl openDriverList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException {
+        String fn= getNodeFileName(prj);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+        // create new mapper object
+        JsonNode jsonNode=mapper.readTree(new File(fn));
+
+        // find value of "nodes" object (which is an array) and create list of Node objects
+        List<Driver> driverList=mapper.readValue(jsonNode.get("drivers").toString(), new TypeReference<>(){});
+
+        // create new nodeColl based on read data/objects
+        DriverColl driverColl=new DriverColl(driverList);
+
+        return driverColl;
+    }
+
+    /**
+     *
+     * @param driverColl
+     * @param prj
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public void storeDriverList(DriverColl driverColl, Project prj) throws JsonProcessingException, IOException{
+        String fn = getDriverFileName(prj);
+
+        // create new object mapper
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+
+        // annotation is used so Jackson knows which method to use for output
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), driverColl);
 
     }
 
