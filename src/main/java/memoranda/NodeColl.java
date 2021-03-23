@@ -1,24 +1,30 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import org.w3c.dom.traversal.NodeIterator;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 
-// need Route class which will hold methods such as closest()
-
+/**
+ *
+ */
 public class NodeColl implements Iterable<Node>{
     private HashMap<Integer,Node> nodeList;
 
+    /**
+     * create a new node collection
+     */
     public NodeColl(){
         nodeList=new HashMap<>();
     }
 
+    /**
+     * add an entire collection of nodes (post json import)
+     *
+     * @param c
+     */
     public NodeColl(Collection<Node> c){
         this();
         for (Node n:c){
@@ -26,29 +32,65 @@ public class NodeColl implements Iterable<Node>{
         }
     }
 
+    /**
+     * add a node
+     * @param n
+     */
     public void addNode(Node n){
         nodeList.put(n.getId(), n);
     }
+
+    /**
+     * delete node by id
+     *
+     * @param id
+     * @return
+     */
     public Node delNode(Integer id){
         return nodeList.remove(id);
     }
+
+    /**
+     * delete node by node pointer
+     *
+     * @param n
+     * @return
+     */
     public Node delNode(Node n){
         return nodeList.remove(n.getId());
     }
+
+    /**
+     * get node by ID
+     * @param id
+     * @return
+     */
     public Node getNode(int id){
         return nodeList.get(id);
     }
 
+    /**
+     * return collection of nodes for json output
+     * @return
+     */
     @JsonProperty
     public Collection<Node> getNodes(){
         return nodeList.values();
     }
 
+    /**
+     * iterator
+     * @return
+     */
     @Override
     public Iterator<Node> iterator() {
         return new NodeIterator();
     }
 
+    /**
+     * iterator
+     * @param <Node>
+     */
     public class NodeIterator<Node> implements Iterator<Node>{
         Collection coll;
         Iterator<Node> it;

@@ -6,6 +6,7 @@ import main.java.memoranda.date.CalendarDate;
 import nu.xom.Attribute;
 import nu.xom.Element;
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import main.java.memoranda.util.FileStorage;
 
 import java.io.IOException;
@@ -32,6 +33,9 @@ public class TestMemoranda {
         System.out.println("After all test methods");
     }
 
+    /**
+     * test ability to add a node
+     */
     @Test
     void testAddNode(){
         NodeColl nc=new NodeColl();
@@ -39,6 +43,13 @@ public class TestMemoranda {
         nc.addNode(n);
     }
 
+    /**
+     * Test ability to read and write JSON values
+     *
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Test
     void testWrite() throws JsonProcessingException, IOException, InterruptedException {
         Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
@@ -54,13 +65,20 @@ public class TestMemoranda {
         stg.storeNodeList(nc, prj);
 
         System.out.println("Load node list");
-        stg.loadNodeList(prj);
+        nc=stg.openNodeList(prj);
+
+        for (Node nn:nc){
+            System.out.println("Found node in list="+nn);
+        }
+
 //        Thread.sleep(20000);
 
-//        stg.removeProjectStorage(prj);
-
+        stg.removeProjectStorage(prj);
     }
 
+    /**
+     * Test ability to create and remove project storage directory in $HOME/.memoranda
+     */
     @Test
     void testProjectStorage(){
         Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
@@ -72,6 +90,14 @@ public class TestMemoranda {
         stg.removeProjectStorage(prj);
     }
 
+
+    @Test
+    void testHaversine(){
+        Coordinate c1=new Coordinate(41.507483, -99.436554);
+        Coordinate c2=new Coordinate(38.504048, -98.315949);
+        assertEquals(c1.distanceTo(c2), 347.3, 0.1);
+//        System.out.println("distance="+c1.distanceTo(c2));
+    }
 
 
 }

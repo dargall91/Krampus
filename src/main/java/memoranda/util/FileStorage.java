@@ -487,39 +487,6 @@ public class FileStorage implements Storage {
    ]}
      */
 
-    /**
-     *
-     * @param s String (JSON for instance) to write to file
-     * @param fn Filename to write to
-     */
-    private void saveStringToFile(String s, String fn){
-        try {
-
-            OutputStreamWriter fw =
-                    new OutputStreamWriter(new FileOutputStream(fn), "UTF-8");
-            fw.write(s);
-            fw.flush();
-            fw.close();
-        }
-        catch (IOException ex) {
-            new ExceptionDialog(
-                    ex,
-                    "Failed to write string to " + fn,
-                    "");
-        }
-    }
-
-    /**
-     *
-     * @param fn
-     * @return
-     */
-    private String loadStringFromFile(String fn) throws IOException {
-        InputStreamReader fr=new InputStreamReader(new FileInputStream(fn), StandardCharsets.UTF_8);
-
-        return null;
-
-    }
 
     /**
      *
@@ -530,33 +497,10 @@ public class FileStorage implements Storage {
         return JN_DOCPATH + prj.getID() + File.separator + "nodes.json";
     }
 
-    /**
-     *
-     * @param prj
-     * @return
-     * @throws JsonProcessingException
-     * @throws IOException
-     */
-    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException {
-
-        String fn = getNodeFileName(prj);
-
-        if (documentExists(fn)) {
-            /*DEBUG*/
-            System.out.println("[DEBUG] Open node file: " + fn);
-
-            return new NodeColl();
-        }
-        else {
-            /*DEBUG*/
-            System.out.println("[DEBUG] New empty node collection created");
-
-            return new NodeColl();
-        }
-    }
 
 
     /**
+     * Save a node list to JSON file in specified project
      *
      * @param prj
      * @throws JsonProcessingException
@@ -565,88 +509,55 @@ public class FileStorage implements Storage {
     public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException {
         String fn = getNodeFileName(prj);
 
+        // create new object mapper
         ObjectMapper mapper = new ObjectMapper();
-//        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
 
-//        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new NodeJsonClassWrapper(nodeColl));
-
-//            TypeFactory typeFactory = mapper.getTypeFactory();
-//            MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, Node.class);
-//            HashMap<String, Node> map = mapper.readValue(jsonNode.toString(), mapType);
-
-
-        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(nodeColl);
+        // annotation is used so Jackson knows which method to use for output
+//        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(nodeColl);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), nodeColl);
 
         /*DEBUG*/
-        System.out.println("[DEBUG] Save note list: " + fn);
+//        System.out.println("[DEBUG] Save note list: " + fn);
 //        System.out.println("jsonString collection="+js);
 
-        saveStringToFile(js, fn);
+//        saveStringToFile(js, fn);
     }
 
-    public NodeColl loadNodeList(Project prj) throws JsonProcessingException, IOException{
+    /**
+     * Load a node list from JSON file in specified project
+     *
+     * @param prj
+     * @return
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException{
         String fn= getNodeFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
 
-        try {
+        // create new mapper object
+        JsonNode jsonNode=mapper.readTree(new File(fn));
 
-            JsonNode jsonNode=mapper.readTree(new File(fn));
-            String all=jsonNode.toString();
+//            String all=jsonNode.toString();
 //            System.out.println("jsonNode is object:"+jsonNode.isObject());
-
+//            System.out.println("all="+all);
 //            JsonNode next=jsonNode.get("nodes");
 //            System.out.println("next="+next+" is object:"+next.isObject());
 //            System.out.println("next as string:"+next.toString());
 
-//            List<Node> nl=mapper.readValue(jsonNode.get("nodes").toString(), new TypeReference<List<Node>>(){});
-            List<Node> nodeList=mapper.readValue(jsonNode.get("nodes").toString(), new TypeReference<List<Node>>(){});
+        // find value of "nodes" object (which is an array) and create list of Node objects
+        List<Node> nodeList=mapper.readValue(jsonNode.get("nodes").toString(), new TypeReference<>(){});
 
-//            for (Node n:nodeList) {
-//                System.out.println("node=" + n);
+        // create new nodeColl based on read data/objects
+        NodeColl nodeColl=new NodeColl(nodeList);
+
+//            for (Node n:nodeColl){
+//                System.out.println("Found node in list="+n);
 //            }
+        return nodeColl;
 
-            NodeColl nodeColl=new NodeColl(nodeList);
-
-            for (Node n:nodeColl){
-                System.out.println("FOund node in list="+n);
-            }
-//            System.out.println("map="+map);
-
-//            mapper.readValue(jsonNode, new TypeReference<HashMap<Integer, Node>>(){} );
-
-
-            System.out.println("all="+all);
-            String nodes=jsonNode.get("nodes").asText();
-
-//            List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>(){});
-
-//            final JsonNode arrNode = new ObjectMapper().readTree(json).get("objects");
-//            if (arrNode.isArray()) {
-//            for (JsonNode objNode : next){
-//                System.out.println("entry="+objNode);
-//            }
-//                for (final JsonNode objNode : arrNode) {
-//                    System.out.println(objNode);
-//                }
-//            }
-
-//            List<Node> hm=mapper.(next, new TypeReference<List<Node>>(){});
-//            for (String s:jsonNode.elements()){
-//                System.out.println("s="+s);
-//            }
-
-            // print map entries
-//            for (Map.Entry<?, ?> entry : map.entrySet()) {
-//                System.out.println(entry.getKey() + "=" + entry.getValue());
-//            }
-            System.out.println("nodes="+nodes);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
     }
 
     public static void saveList(Document doc, String filePath) {

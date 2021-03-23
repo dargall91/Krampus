@@ -1,13 +1,24 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ *
+ */
 public class Node {
     private int id;
     private String name;
     private Coordinate coords;
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param lat
+     * @param lon
+     */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Node(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("lat") Double lat,
                 @JsonProperty("lon") Double lon){
@@ -16,35 +27,57 @@ public class Node {
         coords=new Coordinate(lat, lon);
     }
 
+    /**
+     * return distance to another node
+     * @param n
+     * @return
+     */
+    public Double distanceTo(Node n){
+        return this.coords.distanceTo(n.getCoords());
+    }
+    /**
+     * Standard getter for latitude
+     * @return
+     */
     public Double getLat(){
         return coords.getLat();
     }
 
+    /**
+     * Standard getter for longitude
+     * @return
+     */
     public Double getLon(){
         return coords.getLon();
     }
 
+    @JsonIgnore
+    public Coordinate getCoords(){
+        return coords;
+    }
+    /**
+     * standard getter for name
+     * @return
+     */
     public String getName(){
         return name;
     }
 
-    /*
-    public void setDescription(String description){
-        this.description=description;
-    }
-
-    public String getDescription(){
-        return description;
-    }
+    /**
+     * standard getter for id
+     * @return
      */
-
     public int getId() {
         return id;
     }
 
+    /**
+     * standard toString()
+     * @return
+     */
     @Override
     public String toString(){
-        return id+":"+"'"+name+"'@"+getLat()+","+getLon();
+        return id+":"+"'"+name+"'@"+ coords;
     }
 
     // file name will be .nodes in home directory
