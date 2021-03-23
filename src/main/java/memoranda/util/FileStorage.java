@@ -17,6 +17,8 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.type.MapType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
@@ -556,30 +558,6 @@ public class FileStorage implements Storage {
 
     /**
      *
-     */
-    private class NodeJsonClassWrapper {
-        private Collection nodes;
-
-        /**
-         *
-         * @param nc
-         */
-        public NodeJsonClassWrapper(NodeColl nc){
-            this.nodes=nc.getNodeList().values();
-        }
-
-        /**
-         *
-         * @return
-         */
-        public Collection getNodes(){
-            return nodes;
-        }
-
-    }
-
-    /**
-     *
      * @param prj
      * @throws JsonProcessingException
      * @throws IOException
@@ -588,9 +566,17 @@ public class FileStorage implements Storage {
         String fn = getNodeFileName(prj);
 
         ObjectMapper mapper = new ObjectMapper();
+//        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
 
-        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new NodeJsonClassWrapper(nodeColl));
+//        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new NodeJsonClassWrapper(nodeColl));
+
+//            TypeFactory typeFactory = mapper.getTypeFactory();
+//            MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, Node.class);
+//            HashMap<String, Node> map = mapper.readValue(jsonNode.toString(), mapType);
+
+
+        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(nodeColl);
 
         /*DEBUG*/
         System.out.println("[DEBUG] Save note list: " + fn);
@@ -604,22 +590,33 @@ public class FileStorage implements Storage {
 
         ObjectMapper mapper=new ObjectMapper();
 
-//        String json = "{ \"color\" : \"Black\", \"type\" : \"FIAT\" }";
-//        JsonNode jsonNode = objectMapper.readTree(json);
-//        String color = jsonNode.get("color").asText();
-
-
         try {
 
-            // convert JSON file to map
-//            Map<?, ?> map = mapper.readValue(Paths.get(fn).toFile(), Map.class);
-//            List<Node> cw = Arrays.asList(mapper.readValue(Paths.get(fn).toFile(), Node[].class));
             JsonNode jsonNode=mapper.readTree(new File(fn));
             String all=jsonNode.toString();
-            System.out.println("jsonNode is object:"+jsonNode.isObject());
-            JsonNode next=jsonNode.get("nodes");
-            System.out.println("next="+next+" is object:"+next.isObject());
-            System.out.println("next as string:"+next.asText());
+//            System.out.println("jsonNode is object:"+jsonNode.isObject());
+
+//            JsonNode next=jsonNode.get("nodes");
+//            System.out.println("next="+next+" is object:"+next.isObject());
+//            System.out.println("next as string:"+next.toString());
+
+//            List<Node> nl=mapper.readValue(jsonNode.get("nodes").toString(), new TypeReference<List<Node>>(){});
+            List<Node> nodeList=mapper.readValue(jsonNode.get("nodes").toString(), new TypeReference<List<Node>>(){});
+
+//            for (Node n:nodeList) {
+//                System.out.println("node=" + n);
+//            }
+
+            NodeColl nodeColl=new NodeColl(nodeList);
+
+            for (Node n:nodeColl){
+                System.out.println("FOund node in list="+n);
+            }
+//            System.out.println("map="+map);
+
+//            mapper.readValue(jsonNode, new TypeReference<HashMap<Integer, Node>>(){} );
+
+
             System.out.println("all="+all);
             String nodes=jsonNode.get("nodes").asText();
 
@@ -627,9 +624,9 @@ public class FileStorage implements Storage {
 
 //            final JsonNode arrNode = new ObjectMapper().readTree(json).get("objects");
 //            if (arrNode.isArray()) {
-            for (JsonNode objNode : next){
-                System.out.println("entry="+objNode);
-            }
+//            for (JsonNode objNode : next){
+//                System.out.println("entry="+objNode);
+//            }
 //                for (final JsonNode objNode : arrNode) {
 //                    System.out.println(objNode);
 //                }

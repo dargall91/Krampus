@@ -1,14 +1,16 @@
 package main.java.memoranda;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Node {
     private int id;
     private String name;
-
-    // JSON file spec does not include description
-//    private String description;
     private Coordinate coords;
 
-    public Node(int id, String name, Double lat, Double lon){
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public Node(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("lat") Double lat,
+                @JsonProperty("lon") Double lon){
         this.id=id;
         this.name=name;
         coords=new Coordinate(lat, lon);
@@ -38,6 +40,11 @@ public class Node {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString(){
+        return id+":"+"'"+name+"'@"+getLat()+","+getLon();
     }
 
     // file name will be .nodes in home directory

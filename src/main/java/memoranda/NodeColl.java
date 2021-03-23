@@ -1,10 +1,13 @@
 package main.java.memoranda;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import org.w3c.dom.traversal.NodeIterator;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 
 // need Route class which will hold methods such as closest()
@@ -14,6 +17,13 @@ public class NodeColl implements Iterable<Node>{
 
     public NodeColl(){
         nodeList=new HashMap<>();
+    }
+
+    public NodeColl(Collection<Node> c){
+        this();
+        for (Node n:c){
+            addNode(n);
+        }
     }
 
     public void addNode(Node n){
@@ -29,8 +39,9 @@ public class NodeColl implements Iterable<Node>{
         return nodeList.get(id);
     }
 
-    public HashMap<Integer, Node> getNodeList(){
-        return nodeList;
+    @JsonProperty
+    public Collection<Node> getNodes(){
+        return nodeList.values();
     }
 
     @Override
