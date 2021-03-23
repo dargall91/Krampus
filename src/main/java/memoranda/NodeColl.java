@@ -13,17 +13,14 @@ import java.util.Iterator;
 /**
  *
  */
-public class NodeColl extends DataCollection implements Iterable<Node>{
-    private HashMap<Integer,Node> nodeList;
-
-//    @JsonIgnore
-//    private int maxID=0;
+public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
 
     /**
      * create a new node collection
      */
     public NodeColl(){
-        nodeList=new HashMap<>();
+        super();
+//        nodeList=new HashMap<>();
     }
 
     /**
@@ -34,79 +31,22 @@ public class NodeColl extends DataCollection implements Iterable<Node>{
     public NodeColl(Collection<Node> c) throws DuplicateKeyException{
         this();
         for (Node n:c){
-            addNode(n);
+//            addNode(n);
+            add(n);
         }
     }
 
-    /**
-     * add a node
-     * @param n
-     */
-    public void addNode(Node n) throws DuplicateKeyException {
-        if (getNode(n.getId()) != null){
-            throw new DuplicateKeyException("Key "+n.getId()+" already exists.");
-        }
 
-        // save the max ID
-        registerID(n.getId());
 
-        nodeList.put(n.getId(), n);
-    }
 
-    /**
-     *
-     * @param name
-     * @param lat
-     * @param lon
-     */
-    public void createNode(String name, double lat, double lon) throws DuplicateKeyException {
-        addNode(new Node(getUniqueID(), name, lat, lon));
-    }
-    /**
-     * Returns a unique key to be used in Node construction
-     *
-     * @return
-     */
-//    public int getUniqueID(){
-//        return ++maxID;
-//    }
-
-    /**
-     *
-     * @return
-     */
-//    private int getMaxID(){
-//        int max=0;
-//        for (int i: nodeList.keySet()){
-//            if (i > max){
-//                max=i;
-//            }
-//        }
-//        return max;
-//    }
-
-    /**
-     * delete node by id
-     *
-     * @param id
-     * @return
-     */
-    public Node delNode(Integer id){
-        Node n=nodeList.remove(id);
-        maxID=findMaxID();
-        return n;
-    }
-
-    /**
-     * delete node by node pointer
+     /**
      *
      * @param n
-     * @return
+     * @throws DuplicateKeyException
      */
-    public Node delNode(Node n){
-        Node node=nodeList.remove(n.getId());
-        maxID=findMaxID();
-        return node;
+    @Override
+    public void createUnique(Node n) throws DuplicateKeyException {
+        add(new Node(getUniqueID(), n.getName(), n.getLat(), n.getLon()));
     }
 
     /**
@@ -114,8 +54,9 @@ public class NodeColl extends DataCollection implements Iterable<Node>{
      * @param id
      * @return
      */
-    public Node getNode(int id){
-        return nodeList.get(id);
+    public Node get(int id){
+        return (Node)super.get(id);
+//        return nodeList.get(id);
     }
 
     /**
@@ -123,8 +64,8 @@ public class NodeColl extends DataCollection implements Iterable<Node>{
      * @return
      */
     @JsonProperty
-    public Collection<Node> getNodes(){
-        return nodeList.values();
+    public Collection<IndexedObject> getNodes(){
+        return getData();
     }
 
     /**
@@ -144,7 +85,7 @@ public class NodeColl extends DataCollection implements Iterable<Node>{
         Collection coll;
         Iterator<Node> it;
         public NodeIterator(){
-            coll=nodeList.values();
+            coll=getData();
             it=coll.iterator();
         }
 

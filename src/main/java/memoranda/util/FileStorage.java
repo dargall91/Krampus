@@ -574,9 +574,9 @@ public class FileStorage implements Storage {
         // create new mapper object
         JsonNode jsonNode=mapper.readTree(new File(fn));
 
-//            String all=jsonNode.toString();
+            String all=jsonNode.toString();
+            System.out.println("all="+all);
 //            System.out.println("jsonNode is object:"+jsonNode.isObject());
-//            System.out.println("all="+all);
 //            JsonNode next=jsonNode.get("nodes");
 //            System.out.println("next="+next+" is object:"+next.isObject());
 //            System.out.println("next as string:"+next.toString());
@@ -603,21 +603,23 @@ public class FileStorage implements Storage {
      * @throws IOException
      */
     public DriverColl openDriverList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException {
-        String fn= getNodeFileName(prj);
+        String fn= getDriverFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
 
         // create new mapper object
         JsonNode jsonNode=mapper.readTree(new File(fn));
 
-        // find value of "nodes" object (which is an array) and create list of Node objects
+        // find value of "nodes" object (which is an array) and create list of Driver objects
         List<Driver> driverList=mapper.readValue(jsonNode.get("drivers").toString(), new TypeReference<>(){});
 
         // create new nodeColl based on read data/objects
         DriverColl driverColl=new DriverColl(driverList);
 
+        System.out.println("DriverColl has "+driverColl.size()+" in openDriverList");
         return driverColl;
     }
+
 
     /**
      *

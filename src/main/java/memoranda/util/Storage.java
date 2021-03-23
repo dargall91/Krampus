@@ -56,7 +56,7 @@ public interface Storage {
     public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
 
     public DriverColl openDriverList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
-    public void storeDriverList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
+    public void storeDriverList(DriverColl driver, Project prj) throws JsonProcessingException, IOException;
 
     void restoreContext();
     void storeContext(); 

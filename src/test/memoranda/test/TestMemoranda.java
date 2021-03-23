@@ -34,14 +34,26 @@ public class TestMemoranda {
         System.out.println("After all test methods");
     }
 
+
     /**
      * test ability to add a node
      */
     @Test
-    void testAddNode() throws DuplicateKeyException {
-        NodeColl nc=new NodeColl();
-        Node n=new Node(1, "test", 1.23, 3.45);
-        nc.addNode(n);
+    void testAddDuplicateDriver() throws DuplicateKeyException {
+        DriverColl nc=new DriverColl();
+        Driver n=new Driver(1, "test driver", "555-555-1212");
+        nc.add(n);
+
+        assertThrows(DuplicateKeyException.class, () -> {nc.add(n); });
+    }
+    /**
+     * test ability to add a node
+     */
+    @Test
+    void testAddDriver() throws DuplicateKeyException {
+        DriverColl nc=new DriverColl();
+        Driver n=new Driver(1, "test driver", "555-555-1212");
+        nc.add(n);
     }
 
     /**
@@ -52,7 +64,56 @@ public class TestMemoranda {
      * @throws InterruptedException
      */
     @Test
-    void testWrite() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
+    void testWriteDriver() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
+        Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        FileStorage stg=new FileStorage();
+        stg.createProjectStorage(prj);
+
+        DriverColl nc=new DriverColl();
+        Driver n=new Driver(1, "driver 1", "555-555-1213");
+        Driver n2=new Driver(2, "driver 2", "202-123-3482");
+        nc.add(n);
+        nc.add(n2);
+
+        System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
+
+        stg.storeDriverList(nc, prj);
+
+        System.out.println("Load driver list");
+        DriverColl dl=stg.openDriverList(prj);
+
+        int count=0;
+        for (Driver nn:dl){
+            count++;
+            System.out.println("Found driver in list="+nn);
+        }
+
+        assertEquals(2, count);
+
+        stg.removeProjectStorage(prj);
+    }
+
+
+
+    /**
+     * test ability to add a node
+     */
+    @Test
+    void testAddNode() throws DuplicateKeyException {
+        NodeColl nc=new NodeColl();
+        Node n=new Node(1, "test", 1.23, 3.45);
+        nc.add(n);
+    }
+
+    /**
+     * Test ability to read and write JSON values
+     *
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @Test
+    void testWriteNode() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
         Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
         FileStorage stg=new FileStorage();
         stg.createProjectStorage(prj);
@@ -60,19 +121,23 @@ public class TestMemoranda {
         NodeColl nc=new NodeColl();
         Node n=new Node(1, "busstop1", 1.23, 3.24);
         Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
-        nc.addNode(n);
-        nc.addNode(n2);
+        nc.add(n);
+        nc.add(n2);
+
+        System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
 
         stg.storeNodeList(nc, prj);
 
         System.out.println("Load node list");
         nc=stg.openNodeList(prj);
 
+        int count=0;
         for (Node nn:nc){
+            count++;
             System.out.println("Found node in list="+nn);
         }
 
-//        Thread.sleep(20000);
+        assertEquals(2, count);
 
         stg.removeProjectStorage(prj);
     }
