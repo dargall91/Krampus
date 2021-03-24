@@ -52,14 +52,14 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
      * reset the maximum ID tracker after deleting an entry.
      * @return
      */
-    public <V> int resetMaxID(HashMap<Integer, V> h){
+    private <V> void resetMaxID(HashMap<Integer, V> h){
         int max=0;
         for (int i: h.keySet()){
             if (i > max){
                 max=i;
             }
         }
-        return max;
+        maxID=max;
     }
 
     public void add(IndexedObject n) throws DuplicateKeyException {
