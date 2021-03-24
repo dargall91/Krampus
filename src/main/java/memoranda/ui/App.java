@@ -1,8 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.util.Calendar;
 
 import javax.swing.ImageIcon;
@@ -155,6 +153,8 @@ public class App {
 	 */
 	private void showSplash() {
 		splash = new JFrame();
+		splash.setUndecorated(true);
+		splash.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		ImageIcon spl =
 			new ImageIcon(App.class.getResource("/ui/new_splash600x450.png"));
 		JLabel l = new JLabel();
