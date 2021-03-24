@@ -54,6 +54,8 @@ public class TestMemoranda {
         DriverColl nc=new DriverColl();
         Driver n=new Driver(1, "test driver", "555-555-1212");
         nc.add(n);
+
+        assertEquals(1, nc.size());
     }
 
     /**
@@ -103,6 +105,8 @@ public class TestMemoranda {
         NodeColl nc=new NodeColl();
         Node n=new Node(1, "test", 1.23, 3.45);
         nc.add(n);
+
+        assertEquals(1, nc.size());
     }
 
     /**

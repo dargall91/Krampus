@@ -23,7 +23,6 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     public DriverColl(Collection<Driver> c) throws DuplicateKeyException {
         this();
         for (Driver d:c){
-            System.out.println("adding driver"+d);
             add(d);
         }
     }
