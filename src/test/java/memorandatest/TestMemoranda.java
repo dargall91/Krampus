@@ -178,4 +178,19 @@ public class TestMemoranda {
     }
 
 
+    @Test
+    void testCoordinateEquality(){
+        Coordinate c1, c2;
+        c1=new Coordinate(83.123456789, -128.987654321);
+        c2 =new Coordinate(83.123456789, -128.987654321);
+        assertTrue(c1.equals(c2));
+        c1=new Coordinate(83.12345678, -128.987654321);
+        c2 =new Coordinate(83.123456789, -128.987654321);
+        assertFalse(c1.equals(c2));
+        c1=new Coordinate(-83.123456789, -128.987654321);
+        c2 =new Coordinate(83.123456789, -128.987654321);
+        assertFalse(c1.equals(c2));
+    }
+
+
 }
