@@ -1,4 +1,9 @@
-apply plugin: 'application'
+//apply plugin: 'application'
+
+plugins {
+    id 'java'
+    id 'application'
+}
 
 mainClassName = 'main/java/memoranda/Start'
 
@@ -6,7 +11,7 @@ compileJava.options.encoding = 'UTF-8'
 
 // Repositories and dependencies for code go here
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
