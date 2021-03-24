@@ -47,18 +47,19 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 14MAR21  | All  |  Complete "Icebreaker" and discuss sprint1 planning | n/a | n/a  | n/a |
-| 17MAR21  | All  |  Complete Sprint1 Planning | n/a  | n/a | n/a |
-|   |   |   |   |  |  |
+| 17MAR21  | All  |  Complete Sprint1 Planning            | n/a  | n/a | n/a |
+| 19MAR21  | All  | Sprint1 status updates       | n/a  | n/a | via Slack,  no blockers |
+| 21MAR21  | All  | Sprint1 status updates  | n/a  | n/a | via Slack/Zoom,  no blockers |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended |
 |---|---|
-|Brian Pape| 2|
-|Chris Boveda| 2|
-|Derek Argall| 2|
-|John Thurstonson| 2|
-|Kevin Dolan| 2|
+|Brian Pape| 4|
+|Chris Boveda| 4|
+|Derek Argall| 4|
+|John Thurstonson| 4|
+|Kevin Dolan| 4|
 
 
 ## 3: After the Sprint
