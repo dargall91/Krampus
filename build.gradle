@@ -1,9 +1,8 @@
-//apply plugin: 'application'
+apply plugin: 'application'
 
-plugins {
-    id 'java'
-    id 'application'
-}
+//plugins {
+//    id 'java'
+//}
 
 
 mainClassName = 'main/java/memoranda/Start'
