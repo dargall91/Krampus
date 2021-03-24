@@ -167,12 +167,12 @@ public class TestMemoranda {
     @Test
     void testHaversine(){
         Coordinate c1=new Coordinate(41.507483, -99.436554);
-        Coordinate c2=new Coordinate(38.504048, -98.315949);
+        Coordinate c2 =new Coordinate(38.504048, -98.315949);
         System.out.println("distance="+c1.distanceTo(c2));
         assertEquals(c1.distanceTo(c2), 347.3, 0.1);
 
         c1=new Coordinate(38.504048, -98.315949);
-        c2=new Coordinate(41.507483, -99.436554);
+        c2 =new Coordinate(41.507483, -99.436554);
         System.out.println("distance="+c1.distanceTo(c2));
         assertEquals(c1.distanceTo(c2), 347.3, 0.1);
     }
