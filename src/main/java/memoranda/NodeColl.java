@@ -1,23 +1,22 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import main.java.memoranda.util.DuplicateKeyException;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 
 
 /**
  *
  */
-public class NodeColl implements Iterable<Node>{
-    private HashMap<Integer,Node> nodeList;
+public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
 
     /**
      * create a new node collection
      */
     public NodeColl(){
-        nodeList=new HashMap<>();
+        super();
     }
 
     /**
@@ -25,39 +24,23 @@ public class NodeColl implements Iterable<Node>{
      *
      * @param c
      */
-    public NodeColl(Collection<Node> c){
+    public NodeColl(Collection<Node> c) throws DuplicateKeyException{
         this();
         for (Node n:c){
-            addNode(n);
+            add(n);
         }
     }
 
-    /**
-     * add a node
-     * @param n
-     */
-    public void addNode(Node n){
-        nodeList.put(n.getId(), n);
-    }
 
-    /**
-     * delete node by id
-     *
-     * @param id
-     * @return
-     */
-    public Node delNode(Integer id){
-        return nodeList.remove(id);
-    }
-
-    /**
-     * delete node by node pointer
+     /**
+     * Creates a new Node object with a unique ID
      *
      * @param n
-     * @return
+     * @throws DuplicateKeyException
      */
-    public Node delNode(Node n){
-        return nodeList.remove(n.getId());
+    @Override
+    public void createUnique(Node n) throws DuplicateKeyException {
+        add(new Node(getUniqueID(), n.getName(), n.getLat(), n.getLon()));
     }
 
     /**
@@ -65,17 +48,17 @@ public class NodeColl implements Iterable<Node>{
      * @param id
      * @return
      */
-    public Node getNode(int id){
-        return nodeList.get(id);
+    public Node get(int id){
+        return (Node)super.get(id);
     }
 
     /**
-     * return collection of nodes for json output
+     *
      * @return
      */
     @JsonProperty
-    public Collection<Node> getNodes(){
-        return nodeList.values();
+    public Collection<IndexedObject> getNodes(){
+        return getData();
     }
 
     /**
@@ -95,7 +78,7 @@ public class NodeColl implements Iterable<Node>{
         Collection coll;
         Iterator<Node> it;
         public NodeIterator(){
-            coll=nodeList.values();
+            coll=getData();
             it=coll.iterator();
         }
 

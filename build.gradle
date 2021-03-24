@@ -1,5 +1,10 @@
 apply plugin: 'application'
 
+//plugins {
+//    id 'java'
+//}
+
+
 mainClassName = 'main/java/memoranda/Start'
 
 compileJava.options.encoding = 'UTF-8'

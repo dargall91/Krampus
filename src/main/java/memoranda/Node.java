@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  *
  */
-public class Node {
-    private int id;
+public class Node extends IndexedObject {
+//    private int id;
     private String name;
     private Coordinate coords;
 
@@ -22,10 +22,12 @@ public class Node {
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Node(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("lat") Double lat,
                 @JsonProperty("lon") Double lon){
-        this.id=id;
+        super(id);
+//        this.id=id;
         this.name=name;
         coords=new Coordinate(lat, lon);
     }
+
 
     /**
      * return distance to another node
@@ -67,9 +69,9 @@ public class Node {
      * standard getter for id
      * @return
      */
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
 
     /**
      * standard toString()
@@ -77,7 +79,7 @@ public class Node {
      */
     @Override
     public String toString(){
-        return id+":"+"'"+name+"'@"+ coords;
+        return getId()+":"+"'"+name+"'@"+ coords;
     }
 
     // file name will be .nodes in home directory
