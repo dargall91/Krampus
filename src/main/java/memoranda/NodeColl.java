@@ -17,7 +17,6 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      */
     public NodeColl(){
         super();
-//        nodeList=new HashMap<>();
     }
 
     /**
@@ -28,12 +27,9 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
     public NodeColl(Collection<Node> c) throws DuplicateKeyException{
         this();
         for (Node n:c){
-//            addNode(n);
             add(n);
         }
     }
-
-
 
 
      /**
@@ -53,7 +49,6 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      */
     public Node get(int id){
         return (Node)super.get(id);
-//        return nodeList.get(id);
     }
 
     /**

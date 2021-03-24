@@ -1,9 +1,6 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.IndexedObject;
-import main.java.memoranda.Node;
 import main.java.memoranda.util.DuplicateKeyException;
 
 import java.util.Collection;
@@ -52,7 +49,7 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
     }
 
     /**
-     *
+     * reset the maximum ID tracker after deleting an entry.
      * @return
      */
     public <V> int resetMaxID(HashMap<Integer, V> h){
@@ -77,21 +74,12 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
     }
 
     /**
-     * delete node by id
      *
      * @param id
-     * @return
      */
-//    public IndexedObject del(Integer id){
-//        IndexedObject n=coll.remove(id);
-//        resetMaxID(coll);
-//        return n;
-//    }
     public void del(Integer id){
-//        IndexedObject n=
         coll.remove(id);
         resetMaxID(coll);
-//        return n;
     }
 
     /**
@@ -100,16 +88,9 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
      * @param n
      * @return
      */
-//    public IndexedObject del(Node n){
-//        IndexedObject o=coll.remove(n.getId());
-//        resetMaxID(coll);
-//        return o;
-//    }
     public void del(Node n){
-//        IndexedObject o=
         coll.remove(n.getId());
         resetMaxID(coll);
-//        return o;
     }
 
 

@@ -7,14 +7,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class DriverColl extends DataCollection<Driver> implements Iterable<Driver>{
-//    private HashMap<Integer, Driver> driverList;
 
     /**
      * create a new Driver collection
      */
     public DriverColl(){
         super();
-//        driverList=new HashMap<>();
     }
 
     /**
