@@ -39,6 +39,9 @@ public class Coordinate {
 
 
     /**
+     * Haversine formula for calculating the great-circle distance between two points on an idealized spheroid (Earth)
+     *
+     * Formula pulled from wikipedia and cross-checked with several other sources.
      *
      * @param lat1 latitude in decimal degrees
      * @param lat2 latitude in decimal degrees
@@ -57,12 +60,10 @@ public class Coordinate {
         return 2*r*Math.asin(
                 Math.sqrt(
                         Math.pow(Math.sin((lat2-lat1)/2), 2)
-                                + Math.cos(lat1) * Math.cos(lat2) *
-                                Math.pow(Math.sin((lon2-lon1)/2), 2)
+                        + Math.cos(lat1) * Math.cos(lat2) *
+                        Math.pow(Math.sin((lon2-lon1)/2), 2)
                 )
         );
-
-
     }
 
 

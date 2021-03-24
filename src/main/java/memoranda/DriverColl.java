@@ -28,6 +28,7 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     }
 
     /**
+     * Creates a new driver object with a unique ID
      *
      * @param d
      * @throws DuplicateKeyException

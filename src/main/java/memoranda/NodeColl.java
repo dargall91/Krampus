@@ -33,6 +33,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
 
 
      /**
+     * Creates a new Node object with a unique ID
      *
      * @param n
      * @throws DuplicateKeyException
