@@ -52,7 +52,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
     }
 
     /**
-     * return collection of nodes for json output
+     *
      * @return
      */
     @JsonProperty

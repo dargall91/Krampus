@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Driver extends IndexedObject {
-//    int id;
     String name;
     String phoneNumber;
 

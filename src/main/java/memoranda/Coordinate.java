@@ -12,6 +12,11 @@ public class Coordinate {
      * @param lon
      */
     public Coordinate(Double lat, Double lon){
+        if (lat < -90 || lat > 90) {
+            throw new IllegalArgumentException("Latitude must be between -90 and 90 decimal degrees, inclusive.");
+        } else if (lon < -180 || lon > 180){
+            throw new IllegalArgumentException("Longitude must be between -180 and 180 decimal degrees, inclusive.");
+        }
         this.lat = lat;
         this.lon = lon;
     }
@@ -32,16 +37,19 @@ public class Coordinate {
         return lon;
     }
 
+
     /**
-     * return distance to another coordinate using Haversine formula
-     * @param c
-     * @return
+     *
+     * @param lat1 latitude in decimal degrees
+     * @param lat2 latitude in decimal degrees
+     * @param lon1 longitude in decimal degrees
+     * @param lon2 longitude in decimal degrees
      */
-    public Double distanceTo(Coordinate c){
-        double lat1=deg2rad(lat);
-        double lat2=deg2rad(c.getLat());
-        double lon1=deg2rad(lon);
-        double lon2=deg2rad(c.getLon());
+    private Double haversine(double lat1, double lat2, double lon1, double lon2){
+        lat1=deg2rad(lat1);
+        lat2=deg2rad(lat2);
+        lon1=deg2rad(lon1);
+        lon2=deg2rad(lon2);
 
         // use 6371km for avg radius of Earth
         double r=6371;
@@ -49,10 +57,23 @@ public class Coordinate {
         return 2*r*Math.asin(
                 Math.sqrt(
                         Math.pow(Math.sin((lat2-lat1)/2), 2)
-                        + Math.cos(lat1) * Math.cos(lat2) *
-                        Math.pow(Math.sin((lon2-lon1)/2), 2)
+                                + Math.cos(lat1) * Math.cos(lat2) *
+                                Math.pow(Math.sin((lon2-lon1)/2), 2)
                 )
         );
+
+
+    }
+
+
+
+    /**
+     * return distance in km to another coordinate using Haversine formula
+     * @param c
+     * @return
+     */
+    public Double distanceTo(Coordinate c){
+        return haversine(lat, c.getLat(), lon, c.getLon());
     }
 
     /**
