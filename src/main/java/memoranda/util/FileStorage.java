@@ -7,6 +7,7 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package main.java.memoranda.util;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,11 +16,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+
 import main.java.memoranda.EventsManager;
+import main.java.memoranda.Node;
+import main.java.memoranda.NodeColl;
 import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.NoteListImpl;
@@ -255,6 +263,11 @@ public class FileStorage implements Storage {
      */
     public void removeProjectStorage(Project prj) {
         String id = prj.getID();
+
+        /*DEBUG*/
+        System.out.println(
+                "[DEBUG] Remove/Delete project dir: " + JN_DOCPATH + prj.getID());
+
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
         for (int i = 0; i < files.length; i++)
@@ -471,5 +484,118 @@ public class FileStorage implements Storage {
                 "");
         }
     }
+
+
+    /*
+    // Required output format from @amehlhase
+
+    {"nodes":[
+	{"id": "1", "lat":"33.304682", "lon": "-111.680727"},
+	{"id": "2",  "lat": "33.303659", "lon": "-111.680792"},
+	{"id": "3", "lat": "33.302548", "lon": "-111.675674"},
+	{"id": "4", "lat": "33.303597", "lon": "-111.673625"},
+	{"id": "5", "lat": "33.304628", "lon": "-111.675663"},
+	{"id": "6", "lat": "33.303175", "lon": "-111.678185"},
+	{"id": "7", "lat": "33.305103", "lon": "-111.677734"},
+	{"id": "8", "lat": "33.306529", "lon": "-111.680695"}
+   ]}
+     */
+
+
+    /**
+     *
+     * @param prj
+     * @return
+     */
+    private String getNodeFileName(Project prj){
+        return JN_DOCPATH + prj.getID() + File.separator + "nodes.json";
+    }
+
+
+
+    /**
+     * Save a node list to JSON file in specified project
+     *
+     * @param prj
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException {
+        String fn = getNodeFileName(prj);
+
+        // create new object mapper
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+
+        // annotation is used so Jackson knows which method to use for output
+//        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(nodeColl);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), nodeColl);
+
+        /*DEBUG*/
+//        System.out.println("[DEBUG] Save note list: " + fn);
+//        System.out.println("jsonString collection="+js);
+
+//        saveStringToFile(js, fn);
+    }
+
+    /**
+     * Load a node list from JSON file in specified project
+     *
+     * @param prj
+     * @return
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException{
+        String fn= getNodeFileName(prj);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+        // create new mapper object
+        JsonNode jsonNode=mapper.readTree(new File(fn));
+
+//            String all=jsonNode.toString();
+//            System.out.println("jsonNode is object:"+jsonNode.isObject());
+//            System.out.println("all="+all);
+//            JsonNode next=jsonNode.get("nodes");
+//            System.out.println("next="+next+" is object:"+next.isObject());
+//            System.out.println("next as string:"+next.toString());
+
+        // find value of "nodes" object (which is an array) and create list of Node objects
+        List<Node> nodeList=mapper.readValue(jsonNode.get("nodes").toString(), new TypeReference<>(){});
+
+        // create new nodeColl based on read data/objects
+        NodeColl nodeColl=new NodeColl(nodeList);
+
+//            for (Node n:nodeColl){
+//                System.out.println("Found node in list="+n);
+//            }
+        return nodeColl;
+
+    }
+
+    public static void saveList(Document doc, String filePath) {
+        /**
+         * @todo: Configurable parameters
+         */
+        try {
+            /*The XOM bug: reserved characters are not escaped*/
+            //Serializer serializer = new Serializer(new FileOutputStream(filePath), "UTF-8");
+            //serializer.write(doc);
+
+            OutputStreamWriter fw =
+                    new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8");
+            fw.write(doc.toXML());
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException ex) {
+            new ExceptionDialog(
+                    ex,
+                    "Failed to write a document to " + filePath,
+                    "");
+        }
+    }
+
 
 }
