@@ -1,14 +1,17 @@
-package memoranda.test;
+package memorandatest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
+
 import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
-import nu.xom.Attribute;
-import nu.xom.Element;
+import main.java.memoranda.util.FileStorage;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import main.java.memoranda.util.FileStorage;
 
 import java.io.IOException;
 
@@ -165,8 +168,13 @@ public class TestMemoranda {
     void testHaversine(){
         Coordinate c1=new Coordinate(41.507483, -99.436554);
         Coordinate c2=new Coordinate(38.504048, -98.315949);
+        System.out.println("distance="+c1.distanceTo(c2));
         assertEquals(c1.distanceTo(c2), 347.3, 0.1);
-//        System.out.println("distance="+c1.distanceTo(c2));
+
+        c2=new Coordinate(41.507483, -99.436554);
+        c1=new Coordinate(38.504048, -98.315949);
+        System.out.println("distance="+c1.distanceTo(c2));
+        assertEquals(c1.distanceTo(c2), 347.3, 0.1);
     }
 
 
