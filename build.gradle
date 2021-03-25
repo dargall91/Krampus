@@ -1,4 +1,9 @@
-apply plugin: 'application'
+//apply plugin: 'application'
+
+plugins {
+    id 'java'
+    id 'application'
+}
 
 //plugins {
 //    id 'java'
@@ -11,7 +16,7 @@ compileJava.options.encoding = 'UTF-8'
 
 // Repositories and dependencies for code go here
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
