@@ -50,7 +50,12 @@ public class AgendaPanel extends JPanel {
 	JButton historyForwardB = new JButton();
 	JButton export = new JButton();
 	JEditorPane viewer = new JEditorPane("text/html", "");
-	String[] priorities = {"Muy Alta","Alta","Media","Baja","Muy Baja"};
+	String[] priorities = {
+			Local.getString("HIGHEST"),
+			Local.getString("HIGH"),
+			Local.getString("NORMAL"),
+			Local.getString("LOW"),
+			Local.getString("LOWEST")};
 	JScrollPane scrollPane = new JScrollPane();
 
 	DailyItemsPanel parentPanel = null;
@@ -126,7 +131,7 @@ public class AgendaPanel extends JPanel {
 							CurrentStorage.get().storeEventsManager();
 						}
 						refresh(CurrentDate.get());
-						System.out.println("agregué un sticker");
+						System.out.println("I added a sticker");
 					} else if (d.startsWith("memoranda:expandsubtasks")) {
 						String id = d.split("#")[1];
 						gotoTask = id;
