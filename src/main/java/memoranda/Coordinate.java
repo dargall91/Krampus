@@ -155,12 +155,11 @@ public class Coordinate {
      */
     @Override
     public boolean equals(Object o){
-        Integer sigDigits=9;
         Coordinate c=(Coordinate) o;
-        String lat1=((Double)(lat *sigDigits)).toString().split(".")[0];
-        String lat2=((Double)(c.lat *sigDigits)).toString().split(".")[0];
-        String long1=((Double)(lat *sigDigits)).toString().split(".")[0];
-        String long2=((Double)(c.lat *sigDigits)).toString().split(".")[0];
+        String lat1=lat.toString();
+        String lat2=c.lat.toString();
+        String long1=lat.toString();
+        String long2=c.lat.toString();
         return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
     }
 }

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 public class Node extends IndexedObject {
-//    private int id;
     private String name;
     private Coordinate coords;
 
@@ -64,14 +63,6 @@ public class Node extends IndexedObject {
     public String getName(){
         return name;
     }
-
-    /**
-     * standard getter for id
-     * @return
-     */
-//    public int getId() {
-//        return id;
-//    }
 
     /**
      * standard toString()
