@@ -1,7 +1,11 @@
 package main.java.memoranda;
 
-// supports up to 12 significant digits, 9 after decimal point
-// expects coordinates in decimal degrees, - longitudes are west of the prime meridian, -latitudes are south of the equator
+/**
+ * Holds a coordinate (a location on Earth) and calculates distances between them
+ *
+ * supports up to 12 significant digits, 9 after decimal point
+ * expects coordinates in decimal degrees, -longitudes are west of the prime meridian, -latitudes are south of the equator
+ */
 public class Coordinate {
     private Double lat;
     private Double lon;

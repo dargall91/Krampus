@@ -5,27 +5,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 
-public class RouteLoader extends IndexedObject{
-        private String name;
-        private LinkedList<Integer> nodeIDs;
+/**
+ * Used to load routes with numeric IDs from JSON and subsequently be converted into an object hierarchy
+ */
+public class RouteLoader extends IndexedObject {
+    private String name;
+    private LinkedList<Integer> nodeIDs;
 
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodes){
-            super(id);
-            this.name=name;
-            this.nodeIDs=nodes;
-        }
+    /**
+     * @param id
+     * @param name
+     * @param nodes
+     */
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodes) {
+        super(id);
+        this.name = name;
+        this.nodeIDs = nodes;
+    }
 
-        public String getName(){
-            return name;
-        }
+    /**
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
 
-        public LinkedList<Integer> getNodes(){
-            return nodeIDs;
-        }
+    /**
+     *
+     * @return
+     */
+    public LinkedList<Integer> getNodes() {
+        return nodeIDs;
+    }
 
-        public String toString(){
-            return "route "+getId()+" "+getName();
-        }
+    /**
+     * @return
+     */
+    public String toString() {
+        return "route " + getId() + " " + getName();
+    }
 
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- *
+ * holds a node (i.e. a bus stop)
  */
 public class Node extends IndexedObject {
     private String name;
