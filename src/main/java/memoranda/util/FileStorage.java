@@ -37,6 +37,8 @@ import main.java.memoranda.Project;
 import main.java.memoranda.ProjectManager;
 import main.java.memoranda.ResourcesList;
 import main.java.memoranda.ResourcesListImpl;
+import main.java.memoranda.Route;
+import main.java.memoranda.RouteColl;
 import main.java.memoranda.TaskList;
 import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.date.CalendarDate;
@@ -517,6 +519,15 @@ public class FileStorage implements Storage {
      * @param prj
      * @return
      */
+    private String getRouteFileName(Project prj){
+        return getFileName(prj, "route.json");
+    }
+
+    /**
+     *
+     * @param prj
+     * @return
+     */
     private String getDriverFileName(Project prj){
         return getFileName(prj, "driver.json");
     }
@@ -594,6 +605,51 @@ public class FileStorage implements Storage {
 
     }
 
+    /**
+     *
+     * @param prj
+     * @return
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public RouteColl openRouteList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException {
+        String fn= getRouteFileName(prj);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+        // create new mapper object
+        JsonNode jsonNode=mapper.readTree(new File(fn));
+
+        // find value of "nodes" object (which is an array) and create list of Route objects
+        List<Route> routeList=mapper.readValue(jsonNode.get("routes").toString(), new TypeReference<>(){});
+
+        // create new nodeColl based on read data/objects
+        RouteColl routeColl=new RouteColl(routeList);
+
+        System.out.println("[DEBUG] RouteColl has "+routeColl.size()+" in openRouteList");
+        return routeColl;
+    }
+
+
+    /**
+     *
+     * @param routeColl
+     * @param prj
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public void storeRouteList(RouteColl routeColl, Project prj) throws JsonProcessingException, IOException{
+        String fn = getRouteFileName(prj);
+
+        // create new object mapper
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+
+        // annotation is used so Jackson knows which method to use for output
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), routeColl);
+
+    }
+
 
     /**
      *
@@ -616,7 +672,7 @@ public class FileStorage implements Storage {
         // create new nodeColl based on read data/objects
         DriverColl driverColl=new DriverColl(driverList);
 
-        System.out.println("DriverColl has "+driverColl.size()+" in openDriverList");
+        System.out.println("[DEBUG] DriverColl has "+driverColl.size()+" in openDriverList");
         return driverColl;
     }
 

@@ -10,6 +10,12 @@ public class Route extends IndexedObject{
     private String name;
     private LinkedList<Node> route;
 
+
+    public Route(int id){
+        super(id);
+        route=new LinkedList<>();
+    }
+
     /**
      *
      * @param nodeColl
@@ -18,7 +24,7 @@ public class Route extends IndexedObject{
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Route(NodeColl nodeColl, RouteLoader newRoute) throws IndexOutOfBoundsException{
-        super(newRoute.getId());
+        this(newRoute.getId());
 
         Node n;
         this.name=newRoute.getName();
@@ -40,7 +46,7 @@ public class Route extends IndexedObject{
      * @param r
      */
     public Route(int id, Route r){
-        super(id);
+        this(id);
         this.name=r.getName();
         this.route=r.getRoute();
     }
@@ -99,8 +105,26 @@ public class Route extends IndexedObject{
         return name;
     }
 
+    /**
+     * returns an ordered list of the nodes in the route
+     * @return
+     */
+    @JsonIgnore
     public LinkedList<Node> getRoute(){
         return route;
+    }
+
+    /**
+     * Returns an ordered list of only the IDs of the nodes in this route for storing in json file
+     * @return
+     */
+    @JsonProperty
+    public LinkedList<Integer> getNodeIDs(){
+        LinkedList<Integer> li=new LinkedList<>();
+        for (Node n: route){
+            li.add(n.getId());
+        }
+        return li;
     }
 
     /**

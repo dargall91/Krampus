@@ -13,6 +13,7 @@ public class RouteLoader extends IndexedObject{
         public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodes") LinkedList<Integer> nodes){
             super(id);
             this.name=name;
+            this.nodes=nodes;
         }
 
         public String getName(){
