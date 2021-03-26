@@ -22,7 +22,6 @@ public class Node extends IndexedObject {
     public Node(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("lat") Double lat,
                 @JsonProperty("lon") Double lon){
         super(id);
-//        this.id=id;
         this.name=name;
         coords=new Coordinate(lat, lon);
     }
