@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,7 +42,7 @@ import javax.swing.JOptionPane;
 import nu.xom.Element;
 
 /*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
-public class AgendaPanel extends JPanel {
+public class DriverPanel extends JPanel {
 	BorderLayout borderLayout1 = new BorderLayout();
 	JButton historyBackB = new JButton();
 	JToolBar toolBar = new JToolBar();
@@ -63,7 +62,7 @@ public class AgendaPanel extends JPanel {
 
 	boolean isActive = true;
 
-	public AgendaPanel(DailyItemsPanel _parentPanel) {
+	public DriverPanel(DailyItemsPanel _parentPanel) {
 		try {
 			parentPanel = _parentPanel;
 			jbInit();
@@ -108,7 +107,7 @@ public class AgendaPanel extends JPanel {
                         CurrentStorage.get().storeEventsManager();}
                         refresh(CurrentDate.get());
 					} else if (d.startsWith("memoranda:addsticker")) {
-						StickerDialog dlg = new StickerDialog(App.getFrame());
+						DriverDialog dlg = new DriverDialog(App.getFrame());
 						Dimension frmSize = App.getFrame().getSize();
 						dlg.setSize(new Dimension(300,380));
 						Point loc = App.getFrame().getLocation();
@@ -174,7 +173,7 @@ public class AgendaPanel extends JPanel {
 						int sP=Integer.parseInt(pre_sticker.getAttributeValue("priority"));
 						String backGroundColor=sticker.substring(backcolor, sticker.indexOf(';',backcolor));
 						String foreGroundColor=sticker.substring(fontcolor, sticker.indexOf(';',fontcolor));
-						StickerDialog dlg = new StickerDialog(App.getFrame(), sticker.substring(first+1, last), backGroundColor, foreGroundColor, sP, size);
+						DriverDialog dlg = new DriverDialog(App.getFrame(), sticker.substring(first+1, last), backGroundColor, foreGroundColor, sP, size);
 						Dimension frmSize = App.getFrame().getSize();
 						dlg.setSize(new Dimension(300,380));
 						Point loc = App.getFrame().getLocation();

@@ -33,7 +33,7 @@ import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
 
 /*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
-public class StickerDialog extends JDialog {
+public class DriverDialog extends JDialog {
 	public boolean CANCELLED = true;
 	JPanel panel1 = new JPanel();
 	BorderLayout borderLayout1 = new BorderLayout();
@@ -99,7 +99,7 @@ public class StickerDialog extends JDialog {
 	JComboBox priorityList = new JComboBox(priorities);
 	
 
-	public StickerDialog(Frame frame) {
+	public DriverDialog(Frame frame) {
 		super(frame, Local.getString("Sticker"), true);
 		try {
 			jbInit();
@@ -108,7 +108,7 @@ public class StickerDialog extends JDialog {
 			new ExceptionDialog(ex);
 		}
 	}
-	public StickerDialog(Frame frame, String text, String backcolor, String forecolor, int sP, int size){
+	public DriverDialog(Frame frame, String text, String backcolor, String forecolor, int sP, int size){
 		super(frame, Local.getString("Sticker"), true);
 		try {
 			jbInit();
@@ -140,7 +140,7 @@ public class StickerDialog extends JDialog {
 		else fontSize.setSelectedIndex(1);
 	}
 
-	public StickerDialog() {
+	public DriverDialog() {
 		this(null);
 	}
 	void jbInit() throws Exception {
@@ -210,7 +210,7 @@ public class StickerDialog extends JDialog {
 		header.setFont(new java.awt.Font("Dialog", 0, 20));
 		header.setForeground(new Color(0, 0, 124));
 		header.setText(Local.getString("Sticker"));
-		header.setIcon(new ImageIcon(main.java.memoranda.ui.StickerDialog.class.getResource(
+		header.setIcon(new ImageIcon(DriverDialog.class.getResource(
             "/ui/icons/sticker48.png")));
 		//header.setHorizontalAlignment(SwingConstants.LEFT);
 
