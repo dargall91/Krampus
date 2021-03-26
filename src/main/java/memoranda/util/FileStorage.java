@@ -39,6 +39,7 @@ import main.java.memoranda.ResourcesList;
 import main.java.memoranda.ResourcesListImpl;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
+import main.java.memoranda.RouteLoader;
 import main.java.memoranda.TaskList;
 import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.date.CalendarDate;
@@ -612,7 +613,7 @@ public class FileStorage implements Storage {
      * @throws JsonProcessingException
      * @throws IOException
      */
-    public RouteColl openRouteList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException {
+    public RouteColl openRouteList(Project prj, NodeColl nodeList) throws JsonProcessingException, IOException, DuplicateKeyException {
         String fn= getRouteFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
@@ -621,10 +622,10 @@ public class FileStorage implements Storage {
         JsonNode jsonNode=mapper.readTree(new File(fn));
 
         // find value of "nodes" object (which is an array) and create list of Route objects
-        List<Route> routeList=mapper.readValue(jsonNode.get("routes").toString(), new TypeReference<>(){});
+        List<RouteLoader> routeList=mapper.readValue(jsonNode.get("routes").toString(), new TypeReference<>(){});
 
         // create new nodeColl based on read data/objects
-        RouteColl routeColl=new RouteColl(routeList);
+        RouteColl routeColl=new RouteColl(nodeList, routeList);
 
         System.out.println("[DEBUG] RouteColl has "+routeColl.size()+" in openRouteList");
         return routeColl;

@@ -79,7 +79,6 @@ public class TestMemoranda {
      */
     @Test
     void testWriteDriver() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
-//        Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
 
         DriverColl nc=new DriverColl();
         Driver n=new Driver(1, "driver 1", "555-555-1213");
@@ -132,25 +131,24 @@ public class TestMemoranda {
      */
     @Test
     void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
-//        FileStorage stg=new FileStorage();
-//        stg.createProjectStorage(prj);
 
+        NodeColl nc=createNodeColl();
         RouteColl rc=testAddRoute();
 
         System.out.println("Save route list");
         stg.storeRouteList(rc, prj);
 
         System.out.println("Load route list");
-//        RouteColl dl=stg.openRouteList(prj);
-//
-//        int count=0;
-//        for (Route nn:dl){
-//            count++;
-//            System.out.println("Found driver in list="+nn);
-//        }
-//
-//        assertEquals(2, count);
-//
+        RouteColl rl=stg.openRouteList(prj, nc);
+
+        int count=0;
+        for (Route rr:rl){
+            count++;
+            System.out.println("Found route in list="+rr);
+        }
+
+        assertEquals(2, count);
+
     }
 
 

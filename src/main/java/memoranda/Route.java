@@ -133,7 +133,7 @@ public class Route extends IndexedObject{
      */
     @Override
     public String toString(){
-        return getId()+":"+"'"+name;
+        return getId()+":"+"'"+name+"'"+route;
     }
 
 }

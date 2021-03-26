@@ -7,13 +7,13 @@ import java.util.LinkedList;
 
 public class RouteLoader extends IndexedObject{
         private String name;
-        private LinkedList<Integer> nodes;
+        private LinkedList<Integer> nodeIDs;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodes") LinkedList<Integer> nodes){
+        public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodes){
             super(id);
             this.name=name;
-            this.nodes=nodes;
+            this.nodeIDs=nodes;
         }
 
         public String getName(){
@@ -21,7 +21,7 @@ public class RouteLoader extends IndexedObject{
         }
 
         public LinkedList<Integer> getNodes(){
-            return nodes;
+            return nodeIDs;
         }
 
         public String toString(){
