@@ -43,7 +43,7 @@ public class TestMemoranda {
     @AfterAll
     static void afterAll() {
         System.out.println("After all test methods");
-//        stg.removeProjectStorage(prj);
+        stg.removeProjectStorage(prj);
     }
 
 
