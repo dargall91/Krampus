@@ -32,7 +32,7 @@ public class Node extends IndexedObject {
      * @param n
      * @return
      */
-    public Double distanceTo(Node n){
+    public Double distanceTo(Node n) throws NullPointerException{
         return this.coords.distanceTo(n.getCoords());
     }
     /**

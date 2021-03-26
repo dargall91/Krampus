@@ -179,6 +179,13 @@ public class TestMemoranda {
 
 
     @Test
+    void testDistanceToNull(){
+        Coordinate c1;
+        c1=new Coordinate(1.0, 2.0);
+        assertThrows(NullPointerException.class, ()-> {c1.distanceTo(null);});
+    }
+
+    @Test
     void testCoordinateEquality(){
         Coordinate c1, c2;
         c1=new Coordinate(83.123456789, -128.987654321);
