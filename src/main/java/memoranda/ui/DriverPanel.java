@@ -1,58 +1,32 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
-import java.util.Map;
 
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.EventNotificationListener;
-import main.java.memoranda.EventsManager;
-import main.java.memoranda.EventsScheduler;
-import main.java.memoranda.History;
-import main.java.memoranda.NoteList;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ProjectManager;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
-import main.java.memoranda.date.CurrentDate;
-import main.java.memoranda.date.DateListener;
-import main.java.memoranda.util.AgendaGenerator;
-import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.Local;
+import main.java.memoranda.ui.table.TableMap;
 import main.java.memoranda.util.Util;
-
-import javax.swing.JOptionPane;
-
-import nu.xom.Element;
 
 /*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
 public class DriverPanel extends JPanel {
-	BorderLayout borderLayout1 = new BorderLayout();
-	JButton historyBackB = new JButton();
-	JToolBar toolBar = new JToolBar();
-	JButton historyForwardB = new JButton();
-	JButton export = new JButton();
-	JEditorPane viewer = new JEditorPane("text/html", "");
-	String[] priorities = {"Muy Alta","Alta","Media","Baja","Muy Baja"};
-	JScrollPane scrollPane = new JScrollPane();
+	//BorderLayout borderLayout1 = new BorderLayout();
+	//JButton historyBackB = new JButton();
+	//JToolBar toolBar = new JToolBar();
+	//JButton historyForwardB = new JButton();
+	//JButton export = new JButton();
+	////JEditorPane viewer = new JEditorPane("text/html", "");
+	//String[] priorities = {"Muy Alta","Alta","Media","Baja","Muy Baja"};
+	private String[] columns = {"Driver", "ID", "Phone"};
 
-	DailyItemsPanel parentPanel = null;
+	private DriverTable driverTable;
+
+	private DailyItemsPanel parentPanel;
 
 	//	JPopupMenu agendaPPMenu = new JPopupMenu();
 	//	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
@@ -60,19 +34,31 @@ public class DriverPanel extends JPanel {
 	Collection expandedTasks;
 	String gotoTask = null;
 
-	boolean isActive = true;
+	private boolean isActive = true;
 
-	public DriverPanel(DailyItemsPanel _parentPanel) {
+	public DriverPanel(DailyItemsPanel parentPanel) {
 		try {
-			parentPanel = _parentPanel;
+			this.parentPanel = parentPanel;
 			jbInit();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
 			ex.printStackTrace();
 		}
 	}
-	void jbInit() throws Exception {
-		expandedTasks = new ArrayList();
+
+	private void jbInit() throws Exception {
+		GridLayout layout = new GridLayout(1,2);
+		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		setLayout(layout);
+
+		driverTable = new DriverTable();
+		driverTable.setMaximumSize(new Dimension(1000, 1000));
+		driverTable.setRowHeight(24);
+		add(getDriverPanel());
+		add(getSchedulePanel());
+
+		//setLayout();
+		/*expandedTasks = new ArrayList();
 
 		toolBar.setFloatable(false);
 		viewer.setEditable(false);
@@ -191,13 +177,11 @@ public class DriverPanel extends JPanel {
 						 }
 						 refresh(CurrentDate.get());
 					}else if (d.startsWith("memoranda:exportstickerst")) {
-						 /*  Falta agregar el exportar sticker mientras tanto..*/
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
 						 new ExportSticker(name).export("txt");
 						 //JOptionPane.showMessageDialog(null,name);
 					}else if (d.startsWith("memoranda:exportstickersh")) {
-						 /*  Falta agregar el exportar sticker mientras tanto..*/
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
 						 new ExportSticker(name).export("html");
@@ -233,7 +217,7 @@ public class DriverPanel extends JPanel {
 		this.setLayout(borderLayout1);
 		scrollPane.getViewport().setBackground(Color.white);
 
-		scrollPane.getViewport().add(viewer, null);
+		//scrollPane.getViewport().add(viewer, null);
 		this.add(scrollPane, BorderLayout.CENTER);
 		toolBar.add(historyBackB, null);
 		toolBar.add(historyForwardB, null);
@@ -272,6 +256,7 @@ public class DriverPanel extends JPanel {
 			}
 		});
 		refresh(CurrentDate.get());
+				 */
 
 		//        agendaPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
 		//        agendaPPMenu.add(ppShowActiveOnlyChB);
@@ -292,13 +277,61 @@ public class DriverPanel extends JPanel {
 		//		toggleShowActiveOnly_actionPerformed(null);		
 	}
 
+	private JPanel getDriverPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		JLabel label = new JLabel("Drivers");
+		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, 25));
+		label.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+		JButton add = new JButton("Add Driver");
+		add.setAlignmentX(Component.LEFT_ALIGNMENT);
+		add.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				NewDriverDialog dlg = new NewDriverDialog(App.getFrame());
+				Dimension frmSize = App.getFrame().getSize();
+				Point loc = App.getFrame().getLocation();
+				dlg.setLocation(
+						(frmSize.width - dlg.getSize().width) / 2 + loc.x,
+						(frmSize.height - dlg.getSize().height) / 2
+								+ loc.y);
+				dlg.setVisible(true);
+				if (!dlg.CANCELLED) {
+					System.out.println("Not Cancelled");
+				}
+			}
+		});
+
+		JScrollPane scroll = new JScrollPane();
+		scroll.setViewportView(driverTable);//.add(driverTable);
+		scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		panel.add(label);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(add);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(scroll);
+		return panel;
+	}
+
+	private JPanel getSchedulePanel() {
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel("Schedule");
+
+		panel.add(label);
+		return panel;
+	}
+
 	public void refresh(CalendarDate date) {
-		viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
+		//viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				if(gotoTask != null) {
-					viewer.scrollToReference(gotoTask);
-					scrollPane.setViewportView(viewer);
+					//viewer.scrollToReference(gotoTask);
+					//scrollPane.setViewportView(viewer);
 					Util.debug("Set view port to " + gotoTask);
 				}
 			}
