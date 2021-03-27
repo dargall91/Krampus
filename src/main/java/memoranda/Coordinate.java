@@ -1,7 +1,11 @@
 package main.java.memoranda;
 
-// supports up to 12 significant digits, 9 after decimal point
-// expects coordinates in decimal degrees, - longitudes are west of the prime meridian, -latitudes are south of the equator
+/**
+ * Holds a coordinate (a location on Earth) and calculates distances between them
+ *
+ * supports up to 12 significant digits, 9 after decimal point
+ * expects coordinates in decimal degrees, -longitudes are west of the prime meridian, -latitudes are south of the equator
+ */
 public class Coordinate {
     private Double lat;
     private Double lon;
@@ -73,7 +77,7 @@ public class Coordinate {
      * @param c
      * @return
      */
-    public Double distanceTo(Coordinate c){
+    public Double distanceTo(Coordinate c) throws NullPointerException{
         return haversine(lat, c.getLat(), lon, c.getLon());
     }
 
@@ -91,7 +95,7 @@ public class Coordinate {
      * @param c
      * @return
      */
-    public Double latitudeDelta(Coordinate c){
+    public Double latitudeDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLat()- lat);
     }
 
@@ -100,7 +104,7 @@ public class Coordinate {
      * @param c
      * @return
      */
-    public Double longitudeDelta(Coordinate c){
+    public Double longitudeDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLon()- lon);
     }
 
@@ -109,7 +113,7 @@ public class Coordinate {
      * @param c
      * @return
      */
-    public boolean northOf(Coordinate c){
+    public boolean northOf(Coordinate c) throws NullPointerException{
         return lat -c.lat > 0;
     }
 
@@ -119,7 +123,8 @@ public class Coordinate {
      * @param c
      * @return
      */
-//    public boolean eastOf(Coordinate c){
+//    public boolean eastOf(Coordinate c) throws NullPointerException
+//    {
 //        return false;
 //    }
 
@@ -128,7 +133,7 @@ public class Coordinate {
      * @param c
      * @return
      */
-    public boolean southOf(Coordinate c){
+    public boolean southOf(Coordinate c) throws NullPointerException{
         return lat -c.lat < 0;
     }
 
@@ -139,7 +144,7 @@ public class Coordinate {
      * @param c
      * @return
      */
-//    public boolean westOf(Coordinate c){
+//    public boolean westOf(Coordinate c) throws NullPointerException{
 //        return false;
 //    }
 
@@ -155,6 +160,9 @@ public class Coordinate {
      */
     @Override
     public boolean equals(Object o){
+        if (o == null) {
+            return false;
+        }
         Coordinate c=(Coordinate) o;
         String lat1=lat.toString();
         String lat2=c.lat.toString();

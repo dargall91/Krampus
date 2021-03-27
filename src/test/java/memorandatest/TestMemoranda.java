@@ -14,12 +14,20 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class TestMemoranda {
+
+    private static Project prj;
+    private static FileStorage stg;
 
     @BeforeAll
     static void beforeAll() {
         System.out.println("Before all test methods");
+        prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        stg=new FileStorage();
+        stg.createProjectStorage(prj);
     }
 
     @BeforeEach
@@ -35,6 +43,7 @@ public class TestMemoranda {
     @AfterAll
     static void afterAll() {
         System.out.println("After all test methods");
+        stg.removeProjectStorage(prj);
     }
 
 
@@ -70,9 +79,6 @@ public class TestMemoranda {
      */
     @Test
     void testWriteDriver() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
-        Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
-        FileStorage stg=new FileStorage();
-        stg.createProjectStorage(prj);
 
         DriverColl nc=new DriverColl();
         Driver n=new Driver(1, "driver 1", "555-555-1213");
@@ -95,7 +101,54 @@ public class TestMemoranda {
 
         assertEquals(2, count);
 
-        stg.removeProjectStorage(prj);
+    }
+
+
+    /**
+     * test ability to add a node
+     */
+    @Test
+    RouteColl testAddRoute() throws DuplicateKeyException {
+        NodeColl nc=createNodeColl();
+
+        LinkedList<Integer> nli=new LinkedList<>(Arrays.asList(1, 2));
+        RouteLoader rl1= new RouteLoader(1, "Route 1", nli);
+        RouteLoader rl2= new RouteLoader(2, "Route 2", nli);
+        LinkedList<RouteLoader> rlc=new LinkedList<>(Arrays.asList(rl1, rl2));
+
+        RouteColl rc=new RouteColl(nc, rlc);
+
+        assertEquals(2, rc.size());
+        return rc;
+    }
+
+    /**
+     * Test ability to read and write JSON values
+     *
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @Test
+    void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
+
+        NodeColl nc=createNodeColl();
+        RouteColl rc=testAddRoute();
+
+        System.out.println("Save route list");
+        stg.storeRouteList(rc, prj);
+
+        System.out.println("Load route list");
+        RouteColl rl=stg.openRouteList(prj, nc);
+
+        int count=0;
+        for (Route rr:rl){
+            count++;
+            System.out.println("Found route in list="+rr);
+        }
+
+        assertEquals(2, count);
+
     }
 
 
@@ -112,25 +165,28 @@ public class TestMemoranda {
         assertEquals(1, nc.size());
     }
 
-    /**
-     * Test ability to read and write JSON values
-     *
-     * @throws JsonProcessingException
-     * @throws IOException
-     * @throws InterruptedException
-     */
     @Test
-    void testWriteNode() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
-        Project prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
-        FileStorage stg=new FileStorage();
-        stg.createProjectStorage(prj);
-
+    private NodeColl createNodeColl() throws DuplicateKeyException {
         NodeColl nc=new NodeColl();
         Node n=new Node(1, "busstop1", 1.23, 3.24);
         Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
         nc.add(n);
         nc.add(n2);
+        return nc;
+    }
 
+    /**
+     * Test ability to read and write JSON values
+     *
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    @Test
+    void testWriteNode() throws JsonProcessingException, IOException, DuplicateKeyException{
+//        FileStorage stg=new FileStorage();
+//        stg.createProjectStorage(prj);
+
+        NodeColl nc=createNodeColl();
         System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
 
         stg.storeNodeList(nc, prj);
@@ -146,7 +202,6 @@ public class TestMemoranda {
 
         assertEquals(2, count);
 
-        stg.removeProjectStorage(prj);
     }
 
     /**
@@ -177,6 +232,13 @@ public class TestMemoranda {
         assertEquals(c1.distanceTo(c2), 347.3, 0.1);
     }
 
+
+    @Test
+    void testDistanceToNull(){
+        Coordinate c1;
+        c1=new Coordinate(1.0, 2.0);
+        assertThrows(NullPointerException.class, ()-> {c1.distanceTo(null);});
+    }
 
     @Test
     void testCoordinateEquality(){

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- *
+ * holds a node (i.e. a bus stop)
  */
 public class Node extends IndexedObject {
     private String name;
@@ -22,7 +22,6 @@ public class Node extends IndexedObject {
     public Node(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("lat") Double lat,
                 @JsonProperty("lon") Double lon){
         super(id);
-//        this.id=id;
         this.name=name;
         coords=new Coordinate(lat, lon);
     }
@@ -33,7 +32,7 @@ public class Node extends IndexedObject {
      * @param n
      * @return
      */
-    public Double distanceTo(Node n){
+    public Double distanceTo(Node n) throws NullPointerException{
         return this.coords.distanceTo(n.getCoords());
     }
     /**
