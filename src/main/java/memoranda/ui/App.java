@@ -1,8 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.util.Calendar;
 
 import javax.swing.ImageIcon;
@@ -155,17 +153,19 @@ public class App {
 	 */
 	private void showSplash() {
 		splash = new JFrame();
+		splash.setUndecorated(true);
+		splash.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/splash.png"));
+			new ImageIcon(App.class.getResource("/ui/new_splash600x450.png"));
 		JLabel l = new JLabel();
-		l.setSize(400, 300);
+		l.setSize(600, 450);
 		l.setIcon(spl);
 		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
+		splash.setSize(600, 450);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
+			(screenSize.width - 600) / 2,
+			(screenSize.height - 450) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
 	}
