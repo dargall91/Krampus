@@ -3,18 +3,17 @@ package main.java.memoranda.ui;
 import main.java.memoranda.ui.table.TableSorter;
 import main.java.memoranda.util.Local;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import java.awt.*;
-import java.io.File;
+import java.awt.Component;
 import java.util.ArrayList;
 
 public class DriverTable extends JTable {
     //TODO: ArrayList->DriverColl
     private ArrayList<String> drivers;
-    //static final int DRIVER_ID = 100;
     private TableSorter sorter;
 
     public DriverTable() {
@@ -67,19 +66,9 @@ public class DriverTable extends JTable {
                     int column) {
                 JLabel comp;
 
-                comp = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (column == 0) {
-                    //Resource r = (Resource)getModel().getValueAt(row, DRIVER_ID);
-                    //if (!r.isInetShortcut())
-                    //    comp.setIcon(MimeTypesList.getMimeTypeForFile((String)value).getIcon());
-                    //else {}
-                        //comp.setIcon(inetIcon);
-                }
-
-                return comp;
+                return (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
         };
-
     }
 
     class DriverTableModel extends AbstractTableModel {
