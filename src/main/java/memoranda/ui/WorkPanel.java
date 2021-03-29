@@ -34,7 +34,7 @@ public class WorkPanel extends JPanel {
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
-	public JButton agendaB = new JButton();
+	public JButton driverB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
@@ -68,31 +68,31 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
-		agendaB.setBackground(Color.white);
-		agendaB.setMaximumSize(new Dimension(60, 80));
-		agendaB.setMinimumSize(new Dimension(30, 30));
+		driverB.setBackground(Color.white);
+		driverB.setMaximumSize(new Dimension(60, 80));
+		driverB.setMinimumSize(new Dimension(30, 30));
 
-		agendaB.setFont(new java.awt.Font("Dialog", 1, 10));
-		agendaB.setPreferredSize(new Dimension(50, 50));
-		agendaB.setBorderPainted(false);
-		agendaB.setContentAreaFilled(false);
-		agendaB.setFocusPainted(false);
-		agendaB.setHorizontalTextPosition(SwingConstants.CENTER);
-		agendaB.setText(Local.getString("Agenda"));
-		agendaB.setVerticalAlignment(SwingConstants.TOP);
-		agendaB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		agendaB.addActionListener(new java.awt.event.ActionListener() {
+		driverB.setFont(new java.awt.Font("Dialog", 1, 10));
+		driverB.setPreferredSize(new Dimension(50, 50));
+		driverB.setBorderPainted(false);
+		driverB.setContentAreaFilled(false);
+		driverB.setFocusPainted(false);
+		driverB.setHorizontalTextPosition(SwingConstants.CENTER);
+		driverB.setText(Local.getString("Driver"));
+		driverB.setVerticalAlignment(SwingConstants.TOP);
+		driverB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		driverB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				agendaB_actionPerformed(e);
+				driverB_actionPerformed(e);
 			}
 		});
-		agendaB.setIcon(
+		driverB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/agenda.png")));
-		agendaB.setOpaque(false);
-		agendaB.setMargin(new Insets(0, 0, 0, 0));
-		agendaB.setSelected(true);
+					"/ui/icons/driver.png")));
+		driverB.setOpaque(false);
+		driverB.setMargin(new Insets(0, 0, 0, 0));
+		driverB.setSelected(true);
 
 		eventsB.setBackground(Color.white);
 		eventsB.setMaximumSize(new Dimension(60, 80));
@@ -200,12 +200,12 @@ public class WorkPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
-		toolBar.add(agendaB, null);
+		toolBar.add(driverB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
-		currentB = agendaB;
+		currentB = driverB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
 		currentB.setOpaque(true);
@@ -230,11 +230,11 @@ public class WorkPanel extends JPanel {
 		}
 	}
 
-	public void agendaB_actionPerformed(ActionEvent e) {
+	public void driverB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("AGENDA");
-		setCurrentButton(agendaB);
-		Context.put("CURRENT_PANEL", "AGENDA");
+		dailyItemsPanel.selectPanel("DRIVERS");
+		setCurrentButton(driverB);
+		Context.put("CURRENT_PANEL", "DRIVER");
 	}
 
 	public void notesB_actionPerformed(ActionEvent e) {
