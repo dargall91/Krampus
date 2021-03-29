@@ -64,7 +64,7 @@ public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout4 = new BorderLayout();
     TaskPanel tasksPanel = new TaskPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
-    AgendaPanel agendaPanel = new AgendaPanel(this);
+    DriverPanel driverPanel = new DriverPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
@@ -95,7 +95,7 @@ public class DailyItemsPanel extends JPanel {
         
     JTabbedPane tasksTabbedPane = new JTabbedPane();
     JTabbedPane eventsTabbedPane = new JTabbedPane();
-	JTabbedPane agendaTabbedPane = new JTabbedPane();
+	JTabbedPane driverTabbedPane = new JTabbedPane();
     Border border2;
 
 	String CurrentPanel;
@@ -202,7 +202,7 @@ public class DailyItemsPanel extends JPanel {
 
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
         
-        editorsPanel.add(agendaPanel, "AGENDA");
+        editorsPanel.add(driverPanel, "DRIVERS");
         editorsPanel.add(eventsPanel, "EVENTS");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
@@ -300,7 +300,7 @@ public class DailyItemsPanel extends JPanel {
         mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
-		mainTabsPanel.add(agendaTabbedPane, "AGENDATAB");
+		mainTabsPanel.add(driverTabbedPane, "DRIVERSTAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
@@ -460,10 +460,10 @@ public class DailyItemsPanel extends JPanel {
             calendar.jnCalendar.renderer.setTask(t);
        //     calendar.jnCalendar.updateUI();
         }
-        boolean isAg = pan.equals("AGENDA");
-        agendaPanel.setActive(isAg);
+        boolean isAg = pan.equals("DRIVERS");
+        driverPanel.setActive(isAg);
         if (isAg)
-        	agendaPanel.refresh(CurrentDate.get());
+        	driverPanel.refresh(CurrentDate.get());
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
 		calendar.jnCalendar.updateUI();

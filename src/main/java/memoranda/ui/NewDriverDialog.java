@@ -33,7 +33,7 @@ import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
 
 /*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
-public class StickerDialog extends JDialog {
+public class NewDriverDialog extends JDialog {
 	public boolean CANCELLED = true;
 	JPanel panel1 = new JPanel();
 	BorderLayout borderLayout1 = new BorderLayout();
@@ -52,8 +52,8 @@ public class StickerDialog extends JDialog {
 	JScrollPane jScrollPane1 = new JScrollPane();
 	JPanel jPanel1 = new JPanel();
 	JTextArea stickerText = new JTextArea();
-	JLabel jLabel1 = new JLabel();
-	JLabel jLabel2 = new JLabel();
+	JLabel nameLabel = new JLabel();
+	JLabel phoneLabel = new JLabel();
 	JLabel jLabel3 = new JLabel();
 	JLabel jLabel4 = new JLabel();
 	GridLayout gridLayout1 = new GridLayout(6,2);
@@ -99,7 +99,7 @@ public class StickerDialog extends JDialog {
 	JComboBox priorityList = new JComboBox(priorities);
 	
 
-	public StickerDialog(Frame frame) {
+	public NewDriverDialog(Frame frame) {
 		super(frame, Local.getString("Sticker"), true);
 		try {
 			jbInit();
@@ -108,8 +108,8 @@ public class StickerDialog extends JDialog {
 			new ExceptionDialog(ex);
 		}
 	}
-	public StickerDialog(Frame frame, String text, String backcolor, String forecolor, int sP, int size){
-		super(frame, Local.getString("Sticker"), true);
+	public NewDriverDialog(Frame frame, String text, String backcolor, String forecolor, int sP, int size){
+		super(frame, Local.getString("New Driver"), true);
 		try {
 			jbInit();
 			pack();
@@ -140,10 +140,11 @@ public class StickerDialog extends JDialog {
 		else fontSize.setSelectedIndex(1);
 	}
 
-	public StickerDialog() {
+	public NewDriverDialog() {
 		this(null);
 	}
 	void jbInit() throws Exception {
+		setSize(new Dimension(300,380));
 		stickerColor.setRenderer(new ComboBoxRenderer());
 		stickerColor.setMaximumRowCount(11);
 		textColor.setRenderer(new ComboBoxRenderer2());
@@ -210,12 +211,12 @@ public class StickerDialog extends JDialog {
 		header.setFont(new java.awt.Font("Dialog", 0, 20));
 		header.setForeground(new Color(0, 0, 124));
 		header.setText(Local.getString("Sticker"));
-		header.setIcon(new ImageIcon(main.java.memoranda.ui.StickerDialog.class.getResource(
+		header.setIcon(new ImageIcon(NewDriverDialog.class.getResource(
             "/ui/icons/sticker48.png")));
 		//header.setHorizontalAlignment(SwingConstants.LEFT);
 
-		jLabel1.setText(Local.getString("Sticker color")+": ");
-		jLabel2.setText(Local.getString("Font color")+": ");
+		nameLabel.setText(Local.getString("Sticker color")+": ");
+		phoneLabel.setText(Local.getString("Font color")+": ");
 		jLabel3.setText(Local.getString("Font Size")+": ");
 		jLabel4.setText(Local.getString("Priority")+": ");
 		jPanel1.setLayout(gridLayout1);
@@ -232,9 +233,9 @@ public class StickerDialog extends JDialog {
 		this.getContentPane().add(topPanel, BorderLayout.NORTH);
 		topPanel.add(header);
 		
-		jPanel1.add(jLabel1);
+		jPanel1.add(nameLabel);
 		jPanel1.add(stickerColor);
-		jPanel1.add(jLabel2);
+		jPanel1.add(phoneLabel);
 		jPanel1.add(textColor);
 		jPanel1.add(jLabel3);
 		jPanel1.add(fontSize);
