@@ -123,8 +123,12 @@ Answer as a team!
 #### Brian Pape:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Krampus/commit/d0f80e7f6373ca1e9483365fe93eba3621084e2c
+        - Complete refactoring of indexed data and collection classes
+    - https://github.com/amehlhase316/Krampus/commit/c782291f28187e41befd9e3d091ceea40541bb4f
+        - Route storage
+    - https://github.com/amehlhase316/Krampus/commit/d18755bd81ba65060787c015293e08331203b9ab
+        - JSON library integration with decorators and native conversion, JUnit5, gradle wrapper
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -143,7 +147,8 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    I felt that the development of our Quality Policy was a very egalitarian effort and I contributed equally as a team member.
+
 #### Chris Boveda:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
