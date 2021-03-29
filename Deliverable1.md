@@ -205,8 +205,8 @@ Answer as a team!
 #### John Thurstonson:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - [link1](https://github.com/amehlhase316/Krampus/commit/5c31da02de25736b2988cb575bce645b5c0461f8)
+    - [link2](https://github.com/amehlhase316/Krampus/commit/60ad1ec1291faed580687494bb98280e7db1642d)
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -225,7 +225,7 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    - I helped in the discussion during the meeting where we went over the quality policy.
 
 #### Kevin Dolan:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -263,7 +263,7 @@ Answer as a team!
   - [ ] Brian Pape|
   - [ ] Chris Boveda
   - [ ] Derek Argall
-  - [ ] John Thurstonson
+  - [X] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
