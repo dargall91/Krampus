@@ -39,8 +39,10 @@ public class DriverTable extends JTable {
         for (int i = 0; i < 3; i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
-                column.setPreferredWidth(400);//32767);
+                column.setMinWidth(100);
+                column.setPreferredWidth(300);
             }
+
             else {
                 column.setMinWidth(100);
                 column.setPreferredWidth(100);
@@ -100,6 +102,24 @@ public class DriverTable extends JTable {
                     return driver;//driver.getID();
                 case 2:
                     return driver;//driver.getPhone();
+            }
+
+            return null;
+        }
+
+        public Class getColumnClass(int col) {
+            try {
+                switch (col) {
+                    case 1:
+                        return Class.forName("java.lang.Integer");
+                    case 0:
+                    case 2:
+                        return Class.forName("java.lang.String");
+                }
+            }
+
+            catch (Exception ex) {
+                new ExceptionDialog(ex);
             }
 
             return null;

@@ -16,6 +16,7 @@ import main.java.memoranda.util.Util;
 /*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
 public class DriverPanel extends JPanel {
 	private DriverTable driverTable;
+	private ScheduleTable scheduleTable;
 	private DailyItemsPanel parentPanel;
 	String gotoTask = null;
 
@@ -32,15 +33,18 @@ public class DriverPanel extends JPanel {
 	}
 
 	private void jbInit() throws Exception {
-		GridLayout layout = new GridLayout(1,2);
-		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		setLayout(layout);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
 		driverTable = new DriverTable();
-		driverTable.setMaximumSize(new Dimension(800, 800));
+		driverTable.setMaximumSize(new Dimension(500, 500));
 		driverTable.setRowHeight(24);
 
+		scheduleTable = new ScheduleTable();
+		//scheduleTable.setMaximumSize(new Dimension(800, 800));
+		scheduleTable.setRowHeight(24);
+
 		add(getDriverPanel());
+		add(Box.createRigidArea(new Dimension(5, 0)));
 		add(getSchedulePanel());
 	}
 
@@ -72,7 +76,7 @@ public class DriverPanel extends JPanel {
 		});
 
 		JScrollPane scroll = new JScrollPane();
-		scroll.setViewportView(driverTable);//.add(driverTable);
+		scroll.setViewportView(driverTable);
 		scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		panel.add(label);
@@ -92,7 +96,13 @@ public class DriverPanel extends JPanel {
 		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, 25));
 		label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+		JScrollPane scroll = new JScrollPane();
+		scroll.setViewportView(scheduleTable);
+		scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+
 		panel.add(label);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(scroll);
 
 		return panel;
 	}
