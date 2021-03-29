@@ -155,8 +155,9 @@ Answer as a team!
 #### Chris Boveda:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Krampus/commit/310f2ff3e89b6852ecfb269da70f5f55d792f122
+    - https://github.com/amehlhase316/Krampus/commit/c736f7c2fd09b79ba1777e43d64d5157260cf382
+    - https://github.com/amehlhase316/Krampus/commit/281c594369edbbfda6499f41124cda1e8fdd3104
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -175,7 +176,7 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    - Our group worked together and each member contributed equally to development of our quality policy.
 
 #### Derek Argall:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
