@@ -174,6 +174,7 @@ Answer as a team!
 
     - https://github.com/amehlhase316/Krampus/commit/71c0920954fe15bcafabbf6960a15ba6d9617440
     - https://github.com/amehlhase316/Krampus/commit/1d924c2536a5acdd0928c04dcc1964515ee302f1
+    - https://github.com/amehlhase316/Krampus/pull/33/commits/5f0bf92d8dded53f3a41ecc538da04ab4dddd308
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -192,7 +193,7 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    - I feel that I contributed more to the review and retrospective portion than I did to the planing portion
 
 #### John Thurstonson:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -254,7 +255,7 @@ Answer as a team!
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Brian Pape|
   - [ ] Chris Boveda
-  - [ ] Derek Argall
+  - [X] Derek Argall
   - [ ] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
