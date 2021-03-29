@@ -50,16 +50,19 @@ I would also advise you to already fill out the Contributions section (End of sp
 | 17MAR21  | All  |  Complete Sprint1 Planning            | n/a  | n/a | n/a |
 | 19MAR21  | All  | Sprint1 status updates       | n/a  | n/a | via Slack,  no blockers |
 | 21MAR21  | All  | Sprint1 status updates  | n/a  | n/a | via Slack/Zoom,  no blockers |
+| 24MAR21  | All  | Sprint1 status updates  | n/a  | n/a | via Slack/Zoom,  no blockers |
+| 26MAR21  | All  | Sprint1 status updates  | n/a  | n/a | via Slack,  no blockers |
+| 28MAR21  | All  | Sprint1 wrap-up | n/a  | n/a | via Slack/Zoom,  no blockers |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended |
 |---|---|
-|Brian Pape| 4|
-|Chris Boveda| 4|
-|Derek Argall| 4|
-|John Thurstonson| 4|
-|Kevin Dolan| 4|
+|Brian Pape| 7|
+|Chris Boveda| 7|
+|Derek Argall| 7|
+|John Thurstonson| 7|
+|Kevin Dolan| 7|
 
 
 ## 3: After the Sprint
@@ -73,15 +76,15 @@ Answer as a team!
 
 **What do you think is the value you created this Sprint?**
 
-> Your Answer
+> We resolved many of the critical bugs in the existing memoranda software, laid the foundation for the data structures that will be used in the bus scheduling system, and through our UI mockups started a plan for implementation of the bus system.
 
 **Do you think you worked enough and that you did what was expected of you?**
 
-> Your Answer
+> Yes, as a whole our team felt that we worked enough and did what was expected of us. Our intial estimation of the workload was below what we were capable of competing, and we pulled in one additional story from the product backlog.
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
-> Your Answer
+> Yes, we completed all but one of the prescribed user stories, and the user story that will be rolling over in to Sprint 2 is part of our larger implementation plan for the UI.
 
 
 ### Sprint Retrospective
@@ -90,31 +93,31 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
-> Your Answer
+> Yes, our team met our sprint goal.
 
-**Did you complete all stories on your Spring Backlog?**
+**Did you complete all stories on your Sprint Backlog?**
 
-> Your Answer
+> No, we did not complete all of our stories on our sprint backlog. 
 
 **If not, what went wrong?**
 
-> Your Answer
+> While most of our user stories related to the UI were focused on mockups and planning, user story 50 included acceptance criteria related to implementation. The planning tasks of US50 were completed, but the implementation was not completed in time for the end of the sprint.
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> Your Answer
+> Yes; our burndown chart showed a consistent rate of task and story completion throughout the sprint.
 
 **Did you deliver business value?**
 
-> Your Answer
+> Yes; though the conversion from memoranda to the bus scheduling system is not readily apparent yet, we are ending sprint 1 with a great foundation for those future changes.
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> Your Answer
+> Our team agrees that we could do a better job of estimating the story points better.
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> Your Answer
+> Our team is optimistic and confident that we can complete the overall goal of converting memoranda to a bus scheduling system by the end of the three sprints.
 
 ### Contributions:
 
@@ -254,7 +257,7 @@ Answer as a team!
 ## 4: Checklist for you to see if you are done
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences
 - [X] Read the kickoff again to make sure you have all the details
-- [ ] User Stories that were not completed, were left in the Sprint and a copy created
+- [X] User Stories that were not completed, were left in the Sprint and a copy created
 - [x] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Brian Pape|
@@ -264,6 +267,6 @@ Answer as a team!
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
+  - [x] All User Stories have acceptance tests
+  - [x] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [x] You know how to proceed

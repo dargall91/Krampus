@@ -9,7 +9,7 @@
   > - Branch naming for stories and tasks shall follow the format: US#-Task#
   > - Pull requests in to Dev require one tester, and the tester may be the submitter. Pull requests in to Master require two testers, and one of the testers may be the submitter.
   > - Pull requests in to Dev must be approved by another programmer, and may not be approved by the submitter.
-  > - Pull requests in to Master may **only** be submitted by the sprint git master, and may **only** be approved by the product owner (professor). 
+  > - Pull requests in to Master may **only** be submitted and approved by the sprint git master.
   > - **All pull requests in to Dev and Master should be fast-forwards**.
   > - Commit messages shall follow the guidelines outlined in [this post](https://chris.beams.io/posts/git-commit/)
   > - Pull requests shall have meaningful names and descriptions, and the default naming is to be avoided.
