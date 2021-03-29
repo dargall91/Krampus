@@ -172,9 +172,9 @@ Answer as a team!
 #### Derek Argall:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - https://github.com/amehlhase316/Krampus/commit/71c0920954fe15bcafabbf6960a15ba6d9617440
-    - https://github.com/amehlhase316/Krampus/commit/1d924c2536a5acdd0928c04dcc1964515ee302f1
-    - https://github.com/amehlhase316/Krampus/pull/33/commits/5f0bf92d8dded53f3a41ecc538da04ab4dddd308
+    - [Window close operation fix](https://github.com/amehlhase316/Krampus/commit/71c0920954fe15bcafabbf6960a15ba6d9617440)
+    - [Window minimize operation fix](https://github.com/amehlhase316/Krampus/commit/1d924c2536a5acdd0928c04dcc1964515ee302f1)
+    - [Drivers tab UI Prototype](https://github.com/amehlhase316/Krampus/commit/5f0bf92d8dded53f3a41ecc538da04ab4dddd308)
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
