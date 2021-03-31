@@ -181,8 +181,9 @@ Answer as a team!
 #### Derek Argall:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - [Window close operation fix](https://github.com/amehlhase316/Krampus/commit/71c0920954fe15bcafabbf6960a15ba6d9617440)
+    - [Window minimize operation fix](https://github.com/amehlhase316/Krampus/commit/1d924c2536a5acdd0928c04dcc1964515ee302f1)
+    - [Drivers tab UI Prototype](https://github.com/amehlhase316/Krampus/commit/5f0bf92d8dded53f3a41ecc538da04ab4dddd308)
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -201,13 +202,13 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    - I feel that I contributed more to the review and retrospective portion than I did to the planing portion
 
 #### John Thurstonson:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - [link1](https://github.com/amehlhase316/Krampus/commit/5c31da02de25736b2988cb575bce645b5c0461f8)
+    - [link2](https://github.com/amehlhase316/Krampus/commit/60ad1ec1291faed580687494bb98280e7db1642d)
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -226,7 +227,7 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    - I helped in the discussion during the meeting where we went over the quality policy.
 
 #### Kevin Dolan:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
