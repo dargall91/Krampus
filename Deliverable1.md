@@ -232,8 +232,8 @@ Answer as a team!
 #### Kevin Dolan:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+>   - [Create logo and place in repo](https://github.com/amehlhase316/Krampus/commit/c9d6202a725877bd6b5985bf06d768ca9697749a)
+>   - [Create and replace Splash Screen](https://github.com/amehlhase316/Krampus/commit/69b0b5851b5496bdee1869d17c8d432c0a867f4b)
 
    **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -252,21 +252,21 @@ Answer as a team!
  
  **What was your main contribution to the Quality Policy documentation?:**
 
-    - info
+    - Our group worked togther to build the Quality Policy document in one of our first zoom meetings.
 
 
   
 ## 4: Checklist for you to see if you are done
-- [ ] Filled out the complete form from above, all fields are filled and written in full sentences
+- [x] Filled out the complete form from above, all fields are filled and written in full sentences
 - [X] Read the kickoff again to make sure you have all the details
 - [X] User Stories that were not completed, were left in the Sprint and a copy created
 - [x] Your Quality Policies are accurate and up to date
-- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Brian Pape|
-  - [ ] Chris Boveda
-  - [X] Derek Argall
+- [X] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [x] Brian Pape|
+  - [x] Chris Boveda
+  - [x] Derek Argall
   - [X] John Thurstonson
-  - [ ] Kevin Dolan
+  - [X] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [x] All User Stories have acceptance tests
