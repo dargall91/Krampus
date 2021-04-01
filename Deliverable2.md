@@ -21,19 +21,19 @@ Document your Sprint Planning here. Also check the kickoff document for more det
 > Our overall goal for this sprint is to complete the functionality requirements of the Bus Scheduling system, including the route planning algorithm, and to have basic displays available for each of the modules.
 
 **How many User Stories did you add to the Product Backlog:**
-> 4
+> We added 2 stories to the product backlog, and had one story rollover from sprint 1.
 
 **How many User Stories did you add to this Sprint:** 
-> 
+> We added 7 stories to the sprint 2 backlog for a total of 37 points.
 
 **Why did you add these US, why do you think you can get them done in the next Sprint?**
-> 
+> We selected these stories because they are directly related to our sprint goal. We believe we can get them done within this sprint because the total points is equal to the number of points we completed last sprint.
 
 **Why do you think these fit well with your Sprint goal? (details)**
-> 
+> The stories for sprint 2 cover each of the core entities -- nodes, routes, tours, busses, and drivers -- and their associated UI module. Completion of these stories would mark the completion of the basic requirements of the system, and allow us to focus on polish in sprint 3.
 
 **Do you have a rough idea what you need to do? (if the answer is no then please let me know on Slack)**
-> 
+> Yes, our team has a complete understanding of what needs to be done for this sprint and feels confident.
 
 
 ## 2: During the Sprint
@@ -245,7 +245,7 @@ Answer as a team!
   
 ## 4: Checklist for you to see if you are done
 - [] Filled out the complete form from above, all fields are filled and written in full sentences
-- [] Read the kickoff again to make sure you have all the details
+- [x] Read the kickoff again to make sure you have all the details
 - [] User Stories that were not completed, were left in the Sprint and a copy created
 - [] Your Quality Policies are accurate and up to date
 - [] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
@@ -254,7 +254,7 @@ Answer as a team!
   - [] Derek Argall
   - [] John Thurstonson
   - [] Kevin Dolan
-- [] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
+- [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [] All User Stories have acceptance tests
   - [] User Stories in your new Sprint Backlog have initial tasks which are in New
