@@ -7,25 +7,60 @@
   > - The Dev branch shall also be protected and stable, but does not need to be a complete product.
   > - One branch will be created for each user story, with additional branches created for individual tasks at the programmer's discretion.
   > - Branch naming for stories and tasks shall follow the format: US#-Task#
-  > - Pull requests in to Dev require one tester, and the tester may be the submitter. Pull requests in to Master require two testers, and one of the testers may be the submitter.
+  > - Developers may not be a tester for their own commits.
+  > - Pull requests in to Dev require one tester. Pull requests in to Master require two testers.
   > - Pull requests in to Dev must be approved by another programmer, and may not be approved by the submitter.
   > - Pull requests in to Master may **only** be submitted and approved by the sprint git master.
+  > - Pull requests must pass all TravisCI tests without error.
   > - **All pull requests in to Dev and Master should be fast-forwards**.
   > - Commit messages shall follow the guidelines outlined in [this post](https://chris.beams.io/posts/git-commit/)
   > - Pull requests shall have meaningful names and descriptions, and the default naming is to be avoided.
 
 **Unit Tests Blackbox** (start Sprint 2)
-  > Your Blackbox testing policy 
+  > - A developer is responsible for writing the unit tests for their own commits.
+  > - If a bug is found that was not caught by the original unit tests, then the discoverer of the bug shall develop additional unit tests as needed to identify and catch the error.
+  > - Unit tests are required for all non-GUI and non-trivial methods. Examples of trivial methods are getters and setters.
+  > - Each developer will implement a minimuim of four unit tests per sprint.
+  > - Commits for unit tests shall be clearly identified in the commit message (example: US# Task# Unit Test: )
 
  **Unit Tests Whitebox** (online: start Sprint 2, campus: start Sprint 3)
-  > Your Whitebox testing policy 
+  > - Whitebox tests shall be used:
+  > -- at the developers discretion, depending on the complexity of the method.
+  > -- when code coverage of the method with blackbox testing is less than 50%.
+  > - When used, whitebox tests shall follow the same naming and responsibility guidelines listed above for blackbox files.
 
 **Code Review** (online: due start Sprint 2, campus: start Sprint 3)
-  > Your Code Review policy   
+  > - Each developer shall perform at least two code reviews per sprint.
 
-  > Include a checklist/questions list which every developer will need to fill out/answe when creating a Pull Request to the Dev branch. 
+**Developer Checklist**
 
-  > Include a checklist/question list which every reviewer will need to fill out/anser when conducting a review, this checklist (and the answers of course) need to be put into the Pull Request review.
+- [ ] Commit name follows naming guidelines described in QualityPolicy
+- [ ] Unit tests are in separate commits and named correctly per QualityPolicy
+- [ ] Code for completed stories meets all acceptance criteria for the user story
+- [ ] All source code files have a proper javadoc header
+- [ ] All public methods have a javadoc banner
+- [ ] All attributes are private
+- [ ] All literal values (except loop indices) should be constants
+- [ ] All variables, methods, and classes are named properly
+  - [ ] Variable and method names are in lowerCamelCase
+  - [ ] Class names are in UpperCamelCase
+  - [ ] Constants and enums are in CAPS
+- [ ] All complex statements, including single line statements, must use explicit brackets {}
+
+**Reviewer Checklist**
+- [ ] Code passes all TravisCI tests
+- [ ] Commit name follows naming guidelines described in QualityPolicy
+- [ ] Unit tests are in separate commits and named correctly per QualityPolicy
+- [ ] Code for completed stories meets all acceptance criteria for the user story
+- [ ] All source code files have a proper javadoc header
+- [ ] All public methods have a javadoc banner
+- [ ] All attributes are private
+- [ ] All literal values (except loop indices) should be constants
+- [ ] All variables, methods, and classes are named properly
+  - [ ] Variable and method names are in lowerCamelCase
+  - [ ] Class names are in UpperCamelCase
+  - [ ] Constants and enums are in CAPS
+- [ ] All complex statements, including single line statements, must use explicit brackets {}
 
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
   > Your Static Analysis policy   
