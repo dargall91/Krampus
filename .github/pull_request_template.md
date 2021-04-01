@@ -16,7 +16,7 @@ Developer:
 
 
 Reviewer 1:
-- [ ] Code passes all TravisCI tests (Reviewer only)
+- [ ] Code passes all TravisCI tests
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -32,7 +32,7 @@ Reviewer 1:
 
 
 Reviewer 2:
-- [ ] Code passes all TravisCI tests (Reviewer only)
+- [ ] Code passes all TravisCI tests
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
