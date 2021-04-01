@@ -1,6 +1,11 @@
-Reviewer: Please check all items on the following template before approving a PR into Dev or Master.
+Reviewer: Please check all items on the appropriate template before approving a PR into Dev or Master.
 
-Developer:
+Notes by PR submitter:
+
+
+
+---
+Developer checklist:
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -14,8 +19,11 @@ Developer:
   - [ ] Constants and enums are in CAPS
 - [ ] All complex statements, including single line statements, must use explicit brackets {}
 
+Developer comments:
 
-Reviewer 1:
+
+---
+Reviewer 1 checklist:
 - [ ] Code passes all TravisCI tests
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
@@ -30,8 +38,11 @@ Reviewer 1:
   - [ ] Constants and enums are in CAPS
 - [ ] All complex statements, including single line statements, must use explicit brackets {}
 
+Reviewer 1 comments:
 
-Reviewer 2:
+
+---
+Reviewer 2 checklist:
 - [ ] Code passes all TravisCI tests
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
@@ -45,3 +56,6 @@ Reviewer 2:
   - [ ] Class names are in UpperCamelCase
   - [ ] Constants and enums are in CAPS
 - [ ] All complex statements, including single line statements, must use explicit brackets {}
+
+Reviewer 2 comments:
+
