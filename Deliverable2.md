@@ -49,13 +49,13 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 ### Meeting Summary:
 
-| Name | Meeting Attended |
-|---|---|
-|Brian Pape| 8|
-|Chris Boveda| 8|
-|Derek Argall| 8|
-|John Thurstonson| 7|
-|Kevin Dolan| 8|
+| Name | Meeting Attended This Sprint | Project Total |
+|---|---|---|
+|Brian Pape| 1| 8|
+|Chris Boveda| 1| 8|
+|Derek Argall| 1| 8|
+|John Thurstonson| 0| 7|
+|Kevin Dolan| 1| 8|
 
 
 ## 3: After the Sprint
