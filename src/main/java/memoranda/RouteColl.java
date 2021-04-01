@@ -48,6 +48,15 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     }
 
     /**
+     * Return a new route with a unique ID
+     *
+     * @return new Route object
+     */
+    public Route newRoute(){
+        return new Route(getUniqueID());
+    }
+
+    /**
      * get route by ID
      * @param id
      * @return

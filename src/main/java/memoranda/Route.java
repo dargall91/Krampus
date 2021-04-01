@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Route extends IndexedObject{
     private String name;
@@ -51,7 +52,19 @@ public class Route extends IndexedObject{
         this.route=r.getRoute();
     }
 
+
     /**
+     * Add an ordered list of nodes to this route
+     *
+     * @param nodes
+     */
+    public  void addNodes(List<Node> nodes){
+        for (Node n:nodes){
+            addNode(n);
+        }
+    }
+
+                 /**
      * Add a new node to the end of this route
      *
      * @param node
