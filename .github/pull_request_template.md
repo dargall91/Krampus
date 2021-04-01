@@ -6,6 +6,7 @@ Notes by PR submitter:
 
 ---
 Developer checklist:
+- [ ] This is a documentation update and following code review standards do not apply
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -24,6 +25,7 @@ Developer comments:
 
 ---
 Reviewer 1 checklist:
+- [ ] This is a documentation update and following code review standards do not apply
 - [ ] Code passes all TravisCI tests
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
@@ -43,6 +45,7 @@ Reviewer 1 comments:
 
 ---
 Reviewer 2 checklist:
+- [ ] This is a documentation update and following code review standards do not apply
 - [ ] Code passes all TravisCI tests
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
