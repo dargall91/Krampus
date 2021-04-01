@@ -53,16 +53,17 @@ I would also advise you to already fill out the Contributions section (End of sp
 | 24MAR21  | All  | Sprint1 status updates  | n/a  | n/a | via Slack/Zoom,  no blockers |
 | 26MAR21  | All  | Sprint1 status updates  | n/a  | n/a | via Slack,  no blockers |
 | 28MAR21  | All  | Sprint1 wrap-up | n/a  | n/a | via Slack/Zoom,  no blockers |
+| 31MAR21 | -John | Sprint1 retrospective and Sprint2 planning | n/a | n/a | via Slack/Zoom, no blockers |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended |
 |---|---|
-|Brian Pape| 7|
-|Chris Boveda| 7|
-|Derek Argall| 7|
+|Brian Pape| 8|
+|Chris Boveda| 8|
+|Derek Argall| 8|
 |John Thurstonson| 7|
-|Kevin Dolan| 7|
+|Kevin Dolan| 8|
 
 
 ## 3: After the Sprint
@@ -93,11 +94,11 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
-> Yes, our team met our sprint goal.
+> Yes, our team met our sprint goal. Our code base is stable and the major bugs have been removed. Each of our team members understands the architecture of the memoranda software. The back-end data structure foundation has been established for our future changes.
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> No, we did not complete all of our stories on our sprint backlog. 
+> No, we did not complete all of our stories on our sprint backlog, as explained in the next bullet point. US#50 has been left on the sprint board to document the state the of the board at the end of the sprint.
 
 **If not, what went wrong?**
 
@@ -113,7 +114,7 @@ Answer as a team!
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> Our team agrees that we could do a better job of estimating the story points better.
+> Our team agrees that we could do a better job of estimating the story points better. Most of our stories were classified as 3-points, but that does not accurately represent their complexity or effort required.
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
