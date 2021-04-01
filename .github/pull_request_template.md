@@ -1,7 +1,6 @@
 Reviewer: Please check all items on the following template before approving a PR into Dev or Master.
 
 Developer:
-- [ ] Code passes all TravisCI tests (Reviewer only)
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
