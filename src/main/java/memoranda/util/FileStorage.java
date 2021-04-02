@@ -728,7 +728,7 @@ public class FileStorage implements Storage {
         // find value of "nodes" object (which is an array) and create list of Driver objects
         List<DriverLoader> driverList=mapper.readValue(jsonNode.get("drivers").toString(), new TypeReference<>(){});
 
-        // create new nodeColl based on read data/objects
+        // create new driverColl based on read data/objects
         DriverColl driverColl=new DriverColl(tourColl, driverList);
 
         System.out.println("[DEBUG] DriverColl has "+driverColl.size()+" in openDriverList");
