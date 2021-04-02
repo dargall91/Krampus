@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class Tour extends IndexedObject{
     private String name;
     private LocalTime time;
+    private Bus bus;
     private Route route;
 
 
@@ -32,9 +33,10 @@ public class Tour extends IndexedObject{
      * @param route
      * @param time
      */
-    public Tour(int id, String name, Route route, LocalTime time){
+    public Tour(int id, String name, Bus bus, Route route, LocalTime time){
         this(id);
         this.name=name;
+        this.bus=bus;
         this.route=route;
         this.time=time;
     }
@@ -47,20 +49,28 @@ public class Tour extends IndexedObject{
      * @throws IndexOutOfBoundsException
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Tour(RouteColl routeColl, TourLoader newTour) throws IndexOutOfBoundsException{
-        this(newTour.getId());
+    public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour) throws IndexOutOfBoundsException{
+        this(newTour.getID());
 
-        Route n;
+        System.out.println("In Tour: newTour="+newTour);
+
         name=newTour.getName();
 
         DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
         time = LocalTime.parse(newTour.getTime(), timeParser);
 
-        n = routeColl.get(newTour.getRouteId());
-        if (n == null) {
-            throw new IndexOutOfBoundsException("Route index " + newTour.getRouteId() + " not found");
+        Bus b= busColl.get(newTour.getBusID());
+        if (b == null) {
+            throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
         } else {
-            setRoute(n);
+            bus=b;
+        }
+
+        Route r = routeColl.get(newTour.getRouteID());
+        if (r == null) {
+            throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID() + " not found");
+        } else {
+            route=r;
         }
     }
 
@@ -71,6 +81,15 @@ public class Tour extends IndexedObject{
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    /**
+     *
+     * @param bus
+     */
+    public void setBus(Bus bus){
+        this.bus=bus;
     }
 
     /**
@@ -126,8 +145,28 @@ public class Tour extends IndexedObject{
      * @return
      */
     @JsonProperty
-    public int getRouteId(){
-        return route.getId();
+    public int getRouteID(){
+        return route.getID();
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    @JsonIgnore
+    public Bus getBus(){
+        return bus;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    @JsonProperty("busID")
+    public int getBusID(){
+        return bus.getID();
     }
 
     /**
@@ -136,6 +175,6 @@ public class Tour extends IndexedObject{
      */
     @Override
     public String toString(){
-        return getId()+":"+"'"+name+"'"+route;
+        return getID()+":"+"'"+name+"'"+route;
     }
 }

@@ -83,7 +83,7 @@ public class Node extends IndexedObject {
      */
     @Override
     public String toString(){
-        return getId()+":"+"'"+name+"'@"+ coords;
+        return getID()+":"+"'"+name+"'@"+ coords;
     }
 
     // file name will be .nodes in home directory

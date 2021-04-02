@@ -25,6 +25,8 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.DriverLoader;
@@ -536,6 +538,15 @@ public class FileStorage implements Storage {
         return getFileName(prj, "driver.json");
     }
 
+    /**
+     *
+     * @param prj
+     * @return
+     */
+    private String getBusFileName(Project prj){
+        return getFileName(prj, "bus.json");
+    }
+
 
     /**
      *
@@ -668,12 +679,12 @@ public class FileStorage implements Storage {
     /**
      *
      * @param prj
-     * @param routeList
+     * @param routeColl
      * @throws JsonProcessingException
      * @throws IOException
      * @throws DuplicateKeyException
      */
-    public TourColl openTourList(Project prj, RouteColl routeList) throws JsonProcessingException, IOException, DuplicateKeyException{
+    public TourColl openTourList(Project prj, RouteColl routeColl, BusColl busColl) throws JsonProcessingException, IOException, DuplicateKeyException{
         String fn= getTourFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
@@ -685,7 +696,7 @@ public class FileStorage implements Storage {
         List<TourLoader> tourList=mapper.readValue(jsonNode.get("tours").toString(), new TypeReference<>(){});
 
         // create new nodeColl based on read data/objects
-        TourColl tourColl=new TourColl(routeList, tourList);
+        TourColl tourColl=new TourColl(routeColl, busColl, tourList);
 
         System.out.println("[DEBUG] RouteColl has "+tourColl.size()+" in openRouteList");
         return tourColl;
@@ -752,6 +763,56 @@ public class FileStorage implements Storage {
 
         // annotation is used so Jackson knows which method to use for output
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), driverColl);
+
+    }
+
+
+    /**
+     *
+     * @param prj
+     * @return
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws DuplicateKeyException
+     */
+    public BusColl openBusList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException{
+        String fn= getBusFileName(prj);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+        // create new mapper object
+        JsonNode jsonNode=mapper.readTree(new File(fn));
+
+        // find value of "nodes" object (which is an array) and create list of Bus objects
+        List<Bus> busList=mapper.readValue(jsonNode.get("buses").toString(), new TypeReference<>(){});
+
+        System.out.println("Buslist="+busList);
+        // create new busColl based on read data/objects
+        BusColl busColl=new BusColl(busList);
+
+        System.out.println("[DEBUG] BusColl has "+busColl.size()+" in openBusList");
+        return busColl;
+
+
+
+    }
+
+    /**
+     *
+     * @param prj
+     * @param busColl
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public void storeBusList(Project prj, BusColl busColl) throws JsonProcessingException, IOException{
+        String fn= getBusFileName(prj);
+
+        // create new object mapper
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+
+        // annotation is used so Jackson knows which method to use for output
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), busColl);
 
     }
 
