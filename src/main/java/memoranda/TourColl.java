@@ -39,12 +39,12 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
      * @param c
      * @throws DuplicateKeyException
      */
-    public TourColl(RouteColl routeColl, Collection<TourLoader> c) throws DuplicateKeyException{
+    public TourColl(RouteColl routeColl, BusColl busColl, Collection<TourLoader> c) throws DuplicateKeyException{
         this();
-        System.out.println("in TourCOll constructor. routecoll="+routeColl+", tourloader coll="+c);
+        System.out.println("in TourColl constructor. routecoll="+routeColl+", tourloader coll="+c);
         for (TourLoader tl: c){
             System.out.println("adding new tour to this collection");
-            add(new Tour(routeColl, tl));
+            add(new Tour(routeColl, busColl, tl));
         }
     }
 

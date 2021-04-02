@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TourLoader extends IndexedObject{
     private String name;
     private String time;
+    private int busID;
     private int routeID;
 
     /**
@@ -19,10 +20,12 @@ public class TourLoader extends IndexedObject{
      * @param routeID
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public TourLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("time") String time, @JsonProperty("routeId") Integer routeID) {
+    public TourLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("time") String time,
+                      @JsonProperty("busID") Integer busID, @JsonProperty("routeID") Integer routeID) {
         super(id);
         this.name = name;
         this.time = time;
+        this.busID = busID;
         this.routeID = routeID;
     }
 
@@ -45,7 +48,15 @@ public class TourLoader extends IndexedObject{
      *
      * @return
      */
-    public Integer getRouteId(){
+    public Integer getBusID(){
+        return busID;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Integer getRouteID(){
         return routeID;
     }
 
@@ -53,7 +64,7 @@ public class TourLoader extends IndexedObject{
      * @return
      */
     public String toString() {
-        return "route " + getId() + " " + getName();
+        return "route " + getID() + " " + getName();
     }
 
 }

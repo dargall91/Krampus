@@ -1,6 +1,5 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -40,7 +39,7 @@ public class Driver extends IndexedObject {
      * @param newDriver
      */
     public Driver(TourColl tc, DriverLoader newDriver){
-        this(newDriver.getId());
+        this(newDriver.getID());
         this.name=newDriver.getName();
         this.phoneNumber= newDriver.getPhoneNumber();
         for (int t:newDriver.getTourIDs()){
@@ -53,7 +52,7 @@ public class Driver extends IndexedObject {
      * @param tour
      */
     public void addTour(Tour tour){
-        tours.put(tour.getId(), tour);
+        tours.put(tour.getID(), tour);
     }
 
 
@@ -84,7 +83,7 @@ public class Driver extends IndexedObject {
     public LinkedList<Integer> getTourIDs(){
         LinkedList<Integer> li=new LinkedList<>();
         for (Tour t: tours.values()){
-            li.add(t.getId());
+            li.add(t.getID());
         }
         return li;
     }
@@ -129,7 +128,7 @@ public class Driver extends IndexedObject {
      */
     @Override
     public String toString(){
-        return "Driver "+getId()+":'"+name+"','"+phoneNumber+"'";
+        return "Driver "+ getID()+":'"+name+"','"+phoneNumber+"'";
     }
 
 }
