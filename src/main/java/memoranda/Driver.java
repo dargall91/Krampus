@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Driver extends IndexedObject {
-    String name;
-    String phoneNumber;
+    private String name;
+    private String phoneNumber;
 
     @JsonIgnore
-    LinkedList<Tour> tours;
+    HashMap<Integer, Tour> tours;
 
 
     public Driver(int id){
@@ -38,21 +40,38 @@ public class Driver extends IndexedObject {
      * @param tour
      */
     public void addTour(Tour tour){
-
+        tours.put(tour.getId(), tour);
     }
 
-    // WIP
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Tour getTour(int id){
+        return tours.get(id);
+    }
+
     /**
      *
      * @return
      */
-    public LinkedList<Tour> getTours(){
-        return null;
+    @JsonProperty
+    public Collection<Tour> getTours(){
+        return tours.values();
     }
 
-    // WIP
+    /**
+     *
+     * @return
+     */
     public LinkedList<Integer> getTourIDs(){
-        return null;
+        LinkedList<Integer> li=new LinkedList<>();
+        for (Tour t: tours.values()){
+            li.add(t.getId());
+        }
+        return li;
     }
 
 

@@ -60,16 +60,57 @@ public class TestMemoranda {
 
         assertThrows(DuplicateKeyException.class, () -> {nc.add(n); });
     }
+
+
+    @Test
+    Driver testCreateDriver() throws DuplicateKeyException{
+        NodeColl nc=createNodeColl();
+        RouteColl rc=testAddRoute();
+
+        TourColl tourColl=new TourColl();
+        Tour tour=tourColl.newItem();
+        tour.setName("A tour");
+        tour.setTime(LocalTime.of(12,0));
+        tour.setRoute(rc.get(1));
+
+        Tour tour2=tourColl.newItem();
+        tour2.setName("Tour number 2");
+        tour2.setTime(LocalTime.of(14,0));
+        tour.setRoute(rc.get(2));
+
+        Driver d=new Driver(1, "test driver", "555-555-1212");
+        d.addTour(tour);
+        d.addTour(tour2);
+
+        assertNotNull(d);
+
+        return d;
+    }
+
+
+    @Test
+    void fleebvoid(){
+        assertEquals(1,1);
+    }
+
+    @Test
+    Integer fleebInt(){
+        assertEquals(1,1);
+        return 1;
+    }
+
     /**
      * test ability to add a node
      */
     @Test
-    void testAddDriver() throws DuplicateKeyException {
-        DriverColl nc=new DriverColl();
-        Driver n=new Driver(1, "test driver", "555-555-1212");
-        nc.add(n);
+    DriverColl testCreateDriverColl() throws DuplicateKeyException {
+        DriverColl dc=new DriverColl();
 
-        assertEquals(1, nc.size());
+        Driver d=testCreateDriver();
+
+        assertEquals(1, dc.size());
+
+        return dc;
     }
 
     /**
@@ -82,15 +123,16 @@ public class TestMemoranda {
     @Test
     void testWriteDriver() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
 
-        DriverColl nc=new DriverColl();
-        Driver n=new Driver(1, "driver 1", "555-555-1213");
-        Driver n2=new Driver(2, "driver 2", "202-123-3482");
-        nc.add(n);
-        nc.add(n2);
+        DriverColl dc=testCreateDriverColl();
 
-        System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
+        Driver d=testCreateDriver();
+        Driver d2=new Driver(2, "driver 2", "202-123-3482");
+        dc.add(d);
+        dc.add(d2);
 
-        stg.storeDriverList(prj, nc);
+        System.out.println("After adding two entries, list contains "+dc.size()+" elements.");
+
+        stg.storeDriverList(prj, dc);
 
         System.out.println("Load driver list");
         DriverColl dl=stg.openDriverList(prj);
