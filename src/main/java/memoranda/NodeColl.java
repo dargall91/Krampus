@@ -32,6 +32,11 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
     }
 
 
+    /**
+     * Returns a new collection item with a unique key
+     *
+     * @return new Node
+     */
     @Override
     public Node newItem(){
         return new Node(getUniqueID());
@@ -44,10 +49,10 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      * @param n
      * @throws DuplicateKeyException
      */
-    @Override
-    public void createUnique(Node n) throws DuplicateKeyException {
-        add(new Node(getUniqueID(), n.getName(), n.getLat(), n.getLon()));
-    }
+//    @Override
+//    public void createUnique(Node n) throws DuplicateKeyException {
+//        add(new Node(getUniqueID(), n.getName(), n.getLat(), n.getLon()));
+//    }
 
     /**
      * get node by ID

@@ -28,6 +28,14 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
         }
     }
 
+    /**
+     * Allows deserializing routes from JSON files.  RouteLoader class is needed to deal with converting node IDs to
+     * node objects
+     *
+     * @param nodeColl
+     * @param c
+     * @throws DuplicateKeyException
+     */
     public RouteColl(NodeColl nodeColl, Collection<RouteLoader> c) throws DuplicateKeyException{
         this();
         for (RouteLoader rl: c){
@@ -36,6 +44,11 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     }
 
 
+    /**
+     * Returns a new collection item with a unique key
+     *
+     * @return
+     */
     @Override
     public Route newItem(){
         return new Route(getUniqueID());
@@ -47,10 +60,10 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
      * @param r
      * @throws DuplicateKeyException
      */
-    @Override
-    public void createUnique(Route r) throws DuplicateKeyException {
-        add(new Route(getUniqueID(), r));
-    }
+//    @Override
+//    public void createUnique(Route r) throws DuplicateKeyException {
+//        add(new Route(getUniqueID(), r));
+//    }
 
     /**
      * Return a new route with a unique ID

@@ -42,6 +42,7 @@ import main.java.memoranda.RouteColl;
 import main.java.memoranda.RouteLoader;
 import main.java.memoranda.TaskList;
 import main.java.memoranda.TaskListImpl;
+import main.java.memoranda.TourColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
@@ -533,6 +534,16 @@ public class FileStorage implements Storage {
         return getFileName(prj, "driver.json");
     }
 
+
+    /**
+     *
+     * @param prj
+     * @return
+     */
+    private String getTourFileName(Project prj){
+        return getFileName(prj, "tour.json");
+    }
+
     /**
      *
      * @param prj
@@ -639,7 +650,7 @@ public class FileStorage implements Storage {
      * @throws JsonProcessingException
      * @throws IOException
      */
-    public void storeRouteList(RouteColl routeColl, Project prj) throws JsonProcessingException, IOException{
+    public void storeRouteList(Project prj, RouteColl routeColl) throws JsonProcessingException, IOException{
         String fn = getRouteFileName(prj);
 
         // create new object mapper
@@ -651,6 +662,29 @@ public class FileStorage implements Storage {
 
     }
 
+
+    /**
+     *
+     * @param prj
+     * @param tourList
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws DuplicateKeyException
+     */
+    public void openTourList(Project prj, TourColl tourList) throws JsonProcessingException, IOException, DuplicateKeyException{
+
+    }
+
+    /**
+     *
+     * @param prj
+     * @param tourColl
+     * @throws JsonProcessingException
+     * @throws IOException
+     */
+    public void storeTourList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException{
+
+    }
 
     /**
      *
