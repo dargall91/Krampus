@@ -28,6 +28,11 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     }
 
 
+    /**
+     * Returns a new collection item with a unique key
+     *
+     * @return
+     */
     public Driver newItem(){
         return new Driver(getUniqueID());
     }

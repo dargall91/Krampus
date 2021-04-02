@@ -136,7 +136,7 @@ public class TestMemoranda {
         RouteColl rc=testAddRoute();
 
         System.out.println("Save route list");
-        stg.storeRouteList(rc, prj);
+        stg.storeRouteList(prj, rc);
 
         System.out.println("Load route list");
         RouteColl rl=stg.openRouteList(prj, nc);

@@ -43,7 +43,7 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
      * @param o
      * @throws DuplicateKeyException
      */
-    public abstract void createUnique(T o) throws DuplicateKeyException;
+//    public abstract void createUnique(T o) throws DuplicateKeyException;
 
 
         /**
