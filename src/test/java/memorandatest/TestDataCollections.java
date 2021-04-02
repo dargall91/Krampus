@@ -55,6 +55,7 @@ public class TestDataCollections {
     @BeforeEach
     void beforeEach() throws DuplicateKeyException {
         createNodeColl();
+        createBusColl();
         createRouteColl();
         System.out.println("in beforeEach: createTourColl()");
         createTourColl();
@@ -79,7 +80,7 @@ public class TestDataCollections {
     @Test
     void testAddDuplicateDriverToCollection() throws DuplicateKeyException {
         DriverColl nc=new DriverColl();
-        Driver n=new Driver(1, "test driver", "555-555-1212");
+        Driver n=new Driver(DRIVER1, "test driver", "555-555-1212");
         nc.add(n);
 
         assertThrows(DuplicateKeyException.class, () -> {nc.add(n); });
@@ -112,19 +113,21 @@ public class TestDataCollections {
      * @return
      */
     Driver createGenericDriverWithTour(int id) throws DuplicateKeyException {
-        NodeColl nc=createNodeColl();
-        RouteColl rc=createRouteColl();
+        // routeColl, busColl set in @BeforeAll
 
         TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
         tour.setName("A tour");
         tour.setTime(LocalTime.of(12,0));
-        tour.setRoute(rc.get(1));
+        tour.setRoute(routeColl.get(ROUTE1));
+        tour.setBus(busColl.get(BUS1));
 
         Tour tour2=tourColl.newItem();
         tour2.setName("Tour number 2");
         tour2.setTime(LocalTime.of(14,0));
-        tour.setRoute(rc.get(2));
+        tour2.setRoute(routeColl.get(ROUTE2));
+        tour2.setBus(busColl.get(BUS2));
+
 
         Driver d=createNamedDriver(id, "test driver");
         d.addTour(tour);
@@ -146,7 +149,7 @@ public class TestDataCollections {
     void testNodeConstructor(){
         final int ID=1;
         Node n=new Node(ID, "busstop1", 1.23, 3.24);
-        assertEquals(ID, n.getId());
+        assertEquals(ID, n.getID());
     }
 
 
@@ -168,11 +171,82 @@ public class TestDataCollections {
 
     /**
      *
+     * @return
+     * @throws DuplicateKeyException
+     */
+    BusColl createBusColl() throws DuplicateKeyException{
+        busColl= new BusColl();
+
+        Bus b1=busColl.newItem();
+        b1.setNumber(BUS1);
+        Bus b2=busColl.newItem();
+        b2.setNumber(BUS2);
+
+        busColl.add(b1);
+        busColl.add(b2);
+
+        System.out.println("In createBusColl: Bus list contains "+busColl.get(BUS1)+", "+busColl.get(BUS2));
+
+        return busColl;
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    void testCreateBus(){
+        Bus b1=busColl.newItem();
+        b1.setNumber(BUS1);
+
+        assertEquals(BUS1, b1.getNumber());
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    void testBusCollCreation(){
+        assertNotNull(busColl);
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    void testBusCollStatus(){
+        assertEquals(2, busColl.size());
+    }
+
+
+    @Test
+    void testWriteBusColl() throws IOException, DuplicateKeyException {
+
+        System.out.println("Bus list contains "+busColl.get(BUS1)+", "+busColl.get(BUS2));
+        stg.storeBusList(prj, busColl);
+
+        System.out.println("Load bus list");
+        BusColl bl=stg.openBusList(prj);
+
+        int count=0;
+        for (Bus bb:bl){
+            count++;
+            System.out.println("Found bus in list="+bb);
+        }
+
+        assertEquals(2, count);
+    }
+
+
+    /**
+     *
      * @throws DuplicateKeyException
      */
     @Test
     void testCreateDriverTourIDs() throws DuplicateKeyException{
-        Driver d=createGenericDriverWithTour(1);
+        Driver d=createGenericDriverWithTour(DRIVER1);
         System.out.println("Tour ids="+d.getTourIDs());
 
 //        assertEquals(2, d.getTours().size());
@@ -184,7 +258,7 @@ public class TestDataCollections {
      */
     @Test
     void testCreateDriverTours() throws DuplicateKeyException{
-        Driver d=createGenericDriverWithTour(1);
+        Driver d=createGenericDriverWithTour(DRIVER1);
 
         assertEquals(2, d.getTours().size());
     }
@@ -203,8 +277,8 @@ public class TestDataCollections {
 
         System.out.println("TourColl="+tourColl);
         System.out.println("TourColl.size()="+tourColl.size());
-        System.out.println("tour1="+tourColl.get(1));
-        System.out.println("tour2="+tourColl.get(2));
+        System.out.println("tour1="+tourColl.get(TOUR1));
+        System.out.println("tour2="+tourColl.get(TOUR2));
 
         d1.addTour(tourColl.get(TOUR1));
         Driver d2=createNamedDriver(DRIVER2, "Driver 2");
@@ -238,9 +312,7 @@ public class TestDataCollections {
     @Test
     void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
 
-        DriverColl dc= createDriverColl();
-
-        stg.storeDriverList(prj, dc);
+        stg.storeDriverList(prj, driverColl);
 
         System.out.println("Load driver list");
         DriverColl dl=stg.openDriverList(prj, tourColl);
@@ -260,14 +332,13 @@ public class TestDataCollections {
      * test ability to add a node
      */
     RouteColl createRouteColl() throws DuplicateKeyException {
-        NodeColl nc=createNodeColl();
 
-        LinkedList<Integer> nli=new LinkedList<>(Arrays.asList(1, 2));
+        LinkedList<Integer> nli=new LinkedList<>(Arrays.asList(NODE1, NODE2));
         RouteLoader rl1= new RouteLoader(ROUTE1, "Route 1", nli);
         RouteLoader rl2= new RouteLoader(ROUTE2, "Route 2", nli);
         LinkedList<RouteLoader> rlc=new LinkedList<>(Arrays.asList(rl1, rl2));
 
-        RouteColl rc=new RouteColl(nc, rlc);
+        RouteColl rc=new RouteColl(nodeColl, rlc);
 
         routeColl=rc;
         return routeColl;
@@ -305,14 +376,12 @@ public class TestDataCollections {
     @Test
     void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
 
-        NodeColl nc=createNodeColl();
-        RouteColl rc=createRouteColl();
-
+        // nodeColl and routeColl created in @BeforeAll
         System.out.println("Save route list");
-        stg.storeRouteList(prj, rc);
+        stg.storeRouteList(prj, routeColl);
 
         System.out.println("Load route list");
-        RouteColl rl=stg.openRouteList(prj, nc);
+        RouteColl rl=stg.openRouteList(prj, nodeColl);
 
         int count=0;
         for (Route rr:rl){
@@ -360,6 +429,7 @@ public class TestDataCollections {
         tour.setName(name);
         tour.setTime(LocalTime.of(hour,minute));
         tour.setRoute(routeColl.get(ROUTE1));
+        tour.setBus(busColl.get(BUS1));
 
         return tour;
 
@@ -418,19 +488,11 @@ public class TestDataCollections {
 
         // route and node collections are created in @BeforeEach
 
-        TourColl tourColl=new TourColl();
-        Tour tour=tourColl.newItem();
-        tour.setName("A tour");
-        tour.setTime(LocalTime.of(12,0));
-        tour.setRoute(routeColl.get(1));
-
-        tourColl.add(tour);
-
         System.out.println("Save tour list");
         stg.storeTourList(prj, tourColl);
 
         System.out.println("Load tour list");
-        TourColl tl=stg.openTourList(prj, routeColl);
+        TourColl tl=stg.openTourList(prj, routeColl, busColl);
 
         int count=0;
         for (Tour tt:tl){
@@ -438,7 +500,7 @@ public class TestDataCollections {
             System.out.println("Found route in list="+tt);
         }
 
-        assertEquals(1, count);
+        assertEquals(2, count);
     }
 
 
@@ -449,10 +511,10 @@ public class TestDataCollections {
     @Test
     void testAddNode() throws DuplicateKeyException {
         NodeColl nc=new NodeColl();
-        Node n=new Node(1, "test", 1.23, 3.45);
+        Node n=new Node(NODE1, "test", 1.23, 3.45);
         nc.add(n);
 
-        assertEquals(1, nc.size());
+        assertEquals(NODE1, nc.size());
     }
 
     /**
