@@ -39,8 +39,11 @@ public class TestDataCollections {
     }
 
     @BeforeEach
-    void beforeEach() {
-        System.out.println("Before each test method");
+    void beforeEach() throws DuplicateKeyException {
+        createNodeColl();
+        createRouteColl();
+        createTwoDriverColl();
+        createTourColl();
     }
 
     @AfterEach
@@ -95,7 +98,7 @@ public class TestDataCollections {
      */
     Driver createGenericDriverWithTour(int id) throws DuplicateKeyException {
         NodeColl nc=createNodeColl();
-        RouteColl rc=createRoute();
+        RouteColl rc=createRouteColl();
 
         TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
@@ -142,7 +145,8 @@ public class TestDataCollections {
         nc.add(n);
         nc.add(n2);
 
-        return nc;
+        nodeColl=nc;
+        return nodeColl;
     }
 
 
@@ -182,7 +186,8 @@ public class TestDataCollections {
         dc.add(d1);
         dc.add(d2);
 
-        return dc;
+        driverColl=dc;
+        return driverColl;
     }
 
     /**
@@ -210,7 +215,7 @@ public class TestDataCollections {
         stg.storeDriverList(prj, dc);
 
         System.out.println("Load driver list");
-        DriverColl dl=stg.openDriverList(prj);
+        DriverColl dl=stg.openDriverList(prj, tourColl);
 
         int count=0;
         for (Driver nn:dl){
@@ -226,8 +231,7 @@ public class TestDataCollections {
     /**
      * test ability to add a node
      */
-    @Test
-    RouteColl createRoute() throws DuplicateKeyException {
+    RouteColl createRouteColl() throws DuplicateKeyException {
         NodeColl nc=createNodeColl();
 
         LinkedList<Integer> nli=new LinkedList<>(Arrays.asList(1, 2));
@@ -237,7 +241,19 @@ public class TestDataCollections {
 
         RouteColl rc=new RouteColl(nc, rlc);
 
-        return rc;
+        routeColl=rc;
+        return routeColl;
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    void testCreateRouteColl() throws DuplicateKeyException {
+        RouteColl rc=createRouteColl();
+
+        assertEquals(2, rc.size());
     }
 
 
@@ -247,7 +263,7 @@ public class TestDataCollections {
      */
     @Test
     void testAddRoute() throws DuplicateKeyException{
-        RouteColl rc=createRoute();
+        RouteColl rc=createRouteColl();
         assertEquals(2, rc.size());
     }
 
@@ -262,7 +278,7 @@ public class TestDataCollections {
     void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
 
         NodeColl nc=createNodeColl();
-        RouteColl rc=createRoute();
+        RouteColl rc=createRouteColl();
 
         System.out.println("Save route list");
         stg.storeRouteList(prj, rc);
@@ -308,15 +324,15 @@ public class TestDataCollections {
      * @return
      */
     Tour createNamedTourAtTime(String name, int hour, int minute) throws DuplicateKeyException {
-        NodeColl nc=createNodeColl();
-        RouteColl rc=createRoute();
+
+        // route and node collections are created in @BeforeEach
 
         TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
 
         tour.setName(name);
         tour.setTime(LocalTime.of(hour,minute));
-        tour.setRoute(rc.get(1));
+        tour.setRoute(routeColl.get(1));
 
         return tour;
 
@@ -350,14 +366,14 @@ public class TestDataCollections {
 
     @Test
     void testWriteTour() throws JsonProcessingException, IOException, DuplicateKeyException{
-        NodeColl nc=createNodeColl();
-        RouteColl rc=createRoute();
+
+        // route and node collections are created in @BeforeEach
 
         TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
         tour.setName("A tour");
         tour.setTime(LocalTime.of(12,0));
-        tour.setRoute(rc.get(1));
+        tour.setRoute(routeColl.get(1));
 
         tourColl.add(tour);
 
@@ -365,7 +381,7 @@ public class TestDataCollections {
         stg.storeTourList(prj, tourColl);
 
         System.out.println("Load tour list");
-        TourColl tl=stg.openTourList(prj, rc);
+        TourColl tl=stg.openTourList(prj, routeColl);
 
         int count=0;
         for (Tour tt:tl){
@@ -399,16 +415,17 @@ public class TestDataCollections {
     @Test
     void testWriteNode() throws JsonProcessingException, IOException, DuplicateKeyException{
 
-        NodeColl nc=createNodeColl();
-        System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
+        // node collection create in @BeforeEach
 
-        stg.storeNodeList(nc, prj);
+        System.out.println("After adding two entries, list contains "+nodeColl.size()+" elements.");
+
+        stg.storeNodeList(nodeColl, prj);
 
         System.out.println("Load node list");
-        nc=stg.openNodeList(prj);
+        nodeColl=stg.openNodeList(prj);
 
         int count=0;
-        for (Node nn:nc){
+        for (Node nn:nodeColl){
             count++;
             System.out.println("Found node in list="+nn);
         }
@@ -432,6 +449,9 @@ public class TestDataCollections {
     }
 
 
+    /**
+     *
+     */
     @Test
     void testHaversine(){
         Coordinate c1=new Coordinate(41.507483, -99.436554);
@@ -446,6 +466,9 @@ public class TestDataCollections {
     }
 
 
+    /**
+     *
+     */
     @Test
     void testDistanceToNull(){
         Coordinate c1;
@@ -453,6 +476,9 @@ public class TestDataCollections {
         assertThrows(NullPointerException.class, ()-> {c1.distanceTo(null);});
     }
 
+    /**
+     *
+     */
     @Test
     void testCoordinateEquality() {
         Coordinate c1, c2;
@@ -461,6 +487,9 @@ public class TestDataCollections {
         assertTrue(c1.equals(c2));
     }
 
+    /**
+     *
+     */
     @Test
     void testCoordinateInequalityDigits() {
         Coordinate c1, c2;
@@ -469,6 +498,9 @@ public class TestDataCollections {
         assertFalse(c1.equals(c2));
     }
 
+    /**
+     *
+     */
     @Test
     void testCoordinateInequalitySign(){
         Coordinate c1, c2;
