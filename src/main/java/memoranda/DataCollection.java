@@ -30,6 +30,19 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
         }
     }
 
+
+    /**
+     *
+     * @return
+     */
+    public abstract T newItem();
+
+
+    /**
+     *
+     * @param o
+     * @throws DuplicateKeyException
+     */
     public abstract void createUnique(T o) throws DuplicateKeyException;
 
 

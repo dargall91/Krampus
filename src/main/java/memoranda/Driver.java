@@ -14,6 +14,10 @@ public class Driver extends IndexedObject {
     LinkedList<Tour> tours;
 
 
+    public Driver(int id){
+        super(id);
+    }
+
     /**
      *
      * @param id
@@ -50,6 +54,24 @@ public class Driver extends IndexedObject {
     public LinkedList<Integer> getTourIDs(){
         return null;
     }
+
+
+    /**
+     *
+     * @param name
+     */
+    public void setName(String name){
+        this.name=name;
+    }
+
+    /**
+     *
+     * @param phoneNumber
+     */
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber=phoneNumber;
+    }
+
 
     /**
      *
