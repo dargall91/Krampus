@@ -36,10 +36,15 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     }
 
 
+    @Override
+    public Route newItem(){
+        return new Route(getUniqueID());
+    }
+
     /**
      * Creates a new Route object with a unique ID
      *
-     * @param n
+     * @param r
      * @throws DuplicateKeyException
      */
     @Override

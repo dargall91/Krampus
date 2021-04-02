@@ -32,6 +32,12 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
     }
 
 
+    @Override
+    public Node newItem(){
+        return new Node(getUniqueID());
+    }
+
+
      /**
      * Creates a new Node object with a unique ID
      *
