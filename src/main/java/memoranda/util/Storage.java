@@ -52,11 +52,17 @@ public interface Storage {
     ResourcesList openResourcesList(Project prj);
     void storeResourcesList(ResourcesList rl, Project prj);
 
-    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
-    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
-
-    public DriverColl openDriverList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
-    public void storeDriverList(DriverColl driver, Project prj) throws JsonProcessingException, IOException;
+//    public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
+//    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
+//
+//    public RouteColl openRouteList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
+//    public void storeRouteList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
+//
+//    public DriverColl openDriverList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
+//    public void storeDriverList(DriverColl driver, Project prj) throws JsonProcessingException, IOException;
+//
+//    public TourColl openTourList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
+//    public void storeTourList(TourColl driver, Project prj) throws JsonProcessingException, IOException;
 
     void restoreContext();
     void storeContext(); 

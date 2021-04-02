@@ -19,7 +19,7 @@ public class TourLoader extends IndexedObject{
      * @param routeID
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public TourLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("time") String time, @JsonProperty("routeID") Integer routeID) {
+    public TourLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("time") String time, @JsonProperty("routeId") Integer routeID) {
         super(id);
         this.name = name;
         this.time = time;
