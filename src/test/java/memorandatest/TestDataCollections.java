@@ -9,7 +9,6 @@ import main.java.memoranda.util.FileStorage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import main.java.memoranda.util.Local;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,6 +29,21 @@ public class TestDataCollections {
     private static DriverColl driverColl;
     private static BusColl busColl;
 
+    private final static int NODE1=1;
+    private final static int NODE2=2;
+
+    private final static int DRIVER1=1;
+    private final static int DRIVER2=2;
+
+    private final static int ROUTE1=1;
+    private final static int ROUTE2=2;
+
+    private final static int TOUR1=1;
+    private final static int TOUR2=2;
+
+    private final static int BUS1=1;
+    private final static int BUS2=2;
+
     @BeforeAll
     static void beforeAll() {
         System.out.println("Before all test methods");
@@ -42,8 +56,9 @@ public class TestDataCollections {
     void beforeEach() throws DuplicateKeyException {
         createNodeColl();
         createRouteColl();
-        createTwoDriverColl();
+        System.out.println("in beforeEach: createTourColl()");
         createTourColl();
+        createDriverColl();
     }
 
     @AfterEach
@@ -124,8 +139,9 @@ public class TestDataCollections {
     }
 
 
-
-
+    /**
+     *
+     */
     @Test
     void testNodeConstructor(){
         final int ID=1;
@@ -140,8 +156,8 @@ public class TestDataCollections {
      */
     NodeColl createNodeColl() throws DuplicateKeyException {
         NodeColl nc=new NodeColl();
-        Node n=new Node(1, "busstop1", 1.23, 3.24);
-        Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
+        Node n=new Node(NODE1, "busstop1", 1.23, 3.24);
+        Node n2=new Node(NODE2, "bus stop number 2", 2.34, -134.2331);
         nc.add(n);
         nc.add(n2);
 
@@ -179,9 +195,21 @@ public class TestDataCollections {
      * @return
      * @throws DuplicateKeyException
      */
-    DriverColl createTwoDriverColl() throws DuplicateKeyException {
-        Driver d1=createNamedDriver(1, "Driver 1");
-        Driver d2=createNamedDriver(2, "Driver 2");
+    DriverColl createDriverColl() throws DuplicateKeyException {
+
+        // tourColl created in @beforeEach
+
+        Driver d1=createNamedDriver(DRIVER1, "Driver 1");
+
+        System.out.println("TourColl="+tourColl);
+        System.out.println("TourColl.size()="+tourColl.size());
+        System.out.println("tour1="+tourColl.get(1));
+        System.out.println("tour2="+tourColl.get(2));
+
+        d1.addTour(tourColl.get(TOUR1));
+        Driver d2=createNamedDriver(DRIVER2, "Driver 2");
+        d2.addTour(tourColl.get(TOUR2));
+
         DriverColl dc=new DriverColl();
         dc.add(d1);
         dc.add(d2);
@@ -195,7 +223,7 @@ public class TestDataCollections {
      */
     @Test
     void testCreateDriverColl() throws DuplicateKeyException {
-        DriverColl dc=createTwoDriverColl();
+        DriverColl dc= createDriverColl();
 
         assertEquals(2, dc.size());
     }
@@ -210,7 +238,7 @@ public class TestDataCollections {
     @Test
     void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
 
-        DriverColl dc=createTwoDriverColl();
+        DriverColl dc= createDriverColl();
 
         stg.storeDriverList(prj, dc);
 
@@ -235,8 +263,8 @@ public class TestDataCollections {
         NodeColl nc=createNodeColl();
 
         LinkedList<Integer> nli=new LinkedList<>(Arrays.asList(1, 2));
-        RouteLoader rl1= new RouteLoader(1, "Route 1", nli);
-        RouteLoader rl2= new RouteLoader(2, "Route 2", nli);
+        RouteLoader rl1= new RouteLoader(ROUTE1, "Route 1", nli);
+        RouteLoader rl2= new RouteLoader(ROUTE2, "Route 2", nli);
         LinkedList<RouteLoader> rlc=new LinkedList<>(Arrays.asList(rl1, rl2));
 
         RouteColl rc=new RouteColl(nc, rlc);
@@ -323,23 +351,40 @@ public class TestDataCollections {
      * @param minute
      * @return
      */
-    Tour createNamedTourAtTime(String name, int hour, int minute) throws DuplicateKeyException {
+    Tour createNamedTourAtTime(String name, int hour, int minute){
 
         // route and node collections are created in @BeforeEach
 
-        TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
 
         tour.setName(name);
         tour.setTime(LocalTime.of(hour,minute));
-        tour.setRoute(routeColl.get(1));
+        tour.setRoute(routeColl.get(ROUTE1));
 
         return tour;
 
     }
 
+    /**
+     *
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws DuplicateKeyException
+     */
     @Test
-    void testCreateTour() throws JsonProcessingException, IOException, DuplicateKeyException{
+    void testCreateTourIDs(){
+        assertNotNull(tourColl.get(TOUR1));
+        assertNotNull(tourColl.get(TOUR2));
+    }
+
+    /**
+     *
+     * @throws JsonProcessingException
+     * @throws IOException
+     * @throws DuplicateKeyException
+     */
+    @Test
+    void testCreateTour() throws DuplicateKeyException{
         assertNotNull(createTour());
     }
 
@@ -349,23 +394,27 @@ public class TestDataCollections {
      * @return
      */
     TourColl createTourColl() throws DuplicateKeyException {
-        Tour tour=createTour();
+        System.out.println("in createTourColl");
+        tourColl=new TourColl();
 
-        TourColl tourColl=new TourColl();
-        tourColl.add(tour);
+        Tour tour1=createTour();
+        Tour tour2=createNamedTourAtTime("A long tour", 17, 0);
+
+        tourColl.add(tour1);
+        tourColl.add(tour2);
 
         return tourColl;
     }
 
 
     @Test
-    void testCreateTourColl() throws JsonProcessingException, IOException, DuplicateKeyException{
-        assertNotNull(createTourColl());
+    void testCreateTourColl(){
+        assertNotNull(tourColl);
     }
 
 
     @Test
-    void testWriteTour() throws JsonProcessingException, IOException, DuplicateKeyException{
+    void testWriteTour() throws IOException, DuplicateKeyException{
 
         // route and node collections are created in @BeforeEach
 
