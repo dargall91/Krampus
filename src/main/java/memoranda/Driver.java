@@ -18,6 +18,7 @@ public class Driver extends IndexedObject {
 
     public Driver(int id){
         super(id);
+        tours=new HashMap<>();
     }
 
     /**
@@ -26,15 +27,27 @@ public class Driver extends IndexedObject {
      * @param name
      * @param phoneNumber
      */
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Driver(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("phoneNumber")
-                  String phoneNumber){
-        super(id);
+    public Driver(int id, String name, String phoneNumber){
+        this(id);
         this.name=name;
         this.phoneNumber=phoneNumber;
     }
 
-    // WIP
+
+    /**
+     *
+     * @param tc
+     * @param newDriver
+     */
+    public Driver(TourColl tc, DriverLoader newDriver){
+        this(newDriver.getId());
+        this.name=newDriver.getName();
+        this.phoneNumber= newDriver.getPhoneNumber();
+        for (int t:newDriver.getTourIDs()){
+            addTour(tc.get(t));
+        }
+    }
+
     /**
      *
      * @param tour
@@ -49,6 +62,7 @@ public class Driver extends IndexedObject {
      * @param id
      * @return
      */
+    @JsonIgnore
     public Tour getTour(int id){
         return tours.get(id);
     }
@@ -57,7 +71,7 @@ public class Driver extends IndexedObject {
      *
      * @return
      */
-    @JsonProperty
+    @JsonIgnore
     public Collection<Tour> getTours(){
         return tours.values();
     }
@@ -66,6 +80,7 @@ public class Driver extends IndexedObject {
      *
      * @return
      */
+    @JsonProperty("tours")
     public LinkedList<Integer> getTourIDs(){
         LinkedList<Integer> li=new LinkedList<>();
         for (Tour t: tours.values()){

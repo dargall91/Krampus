@@ -20,10 +20,10 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
      *
      * @param c
      */
-    public DriverColl(Collection<Driver> c) throws DuplicateKeyException {
+    public DriverColl(TourColl tourColl, Collection<DriverLoader> c) throws DuplicateKeyException {
         this();
-        for (Driver d:c){
-            add(d);
+        for (DriverLoader d:c){
+            add(new Driver(tourColl, d));
         }
     }
 

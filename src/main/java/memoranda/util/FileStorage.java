@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.*;
 
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
+import main.java.memoranda.DriverLoader;
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
@@ -716,7 +717,7 @@ public class FileStorage implements Storage {
      * @throws JsonProcessingException
      * @throws IOException
      */
-    public DriverColl openDriverList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException {
+    public DriverColl openDriverList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException, DuplicateKeyException {
         String fn= getDriverFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
@@ -725,10 +726,10 @@ public class FileStorage implements Storage {
         JsonNode jsonNode=mapper.readTree(new File(fn));
 
         // find value of "nodes" object (which is an array) and create list of Driver objects
-        List<Driver> driverList=mapper.readValue(jsonNode.get("drivers").toString(), new TypeReference<>(){});
+        List<DriverLoader> driverList=mapper.readValue(jsonNode.get("drivers").toString(), new TypeReference<>(){});
 
         // create new nodeColl based on read data/objects
-        DriverColl driverColl=new DriverColl(driverList);
+        DriverColl driverColl=new DriverColl(tourColl, driverList);
 
         System.out.println("[DEBUG] DriverColl has "+driverColl.size()+" in openDriverList");
         return driverColl;

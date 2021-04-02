@@ -19,10 +19,16 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class TestMemoranda {
+public class TestDataCollections {
 
     private static Project prj;
     private static FileStorage stg;
+
+    private static NodeColl nodeColl;
+    private static RouteColl routeColl;
+    private static TourColl tourColl;
+    private static DriverColl driverColl;
+    private static BusColl busColl;
 
     @BeforeAll
     static void beforeAll() {
@@ -50,10 +56,10 @@ public class TestMemoranda {
 
 
     /**
-     * test ability to add a node
+     * test error handling for duplicate driver in collection
      */
     @Test
-    void testAddDuplicateDriver() throws DuplicateKeyException {
+    void testAddDuplicateDriverToCollection() throws DuplicateKeyException {
         DriverColl nc=new DriverColl();
         Driver n=new Driver(1, "test driver", "555-555-1212");
         nc.add(n);
@@ -62,10 +68,34 @@ public class TestMemoranda {
     }
 
 
-    @Test
-    Driver testCreateDriver() throws DuplicateKeyException{
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Driver createGenericDriver(int id){
+        return createNamedDriver(id, "test driver");
+    }
+
+    /**
+     *
+     * @param id
+     * @param name
+     * @return
+     */
+    Driver createNamedDriver(int id, String name){
+        return new Driver(id, name, "555-555-1212");
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Driver createGenericDriverWithTour(int id) throws DuplicateKeyException {
         NodeColl nc=createNodeColl();
-        RouteColl rc=testAddRoute();
+        RouteColl rc=createRoute();
 
         TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
@@ -78,39 +108,91 @@ public class TestMemoranda {
         tour2.setTime(LocalTime.of(14,0));
         tour.setRoute(rc.get(2));
 
-        Driver d=new Driver(1, "test driver", "555-555-1212");
+        Driver d=createNamedDriver(id, "test driver");
         d.addTour(tour);
         d.addTour(tour2);
 
         assertNotNull(d);
 
         return d;
+
+
+
     }
 
 
-    @Test
-    void fleebvoid(){
-        assertEquals(1,1);
-    }
+
 
     @Test
-    Integer fleebInt(){
-        assertEquals(1,1);
-        return 1;
+    void testNodeConstructor(){
+        final int ID=1;
+        Node n=new Node(ID, "busstop1", 1.23, 3.24);
+        assertEquals(ID, n.getId());
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    NodeColl createNodeColl() throws DuplicateKeyException {
+        NodeColl nc=new NodeColl();
+        Node n=new Node(1, "busstop1", 1.23, 3.24);
+        Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
+        nc.add(n);
+        nc.add(n2);
+
+        return nc;
+    }
+
+
+    /**
+     *
+     * @throws DuplicateKeyException
+     */
+    @Test
+    void testCreateDriverTourIDs() throws DuplicateKeyException{
+        Driver d=createGenericDriverWithTour(1);
+        System.out.println("Tour ids="+d.getTourIDs());
+
+//        assertEquals(2, d.getTours().size());
+    }
+
+    /**
+     *
+     * @throws DuplicateKeyException
+     */
+    @Test
+    void testCreateDriverTours() throws DuplicateKeyException{
+        Driver d=createGenericDriverWithTour(1);
+
+        assertEquals(2, d.getTours().size());
+    }
+
+
+    /**
+     *
+     * @return
+     * @throws DuplicateKeyException
+     */
+    DriverColl createTwoDriverColl() throws DuplicateKeyException {
+        Driver d1=createNamedDriver(1, "Driver 1");
+        Driver d2=createNamedDriver(2, "Driver 2");
+        DriverColl dc=new DriverColl();
+        dc.add(d1);
+        dc.add(d2);
+
+        return dc;
     }
 
     /**
      * test ability to add a node
      */
     @Test
-    DriverColl testCreateDriverColl() throws DuplicateKeyException {
-        DriverColl dc=new DriverColl();
+    void testCreateDriverColl() throws DuplicateKeyException {
+        DriverColl dc=createTwoDriverColl();
 
-        Driver d=testCreateDriver();
-
-        assertEquals(1, dc.size());
-
-        return dc;
+        assertEquals(2, dc.size());
     }
 
     /**
@@ -121,16 +203,9 @@ public class TestMemoranda {
      * @throws InterruptedException
      */
     @Test
-    void testWriteDriver() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
+    void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
 
-        DriverColl dc=testCreateDriverColl();
-
-        Driver d=testCreateDriver();
-        Driver d2=new Driver(2, "driver 2", "202-123-3482");
-        dc.add(d);
-        dc.add(d2);
-
-        System.out.println("After adding two entries, list contains "+dc.size()+" elements.");
+        DriverColl dc=createTwoDriverColl();
 
         stg.storeDriverList(prj, dc);
 
@@ -152,7 +227,7 @@ public class TestMemoranda {
      * test ability to add a node
      */
     @Test
-    RouteColl testAddRoute() throws DuplicateKeyException {
+    RouteColl createRoute() throws DuplicateKeyException {
         NodeColl nc=createNodeColl();
 
         LinkedList<Integer> nli=new LinkedList<>(Arrays.asList(1, 2));
@@ -162,8 +237,18 @@ public class TestMemoranda {
 
         RouteColl rc=new RouteColl(nc, rlc);
 
-        assertEquals(2, rc.size());
         return rc;
+    }
+
+
+    /**
+     *
+     * @throws DuplicateKeyException
+     */
+    @Test
+    void testAddRoute() throws DuplicateKeyException{
+        RouteColl rc=createRoute();
+        assertEquals(2, rc.size());
     }
 
     /**
@@ -177,7 +262,7 @@ public class TestMemoranda {
     void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
 
         NodeColl nc=createNodeColl();
-        RouteColl rc=testAddRoute();
+        RouteColl rc=createRoute();
 
         System.out.println("Save route list");
         stg.storeRouteList(prj, rc);
@@ -196,41 +281,77 @@ public class TestMemoranda {
     }
 
 
-    @Test
-    Tour testCreateTour() throws JsonProcessingException, IOException, DuplicateKeyException{
-        NodeColl nc=createNodeColl();
-        RouteColl rc=testAddRoute();
+    /**
+     *
+     * @return
+     * @throws DuplicateKeyException
+     */
+    Tour createTour() throws DuplicateKeyException {
+        return createNamedTour("A tour");
+    }
 
-        TourColl tourColl=new TourColl();
-        Tour tour=tourColl.newItem();
-        tour.setName("A tour");
-        tour.setTime(LocalTime.of(12,0));
-        tour.setRoute(rc.get(1));
-
-        assertNotNull(tour);
-
-        return tour;
+    /**
+     *
+     * @param name
+     * @return
+     */
+    Tour createNamedTour(String name) throws DuplicateKeyException {
+        return createNamedTourAtTime(name, 12, 0);
     }
 
 
-    @Test
-    TourColl testCreateTourColl() throws JsonProcessingException, IOException, DuplicateKeyException{
+    /**
+     *
+     * @param name
+     * @param hour
+     * @param minute
+     * @return
+     */
+    Tour createNamedTourAtTime(String name, int hour, int minute) throws DuplicateKeyException {
+        NodeColl nc=createNodeColl();
+        RouteColl rc=createRoute();
 
-        Tour tour=testCreateTour();
+        TourColl tourColl=new TourColl();
+        Tour tour=tourColl.newItem();
+
+        tour.setName(name);
+        tour.setTime(LocalTime.of(hour,minute));
+        tour.setRoute(rc.get(1));
+
+        return tour;
+
+    }
+
+    @Test
+    void testCreateTour() throws JsonProcessingException, IOException, DuplicateKeyException{
+        assertNotNull(createTour());
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    TourColl createTourColl() throws DuplicateKeyException {
+        Tour tour=createTour();
 
         TourColl tourColl=new TourColl();
         tourColl.add(tour);
-
-        assertNotNull(tourColl);
 
         return tourColl;
     }
 
 
     @Test
+    void testCreateTourColl() throws JsonProcessingException, IOException, DuplicateKeyException{
+        assertNotNull(createTourColl());
+    }
+
+
+    @Test
     void testWriteTour() throws JsonProcessingException, IOException, DuplicateKeyException{
         NodeColl nc=createNodeColl();
-        RouteColl rc=testAddRoute();
+        RouteColl rc=createRoute();
 
         TourColl tourColl=new TourColl();
         Tour tour=tourColl.newItem();
@@ -269,16 +390,6 @@ public class TestMemoranda {
         assertEquals(1, nc.size());
     }
 
-    @Test
-    private NodeColl createNodeColl() throws DuplicateKeyException {
-        NodeColl nc=new NodeColl();
-        Node n=new Node(1, "busstop1", 1.23, 3.24);
-        Node n2=new Node(2, "bus stop number 2", 2.34, -134.2331);
-        nc.add(n);
-        nc.add(n2);
-        return nc;
-    }
-
     /**
      * Test ability to read and write JSON values
      *
@@ -287,8 +398,6 @@ public class TestMemoranda {
      */
     @Test
     void testWriteNode() throws JsonProcessingException, IOException, DuplicateKeyException{
-//        FileStorage stg=new FileStorage();
-//        stg.createProjectStorage(prj);
 
         NodeColl nc=createNodeColl();
         System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
@@ -345,14 +454,24 @@ public class TestMemoranda {
     }
 
     @Test
-    void testCoordinateEquality(){
+    void testCoordinateEquality() {
         Coordinate c1, c2;
-        c1=new Coordinate(83.123456789, -128.987654321);
-        c2 =new Coordinate(83.123456789, -128.987654321);
+        c1 = new Coordinate(83.123456789, -128.987654321);
+        c2 = new Coordinate(83.123456789, -128.987654321);
         assertTrue(c1.equals(c2));
-        c1=new Coordinate(83.12345678, -128.987654321);
-        c2 =new Coordinate(83.123456789, -128.987654321);
+    }
+
+    @Test
+    void testCoordinateInequalityDigits() {
+        Coordinate c1, c2;
+        c1 = new Coordinate(83.12345678, -128.987654321);
+        c2 = new Coordinate(83.123456789, -128.987654321);
         assertFalse(c1.equals(c2));
+    }
+
+    @Test
+    void testCoordinateInequalitySign(){
+        Coordinate c1, c2;
         c1=new Coordinate(-83.123456789, -128.987654321);
         c2 =new Coordinate(83.123456789, -128.987654321);
         assertFalse(c1.equals(c2));
