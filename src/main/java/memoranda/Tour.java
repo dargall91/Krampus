@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Holds a tour - a route at a particular time
  */
 public class Tour extends IndexedObject{
     private String name;
-    private LocalDateTime time;
+    private LocalTime time;
     private Route route;
 
 
@@ -32,7 +32,7 @@ public class Tour extends IndexedObject{
      * @param route
      * @param time
      */
-    public Tour(int id, String name, Route route, LocalDateTime time){
+    public Tour(int id, String name, Route route, LocalTime time){
         this(id);
         this.name=name;
         this.route=route;
@@ -51,7 +51,10 @@ public class Tour extends IndexedObject{
         this(newTour.getId());
 
         Route n;
-        this.name=newTour.getName();
+        name=newTour.getName();
+
+        DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
+        time = LocalTime.parse(newTour.getTime(), timeParser);
 
         n = routeColl.get(newTour.getRouteId());
         if (n == null) {
@@ -62,6 +65,13 @@ public class Tour extends IndexedObject{
     }
 
 
+    /**
+     *
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      *
@@ -71,22 +81,13 @@ public class Tour extends IndexedObject{
         this.route=route;
     }
 
-    // WIP
+
     /**
      *
      * @param time
      */
-    public void setTime(String time){
-
-    }
-
-    // WIP
-    /**
-     *
-     * @param time
-     */
-    public void setTime(LocalDateTime time){
-
+    public void setTime(LocalTime time){
+        this.time=time;
     }
 
     /**
@@ -95,6 +96,20 @@ public class Tour extends IndexedObject{
      */
     public String getName(){
         return name;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @JsonIgnore
+    public LocalTime getTime(){
+        return time;
+    }
+
+    @JsonProperty("time")
+    public String getTimeString(){
+        return time.toString();
     }
 
     /**

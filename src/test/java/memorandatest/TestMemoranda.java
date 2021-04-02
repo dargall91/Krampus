@@ -9,11 +9,13 @@ import main.java.memoranda.util.FileStorage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import main.java.memoranda.util.Local;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -43,7 +45,7 @@ public class TestMemoranda {
     @AfterAll
     static void afterAll() {
         System.out.println("After all test methods");
-        stg.removeProjectStorage(prj);
+//        stg.removeProjectStorage(prj);
     }
 
 
@@ -88,7 +90,7 @@ public class TestMemoranda {
 
         System.out.println("After adding two entries, list contains "+nc.size()+" elements.");
 
-        stg.storeDriverList(nc, prj);
+        stg.storeDriverList(prj, nc);
 
         System.out.println("Load driver list");
         DriverColl dl=stg.openDriverList(prj);
@@ -149,6 +151,66 @@ public class TestMemoranda {
 
         assertEquals(2, count);
 
+    }
+
+
+    @Test
+    Tour testCreateTour() throws JsonProcessingException, IOException, DuplicateKeyException{
+        NodeColl nc=createNodeColl();
+        RouteColl rc=testAddRoute();
+
+        TourColl tourColl=new TourColl();
+        Tour tour=tourColl.newItem();
+        tour.setName("A tour");
+        tour.setTime(LocalTime.of(12,0));
+        tour.setRoute(rc.get(1));
+
+        assertNotNull(tour);
+
+        return tour;
+    }
+
+
+    @Test
+    TourColl testCreateTourColl() throws JsonProcessingException, IOException, DuplicateKeyException{
+
+        Tour tour=testCreateTour();
+
+        TourColl tourColl=new TourColl();
+        tourColl.add(tour);
+
+        assertNotNull(tourColl);
+
+        return tourColl;
+    }
+
+
+    @Test
+    void testWriteTour() throws JsonProcessingException, IOException, DuplicateKeyException{
+        NodeColl nc=createNodeColl();
+        RouteColl rc=testAddRoute();
+
+        TourColl tourColl=new TourColl();
+        Tour tour=tourColl.newItem();
+        tour.setName("A tour");
+        tour.setTime(LocalTime.of(12,0));
+        tour.setRoute(rc.get(1));
+
+        tourColl.add(tour);
+
+        System.out.println("Save tour list");
+        stg.storeTourList(prj, tourColl);
+
+        System.out.println("Load tour list");
+        TourColl tl=stg.openTourList(prj, rc);
+
+        int count=0;
+        for (Tour tt:tl){
+            count++;
+            System.out.println("Found route in list="+tt);
+        }
+
+        assertEquals(1, count);
     }
 
 

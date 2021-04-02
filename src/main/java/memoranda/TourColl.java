@@ -41,8 +41,10 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
      */
     public TourColl(RouteColl routeColl, Collection<TourLoader> c) throws DuplicateKeyException{
         this();
-        for (TourLoader rl: c){
-            add(new Tour(routeColl, rl));
+        System.out.println("in TourCOll constructor. routecoll="+routeColl+", tourloader coll="+c);
+        for (TourLoader tl: c){
+            System.out.println("adding new tour to this collection");
+            add(new Tour(routeColl, tl));
         }
     }
 
@@ -57,14 +59,6 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
         return new Tour(getUniqueID());
     }
 
-    /**
-     * Return a new route with a unique ID
-     *
-     * @return new Tour object
-     */
-    public Tour newTour(){
-        return new Tour(getUniqueID());
-    }
 
     /**
      * get route by ID

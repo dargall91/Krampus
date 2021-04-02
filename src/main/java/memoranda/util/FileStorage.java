@@ -43,6 +43,7 @@ import main.java.memoranda.RouteLoader;
 import main.java.memoranda.TaskList;
 import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.TourColl;
+import main.java.memoranda.TourLoader;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
@@ -666,13 +667,27 @@ public class FileStorage implements Storage {
     /**
      *
      * @param prj
-     * @param tourList
+     * @param routeList
      * @throws JsonProcessingException
      * @throws IOException
      * @throws DuplicateKeyException
      */
-    public void openTourList(Project prj, TourColl tourList) throws JsonProcessingException, IOException, DuplicateKeyException{
+    public TourColl openTourList(Project prj, RouteColl routeList) throws JsonProcessingException, IOException, DuplicateKeyException{
+        String fn= getTourFileName(prj);
 
+        ObjectMapper mapper=new ObjectMapper();
+
+        // create new mapper object
+        JsonNode jsonNode=mapper.readTree(new File(fn));
+
+        // find value of "nodes" object (which is an array) and create list of Route objects
+        List<TourLoader> tourList=mapper.readValue(jsonNode.get("tours").toString(), new TypeReference<>(){});
+
+        // create new nodeColl based on read data/objects
+        TourColl tourColl=new TourColl(routeList, tourList);
+
+        System.out.println("[DEBUG] RouteColl has "+tourColl.size()+" in openRouteList");
+        return tourColl;
     }
 
     /**
@@ -683,6 +698,14 @@ public class FileStorage implements Storage {
      * @throws IOException
      */
     public void storeTourList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException{
+        String fn = getTourFileName(prj);
+
+        // create new object mapper
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+
+        // annotation is used so Jackson knows which method to use for output
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), tourColl);
 
     }
 
@@ -719,7 +742,7 @@ public class FileStorage implements Storage {
      * @throws JsonProcessingException
      * @throws IOException
      */
-    public void storeDriverList(DriverColl driverColl, Project prj) throws JsonProcessingException, IOException{
+    public void storeDriverList(Project prj, DriverColl driverColl) throws JsonProcessingException, IOException{
         String fn = getDriverFileName(prj);
 
         // create new object mapper
@@ -730,6 +753,26 @@ public class FileStorage implements Storage {
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), driverColl);
 
     }
+
+
+    /**
+     *
+     * @param prj
+     */
+    public void loadPersistentData(Project prj){
+//        Node
+
+    }
+
+    /**
+     *
+     * @param prj
+     */
+    public void savePersistentData(Project prj){
+
+    }
+
+
 
     public static void saveList(Document doc, String filePath) {
         /**
