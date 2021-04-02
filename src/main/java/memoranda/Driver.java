@@ -80,7 +80,7 @@ public class Driver extends IndexedObject {
      *
      * @return
      */
-    @JsonProperty("tours")
+    @JsonProperty("tourIDs")
     public LinkedList<Integer> getTourIDs(){
         LinkedList<Integer> li=new LinkedList<>();
         for (Tour t: tours.values()){
