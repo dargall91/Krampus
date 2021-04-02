@@ -1,6 +1,10 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
+import main.java.memoranda.IndexedObject;
 import main.java.memoranda.ui.table.TableSorter;
+import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
@@ -10,32 +14,40 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Collection;
 
+/**
+ * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
+ * @author derek
+ *
+ */
 public class DriverTable extends JTable {
-    //TODO: ArrayList->DriverColl
-    private ArrayList<String> drivers;
+    private DriverColl drivers;
     private TableSorter sorter;
 
+    /**
+     * Constructor for a DriverTable
+     */
     public DriverTable() {
         super();
         //TODO: ArrayList->DriverColl
-        drivers = new ArrayList<String>();
+        //drivers = new ArrayList<String>();
+        drivers = new DriverColl();
+        //drivers2.add(new Driver(1, "Test Name", "111-111-1111"));
         initTable();
-        sorter = new TableSorter(new DriverTableModel());
+        
+    }
+
+    private void initTable() {
+        //TODO: No longer needed? Could just be moved to constructor
+    	sorter = new TableSorter(new DriverTableModel());
         sorter.addMouseListenerToHeaderInTable(this);
         setModel(sorter);
         this.setShowGrid(false);
         initColumnsWidth();
     }
 
-    private void initTable() {
-        //TODO: read data from DriverColl
-        drivers.add("Count Dooku");
-        drivers.add("Lucifer Morningstar");
-        drivers.add("Bowser");
-    }
-
-    void initColumnsWidth() {
+    private void initColumnsWidth() {
         for (int i = 0; i < 3; i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
@@ -50,6 +62,10 @@ public class DriverTable extends JTable {
         }
     }
 
+    /**
+     * TODO: Figure out what this did in the original code
+     * Presumably call when the table is changed
+     */
     public void tableChanged() {
         initTable();
         sorter.tableChanged(null);
@@ -57,6 +73,9 @@ public class DriverTable extends JTable {
         updateUI();
     }
 
+    /**
+     * TODO: Figure out what this did in the original code
+     */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
@@ -73,7 +92,11 @@ public class DriverTable extends JTable {
         };
     }
 
-    class DriverTableModel extends AbstractTableModel {
+    /**
+     * Defines the column names for the JTable and determines what data to place in each column
+     * 
+     */
+    private class DriverTableModel extends AbstractTableModel {
         private String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("ID"),
@@ -92,16 +115,16 @@ public class DriverTable extends JTable {
         }
 
         public Object getValueAt(int row, int col) {
-            //TODO: String -> DriverColl
-            String driver = drivers.get(row);
+            //convert to array
+            Driver[] driverArray = drivers.getDrivers().toArray(new Driver[drivers.size()]);
 
             switch (col) {
                 case 0:
-                    return driver;//driver.getName();
+                    return driverArray[row].getName();//driver.getName();
                 case 1:
-                    return driver;//driver.getID();
+                    return driverArray[row].getId();//driver.getID();
                 case 2:
-                    return driver;//driver.getPhone();
+                    return driverArray[row].getPhoneNumber();//driver.getPhone();
             }
 
             return null;

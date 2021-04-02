@@ -22,6 +22,13 @@ public class DriverPanel extends JPanel {
 
 	private boolean isActive = true;
 
+	/**
+	 * Constructor for the DriverPanel
+	 * 
+	 * Creates a JPanel which houses the the information about the Driver Schedule
+	 * 
+	 * @param parentPanel The DailyItemsPanel which will house this panel
+	 */
 	public DriverPanel(DailyItemsPanel parentPanel) {
 		try {
 			this.parentPanel = parentPanel;
@@ -107,6 +114,11 @@ public class DriverPanel extends JPanel {
 		return panel;
 	}
 
+	/**
+	 * Refreshes this panel
+	 * 
+	 * @param date
+	 */
 	public void refresh(CalendarDate date) {
 		//viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
 		SwingUtilities.invokeLater(new Runnable() {
@@ -122,6 +134,11 @@ public class DriverPanel extends JPanel {
 		Util.debug("Summary updated.");
 	}
 
+	/**
+	 * TODO: Figure out what this did in the original code
+	 * 
+	 * @param isa
+	 */
 	public void setActive(boolean isa) {
 		isActive = isa;
 	}
