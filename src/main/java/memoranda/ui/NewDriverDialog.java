@@ -1,39 +1,19 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
-import main.java.memoranda.date.CalendarDate;
-import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
 
 /*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
@@ -42,7 +22,7 @@ public class NewDriverDialog extends JDialog {
 	private JLabel errorLabel;
 	private JTextField nameField;
 	private JTextField phoneField;
-	private Dimension fieldDimension;
+	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Driver to the system
@@ -97,7 +77,7 @@ public class NewDriverDialog extends JDialog {
 		
 		JButton okButton = new JButton("OK");
 		okButton.setHorizontalAlignment(JButton.CENTER);
-		okButton.setMaximumSize(new Dimension(100, 25));
+		okButton.setMaximumSize(BUTTON_SIZE);
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -107,7 +87,7 @@ public class NewDriverDialog extends JDialog {
 		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setHorizontalAlignment(JButton.CENTER);
-		cancelButton.setMaximumSize(new Dimension(100, 25));
+		cancelButton.setMaximumSize(BUTTON_SIZE);
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
