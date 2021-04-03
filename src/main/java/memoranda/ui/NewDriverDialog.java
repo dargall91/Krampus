@@ -19,7 +19,7 @@ import main.java.memoranda.util.Local;
 /*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
 public class NewDriverDialog extends JDialog {
 	private boolean cancelled;
-	private JLabel errorLabel;
+	private JPanel errorPanel;
 	private JTextField nameField;
 	private JTextField phoneField;
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
@@ -41,17 +41,17 @@ public class NewDriverDialog extends JDialog {
 	
 	private void init() throws Exception {
 		setTitle("Add Driver");
-		//setResizable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JPanel errorPanel = new JPanel();
+		errorPanel = new JPanel();
+		errorPanel.setVisible(false);
 		
-		errorLabel = new JLabel("All Fields Must Be Filled In");
+		JLabel errorLabel = new JLabel("All Fields Must Be Filled In");
 		errorLabel.setForeground(Color.RED);
-		errorLabel.setVisible(false);
+		//errorLabel.setVisible(false);
 		errorLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		errorPanel.add(errorLabel);
@@ -115,7 +115,7 @@ public class NewDriverDialog extends JDialog {
 
 	private void okButton_actionPerformed(ActionEvent e) {
 		if (getName().equals("") || getPhone().contentEquals("")) {
-			errorLabel.setVisible(true);
+			errorPanel.setVisible(true);
 			pack();
 			validate();
 		}

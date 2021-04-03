@@ -24,15 +24,18 @@ public class DriverTable extends JTable {
 
     /**
      * Constructor for a DriverTable
+     * 
+     * @param drivers The DriverColl to use in this table
      */
-    public DriverTable() {
+    public DriverTable(DriverColl drivers) {
         super();
+        this.drivers = drivers;
         initTable();   
     }
 
     private void initTable() {
         //TODO: No longer needed? Could just be moved to constructor
-    	drivers = new DriverColl();
+    	//drivers = new DriverColl();
     	sorter = new TableSorter(new DriverTableModel());
         sorter.addMouseListenerToHeaderInTable(this);
         setModel(sorter);
@@ -56,8 +59,7 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * TODO: Figure out what this did in the original code
-     * Presumably call when the table is changed
+     * Repaints the table to reflect any changes to the data
      */
     public void tableChanged() {
         initTable();
@@ -122,7 +124,7 @@ public class DriverTable extends JTable {
             return null;
         }
 
-        public Class getColumnClass(int col) {
+        /*public Class getColumnClass(int col) {
             try {
                 switch (col) {
                     case 1:
@@ -138,6 +140,6 @@ public class DriverTable extends JTable {
             }
 
             return null;
-        }
+        }*/
     }
 }
