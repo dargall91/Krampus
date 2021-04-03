@@ -55,26 +55,6 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     }
 
     /**
-     * Creates a new Route object with a unique ID
-     *
-     * @param r
-     * @throws DuplicateKeyException
-     */
-//    @Override
-//    public void createUnique(Route r) throws DuplicateKeyException {
-//        add(new Route(getUniqueID(), r));
-//    }
-
-    /**
-     * Return a new route with a unique ID
-     *
-     * @return new Route object
-     */
-    public Route newRoute(){
-        return new Route(getUniqueID());
-    }
-
-    /**
      * Return a new route with a unique ID
      *
      * @return new Route object
