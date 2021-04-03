@@ -22,6 +22,13 @@ public class DriverPanel extends JPanel {
 
 	private boolean isActive = true;
 
+	/**
+	 * Constructor for the DriverPanel
+	 * 
+	 * Creates a JPanel which houses the the information about the Driver Schedule
+	 * 
+	 * @param parentPanel The DailyItemsPanel which will house this panel
+	 */
 	public DriverPanel(DailyItemsPanel parentPanel) {
 		try {
 			this.parentPanel = parentPanel;
@@ -64,13 +71,15 @@ public class DriverPanel extends JPanel {
 				NewDriverDialog dlg = new NewDriverDialog(App.getFrame());
 				Dimension frmSize = App.getFrame().getSize();
 				Point loc = App.getFrame().getLocation();
+				
 				dlg.setLocation(
 						(frmSize.width - dlg.getSize().width) / 2 + loc.x,
 						(frmSize.height - dlg.getSize().height) / 2
 								+ loc.y);
 				dlg.setVisible(true);
-				if (!dlg.CANCELLED) {
-					System.out.println("Not Cancelled");
+				
+				if (!dlg.isCancelled()) {
+					System.out.println("Driver Name: " + dlg.getName());
 				}
 			}
 		});
@@ -107,6 +116,11 @@ public class DriverPanel extends JPanel {
 		return panel;
 	}
 
+	/**
+	 * Refreshes this panel
+	 * 
+	 * @param date
+	 */
 	public void refresh(CalendarDate date) {
 		//viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
 		SwingUtilities.invokeLater(new Runnable() {
@@ -122,6 +136,11 @@ public class DriverPanel extends JPanel {
 		Util.debug("Summary updated.");
 	}
 
+	/**
+	 * TODO: Figure out what this did in the original code
+	 * 
+	 * @param isa
+	 */
 	public void setActive(boolean isa) {
 		isActive = isa;
 	}
