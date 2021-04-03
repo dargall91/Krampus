@@ -1,4 +1,4 @@
-//
+// updated to replace 'compile' dependencies with 'implementation' for gradle7 compatibility
 
 plugins {
     id 'application'
@@ -16,13 +16,19 @@ repositories {
 }
 
 dependencies {
-    compile 'com.io7m.xom:xom:1.2.+'
-    compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
+
+// resolve dependency/POM relocation for old xom
+    implementation 'com.io7m.xom:xom:1.2.+', {
+       exclude group: "xml-apis", module: "xml-apis"
+    }
+    implementation "xml-apis:xml-apis:1.0.b2"
+
+    implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 
 // Jackson JSON
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.1'
 
 // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
