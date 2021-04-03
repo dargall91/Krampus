@@ -1,21 +1,25 @@
 package main.java.memoranda.ui;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.date.CalendarDate;
-import main.java.memoranda.ui.table.TableMap;
 import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
 import main.java.memoranda.util.Util;
 
@@ -53,18 +57,15 @@ public class DriverPanel extends JPanel {
 		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-		driverTable = new DriverTable(drivers);
-		driverTable.setRowHeight(24);
-
-		scheduleTable = new ScheduleTable();
-		scheduleTable.setRowHeight(24);
-
 		add(getDriverPanel());
 		add(Box.createRigidArea(new Dimension(5, 0)));
 		add(getSchedulePanel());
 	}
 
 	private JPanel getDriverPanel() {
+		driverTable = new DriverTable(drivers);
+		driverTable.setRowHeight(24);
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setAlignmentX(JPanel.TOP_ALIGNMENT);
@@ -78,7 +79,7 @@ public class DriverPanel extends JPanel {
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				NewDriverDialog dlg = new NewDriverDialog(App.getFrame());
+				DriverDialog dlg = new DriverDialog(App.getFrame());
 				Dimension frmSize = App.getFrame().getSize();
 				Point loc = App.getFrame().getLocation();
 				
@@ -90,6 +91,7 @@ public class DriverPanel extends JPanel {
 				
 				if (!dlg.isCancelled()) {
 					Driver driver = new Driver(9001, dlg.getName(), dlg.getPhone());
+					
 					try {
 						drivers.createUnique(driver);
 						CurrentStorage.get().storeDriverList(drivers, CurrentProject.get());
@@ -103,7 +105,7 @@ public class DriverPanel extends JPanel {
 
 		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(driverTable);
-		scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+		scroll.setAlignmentX(JScrollPane.LEFT_ALIGNMENT);
 
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -115,10 +117,12 @@ public class DriverPanel extends JPanel {
 	}
 
 	private JPanel getSchedulePanel() {
+		scheduleTable = new ScheduleTable();
+		scheduleTable.setRowHeight(24);
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setAlignmentX(JPanel.TOP_ALIGNMENT);
-		//panel.setMaximumSize(new Dimension(500, 500));
 		
 		JLabel label = new JLabel("Schedule");
 		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, 25));

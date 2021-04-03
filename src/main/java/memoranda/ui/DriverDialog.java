@@ -16,8 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import main.java.memoranda.util.Local;
 
-/*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
-public class NewDriverDialog extends JDialog {
+/**
+ * DriverDialog is a JDialog that has fields to enter and edit a driver's name and phone number
+ *
+ */
+public class DriverDialog extends JDialog {
 	private boolean cancelled;
 	private JPanel errorPanel;
 	private JTextField nameField;
@@ -29,7 +32,7 @@ public class NewDriverDialog extends JDialog {
 	 * 
 	 * @param frame The main application Frame
 	 */
-	public NewDriverDialog(Frame frame) {
+	public DriverDialog(Frame frame) {
 		super(frame, Local.getString("Sticker"), true);
 		try {
 			init();
@@ -51,7 +54,6 @@ public class NewDriverDialog extends JDialog {
 		
 		JLabel errorLabel = new JLabel("All Fields Must Be Filled In");
 		errorLabel.setForeground(Color.RED);
-		//errorLabel.setVisible(false);
 		errorLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		errorPanel.add(errorLabel);
@@ -147,5 +149,19 @@ public class NewDriverDialog extends JDialog {
 	 */
 	public String getPhone() {
 		return phoneField.getText();
+	}
+	
+	/**
+	 * Sets the driver name field when editing a Driver
+	 */
+	public void setName(String name) {
+		nameField.setText(name);
+	}
+	
+	/**
+	 * Sets the driver phone number field when editing a Driver
+	 */
+	public void setPhone(String phone) {
+		phoneField.setText(phone);
 	}
 }
