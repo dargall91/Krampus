@@ -71,13 +71,15 @@ public class DriverPanel extends JPanel {
 				NewDriverDialog dlg = new NewDriverDialog(App.getFrame());
 				Dimension frmSize = App.getFrame().getSize();
 				Point loc = App.getFrame().getLocation();
+				
 				dlg.setLocation(
 						(frmSize.width - dlg.getSize().width) / 2 + loc.x,
 						(frmSize.height - dlg.getSize().height) / 2
 								+ loc.y);
 				dlg.setVisible(true);
-				if (!dlg.CANCELLED) {
-					System.out.println("Not Cancelled");
+				
+				if (!dlg.isCancelled()) {
+					System.out.println("Driver Name: " + dlg.getName());
 				}
 			}
 		});

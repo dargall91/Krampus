@@ -2,9 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
-import main.java.memoranda.IndexedObject;
 import main.java.memoranda.ui.table.TableSorter;
-import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
@@ -18,7 +16,6 @@ import java.util.Collection;
 
 /**
  * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
- * @author derek
  *
  */
 public class DriverTable extends JTable {
@@ -30,16 +27,12 @@ public class DriverTable extends JTable {
      */
     public DriverTable() {
         super();
-        //TODO: ArrayList->DriverColl
-        //drivers = new ArrayList<String>();
-        drivers = new DriverColl();
-        //drivers2.add(new Driver(1, "Test Name", "111-111-1111"));
-        initTable();
-        
+        initTable();   
     }
 
     private void initTable() {
         //TODO: No longer needed? Could just be moved to constructor
+    	drivers = new DriverColl();
     	sorter = new TableSorter(new DriverTableModel());
         sorter.addMouseListenerToHeaderInTable(this);
         setModel(sorter);
@@ -93,8 +86,7 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * Defines the column names for the JTable and determines what data to place in each column
-     * 
+     * Defines the table model for the Driver Table
      */
     private class DriverTableModel extends AbstractTableModel {
         private String[] columnNames = {
@@ -115,16 +107,16 @@ public class DriverTable extends JTable {
         }
 
         public Object getValueAt(int row, int col) {
-            //convert to array
-            Driver[] driverArray = drivers.getDrivers().toArray(new Driver[drivers.size()]);
+            //get driver at row
+            Driver driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
 
             switch (col) {
                 case 0:
-                    return driverArray[row].getName();//driver.getName();
+                    return driver.getName();//driver.getName();
                 case 1:
-                    return driverArray[row].getId();//driver.getID();
+                    return driver.getId();//driver.getID();
                 case 2:
-                    return driverArray[row].getPhoneNumber();//driver.getPhone();
+                    return driver.getPhoneNumber();//driver.getPhone();
             }
 
             return null;
