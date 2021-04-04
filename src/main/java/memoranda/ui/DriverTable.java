@@ -3,13 +3,11 @@ package main.java.memoranda.ui;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
-import main.java.memoranda.ui.table.TableSorter;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.RowSorter;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -45,14 +43,15 @@ public class DriverTable extends JTable {
      * 
      * @param drivers The DriverColl to use in this table
      */
-    public DriverTable(DriverColl drivers) {
+    public DriverTable() {
         super();
-        this.drivers = drivers;
         init();   
     }
 
     private void init() {
     	setToolTipText("Click a driver to display their schedule. Right-click to edit the selected driver.");
+    	
+    	drivers = CurrentProject.getDriverColl();
     	
     	JPopupMenu optionsMenu = new JPopupMenu();
     	optionsMenu.setFont(new Font("Dialog", 1, 10));

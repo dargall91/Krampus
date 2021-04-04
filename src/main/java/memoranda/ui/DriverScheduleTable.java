@@ -3,6 +3,7 @@ package main.java.memoranda.ui;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 public class DriverScheduleTable extends JTable {
     //TODO: ArrayList->TourColl
     private ArrayList<String> tours;
+    private TourColl tours2;
     private static Driver driver;
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
@@ -58,6 +60,8 @@ public class DriverScheduleTable extends JTable {
         tours.add("Tour1");
         tours.add("Tour2");
         tours.add("Tour3");
+        
+        tours2 = CurrentProject.getDTourColl();
         
     	setToolTipText("Click to select a tour. Right-click to edit a tour or the schedule.");
     	
@@ -238,7 +242,7 @@ public class DriverScheduleTable extends JTable {
     		
     		try {
     			//TODO: write drivers and tours, will be easy to do once TourColl and DriverColl are part of a project class
-				CurrentStorage.get().storeDriverList(null, CurrentProject.get());
+				CurrentStorage.get().storeDriverList(CurrentProject.getDriverColl(), CurrentProject.get());
 				//CurrentStorage.get().storeTourList(null, CurrentProject.get());
 			} catch (Exception ex) {
 				ex.printStackTrace();

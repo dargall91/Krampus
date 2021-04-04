@@ -10,12 +10,15 @@
 package main.java.memoranda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Vector;
 
 import main.java.memoranda.ui.AppFrame;
+import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
 
 /**
@@ -29,6 +32,8 @@ public class CurrentProject {
     private static NoteList _notelist = null;
     private static ResourcesList _resources = null;
     private static Vector projectListeners = new Vector();
+    private static DriverColl _drivers = null;
+    private static TourColl _tours = null;
 
         
     static {
@@ -53,6 +58,12 @@ public class CurrentProject {
         _tasklist = CurrentStorage.get().openTaskList(_project);
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
+        try {
+			_drivers = CurrentStorage.get().openDriverList(_project);
+			//tours = CurrentStorage.get().openTourList(_project);
+		} catch (IOException | DuplicateKeyException e) {
+			new ExceptionDialog(e);
+		}
         AppFrame.addExitListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 save();                                               
@@ -76,17 +87,45 @@ public class CurrentProject {
     public static ResourcesList getResourcesList() {
             return _resources;
     }
+    
+    /**
+     * Gets this project's DriverColl
+     * 
+     * @return the DriverColl
+     */
+    public static DriverColl getDriverColl() {
+        return _drivers;
+    }
+    
+    /**
+     * Gets this project's DriverColl
+     * 
+     * @return the DriverColl
+     */
+    public static TourColl getDTourColl() {
+        return _tours;
+    }
 
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
+        DriverColl newDriverColl = null;
+        TourColl newTourColl = null;
+        try {
+			newDriverColl = CurrentStorage.get().openDriverList(project);
+			//newTourColl = CurrentStorage.get().openTourList(project);
+		} catch (IOException | DuplicateKeyException e) {
+			new ExceptionDialog(e);
+		}
         notifyListenersBefore(project, newnotelist, newtasklist, newresources);
         _project = project;
         _tasklist = newtasklist;
         _notelist = newnotelist;
         _resources = newresources;
+        _drivers = newDriverColl;
+        _tours = newTourColl;
         notifyListenersAfter();
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }

@@ -71,7 +71,7 @@ public class DriverPanel extends JSplitPane {
 	}
 
 	private JPanel getDriverPanel() {
-		driverTable = new DriverTable(drivers);
+		driverTable = new DriverTable();
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
