@@ -94,7 +94,7 @@ public class DailyItemsPanel extends JPanel {
     CardLayout cardLayout2 = new CardLayout();
         
     JTabbedPane tasksTabbedPane = new JTabbedPane();
-    JTabbedPane eventsTabbedPane = new JTabbedPane();
+    JTabbedPane toursTabbedPane = new JTabbedPane();
 	JTabbedPane driverTabbedPane = new JTabbedPane();
     Border border2;
 
@@ -297,7 +297,7 @@ public class DailyItemsPanel extends JPanel {
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
-        mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
+        mainTabsPanel.add(toursTabbedPane, "TOURSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(driverTabbedPane, "DRIVERSTAB");
@@ -478,6 +478,6 @@ public class DailyItemsPanel extends JPanel {
     }
 
     void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.eventsB_actionPerformed(null);
+        parentPanel.toursB_actionPerformed(null);
     }
 }

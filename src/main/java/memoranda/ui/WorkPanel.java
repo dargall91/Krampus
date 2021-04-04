@@ -109,7 +109,7 @@ public class WorkPanel extends JPanel {
 		toursB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toursB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eventsB_actionPerformed(e);
+				toursB_actionPerformed(e);
 			}
 		});
 		toursB.setIcon(
@@ -224,7 +224,7 @@ public class WorkPanel extends JPanel {
 			else if (pan.equals("TASKS"))
 				tasksB_actionPerformed(null);
 			else if (pan.equals("EVENTS"))
-				eventsB_actionPerformed(null);
+				toursB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
 		}
@@ -251,7 +251,7 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "TASKS");
 	}
 
-	public void eventsB_actionPerformed(ActionEvent e) {
+	public void toursB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("TOURS");
 		setCurrentButton(toursB);

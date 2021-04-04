@@ -224,7 +224,7 @@ public class TourPanel extends JPanel {
     }
 
     void editEventB_actionPerformed(ActionEvent e) {
-        EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Event"));
+        NewTourDialog dlg = new NewTourDialog(App.getFrame(), Local.getString("Tour"));
         main.java.memoranda.Event ev =
             (main.java.memoranda.Event) eventsTable.getModel().getValueAt(
                 eventsTable.getSelectedRow(),
@@ -314,7 +314,7 @@ public class TourPanel extends JPanel {
     }
     
     void newTourB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
-    	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("New event"));
+    	NewTourDialog dlg = new NewTourDialog(App.getFrame(), Local.getString("New tour"));
     	Dimension frmSize = App.getFrame().getSize();
     	Point loc = App.getFrame().getLocation();
     	if (tasktext != null) {
@@ -360,7 +360,7 @@ public class TourPanel extends JPanel {
         parentPanel.updateIndicators();
     }
 
-    private void updateEvents(EventDialog dlg, int hh, int mm, String text) {
+    private void updateEvents(NewTourDialog dlg, int hh, int mm, String text) {
 	int rtype;
         int period;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
