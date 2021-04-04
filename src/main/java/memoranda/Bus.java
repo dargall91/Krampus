@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
+ * From a commit perspective, was co-developed with US82
  */
 public class Bus extends IndexedObject{
     private int number;
