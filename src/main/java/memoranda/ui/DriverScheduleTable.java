@@ -2,8 +2,6 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.Driver;
 import main.java.memoranda.Tour;
-import main.java.memoranda.ui.DriverTable.DriverTableModel;
-import main.java.memoranda.ui.table.TableSorter;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
