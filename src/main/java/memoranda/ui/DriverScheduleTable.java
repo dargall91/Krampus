@@ -260,7 +260,7 @@ public class DriverScheduleTable extends JTable {
     }
     
     private void scheduleActionEvent(ActionEvent e) {
-    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver");
+    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver", "Edit");
     	//Driver driver = getDriver();
     	dlg.setName(driver.getName());
     	dlg.setPhone(driver.getPhoneNumber());

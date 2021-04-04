@@ -226,7 +226,7 @@ public class DriverTable extends JTable {
     }
     
     private void editActionEvent(ActionEvent e) {
-    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver");
+    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver", "Edit");
     	Driver driver = getDriver();
     	dlg.setName(driver.getName());
     	dlg.setPhone(driver.getPhoneNumber());

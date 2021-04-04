@@ -31,20 +31,25 @@ public class DriverDialog extends JDialog {
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Driver to the system
+	 * or edit an existing one
 	 * 
 	 * @param frame The main application Frame
+	 * @param title The title for this JDialog
+	 * @param posButtonName The name for the positive button
 	 */
-	public DriverDialog(Frame frame, String title) {
-		super(frame, title, true);
+	public DriverDialog(Frame frame, String title, String posButtonName) {
+		super(frame, title);
 		try {
-			init();
+			init(posButtonName);
 			pack();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
 		}
 	}
 	
-	private void init() throws Exception {
+	private void init(String posButtonName) throws Exception {
+		setModal(true);
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -78,13 +83,13 @@ public class DriverDialog extends JDialog {
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		
 		//TODO: OK and Cancel Buttons maximize window
-		JButton okButton = new JButton("OK");
-		okButton.setHorizontalAlignment(JButton.CENTER);
-		okButton.setMaximumSize(BUTTON_SIZE);
-		okButton.addActionListener(new ActionListener() {
+		JButton posButton = new JButton(posButtonName);
+		posButton.setHorizontalAlignment(JButton.CENTER);
+		posButton.setMaximumSize(BUTTON_SIZE);
+		posButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				okButton_actionPerformed(e);
+				posButton_actionPerformed(e);
 			}
 		});
 		
@@ -98,7 +103,7 @@ public class DriverDialog extends JDialog {
 			}
 		});
 		
-		buttonPanel.add(okButton);
+		buttonPanel.add(posButton);
 		buttonPanel.add(Box.createRigidArea(HORIZONTAL_GAP));
 		buttonPanel.add(cancelButton);
 		
@@ -116,7 +121,7 @@ public class DriverDialog extends JDialog {
 		this.dispose();
 	}
 
-	private void okButton_actionPerformed(ActionEvent e) {
+	private void posButton_actionPerformed(ActionEvent e) {
 		if (getName().equals("") || getPhone().contentEquals("")) {
 			errorPanel.setVisible(true);
 			pack();

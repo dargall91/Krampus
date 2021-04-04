@@ -88,7 +88,7 @@ public class DriverPanel extends JSplitPane {
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				DriverDialog dlg = new DriverDialog(App.getFrame(), "Add Driver");
+				DriverDialog dlg = new DriverDialog(App.getFrame(), "Add Driver", "Add");
 				Dimension frmSize = App.getFrame().getSize();
 				Point loc = App.getFrame().getLocation();
 				
@@ -99,6 +99,7 @@ public class DriverPanel extends JSplitPane {
 				dlg.setVisible(true);
 				
 				if (!dlg.isCancelled()) {
+					System.out.println("Not Cancelled");
 					Driver driver = new Driver(OVER_9000, dlg.getName(), dlg.getPhone());
 					
 					try {
