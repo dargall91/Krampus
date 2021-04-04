@@ -107,6 +107,8 @@ public class DriverPanel extends JSplitPane {
 						CurrentProject.getDriverColl().createUnique(driver);
 						CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
 						driverTable.tableChanged();
+						scheduleTable.setDriver(driverTable.getDriver());
+						scheduleTable.tableChanged();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -135,6 +137,8 @@ public class DriverPanel extends JSplitPane {
 		else {
 			scheduleTable = new DriverScheduleTable();
 		}
+		
+		driverTable.setScheduleTable(scheduleTable);
 		
 		JButton schedule = new JButton("Schedule Tour");
 		schedule.setAlignmentX(JButton.LEFT_ALIGNMENT);

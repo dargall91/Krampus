@@ -3,6 +3,8 @@ package main.java.memoranda.ui;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
@@ -27,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 
 /**
  * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
@@ -37,6 +40,7 @@ public class DriverTable extends JTable {
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
     private final int ID_COLUMN = 1;
+    private DriverScheduleTable scheduleTable;
 
     /**
      * Constructor for a DriverTable
@@ -75,8 +79,8 @@ public class DriverTable extends JTable {
     	
     	addMouseListener(new MouseAdapter() {
     		public void mouseClicked(MouseEvent e) {
-    			//TODO: display this driver's tours
-    			//TODO: This class needs access to DriverPanel class, which then needs some kind of displayTours(driver) method
+    			scheduleTable.setDriver(getDriver());
+    			scheduleTable.tableChanged();
     		}
     		
     		public void mousePressed(MouseEvent e) {
@@ -256,12 +260,30 @@ public class DriverTable extends JTable {
     	int result = JOptionPane.showConfirmDialog(null,  "Delete " + driver.getName() + "?", "Delete Driver", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		//TODO: unassign all tours from driver
+    		LinkedList<Integer> tourIDs = driver.getTourIDs();
+    		TourColl tours = CurrentProject.getTourColl();
+    		
+    		//remove driver from all scheduled tours    		
+    		for (int i = 0; i < tourIDs.size(); i++) {
+    			tours.get(tourIDs.get(i)).removeDriver();
+    		}
+    		
     		drivers.del(driver.getID());
     		
     		try {
 				CurrentStorage.get().storeDriverList(CurrentProject.get(), drivers);
+				CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
 				tableChanged();
+				
+				if (drivers.size() == 0) {
+					scheduleTable.setDriver(null);
+				}
+				
+				else {
+					scheduleTable.setDriver(getDriver());
+				}
+				
+				scheduleTable.tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -277,5 +299,14 @@ public class DriverTable extends JTable {
      */
     public Driver getDriver() {
     	return (Driver) drivers.get((int) getValueAt(getSelectedRow(), ID_COLUMN));
+    }
+    
+    /**
+     * Sets the DriverScheduleTable to be updated when a user selects a driver in this table
+     * 
+     * @param scheduleTable The DriverScheduleTable
+     */
+    public void setScheduleTable(DriverScheduleTable scheduleTable) {
+        this.scheduleTable = scheduleTable;
     }
 }
