@@ -40,8 +40,6 @@ public class DriverTable extends JTable {
 
     /**
      * Constructor for a DriverTable
-     * 
-     * @param drivers The DriverColl to use in this table
      */
     public DriverTable() {
         super();
@@ -49,7 +47,7 @@ public class DriverTable extends JTable {
     }
 
     private void init() {
-    	setToolTipText("Click a driver to display their schedule. Right-click to edit the selected driver.");
+    	setToolTipText("Click a driver to display their schedule. Right-click for options.");
     	
     	drivers = CurrentProject.getDriverColl();
     	
@@ -258,6 +256,7 @@ public class DriverTable extends JTable {
     	int result = JOptionPane.showConfirmDialog(null,  "Delete " + driver.getName() + "?", "Delete Driver", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
+    		//TODO: unassign all tours from driver
     		drivers.del(driver.getID());
     		
     		try {

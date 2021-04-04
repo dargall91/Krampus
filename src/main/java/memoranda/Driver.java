@@ -65,6 +65,16 @@ public class Driver extends IndexedObject {
     public Tour getTour(int id){
         return tours.get(id);
     }
+    
+    /**
+    *
+    * @param id
+    * @return
+    */
+   @JsonIgnore
+   public void removeTour(int id){
+       tours.remove(id);
+   }
 
     /**
      *

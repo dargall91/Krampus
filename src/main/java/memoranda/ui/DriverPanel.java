@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -99,7 +101,6 @@ public class DriverPanel extends JSplitPane {
 				dlg.setVisible(true);
 				
 				if (!dlg.isCancelled()) {
-					System.out.println("Not Cancelled");
 					Driver driver = new Driver(OVER_9000, dlg.getName(), dlg.getPhone());
 					
 					try {
@@ -135,6 +136,44 @@ public class DriverPanel extends JSplitPane {
 			scheduleTable = new DriverScheduleTable();
 		}
 		
+		JButton schedule = new JButton("Schedule Tour");
+		schedule.setAlignmentX(JButton.LEFT_ALIGNMENT);
+		schedule.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				if (scheduleTable.getDriver() == null) {
+					JOptionPane.showMessageDialog(null,  "Cannot Schedule Tour: No Driver Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
+				            "/ui/icons/error.png")));
+				}
+				
+				else {
+					DriverTourDialog dlg = new DriverTourDialog(App.getFrame());
+					Dimension frmSize = App.getFrame().getSize();
+					Point loc = App.getFrame().getLocation();
+					
+					dlg.setLocation(
+							(frmSize.width - dlg.getSize().width) / 2 + loc.x,
+							(frmSize.height - dlg.getSize().height) / 2
+									+ loc.y);
+					dlg.setVisible(true);
+					
+					if (!dlg.isCancelled() && dlg.getTour() != null) {
+						scheduleTable.getDriver().addTour(dlg.getTour());
+						scheduleTable.addTour(dlg.getTour());
+						dlg.getTour().setDriverID(scheduleTable.getDriver().getID());
+						
+						try {
+							CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
+							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
+							scheduleTable.tableChanged();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setAlignmentX(JPanel.TOP_ALIGNMENT);
@@ -148,6 +187,8 @@ public class DriverPanel extends JSplitPane {
 		scroll.setAlignmentX(JButton.LEFT_ALIGNMENT);
 
 		panel.add(label);
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
+		panel.add(schedule);
 		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(scroll);
 

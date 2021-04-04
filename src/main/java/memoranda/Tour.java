@@ -15,6 +15,9 @@ public class Tour extends IndexedObject{
     private LocalTime time;
     private Bus bus;
     private Route route;
+    private int driverID;
+    
+    private final int NO_DRIVER_ID = -1;
 
 
     /**
@@ -72,6 +75,17 @@ public class Tour extends IndexedObject{
         } else {
             route=r;
         }
+        
+        //Driver d = (Driver) driverColl.get(newTour.getDriverID());
+        int d = newTour.getDriverID();
+        
+        if (d == NO_DRIVER_ID) {
+        	driverID = NO_DRIVER_ID;
+        }
+        
+        else {
+        	driverID = d;
+        }
     }
 
 
@@ -99,6 +113,24 @@ public class Tour extends IndexedObject{
     public void setRoute(Route route){
         this.route=route;
     }
+    
+    /**
+    * Assigns this Tour to a Driver
+    * 
+    * @param driverID The Driver's ID
+    */
+   public void setDriverID(int driverID){
+       this.driverID = driverID;
+   }
+   
+   /**
+    * Unassigns a driver from this Tour
+    * 
+    * @param Driver
+    */
+   public void removeDriver(){
+       driverID = NO_DRIVER_ID;
+   }
 
 
     /**
@@ -168,6 +200,26 @@ public class Tour extends IndexedObject{
     public int getBusID(){
         return bus.getID();
     }
+    
+    /**
+    * Gets the ID of the Driver assigned to this tour
+    * 
+    * @return A positive integer if there is a Driver assigned to tour, or the value of getNoDriverID() if there is not
+    */
+   @JsonProperty("driverID")
+   public int getDriverID(){
+	   return driverID;
+   }
+   
+   /**
+   * Returns the id value for a tour with no driver
+   * 
+   * @return the ID value that represents a driver-less tour
+   */
+  @JsonIgnore
+  public int getNoDriverID(){
+      return NO_DRIVER_ID;
+  }
 
     /**
      * standard toString()
