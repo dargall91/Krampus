@@ -58,6 +58,14 @@ public class Driver extends IndexedObject {
     public String getName(){
         return name;
     }
+    
+    /**
+    *
+    * @return
+    */
+   public void setName(String name){
+       this.name = name;
+   }
 
     /**
      *
@@ -66,6 +74,14 @@ public class Driver extends IndexedObject {
     public String getPhoneNumber(){
         return phoneNumber;
     }
+    
+    /**
+    *
+    * @return
+    */
+   public void setPhoneNumber(String phoneNumber){
+       this.phoneNumber = phoneNumber;
+   }
 
     /**
      *
