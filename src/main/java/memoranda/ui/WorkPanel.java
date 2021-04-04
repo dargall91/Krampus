@@ -36,7 +36,7 @@ public class WorkPanel extends JPanel {
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JButton driverB = new JButton();
 	public JButton tasksB = new JButton();
-	public JButton eventsB = new JButton();
+	public JButton toursB = new JButton();
 	public JButton filesB = new JButton();
 	JButton currentB = null;
 	Border border1;
@@ -94,30 +94,30 @@ public class WorkPanel extends JPanel {
 		driverB.setMargin(new Insets(0, 0, 0, 0));
 		driverB.setSelected(true);
 
-		eventsB.setBackground(Color.white);
-		eventsB.setMaximumSize(new Dimension(60, 80));
-		eventsB.setMinimumSize(new Dimension(30, 30));
+		toursB.setBackground(Color.white);
+		toursB.setMaximumSize(new Dimension(60, 80));
+		toursB.setMinimumSize(new Dimension(30, 30));
 
-		eventsB.setFont(new java.awt.Font("Dialog", 1, 10));
-		eventsB.setPreferredSize(new Dimension(50, 50));
-		eventsB.setBorderPainted(false);
-		eventsB.setContentAreaFilled(false);
-		eventsB.setFocusPainted(false);
-		eventsB.setHorizontalTextPosition(SwingConstants.CENTER);
-		eventsB.setText(Local.getString("Events"));
-		eventsB.setVerticalAlignment(SwingConstants.TOP);
-		eventsB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		eventsB.addActionListener(new java.awt.event.ActionListener() {
+		toursB.setFont(new java.awt.Font("Dialog", 1, 10));
+		toursB.setPreferredSize(new Dimension(50, 50));
+		toursB.setBorderPainted(false);
+		toursB.setContentAreaFilled(false);
+		toursB.setFocusPainted(false);
+		toursB.setHorizontalTextPosition(SwingConstants.CENTER);
+		toursB.setText(Local.getString("Tours"));
+		toursB.setVerticalAlignment(SwingConstants.TOP);
+		toursB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		toursB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				eventsB_actionPerformed(e);
 			}
 		});
-		eventsB.setIcon(
+		toursB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
 					"/ui/icons/events.png")));
-		eventsB.setOpaque(false);
-		eventsB.setMargin(new Insets(0, 0, 0, 0));
+		toursB.setOpaque(false);
+		toursB.setMargin(new Insets(0, 0, 0, 0));
 		//eventsB.setSelected(true);
 
 		tasksB.setSelected(true);
@@ -201,7 +201,7 @@ public class WorkPanel extends JPanel {
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
 		toolBar.add(driverB, null);
-		toolBar.add(eventsB, null);
+		toolBar.add(toursB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
@@ -253,9 +253,9 @@ public class WorkPanel extends JPanel {
 
 	public void eventsB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("EVENTS");
-		setCurrentButton(eventsB);
-		Context.put("CURRENT_PANEL", "EVENTS");
+		dailyItemsPanel.selectPanel("TOURS");
+		setCurrentButton(toursB);
+		Context.put("CURRENT_PANEL", "TOURS");
 	}
 
 	public void filesB_actionPerformed(ActionEvent e) {
