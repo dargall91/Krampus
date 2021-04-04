@@ -36,7 +36,6 @@ import java.awt.event.MouseEvent;
  */
 public class DriverTable extends JTable {
     private DriverColl drivers;
-    private JPopupMenu optionsMenu;
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
     private final int ID_COLUMN = 1;
@@ -55,7 +54,7 @@ public class DriverTable extends JTable {
     private void init() {
     	setToolTipText("Click a driver to display their schedule. Right-click to edit the selected driver.");
     	
-    	optionsMenu = new JPopupMenu();
+    	JPopupMenu optionsMenu = new JPopupMenu();
     	optionsMenu.setFont(new Font("Dialog", 1, 10));
     	
     	JMenuItem editDriver = new JMenuItem("Edit Driver");
@@ -64,7 +63,6 @@ public class DriverTable extends JTable {
 			public void actionPerformed(ActionEvent e) {
 				editActionEvent(e);
 			}
-    		
     	});
     	
     	JMenuItem deleteDriver = new JMenuItem("Delete Driver");
@@ -73,7 +71,6 @@ public class DriverTable extends JTable {
 			public void actionPerformed(ActionEvent e) {
 				deleteActionEvent(e);
 			}
-    		
     	});
     	
     	optionsMenu.add(editDriver);

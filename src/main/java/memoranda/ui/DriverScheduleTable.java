@@ -1,12 +1,17 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.Tour;
+import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -15,6 +20,13 @@ import javax.swing.table.TableRowSorter;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -48,6 +60,45 @@ public class DriverScheduleTable extends JTable {
         tours.add("Tour3");
         
     	setToolTipText("Click to select a tour. Right-click to edit a tour or the schedule.");
+    	
+    	JPopupMenu optionsMenu = new JPopupMenu();
+    	optionsMenu.setFont(new Font("Dialog", 1, 10));
+    	
+    	JMenuItem unscheduleTour = new JMenuItem("Unschedule Tour");
+    	unscheduleTour.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				unscheduleActionEvent(e);
+			}
+    	});
+    	
+    	JMenuItem shceduleTour = new JMenuItem("Schedule Tour");
+    	shceduleTour.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				scheduleActionEvent(e);
+			}
+    	});
+    	
+    	optionsMenu.add(unscheduleTour);
+    	optionsMenu.addSeparator();
+    	optionsMenu.add(shceduleTour);
+    	
+    	addMouseListener(new MouseAdapter() {
+    		public void mousePressed(MouseEvent e) {
+    			maybeShowPopup(e);
+    		}
+
+    		public void mouseReleased(MouseEvent e) {
+    			maybeShowPopup(e);
+    		}
+
+    		private void maybeShowPopup(MouseEvent e) {
+    			if (e.isPopupTrigger()) {
+    				optionsMenu.show(e.getComponent(), e.getX(), e.getY());
+    			}
+    		}
+    	});
     	
     	setRowHeight(HEIGHT);
         setShowGrid(false);
@@ -175,6 +226,54 @@ public class DriverScheduleTable extends JTable {
         	//default to String
             return String.class;
         }
+    }
+    
+    private void unscheduleActionEvent(ActionEvent e) {
+    	Tour tour = getTour();
+    	//int result = JOptionPane.showConfirmDialog(null,  "Delete " + tour.getName() + "?", "test", JOptionPane.OK_CANCEL_OPTION);
+    	int result = JOptionPane.showConfirmDialog(null,  "Delete Tour?", "test", JOptionPane.OK_CANCEL_OPTION);
+    	
+    	if (result == JOptionPane.OK_OPTION) {
+    		//tour deletion logic here
+    		
+    		try {
+    			//TODO: write drivers and tours, will be easy to do once TourColl and DriverColl are part of a project class
+				CurrentStorage.get().storeDriverList(null, CurrentProject.get());
+				//CurrentStorage.get().storeTourList(null, CurrentProject.get());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+    		
+			tableChanged();
+    	}
+    }
+    
+    private void scheduleActionEvent(ActionEvent e) {
+    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver");
+    	//Driver driver = getDriver();
+    	dlg.setName(driver.getName());
+    	dlg.setPhone(driver.getPhoneNumber());
+    	
+    	Dimension frmSize = App.getFrame().getSize();
+		Point loc = App.getFrame().getLocation();
+		
+		dlg.setLocation(
+				(frmSize.width - dlg.getSize().width) / 2 + loc.x,
+				(frmSize.height - dlg.getSize().height) / 2
+						+ loc.y);
+		dlg.setVisible(true);
+		
+		if (!dlg.isCancelled()) {
+			driver.setName(dlg.getName());
+			driver.setPhoneNumber(dlg.getPhone());
+			
+			try {
+				//CurrentStorage.get().storeDriverList(drivers, CurrentProject.get());
+				tableChanged();
+			} catch (Exception ex) {
+				new ExceptionDialog(ex);
+			}
+		}
     }
     
     /**
