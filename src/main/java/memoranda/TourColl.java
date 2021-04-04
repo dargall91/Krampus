@@ -7,22 +7,25 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Holds all loaded Tours
+ * TourColl object holding a collection of tours in the MTB scheduling system.
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
  */
 public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
 
 
     /**
-     * create a new route collection
+     * create a new tour collection
      */
     public TourColl(){
         super();
     }
 
     /**
-     * add an entire collection of routes (post json import)
+     * add an entire collection of tours (post json import)
      *
-     * @param c
+     * @param c tours to add
      */
     public TourColl(Collection<Tour> c) throws DuplicateKeyException {
         this();
@@ -32,18 +35,25 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
     }
 
     /**
-     * Allows deserializing routes from JSON files.  TourLoader class is needed to deal with converting route IDs to
-     * route objects
      *
-     * @param routeColl
+     * @param routeColl holds
      * @param c
      * @throws DuplicateKeyException
      */
+
+    /**
+     * Allows deserializing routes from JSON files.  TourLoader class is needed to deal with converting route IDs to
+     * route objects
+     *
+     * @param routeColl Collection of routes holding routes with indexes (IDs) held by TourLoader obj
+     * @param busColl Collection of buses holding buses with indexes (IDs) held by TourLoader obj
+     * @param c TourLoader obj from json deserialization
+     * @throws DuplicateKeyException if provided id/key is not unique
+     */
     public TourColl(RouteColl routeColl, BusColl busColl, Collection<TourLoader> c) throws DuplicateKeyException{
         this();
-        System.out.println("in TourColl constructor. routecoll="+routeColl+", tourloader coll="+c);
+//        System.out.println("in TourColl constructor. routecoll="+routeColl+", tourloader coll="+c);
         for (TourLoader tl: c){
-            System.out.println("adding new tour to this collection");
             add(new Tour(routeColl, busColl, tl));
         }
     }
@@ -52,7 +62,7 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
     /**
      * Returns a new collection item with a unique key
      *
-     * @return
+     * @return new Tour with unique id
      */
     @Override
     public Tour newItem(){
@@ -62,16 +72,18 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
 
     /**
      * get route by ID
-     * @param id
-     * @return
+     *
+     * @param id id to look up
+     * @return Tour obj if found, null otherwise
      */
     public Tour get(int id){
         return (Tour)super.get(id);
     }
 
     /**
+     * json serialization routine
      *
-     * @return
+     * @return collection of Tours in this collection
      */
     @JsonProperty
     public Collection<IndexedObject> getTours(){
@@ -80,7 +92,8 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
 
     /**
      * iterator
-     * @return
+     *
+     * @return Tour Iterator
      */
     @Override
     public Iterator<Tour> iterator() {
@@ -89,6 +102,7 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
 
     /**
      * iterator
+     *
      * @param <Tour>
      */
     public class TourIterator<Tour> implements Iterator<Tour>{
