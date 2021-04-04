@@ -27,6 +27,7 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
      * add an entire collection of buses (post json import)
      *
      * @param c Bus objs to add to collection
+     * @throws DuplicateKeyException if a provided Bus id is not unique
      */
     public BusColl(Collection<Bus> c) throws DuplicateKeyException {
         this();

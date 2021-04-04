@@ -101,7 +101,7 @@ public class Coordinate {
      * Get difference in latitudes in degrees
      *
      * @param c other coordinate
-     * @return
+     * @return absolute distance to provided coordinate
      */
     public Double latitudeDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLat()- lat);
@@ -109,8 +109,9 @@ public class Coordinate {
 
     /**
      * get difference in longitudes in degrees
+     *
      * @param c other coordinate
-     * @return
+     * @return absolute distance to provided coordinate
      */
     public Double longitudeDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLon()- lon);
@@ -118,6 +119,7 @@ public class Coordinate {
 
     /**
      * whether this coordinate is north of coordinate c
+     *
      * @param c other coordinate
      * @return whether this coordinate is north of supplied coordinate
      */

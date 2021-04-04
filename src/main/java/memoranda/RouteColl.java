@@ -25,7 +25,8 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     /**
      * add an entire collection of routes (post json import)
      *
-     * @param c
+     * @param c collection of routes to add to collection
+     * @throws DuplicateKeyException if a provided Route has a non-unique key
      */
     public RouteColl(Collection<Route> c) throws DuplicateKeyException {
         this();

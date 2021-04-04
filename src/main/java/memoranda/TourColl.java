@@ -26,6 +26,7 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
      * add an entire collection of tours (post json import)
      *
      * @param c tours to add
+     * @throws DuplicateKeyException if a provided Tour has a non-unique key
      */
     public TourColl(Collection<Tour> c) throws DuplicateKeyException {
         this();

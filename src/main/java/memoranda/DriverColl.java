@@ -24,7 +24,9 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     /**
      * add an entire collection of Drivers (post json import)
      *
+     * @param tourColl collection of Tours containing a Tour with the integer IDs associated with this driver's Tours
      * @param c collection of DriverLoader objects to convert to Driver objs and add to this collection
+     * @throws DuplicateKeyException if a provided Driver id (in DriverLoader obj) is not unique
      */
     public DriverColl(TourColl tourColl, Collection<DriverLoader> c) throws DuplicateKeyException {
         this();

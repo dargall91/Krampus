@@ -26,6 +26,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      * add an entire collection of nodes (post json import)
      *
      * @param c collection of Nodes to add to collection
+     * @throws DuplicateKeyException if a provided Node id is not unique
      */
     public NodeColl(Collection<Node> c) throws DuplicateKeyException{
         this();

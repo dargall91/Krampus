@@ -134,7 +134,8 @@ public class Route extends IndexedObject{
 
     /**
      * Returns an ordered list of only the IDs of the nodes in this route for json serialization
-     * @return
+     *
+     * @return ordered list of integer IDs of nodes in this route
      */
     @JsonProperty
     public LinkedList<Integer> getNodeIDs(){
