@@ -55,13 +55,20 @@ public class DriverScheduleTable extends JTable {
         init();
     }
 
-    private void init() {
+    public DriverScheduleTable() {
+		super();
+        //TODO: ArrayList->TourColl
+        tours = new ArrayList<String>();
+        init();
+	}
+
+	private void init() {
     	//TODO: read data from TourColl
         tours.add("Tour1");
         tours.add("Tour2");
         tours.add("Tour3");
         
-        tours2 = CurrentProject.getDTourColl();
+        tours2 = CurrentProject.getTourColl();
         
     	setToolTipText("Click to select a tour. Right-click to edit a tour or the schedule.");
     	
@@ -235,14 +242,14 @@ public class DriverScheduleTable extends JTable {
     private void unscheduleActionEvent(ActionEvent e) {
     	Tour tour = getTour();
     	//int result = JOptionPane.showConfirmDialog(null,  "Delete " + tour.getName() + "?", "test", JOptionPane.OK_CANCEL_OPTION);
-    	int result = JOptionPane.showConfirmDialog(null,  "Delete Tour?", "test", JOptionPane.OK_CANCEL_OPTION);
+    	int result = JOptionPane.showConfirmDialog(null,  "Delete Tour?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
     		//tour deletion logic here
     		
     		try {
     			//TODO: write drivers and tours, will be easy to do once TourColl and DriverColl are part of a project class
-				CurrentStorage.get().storeDriverList(CurrentProject.getDriverColl(), CurrentProject.get());
+				CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
 				//CurrentStorage.get().storeTourList(null, CurrentProject.get());
 			} catch (Exception ex) {
 				ex.printStackTrace();

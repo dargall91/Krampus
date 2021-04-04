@@ -57,7 +57,7 @@ public class DriverPanel extends JSplitPane {
 
 	private void jbInit() throws Exception {
 		CurrentStorage.get().createProjectStorage(CurrentProject.get());
-		drivers = CurrentStorage.get().openDriverList(CurrentProject.get());
+		drivers = CurrentStorage.get().openDriverList(CurrentProject.get(), CurrentProject.getTourColl());
 		
 		setActive(true);
 
@@ -102,8 +102,8 @@ public class DriverPanel extends JSplitPane {
 					Driver driver = new Driver(OVER_9000, dlg.getName(), dlg.getPhone());
 					
 					try {
-						drivers.createUnique(driver);
-						CurrentStorage.get().storeDriverList(drivers, CurrentProject.get());
+						CurrentProject.getDriverColl().createUnique(driver);
+						CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
 						driverTable.tableChanged();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -126,7 +126,13 @@ public class DriverPanel extends JSplitPane {
 	}
 
 	private JPanel getSchedulePanel() {
-		scheduleTable = new DriverScheduleTable(driverTable.getDriver());
+		if (drivers.size() >= 1) {
+			scheduleTable = new DriverScheduleTable(driverTable.getDriver());
+		}
+		
+		else {
+			scheduleTable = new DriverScheduleTable();
+		}
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

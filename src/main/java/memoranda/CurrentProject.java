@@ -34,6 +34,9 @@ public class CurrentProject {
     private static Vector projectListeners = new Vector();
     private static DriverColl _drivers = null;
     private static TourColl _tours = null;
+    private static RouteColl _routes = null;
+    private static BusColl _buses = null;
+    private static NodeColl _nodes = null;
 
         
     static {
@@ -59,8 +62,11 @@ public class CurrentProject {
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
         try {
-			_drivers = CurrentStorage.get().openDriverList(_project);
-			//tours = CurrentStorage.get().openTourList(_project);
+        	_nodes = CurrentStorage.get().openNodeList(_project);
+        	_buses = CurrentStorage.get().openBusList(_project);
+        	_routes = CurrentStorage.get().openRouteList(_project, _nodes);
+        	_tours = CurrentStorage.get().openTourList(_project, _routes, _buses);
+			_drivers = CurrentStorage.get().openDriverList(_project, _tours);
 		} catch (IOException | DuplicateKeyException e) {
 			new ExceptionDialog(e);
 		}
@@ -102,9 +108,37 @@ public class CurrentProject {
      * 
      * @return the DriverColl
      */
-    public static TourColl getDTourColl() {
+    public static TourColl getTourColl() {
         return _tours;
     }
+    
+    /**
+     * Gets this project's RouteColl
+     * 
+     * @return the DriverColl
+     */
+    public static RouteColl getRouteColl() {
+        return _routes;
+    }
+    
+    /**
+     * Gets this project's NodeColl
+     * 
+     * @return the DriverColl
+     */
+    public static NodeColl getNodeColl() {
+        return _nodes;
+    }
+    
+    /**
+     * Gets this project's BusColl
+     * 
+     * @return the DriverColl
+     */
+    public static BusColl getBusColl() {
+        return _buses;
+    }
+
 
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
@@ -113,12 +147,19 @@ public class CurrentProject {
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
         DriverColl newDriverColl = null;
         TourColl newTourColl = null;
+        NodeColl newNodeColl = null;
+        RouteColl newRouteColl = null;
+        BusColl newBusColl = null;
         try {
-			newDriverColl = CurrentStorage.get().openDriverList(project);
-			//newTourColl = CurrentStorage.get().openTourList(project);
+        	newNodeColl = CurrentStorage.get().openNodeList(project);
+        	newRouteColl = CurrentStorage.get().openRouteList(project, newNodeColl);
+        	newBusColl = CurrentStorage.get().openBusList(project);
+        	newTourColl = CurrentStorage.get().openTourList(project, newRouteColl, newBusColl);
+			newDriverColl = CurrentStorage.get().openDriverList(project, newTourColl);
 		} catch (IOException | DuplicateKeyException e) {
 			new ExceptionDialog(e);
 		}
+        //TODO: Potentially modify this method for additional collections
         notifyListenersBefore(project, newnotelist, newtasklist, newresources);
         _project = project;
         _tasklist = newtasklist;
@@ -126,6 +167,9 @@ public class CurrentProject {
         _resources = newresources;
         _drivers = newDriverColl;
         _tours = newTourColl;
+        _routes = newRouteColl;
+        _nodes = newNodeColl;
+        _buses = newBusColl;
         notifyListenersAfter();
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }
@@ -138,6 +182,7 @@ public class CurrentProject {
         return projectListeners;
     }
 
+    //TODO: Potentially modify this method for additional collections
     private static void notifyListenersBefore(Project project, NoteList nl, TaskList tl, ResourcesList rl) {
         for (int i = 0; i < projectListeners.size(); i++) {
             ((ProjectListener)projectListeners.get(i)).projectChange(project, nl, tl, rl);
@@ -157,6 +202,16 @@ public class CurrentProject {
         storage.storeNoteList(_notelist, _project);
         storage.storeTaskList(_tasklist, _project); 
         storage.storeResourcesList(_resources, _project);
+        try {
+			storage.storeNodeList(_nodes, _project);
+			storage.storeRouteList(_project, _routes);
+			storage.storeBusList(_project, _buses);
+			storage.storeTourList(_project, _tours);
+			storage.storeDriverList(_project, _drivers);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         storage.storeProjectManager();
     }
     
@@ -165,5 +220,10 @@ public class CurrentProject {
         _tasklist = null;
         _notelist = null;
         _resources = null;
+        _nodes = null;
+        _routes = null;
+        _buses = null;
+        _tours = null;
+        _drivers = null;
     }
 }

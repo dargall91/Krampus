@@ -14,7 +14,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import main.java.memoranda.util.Local;
 
 /**
  * DriverDialog is a JDialog that has fields to enter and edit a driver's name and phone number

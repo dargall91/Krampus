@@ -106,7 +106,11 @@ public class DriverTable extends JTable {
         setRowSorter(sorter);
         
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setRowSelectionInterval(0, 0);
+        
+        if (drivers.size() >= 1) {
+        	setRowSelectionInterval(0, 0);
+        }
+        
         setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         
         initColumnsWidth();
@@ -197,7 +201,7 @@ public class DriverTable extends JTable {
             }
             
             if (col == 1) {
-            	return driver.getId();
+            	return driver.getID();
             }
             
             if (col == 2) {
@@ -241,7 +245,7 @@ public class DriverTable extends JTable {
 			driver.setPhoneNumber(dlg.getPhone());
 			
 			try {
-				CurrentStorage.get().storeDriverList(drivers, CurrentProject.get());
+				CurrentStorage.get().storeDriverList(CurrentProject.get(), drivers);
 				tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -251,13 +255,14 @@ public class DriverTable extends JTable {
     
     private void deleteActionEvent(ActionEvent e) {
     	Driver driver = getDriver();
-    	int result = JOptionPane.showConfirmDialog(null,  "Delete " + driver.getName() + "?", "test", JOptionPane.OK_CANCEL_OPTION);
+    	int result = JOptionPane.showConfirmDialog(null,  "Delete " + driver.getName() + "?", "Delete Driver", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		drivers.del(driver.getId());
+    		drivers.del(driver.getID());
     		
     		try {
-				CurrentStorage.get().storeDriverList(drivers, CurrentProject.get());
+				CurrentStorage.get().storeDriverList(CurrentProject.get(), drivers);
+				tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
