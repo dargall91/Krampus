@@ -30,7 +30,20 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
         }
     }
 
-    public abstract void createUnique(T o) throws DuplicateKeyException;
+
+    /**
+     *
+     * @return
+     */
+    public abstract T newItem();
+
+
+    /**
+     *
+     * @param o
+     * @throws DuplicateKeyException
+     */
+//    public abstract void createUnique(T o) throws DuplicateKeyException;
 
 
         /**
@@ -63,14 +76,14 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
     }
 
     public void add(IndexedObject n) throws DuplicateKeyException {
-        if (get(n.getId()) != null){
-            throw new DuplicateKeyException("Key "+n.getId()+" already exists.");
+        if (get(n.getID()) != null){
+            throw new DuplicateKeyException("Key "+n.getID()+" already exists.");
         }
 
         // save the max ID
-        registerID(n.getId());
+        registerID(n.getID());
 
-        coll.put(n.getId(), n);
+        coll.put(n.getID(), n);
     }
 
     /**
@@ -89,7 +102,7 @@ public abstract class DataCollection <T extends IndexedObject> implements Iterab
      * @return
      */
     public void del(Node n){
-        coll.remove(n.getId());
+        coll.remove(n.getID());
         resetMaxID(coll);
     }
 

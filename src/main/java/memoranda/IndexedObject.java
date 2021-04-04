@@ -8,7 +8,7 @@ public abstract class IndexedObject {
         this.id=id;
     }
 
-    public int getId(){
+    public int getID(){
         return id;
     }
 

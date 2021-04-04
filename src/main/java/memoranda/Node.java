@@ -11,6 +11,11 @@ public class Node extends IndexedObject {
     private String name;
     private Coordinate coords;
 
+
+    public Node(int id){
+        super(id);
+    }
+
     /**
      *
      * @param id
@@ -24,6 +29,15 @@ public class Node extends IndexedObject {
         super(id);
         this.name=name;
         coords=new Coordinate(lat, lon);
+    }
+
+
+    public void setName(String name){
+        this.name=name;
+    }
+
+    public void setCoords(Coordinate coords){
+        this.coords=coords;
     }
 
 
@@ -69,7 +83,7 @@ public class Node extends IndexedObject {
      */
     @Override
     public String toString(){
-        return getId()+":"+"'"+name+"'@"+ coords;
+        return getID()+":"+"'"+name+"'@"+ coords;
     }
 
     // file name will be .nodes in home directory
