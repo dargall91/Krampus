@@ -15,13 +15,13 @@ public class RouteLoader extends IndexedObject {
     /**
      * @param id
      * @param name
-     * @param nodes
+     * @param nodeIDs
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodes) {
+    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodeIDs) {
         super(id);
         this.name = name;
-        this.nodeIDs = nodes;
+        this.nodeIDs = nodeIDs;
     }
 
     /**
@@ -43,7 +43,7 @@ public class RouteLoader extends IndexedObject {
      * @return
      */
     public String toString() {
-        return "route " + getId() + " " + getName();
+        return "route " + getID() + " " + getName();
     }
 
 }

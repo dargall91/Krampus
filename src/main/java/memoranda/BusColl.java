@@ -6,78 +6,77 @@ import main.java.memoranda.util.DuplicateKeyException;
 import java.util.Collection;
 import java.util.Iterator;
 
-
-/**
- *
- */
-public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
+public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
     /**
      * create a new node collection
      */
-    public NodeColl(){
+    public BusColl(){
         super();
     }
+
+
 
     /**
      * add an entire collection of nodes (post json import)
      *
      * @param c
      */
-    public NodeColl(Collection<Node> c) throws DuplicateKeyException{
+    public BusColl(Collection<Bus> c) throws DuplicateKeyException {
         this();
-        for (Node n:c){
-            add(n);
+        for (Bus b:c){
+            add(b);
         }
     }
 
-
     /**
-     * Returns a new collection item with a unique key
      *
-     * @return new Node
+     * @return
      */
     @Override
-    public Node newItem(){
-        return new Node(getUniqueID());
+    public Bus newItem(){
+        return new Bus(getUniqueID());
     }
 
 
     /**
-     * get node by ID
+     * get bus by ID
      * @param id
      * @return
      */
-    public Node get(int id){
-        return (Node)super.get(id);
+    public Bus get(int id){
+        return (Bus)super.get(id);
     }
+
 
     /**
      *
      * @return
      */
     @JsonProperty
-    public Collection<IndexedObject> getNodes(){
+    public Collection<IndexedObject> getBuses(){
         return getData();
     }
+
+
 
     /**
      * iterator
      * @return
      */
     @Override
-    public Iterator<Node> iterator() {
-        return new NodeIterator();
+    public Iterator<Bus> iterator() {
+        return new BusColl.BusIterator();
     }
 
     /**
      * iterator
-     * @param <Node>
+     * @param <Bus>
      */
-    public class NodeIterator<Node> implements Iterator<Node>{
+    public class BusIterator<Bus> implements Iterator<Bus>{
         Collection coll;
-        Iterator<Node> it;
-        public NodeIterator(){
+        Iterator<Bus> it;
+        public BusIterator(){
             coll=getData();
             it=coll.iterator();
         }
@@ -88,7 +87,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
         }
 
         @Override
-        public Node next() {
+        public Bus next() {
             return it.next();
         }
     }

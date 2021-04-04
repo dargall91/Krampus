@@ -25,7 +25,7 @@ public class Route extends IndexedObject{
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Route(NodeColl nodeColl, RouteLoader newRoute) throws IndexOutOfBoundsException{
-        this(newRoute.getId());
+        this(newRoute.getID());
 
         Node n;
         this.name=newRoute.getName();
@@ -135,7 +135,7 @@ public class Route extends IndexedObject{
     public LinkedList<Integer> getNodeIDs(){
         LinkedList<Integer> li=new LinkedList<>();
         for (Node n: route){
-            li.add(n.getId());
+            li.add(n.getID());
         }
         return li;
     }
@@ -146,7 +146,7 @@ public class Route extends IndexedObject{
      */
     @Override
     public String toString(){
-        return getId()+":"+"'"+name+"'"+route;
+        return getID()+":"+"'"+name+"'"+route;
     }
 
 }

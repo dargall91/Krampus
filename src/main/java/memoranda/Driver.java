@@ -1,18 +1,24 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Driver extends IndexedObject {
-    String name;
-    String phoneNumber;
+    private String name;
+    private String phoneNumber;
 
     @JsonIgnore
-    LinkedList<Tour> tours;
+    HashMap<Integer, Tour> tours;
 
+
+    public Driver(int id){
+        super(id);
+        tours=new HashMap<>();
+    }
 
     /**
      *
@@ -20,36 +26,85 @@ public class Driver extends IndexedObject {
      * @param name
      * @param phoneNumber
      */
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Driver(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("phoneNumber")
-                  String phoneNumber){
-        super(id);
+    public Driver(int id, String name, String phoneNumber){
+        this(id);
         this.name=name;
         this.phoneNumber=phoneNumber;
     }
 
-    // WIP
+
+    /**
+     *
+     * @param tc
+     * @param newDriver
+     */
+    public Driver(TourColl tc, DriverLoader newDriver){
+        this(newDriver.getID());
+        this.name=newDriver.getName();
+        this.phoneNumber= newDriver.getPhoneNumber();
+        for (int t:newDriver.getTourIDs()){
+            addTour(tc.get(t));
+        }
+    }
+
     /**
      *
      * @param tour
      */
     public void addTour(Tour tour){
-
+        tours.put(tour.getID(), tour);
     }
 
-    // WIP
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @JsonIgnore
+    public Tour getTour(int id){
+        return tours.get(id);
+    }
+
     /**
      *
      * @return
      */
-    public LinkedList<Tour> getTours(){
-        return null;
+    @JsonIgnore
+    public Collection<Tour> getTours(){
+        return tours.values();
     }
 
-    // WIP
+    /**
+     *
+     * @return
+     */
+    @JsonProperty("tourIDs")
     public LinkedList<Integer> getTourIDs(){
-        return null;
+        LinkedList<Integer> li=new LinkedList<>();
+        for (Tour t: tours.values()){
+            li.add(t.getID());
+        }
+        return li;
     }
+
+
+    /**
+     *
+     * @param name
+     */
+    public void setName(String name){
+        this.name=name;
+    }
+
+    /**
+     *
+     * @param phoneNumber
+     */
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber=phoneNumber;
+    }
+
 
     /**
      *
@@ -89,7 +144,7 @@ public class Driver extends IndexedObject {
      */
     @Override
     public String toString(){
-        return "Driver "+getId()+":'"+name+"','"+phoneNumber+"'";
+        return "Driver "+ getID()+":'"+name+"','"+phoneNumber+"'";
     }
 
 }
