@@ -26,14 +26,17 @@ public class DriverDialog extends JDialog {
 	private JTextField nameField;
 	private JTextField phoneField;
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
+	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
+	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+	private final int FIELD_WIDTH = 15;
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Driver to the system
 	 * 
 	 * @param frame The main application Frame
 	 */
-	public DriverDialog(Frame frame) {
-		super(frame, Local.getString("Sticker"), true);
+	public DriverDialog(Frame frame, String title) {
+		super(frame, title, true);
 		try {
 			init();
 			pack();
@@ -43,8 +46,6 @@ public class DriverDialog extends JDialog {
 	}
 	
 	private void init() throws Exception {
-		setTitle("Add Driver");
-		
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -66,8 +67,8 @@ public class DriverDialog extends JDialog {
 		JLabel phoneLabel = new JLabel("Phone Number:");
 		phoneLabel.setHorizontalAlignment(JLabel.RIGHT);
 		
-		nameField = new JTextField(15);
-		phoneField = new JTextField(15);
+		nameField = new JTextField(FIELD_WIDTH);
+		phoneField = new JTextField(FIELD_WIDTH);
 		
 		gridPanel.add(nameLabel);
 		gridPanel.add(nameField);
@@ -77,6 +78,7 @@ public class DriverDialog extends JDialog {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		
+		//TODO: OK and Cancel Buttons maximize window
 		JButton okButton = new JButton("OK");
 		okButton.setHorizontalAlignment(JButton.CENTER);
 		okButton.setMaximumSize(BUTTON_SIZE);
@@ -98,13 +100,13 @@ public class DriverDialog extends JDialog {
 		});
 		
 		buttonPanel.add(okButton);
-		buttonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		buttonPanel.add(Box.createRigidArea(HORIZONTAL_GAP));
 		buttonPanel.add(cancelButton);
 		
 		panel.add(errorPanel);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(gridPanel);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(buttonPanel);
 		
 		getContentPane().add(panel);

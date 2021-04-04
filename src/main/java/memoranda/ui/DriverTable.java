@@ -8,6 +8,8 @@ import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -15,9 +17,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,7 +29,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 /**
  * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
@@ -34,9 +36,10 @@ import java.io.IOException;
  */
 public class DriverTable extends JTable {
     private DriverColl drivers;
-    private TableSorter sorter;
-    private JPopupMenu menu;
-    private Driver driver;
+    private JPopupMenu optionsMenu;
+    private TableRowSorter<TableModel> sorter;
+    private final int HEIGHT = 24;
+    private final int ID_COLUMN = 1;
 
     /**
      * Constructor for a DriverTable
@@ -46,14 +49,14 @@ public class DriverTable extends JTable {
     public DriverTable(DriverColl drivers) {
         super();
         this.drivers = drivers;
-        setToolTipText("Click to display tour schedule. Right-click to edit selected driver.");
-        initTable();   
+        init();   
     }
 
-    private void initTable() {
-        //TODO: No longer needed? Could just be moved to constructor
-    	menu = new JPopupMenu();
-    	menu.setFont(new Font("Dialog", 1, 10));
+    private void init() {
+    	setToolTipText("Click a driver to display their schedule. Right-click to edit the selected driver.");
+    	
+    	optionsMenu = new JPopupMenu();
+    	optionsMenu.setFont(new Font("Dialog", 1, 10));
     	
     	JMenuItem editDriver = new JMenuItem("Edit Driver");
     	editDriver.addActionListener(new ActionListener() {
@@ -73,8 +76,8 @@ public class DriverTable extends JTable {
     		
     	});
     	
-    	menu.add(editDriver);
-    	menu.add(deleteDriver);
+    	optionsMenu.add(editDriver);
+    	optionsMenu.add(deleteDriver);
     	
     	addMouseListener(new MouseAdapter() {
     		public void mouseClicked(MouseEvent e) {
@@ -92,45 +95,61 @@ public class DriverTable extends JTable {
 
     		private void maybeShowPopup(MouseEvent e) {
     			if (e.isPopupTrigger()) {
-    				menu.show(e.getComponent(), e.getX(), e.getY());
+    				optionsMenu.show(e.getComponent(), e.getX(), e.getY());
     			}
     		}
     	});
-    	
-    	sorter = new TableSorter(new DriverTableModel());
-        sorter.addMouseListenerToHeaderInTable(this);
-        setModel(sorter);
-        this.setShowGrid(false);
+        
+        setRowHeight(HEIGHT);
+        setShowGrid(false);
+        
+        DriverTableModel model = new DriverTableModel();
+        setModel(model);
+        
+        sorter = new TableRowSorter<>(model);
+        setRowSorter(sorter);
+        
+        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setRowSelectionInterval(0, 0);
+        setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+        
         initColumnsWidth();
     }
 
     private void initColumnsWidth() {
-        for (int i = 0; i < 3; i++) {
-            TableColumn column = getColumnModel().getColumn(i);
-            if (i == 0) {
-                column.setMinWidth(100);
-                column.setPreferredWidth(300);
-            }
-
-            else {
-                column.setMinWidth(100);
-                column.setPreferredWidth(100);
-            }
-        }
+    	//dynamically set column width
+		for (int i = 0; i < getColumnCount(); i++) {
+		    TableColumn tableColumn = getColumnModel().getColumn(i);
+		    int preferredWidth = tableColumn.getMinWidth();
+		    int maxWidth = tableColumn.getMaxWidth();
+		
+		    for (int j = 0; j < getRowCount(); j++) {
+		        TableCellRenderer cellRenderer = getCellRenderer(j, i);
+		        Component comp = prepareRenderer(cellRenderer, j, i);
+		        int width = comp.getPreferredSize().width + getIntercellSpacing().width;
+		        preferredWidth = Math.max(preferredWidth, width);
+		
+		        if (preferredWidth >= maxWidth) {
+		            preferredWidth = maxWidth;
+		            break;
+		        }
+		    }
+		
+		    tableColumn.setMinWidth(preferredWidth);
+		}
     }
 
     /**
      * Repaints the table to reflect any changes to the data
      */
     public void tableChanged() {
-        initTable();
-        sorter.tableChanged(null);
+        init();
         initColumnsWidth();
         updateUI();
     }
 
     /**
-     * TODO: Figure out what this did in the original code
+     * Defines how to render a cell
      */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -141,9 +160,13 @@ public class DriverTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-                JLabel comp;
-
-                return (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                
+                if (((row % 2) > 0) && (!isSelected)) {
+                    comp.setBackground(new Color(230, 240, 255));
+                }
+                
+                return comp;
             }
         };
     }
@@ -171,42 +194,40 @@ public class DriverTable extends JTable {
 
         public Object getValueAt(int row, int col) {
             //set the selected driver for use by other methods in addition to displaying information
-            driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
+            Driver driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
 
-            switch (col) {
-                case 0:
-                    return driver.getName();//driver.getName();
-                case 1:
-                    return driver.getId();//driver.getID();
-                case 2:
-                    return driver.getPhoneNumber();//driver.getPhone();
+            if (col == 0) {
+            	return driver.getName();
+            }
+            
+            if (col == 1) {
+            	return driver.getId();
+            }
+            
+            if (col == 2) {
+            	return driver.getPhoneNumber();
             }
 
             return null;
         }
 
-        //TODO: Possible not needed, seems to cause errors when sorting by ID, but removing doesn't seem to change any other functionality
-        /*public Class getColumnClass(int col) {
-            try {
-                switch (col) {
-                    case 1:
-                        return Class.forName("java.lang.Integer");
-                    case 0:
-                    case 2:
-                        return Class.forName("java.lang.String");
-                }
-            }
+        public Class getColumnClass(int col) {
+        	for (int i = 0; i < getRowCount(); i++) {
+        		Object obj = getValueAt(i, col); {
+        			if (obj != null) {
+        				return obj.getClass();
+        			}
+        		}
+        	}
 
-            catch (Exception ex) {
-                new ExceptionDialog(ex);
-            }
-
-            return null;
-        }*/
+        	//default to String
+            return String.class;
+        }
     }
     
     private void editActionEvent(ActionEvent e) {
-    	DriverDialog dlg = new DriverDialog(App.getFrame());
+    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver");
+    	Driver driver = getDriver();
     	dlg.setName(driver.getName());
     	dlg.setPhone(driver.getPhoneNumber());
     	
@@ -233,20 +254,28 @@ public class DriverTable extends JTable {
     }
     
     private void deleteActionEvent(ActionEvent e) {
-    	int result = JOptionPane.showConfirmDialog(null,  "Delete Driver?", "test", JOptionPane.OK_CANCEL_OPTION);
+    	Driver driver = getDriver();
+    	int result = JOptionPane.showConfirmDialog(null,  "Delete " + driver.getName() + "?", "test", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
     		drivers.del(driver.getId());
+    		
     		try {
 				CurrentStorage.get().storeDriverList(drivers, CurrentProject.get());
-			} catch (JsonProcessingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException ex) {
-				// TODO Auto-generated catch block
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+    		
 			tableChanged();
     	}
+    }
+    
+    /**
+     * Gets the currently selected Driver
+     * 
+     * @return the Driver
+     */
+    public Driver getDriver() {
+    	return (Driver) drivers.get((int) getValueAt(getSelectedRow(), ID_COLUMN));
     }
 }
