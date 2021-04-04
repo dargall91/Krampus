@@ -44,6 +44,9 @@ public class TestDataCollections {
     private final static int BUS1=1;
     private final static int BUS2=2;
 
+    /**
+     *
+     */
     @BeforeAll
     static void beforeAll() {
         System.out.println("Before all test methods");
@@ -52,25 +55,34 @@ public class TestDataCollections {
         stg.createProjectStorage(prj);
     }
 
+    /**
+     *
+     * @throws DuplicateKeyException
+     */
     @BeforeEach
     void beforeEach() throws DuplicateKeyException {
         createNodeColl();
         createBusColl();
         createRouteColl();
-        System.out.println("in beforeEach: createTourColl()");
         createTourColl();
         createDriverColl();
     }
 
+    /**
+     *
+     */
     @AfterEach
     void afterEach() {
         System.out.println("After each test method");
     }
 
+    /**
+     *
+     */
     @AfterAll
     static void afterAll() {
         System.out.println("After all test methods");
-//        stg.removeProjectStorage(prj);
+        stg.removeProjectStorage(prj);
     }
 
 
@@ -136,9 +148,6 @@ public class TestDataCollections {
         assertNotNull(d);
 
         return d;
-
-
-
     }
 
 
