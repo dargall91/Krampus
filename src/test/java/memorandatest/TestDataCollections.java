@@ -201,6 +201,34 @@ public class TestDataCollections {
     }
 
     /**
+     * validate that an invalid driver cannot be removed from tour
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testInvalidDriverRemovalFromTour() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+
+        Driver driver2=createNamedDriver(2, "Jim");
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(driver2);} );
+    }
+
+    /**
+     * validate that a null driver cannot be removed from tour
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testNullDriverRemovalFromTour() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(null);} );
+    }
+
+    /**
      * Test the basic node constructor
      */
     @Test
