@@ -61,8 +61,7 @@ public class DriverPanel extends JSplitPane {
 	}
 
 	private void jbInit() throws Exception {
-		CurrentStorage.get().createProjectStorage(CurrentProject.get());
-		drivers = CurrentStorage.get().openDriverList(CurrentProject.get(), CurrentProject.getTourColl());
+		drivers = CurrentProject.getDriverColl();
 		
 		setActive(true);
 

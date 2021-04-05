@@ -268,9 +268,6 @@ public class DriverTable extends JTable {
 			for (Tour t:driver.getTours()){
 				driver.delTour(t);
 			}
-//    		for (int i = 0; i < tourIDs.size(); i++) {
-//    			tours.get(tourIDs.get(i)).delDriver(driver.getID());
-//    		}
     		
     		drivers.del(driver.getID());
     		

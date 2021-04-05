@@ -56,6 +56,8 @@ public class DriverTourDialog extends JDialog {
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
+		JPanel namePanel = new JPanel();
+		
 		errorPanel = new JPanel();
 		errorPanel.setVisible(false);
 		
