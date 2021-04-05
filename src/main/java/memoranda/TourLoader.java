@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Used to load tours with numeric IDs from JSON and subsequently be converted into an object hierarchy
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
  */
 public class TourLoader extends IndexedObject{
     private String name;
@@ -14,11 +17,13 @@ public class TourLoader extends IndexedObject{
     private int driverID;
 
     /**
+     * constructor for json deserialization
      *
-     * @param id
-     * @param name
-     * @param time
-     * @param routeID
+     * @param id id for Tour
+     * @param name name of tour
+     * @param time time of tour
+     * @param busID integer id for this tour's bus
+     * @param routeID integer id for this tour's route
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public TourLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("time") String time,
@@ -32,31 +37,36 @@ public class TourLoader extends IndexedObject{
     }
 
     /**
-     * @return
+     * name getter
+     *
+     * @return name of tour
      */
     public String getName() {
         return name;
     }
 
     /**
+     * time getter
      *
-     * @return
+     * @return time of route as string
      */
     public String getTime() {
         return time;
     }
 
     /**
+     * id getter
      *
-     * @return
+     * @return id of bus as integer
      */
     public Integer getBusID(){
         return busID;
     }
 
     /**
+     * route getter
      *
-     * @return
+     * @return id of route as integer
      */
     public Integer getRouteID(){
         return routeID;
@@ -71,7 +81,9 @@ public class TourLoader extends IndexedObject{
    }
 
     /**
-     * @return
+     * standard toString()
+     *
+     * @return string repr of obj
      */
     public String toString() {
         return "route " + getID() + " " + getName();

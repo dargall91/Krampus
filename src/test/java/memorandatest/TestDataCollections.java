@@ -44,6 +44,11 @@ public class TestDataCollections {
     private final static int BUS1=1;
     private final static int BUS2=2;
 
+    /**
+     * Run before all test methods
+     *
+     * We need to create a project and file storage object for use by all test methods
+     */
     @BeforeAll
     static void beforeAll() {
         System.out.println("Before all test methods");
@@ -52,25 +57,43 @@ public class TestDataCollections {
         stg.createProjectStorage(prj);
     }
 
+    /**
+     * Run before each test method
+     *
+     * We need to have a known test fixture for most tests
+     *
+     * @throws DuplicateKeyException
+     */
     @BeforeEach
     void beforeEach() throws DuplicateKeyException {
         createNodeColl();
         createBusColl();
         createRouteColl();
-        System.out.println("in beforeEach: createTourColl()");
         createTourColl();
         createDriverColl();
     }
 
+    /**
+     * Run after each test method
+     *
+     * No tear-down needed
+     *
+     */
     @AfterEach
     void afterEach() {
         System.out.println("After each test method");
     }
 
+    /**
+     *
+     * Run after all test methods
+     *
+     * Need to remove temporary project storage
+     */
     @AfterAll
     static void afterAll() {
         System.out.println("After all test methods");
-//        stg.removeProjectStorage(prj);
+        stg.removeProjectStorage(prj);
     }
 
 
@@ -87,30 +110,22 @@ public class TestDataCollections {
     }
 
 
-
     /**
+     * Utility method: Create a generic driver with a name
      *
-     * @param id
-     * @return
-     */
-    Driver createGenericDriver(int id){
-        return createNamedDriver(id, "test driver");
-    }
-
-    /**
-     *
-     * @param id
-     * @param name
-     * @return
+     * @param id the id for the driver
+     * @param name the name for the driver
+     * @return a Driver object
      */
     Driver createNamedDriver(int id, String name){
         return new Driver(id, name, "555-555-1212");
     }
 
     /**
+     * Utility method: Create a generic driver associated with a tour
      *
-     * @param id
-     * @return
+     * @param id A the id for the driver
+     * @return the Driver object
      */
     Driver createGenericDriverWithTour(int id) throws DuplicateKeyException {
         // routeColl, busColl set in @BeforeAll
@@ -136,14 +151,85 @@ public class TestDataCollections {
         assertNotNull(d);
 
         return d;
-
-
-
     }
 
 
     /**
+     * validate that adding a tour to a driver adds the driver to the tour
+     */
+    @Test
+    void testAddTourToDriver() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertEquals(driver,tour.getDriver());
+    }
+
+    /**
+     * validate that adding a tour to a driver adds the driver to the tour
+     */
+    @Test
+    void testAddTourToTwoDrivers() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Driver driver2=createNamedDriver(1, "Jim");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertThrows(DuplicateKeyException.class, () -> {driver2.addTour(tour);} );
+    }
+
+    /**
+     * validate that removing a tour from a driver removes the driver from the tour
+     */
+    @Test
+    void testRemoveTourFromDriver() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        driver.delTour(tour);
+        assertNull(tour.getDriver());
+    }
+    /**
+     * validate that removing a tour from a driver removes the driver from the tour
+     */
+    @Test
+    void testRemoveTourFromDriver2() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        driver.delTour(tour);
+        assertNull(driver.getTour(tour.getID()));
+    }
+
+    /**
+     * validate that an invalid driver cannot be removed from tour
      *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testInvalidDriverRemovalFromTour() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+
+        Driver driver2=createNamedDriver(2, "Jim");
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(driver2);} );
+    }
+
+    /**
+     * validate that a null driver cannot be removed from tour
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testNullDriverRemovalFromTour() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(null);} );
+    }
+
+    /**
+     * Test the basic node constructor
      */
     @Test
     void testNodeConstructor(){
@@ -154,8 +240,9 @@ public class TestDataCollections {
 
 
     /**
+     * Utility method: Create a node collection
      *
-     * @return
+     * @return a node collection
      */
     NodeColl createNodeColl() throws DuplicateKeyException {
         NodeColl nc=new NodeColl();
@@ -170,9 +257,10 @@ public class TestDataCollections {
 
 
     /**
+     * Utility method: create a bus collection
      *
-     * @return
-     * @throws DuplicateKeyException
+     * @return a bus collection
+     * @throws DuplicateKeyException if duplicate key is added to collection
      */
     BusColl createBusColl() throws DuplicateKeyException{
         busColl= new BusColl();
@@ -192,7 +280,7 @@ public class TestDataCollections {
 
 
     /**
-     *
+     * test creating a bus object
      */
     @Test
     void testCreateBus(){
@@ -204,7 +292,7 @@ public class TestDataCollections {
 
 
     /**
-     *
+     * test creating a bus collection
      */
     @Test
     void testBusCollCreation(){
@@ -213,7 +301,7 @@ public class TestDataCollections {
 
 
     /**
-     *
+     * test adding several buses to a bus collection
      */
     @Test
     void testBusCollStatus(){
@@ -221,6 +309,12 @@ public class TestDataCollections {
     }
 
 
+    /**
+     * test serializing a bus collection
+     *
+     * @throws IOException if output file cannot be opened
+     * @throws DuplicateKeyException if duplicate key is added to bus collection
+     */
     @Test
     void testWriteBusColl() throws IOException, DuplicateKeyException {
 
@@ -241,20 +335,22 @@ public class TestDataCollections {
 
 
     /**
+     * test creating a driver with multiple tours
      *
-     * @throws DuplicateKeyException
+     * @throws DuplicateKeyException if duplicate IDs are added to collection
      */
-    @Test
-    void testCreateDriverTourIDs() throws DuplicateKeyException{
-        Driver d=createGenericDriverWithTour(DRIVER1);
-        System.out.println("Tour ids="+d.getTourIDs());
-
+//    @Test
+//    void testCreateDriverTourIDs() throws DuplicateKeyException{
+//        Driver d=createGenericDriverWithTour(DRIVER1);
+//        System.out.println("Tour ids="+d.getTourIDs());
+//
 //        assertEquals(2, d.getTours().size());
-    }
+//    }
 
     /**
+     * test creating a driver with multiple tours
      *
-     * @throws DuplicateKeyException
+     * @throws DuplicateKeyException if duplicate IDs are added to collection
      */
     @Test
     void testCreateDriverTours() throws DuplicateKeyException{
@@ -265,24 +361,27 @@ public class TestDataCollections {
 
 
     /**
+     * test creating a driver collection
      *
-     * @return
-     * @throws DuplicateKeyException
+     * @return a driver collection
+     * @throws DuplicateKeyException if duplicate IDs are added to collection
      */
     DriverColl createDriverColl() throws DuplicateKeyException {
 
         // tourColl created in @beforeEach
-
-        Driver d1=createNamedDriver(DRIVER1, "Driver 1");
 
         System.out.println("TourColl="+tourColl);
         System.out.println("TourColl.size()="+tourColl.size());
         System.out.println("tour1="+tourColl.get(TOUR1));
         System.out.println("tour2="+tourColl.get(TOUR2));
 
+        Driver d1=createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
+        System.out.println("Tour1 driver="+tourColl.get(TOUR1).getDriver());
+
         Driver d2=createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));
+        System.out.println("Tour2 driver="+tourColl.get(TOUR2).getDriver());
 
         DriverColl dc=new DriverColl();
         dc.add(d1);
@@ -297,22 +396,29 @@ public class TestDataCollections {
      */
     @Test
     void testCreateDriverColl() throws DuplicateKeyException {
-        DriverColl dc= createDriverColl();
 
-        assertEquals(2, dc.size());
+        // driverColl created in @BeforeEach
+
+        assertEquals(2, driverColl.size());
     }
 
     /**
-     * Test ability to read and write JSON values
+     * Test ability to read and write JSON values (serialize/deserialize data)
      *
-     * @throws JsonProcessingException
-     * @throws IOException
-     * @throws InterruptedException
+     * @throws JsonProcessingException if json error occurs
+     * @throws IOException if output file cannot be written
      */
     @Test
-    void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException, InterruptedException {
+    void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException {
 
         stg.storeDriverList(prj, driverColl);
+
+        // need to create all new collections so tours aren't already occupied by drivers
+        createNodeColl();
+        createBusColl();
+        createRouteColl();
+        createTourColl();
+
 
         System.out.println("Load driver list");
         DriverColl dl=stg.openDriverList(prj, tourColl);
@@ -324,12 +430,14 @@ public class TestDataCollections {
         }
 
         assertEquals(2, count);
-
     }
 
 
     /**
-     * test ability to add a node
+     * test creating a route collection
+     *
+     * @return route collection
+     * @throws DuplicateKeyException if duplicate id is added to collection
      */
     RouteColl createRouteColl() throws DuplicateKeyException {
 
@@ -346,7 +454,9 @@ public class TestDataCollections {
 
 
     /**
+     * test ability to create a route.
      *
+     * @throws DuplicateKeyException if route does not have unique ID
      */
     @Test
     void testCreateRouteColl() throws DuplicateKeyException {
@@ -357,8 +467,9 @@ public class TestDataCollections {
 
 
     /**
+     * test ability to add a route to a collection.
      *
-     * @throws DuplicateKeyException
+     * @throws DuplicateKeyException if route does not have unique ID
      */
     @Test
     void testAddRoute() throws DuplicateKeyException{
@@ -366,12 +477,13 @@ public class TestDataCollections {
         assertEquals(2, rc.size());
     }
 
+
     /**
      * Test ability to read and write JSON values
      *
-     * @throws JsonProcessingException
-     * @throws IOException
-     * @throws InterruptedException
+     * @throws JsonProcessingException if json error occurs
+     * @throws IOException if file read/write error occurs
+     * @throws DuplicateKeyException if non-unique ID is encountered
      */
     @Test
     void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
@@ -395,30 +507,32 @@ public class TestDataCollections {
 
 
     /**
+     * Utility function to create a tour.
      *
-     * @return
-     * @throws DuplicateKeyException
+     * @return Tour object
      */
-    Tour createTour() throws DuplicateKeyException {
+    Tour createTour() {
         return createNamedTour("A tour");
     }
 
     /**
+     * Utility functoin to create a named tour.
      *
-     * @param name
-     * @return
+     * @param name the name for the tour
+     * @return Tour object
      */
-    Tour createNamedTour(String name) throws DuplicateKeyException {
+    Tour createNamedTour(String name) {
         return createNamedTourAtTime(name, 12, 0);
     }
 
 
     /**
+     * Utility function: create a named tour at a particular time
      *
-     * @param name
-     * @param hour
-     * @param minute
-     * @return
+     * @param name the name for the tour
+     * @param hour the hour of the tour
+     * @param minute the minute for the tour
+     * @return a Tour object
      */
     Tour createNamedTourAtTime(String name, int hour, int minute){
 
@@ -432,14 +546,14 @@ public class TestDataCollections {
         tour.setBus(busColl.get(BUS1));
 
         return tour;
-
     }
 
     /**
+     * test creating tours and valid IDs
      *
-     * @throws JsonProcessingException
-     * @throws IOException
-     * @throws DuplicateKeyException
+     * @throws JsonProcessingException if Json error occurs
+     * @throws IOException if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
      */
     @Test
     void testCreateTourIDs(){
@@ -448,10 +562,11 @@ public class TestDataCollections {
     }
 
     /**
+     * test creating a tour
      *
-     * @throws JsonProcessingException
-     * @throws IOException
-     * @throws DuplicateKeyException
+     * @throws JsonProcessingException if Json error occurs
+     * @throws IOException if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
      */
     @Test
     void testCreateTour() throws DuplicateKeyException{
@@ -460,8 +575,10 @@ public class TestDataCollections {
 
 
     /**
+     * Utility function: test creating a tour collection
      *
-     * @return
+     * @return a tour collection
+     * @throws DuplicateKeyException if duplicate id is added to collection
      */
     TourColl createTourColl() throws DuplicateKeyException {
         System.out.println("in createTourColl");
@@ -477,14 +594,23 @@ public class TestDataCollections {
     }
 
 
+    /**
+     * test creating a tour collection
+     */
     @Test
     void testCreateTourColl(){
         assertNotNull(tourColl);
     }
 
 
+    /**
+     * test serializing/deserializing a Tour collection
+     *
+     * @throws IOException if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
+     */
     @Test
-    void testWriteTour() throws IOException, DuplicateKeyException{
+    void testWriteTour() throws IOException, DuplicateKeyException {
 
         // route and node collections are created in @BeforeEach
 
@@ -520,8 +646,9 @@ public class TestDataCollections {
     /**
      * Test ability to read and write JSON values
      *
-     * @throws JsonProcessingException
-     * @throws IOException
+     * @throws JsonProcessingException if Json error occurs
+     * @throws IOException if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
      */
     @Test
     void testWriteNode() throws JsonProcessingException, IOException, DuplicateKeyException{
@@ -561,7 +688,7 @@ public class TestDataCollections {
 
 
     /**
-     *
+     * Test haversine distance formula calculations
      */
     @Test
     void testHaversine(){
@@ -578,7 +705,7 @@ public class TestDataCollections {
 
 
     /**
-     *
+     *A Test distance to a null coordinate
      */
     @Test
     void testDistanceToNull(){
@@ -588,7 +715,7 @@ public class TestDataCollections {
     }
 
     /**
-     *
+     * test coordinate equality
      */
     @Test
     void testCoordinateEquality() {
@@ -599,7 +726,7 @@ public class TestDataCollections {
     }
 
     /**
-     *
+     * test coordinate inequality based upon significant digit difference
      */
     @Test
     void testCoordinateInequalityDigits() {
@@ -610,7 +737,7 @@ public class TestDataCollections {
     }
 
     /**
-     *
+     * check for coordinate inequality based on sign
      */
     @Test
     void testCoordinateInequalitySign(){

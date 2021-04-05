@@ -8,21 +8,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Holds a tour - a route at a particular time
+ * Tour object representing a route at a given time, assigned to a bus.
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
  */
 public class Tour extends IndexedObject{
     private String name;
     private LocalTime time;
     private Bus bus;
     private Route route;
-    private int driverID;
-    
-    private final int NO_DRIVER_ID = -1;
+    private Driver driver;
 
 
     /**
+     * create new Tour object with given id
      *
-     * @param id
+     * @param id id for Tour
      */
     public Tour(int id){
         super(id);
@@ -30,11 +32,13 @@ public class Tour extends IndexedObject{
 
 
     /**
+     * create new tour with given information
      *
-     * @param id
-     * @param name
-     * @param route
-     * @param time
+     * @param id id for tour
+     * @param name name for tour
+     * @param bus bus assigned to tour
+     * @param route Route for tour
+     * @param time time that tour starts
      */
     public Tour(int id, String name, Bus bus, Route route, LocalTime time){
         this(id);
@@ -46,10 +50,12 @@ public class Tour extends IndexedObject{
 
 
     /**
+     * constructor for json deserialization
      *
-     * @param routeColl
-     * @param newTour
-     * @throws IndexOutOfBoundsException
+     * @param routeColl collection of Routes containing the route with an ID matching that specified in TourLoader obj
+     * @param busColl collection of Buses containing the Bus with an ID matching that specified in TourLoader obj
+     * @param newTour TourLoader obj holding deserialized json data with integer route and bus IDs
+     * @throws IndexOutOfBoundsException if provided id is not unique
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour) throws IndexOutOfBoundsException{
@@ -75,23 +81,13 @@ public class Tour extends IndexedObject{
         } else {
             route=r;
         }
-        
-        //Driver d = (Driver) driverColl.get(newTour.getDriverID());
-        int d = newTour.getDriverID();
-        
-        if (d == NO_DRIVER_ID) {
-        	driverID = NO_DRIVER_ID;
-        }
-        
-        else {
-        	driverID = d;
-        }
     }
 
 
     /**
+     * name setter
      *
-     * @param name
+     * @param name name for Tour
      */
     public void setName(String name) {
         this.name = name;
@@ -99,43 +95,28 @@ public class Tour extends IndexedObject{
 
 
     /**
+     * bus setter
      *
-     * @param bus
+     * @param bus Bus for tour
      */
     public void setBus(Bus bus){
         this.bus=bus;
     }
 
     /**
+     * route setter
      *
-     * @param route
+     * @param route Route for bus to travel
      */
     public void setRoute(Route route){
         this.route=route;
     }
-    
-    /**
-    * Assigns this Tour to a Driver
-    * 
-    * @param driverID The Driver's ID
-    */
-   public void setDriverID(int driverID){
-       this.driverID = driverID;
-   }
-   
-   /**
-    * Unassigns a driver from this Tour
-    * 
-    * @param Driver
-    */
-   public void removeDriver(){
-       driverID = NO_DRIVER_ID;
-   }
 
 
     /**
+     * time setter
      *
-     * @param time
+     * @param time time for Tour to start
      */
     public void setTime(LocalTime time){
         this.time=time;
@@ -143,29 +124,69 @@ public class Tour extends IndexedObject{
 
     /**
      * standard getter for name
-     * @return
+     *
+     * @return name of tour
      */
     public String getName(){
         return name;
     }
 
     /**
+     * time getter
      *
-     * @return
+     * @return time of tour
      */
     @JsonIgnore
     public LocalTime getTime(){
         return time;
     }
 
+    /**
+     * json serialization routine
+     *
+     * @return time as a string
+     */
     @JsonProperty("time")
     public String getTimeString(){
         return time.toString();
     }
 
+
+   /**
+    * Set a driver for this tour.
+    *
+    * @param driver Driver to set.
+    */
+   public void setDriver(Driver driver){
+        this.driver=driver;
+   }
+
     /**
+     * Get the driver associated with this tour.
      *
-     * @return
+     * @return Driver associated with this tour.
+     */
+    @JsonIgnore
+    public Driver getDriver(){
+        return driver;
+    }
+
+    /**
+     * Delete driver associated with this tour.
+     */
+    public void delDriver(Driver driver) throws UnsupportedOperationException{
+        if (this.driver.equals(driver)) {
+            this.driver=null;
+        } else{
+            throw new UnsupportedOperationException("Cannot unilaterally remove driver.  Call driver.delTour()");
+        }
+
+    }
+
+    /**
+     * route getter
+     *
+     * @return route for tour
      */
     @JsonIgnore
     public Route getRoute(){
@@ -173,8 +194,9 @@ public class Tour extends IndexedObject{
     }
 
     /**
-     * Returns an ordered list of only the ID of the route in this tour for storing in json file
-     * @return
+     * json serialization routine
+     *
+     * @return integer id of this tour's route
      */
     @JsonProperty
     public int getRouteID(){
@@ -183,8 +205,9 @@ public class Tour extends IndexedObject{
 
 
     /**
+     * bus getter
      *
-     * @return
+     * @return Bus for this route
      */
     @JsonIgnore
     public Bus getBus(){
@@ -193,37 +216,19 @@ public class Tour extends IndexedObject{
 
 
     /**
+     * json serialization routine
      *
-     * @return
+     * @return integer id of this tour's bus
      */
     @JsonProperty("busID")
     public int getBusID(){
         return bus.getID();
     }
-    
-    /**
-    * Gets the ID of the Driver assigned to this tour
-    * 
-    * @return A positive integer if there is a Driver assigned to tour, or the value of getNoDriverID() if there is not
-    */
-   @JsonProperty("driverID")
-   public int getDriverID(){
-	   return driverID;
-   }
-   
-   /**
-   * Returns the id value for a tour with no driver
-   * 
-   * @return the ID value that represents a driver-less tour
-   */
-  @JsonIgnore
-  public int getNoDriverID(){
-      return NO_DRIVER_ID;
-  }
 
     /**
      * standard toString()
-     * @return
+     *
+     * @return string repr of obj
      */
     @Override
     public String toString(){
