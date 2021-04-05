@@ -46,15 +46,16 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 31MAR21 | -John | Sprint1 retrospective and Sprint2 planning | n/a | n/a | via Slack/Zoom, no blockers |
+| 04APR21 | Brian, Derek, John | Discussing progress, check TravisCI, check Taiga | On track | All builds are good | Slack/zoom, no blockers |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended This Sprint | Project Total |
 |---|---|---|
-|Brian Pape| 1| 8|
+|Brian Pape| 2| 9|
 |Chris Boveda| 1| 8|
-|Derek Argall| 1| 8|
-|John Thurstonson| 0| 7|
+|Derek Argall| 2| 9|
+|John Thurstonson| 1| 8|
 |Kevin Dolan| 1| 8|
 
 
