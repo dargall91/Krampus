@@ -155,6 +155,80 @@ public class TestDataCollections {
 
 
     /**
+     * validate that adding a tour to a driver adds the driver to the tour
+     */
+    @Test
+    void testAddTourToDriver() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertEquals(driver,tour.getDriver());
+    }
+
+    /**
+     * validate that adding a tour to a driver adds the driver to the tour
+     */
+    @Test
+    void testAddTourToTwoDrivers() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Driver driver2=createNamedDriver(1, "Jim");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertThrows(DuplicateKeyException.class, () -> {driver2.addTour(tour);} );
+    }
+
+    /**
+     * validate that removing a tour from a driver removes the driver from the tour
+     */
+    @Test
+    void testRemoveTourFromDriver() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        driver.delTour(tour);
+        assertNull(tour.getDriver());
+    }
+    /**
+     * validate that removing a tour from a driver removes the driver from the tour
+     */
+    @Test
+    void testRemoveTourFromDriver2() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        driver.delTour(tour);
+        assertNull(driver.getTour(tour.getID()));
+    }
+
+    /**
+     * validate that an invalid driver cannot be removed from tour
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testInvalidDriverRemovalFromTour() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+
+        Driver driver2=createNamedDriver(2, "Jim");
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(driver2);} );
+    }
+
+    /**
+     * validate that a null driver cannot be removed from tour
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testNullDriverRemovalFromTour() throws DuplicateKeyException {
+        Driver driver=createNamedDriver(1, "Fred");
+        Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
+        driver.addTour(tour);
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(null);} );
+    }
+
+    /**
      * Test the basic node constructor
      */
     @Test
@@ -296,16 +370,18 @@ public class TestDataCollections {
 
         // tourColl created in @beforeEach
 
-        Driver d1=createNamedDriver(DRIVER1, "Driver 1");
-
         System.out.println("TourColl="+tourColl);
         System.out.println("TourColl.size()="+tourColl.size());
         System.out.println("tour1="+tourColl.get(TOUR1));
         System.out.println("tour2="+tourColl.get(TOUR2));
 
+        Driver d1=createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
+        System.out.println("Tour1 driver="+tourColl.get(TOUR1).getDriver());
+
         Driver d2=createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));
+        System.out.println("Tour2 driver="+tourColl.get(TOUR2).getDriver());
 
         DriverColl dc=new DriverColl();
         dc.add(d1);
@@ -320,9 +396,10 @@ public class TestDataCollections {
      */
     @Test
     void testCreateDriverColl() throws DuplicateKeyException {
-        DriverColl dc= createDriverColl();
 
-        assertEquals(2, dc.size());
+        // driverColl created in @BeforeEach
+
+        assertEquals(2, driverColl.size());
     }
 
     /**
@@ -335,6 +412,13 @@ public class TestDataCollections {
     void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException {
 
         stg.storeDriverList(prj, driverColl);
+
+        // need to create all new collections so tours aren't already occupied by drivers
+        createNodeColl();
+        createBusColl();
+        createRouteColl();
+        createTourColl();
+
 
         System.out.println("Load driver list");
         DriverColl dl=stg.openDriverList(prj, tourColl);
@@ -370,9 +454,9 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a route collection
+     * test ability to create a route.
      *
-     * @throws DuplicateKeyException if duplicate id is added to collection
+     * @throws DuplicateKeyException if route does not have unique ID
      */
     @Test
     void testCreateRouteColl() throws DuplicateKeyException {
@@ -383,9 +467,9 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a route
+     * test ability to add a route to a collection.
      *
-     * @throws DuplicateKeyException if duplicate id is added to collection
+     * @throws DuplicateKeyException if route does not have unique ID
      */
     @Test
     void testAddRoute() throws DuplicateKeyException{
@@ -397,9 +481,9 @@ public class TestDataCollections {
     /**
      * Test ability to read and write JSON values
      *
-     * @throws JsonProcessingException if Json error occurs
-     * @throws IOException if output file cannot be written
-     * @throws DuplicateKeyException if duplicate id is added to collection
+     * @throws JsonProcessingException if json error occurs
+     * @throws IOException if file read/write error occurs
+     * @throws DuplicateKeyException if non-unique ID is encountered
      */
     @Test
     void testWriteRoute() throws JsonProcessingException, IOException, DuplicateKeyException{
@@ -423,7 +507,7 @@ public class TestDataCollections {
 
 
     /**
-     * Utility function: create a generic tour
+     * Utility function to create a tour.
      *
      * @return Tour object
      */
@@ -432,7 +516,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Utility function: create a tour with a given name
+     * Utility functoin to create a named tour.
      *
      * @param name the name for the tour
      * @return Tour object

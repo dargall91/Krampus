@@ -2,6 +2,7 @@ package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import main.java.memoranda.util.DuplicateKeyException;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class Driver extends IndexedObject {
     private String phoneNumber;
 
     @JsonIgnore
-    HashMap<Integer, Tour> tours;
+    private HashMap<Integer, Tour> tours;
 
 
     /**
@@ -51,8 +52,10 @@ public class Driver extends IndexedObject {
      * @param tc the tourColl
      * @param newDriver the DriverLoader object
      */
-    public Driver(TourColl tc, DriverLoader newDriver){
+    public Driver(TourColl tc, DriverLoader newDriver) throws DuplicateKeyException {
         this(newDriver.getID());
+        System.out.println("Adding tour driver "+newDriver.getID()+" to tours "+newDriver.getTourIDs());
+        //WIP
         this.name=newDriver.getName();
         this.phoneNumber= newDriver.getPhoneNumber();
         for (int t:newDriver.getTourIDs()){
@@ -65,13 +68,29 @@ public class Driver extends IndexedObject {
      *
      * @param tour the tour to add
      */
-    public void addTour(Tour tour){
+    public void addTour(Tour tour) throws DuplicateKeyException {
+        if (tour.getDriver() != this && tour.getDriver() != null){
+            throw new DuplicateKeyException("Tour already associated with a driver");
+        }
+        tour.setDriver(this);
         tours.put(tour.getID(), tour);
     }
 
 
     /**
-     * Get a tour from by ID
+     * Remove a tour from this driver
+     *
+     * @param tour Tour to delete from this driver
+     */
+    public void delTour(Tour tour){
+        Tour foundTour=tours.get(tour.getID());
+        if (foundTour != null){
+            tour.delDriver(this);
+        }
+        tours.remove(tour.getID());
+    }
+
+    /**
      *
      * @param id the integer id for the tour
      * @return Tour if exists, null otherwise
