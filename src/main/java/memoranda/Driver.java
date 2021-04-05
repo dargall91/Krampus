@@ -59,7 +59,7 @@ public class Driver extends IndexedObject {
         this.name=newDriver.getName();
         this.phoneNumber= newDriver.getPhoneNumber();
         for (int t:newDriver.getTourIDs()){
-            addTourOnLoad(tc.get(t));
+            addTour(tc.get(t));
         }
     }
 
@@ -69,20 +69,10 @@ public class Driver extends IndexedObject {
      * @param tour the tour to add
      */
     public void addTour(Tour tour) throws DuplicateKeyException {
-        if (tour.getDriverID() != tour.getNoDriverID()){
+        if (tour.getDriver() != this && tour.getDriver() != null){
             throw new DuplicateKeyException("Tour already associated with a driver");
         }
-        tour.setDriverID(getID());
-        tours.put(tour.getID(), tour);
-    }
-    
-    /**
-     * Add a tour to this driver when driver is loaded
-     *
-     * @param tour the tour to add
-     */
-    private void addTourOnLoad(Tour tour) {
-    	tour.setDriverID(getID());
+        tour.setDriver(this);
         tours.put(tour.getID(), tour);
     }
 
@@ -95,7 +85,7 @@ public class Driver extends IndexedObject {
     public void delTour(Tour tour){
         Tour foundTour=tours.get(tour.getID());
         if (foundTour != null){
-            tour.delDriver(getID());
+            tour.delDriver(this);
         }
         tours.remove(tour.getID());
     }

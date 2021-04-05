@@ -49,7 +49,7 @@ public class DriverTourDialogTable extends JTable {
         	Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
         	
         	//only display tours without a driver
-    		if (tour.getDriverID() == tour.getNoDriverID()) {
+    		if (tour.getDriver() == null) {
     			tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
     		}
     	}

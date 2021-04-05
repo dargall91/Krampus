@@ -14,7 +14,6 @@ public class TourLoader extends IndexedObject{
     private String time;
     private int busID;
     private int routeID;
-    private int driverID;
 
     /**
      * constructor for json deserialization
@@ -27,13 +26,12 @@ public class TourLoader extends IndexedObject{
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public TourLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("time") String time,
-                      @JsonProperty("busID") Integer busID, @JsonProperty("routeID") Integer routeID, @JsonProperty("driverID") Integer driverID) {
+                      @JsonProperty("busID") Integer busID, @JsonProperty("routeID") Integer routeID) {
         super(id);
         this.name = name;
         this.time = time;
         this.busID = busID;
         this.routeID = routeID;
-        this.driverID = driverID;
     }
 
     /**
@@ -71,14 +69,6 @@ public class TourLoader extends IndexedObject{
     public Integer getRouteID(){
         return routeID;
     }
-    
-    /**
-    *
-    * @return
-    */
-   public Integer getDriverID(){
-       return driverID;
-   }
 
     /**
      * standard toString()

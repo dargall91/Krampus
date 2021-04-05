@@ -264,10 +264,13 @@ public class DriverTable extends JTable {
     		LinkedList<Integer> tourIDs = driver.getTourIDs();
     		TourColl tours = CurrentProject.getTourColl();
     		
-    		//remove driver from all scheduled tours    		
-    		for (int i = 0; i < tourIDs.size(); i++) {
-    			tours.get(tourIDs.get(i)).delDriver(driver.getID());
-    		}
+    		//remove driver from all scheduled tours
+			for (Tour t:driver.getTours()){
+				driver.delTour(t);
+			}
+//    		for (int i = 0; i < tourIDs.size(); i++) {
+//    			tours.get(tourIDs.get(i)).delDriver(driver.getID());
+//    		}
     		
     		drivers.del(driver.getID());
     		
