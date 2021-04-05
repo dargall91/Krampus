@@ -174,8 +174,13 @@ public class Tour extends IndexedObject{
     /**
      * Delete driver associated with this tour.
      */
-    public void delDriver(){
-        driver=null;
+    public void delDriver(Driver driver) throws UnsupportedOperationException{
+        if (this.driver.equals(driver)) {
+            this.driver=null;
+        } else{
+            throw new UnsupportedOperationException("Cannot unilaterally remove driver.  Call driver.delTour()");
+        }
+
     }
 
     /**

@@ -85,7 +85,7 @@ public class Driver extends IndexedObject {
     public void delTour(Tour tour){
         Tour foundTour=tours.get(tour.getID());
         if (foundTour != null){
-            tour.delDriver();
+            tour.delDriver(this);
         }
         tours.remove(tour.getID());
     }
