@@ -188,6 +188,7 @@ public class TestDataCollections {
         driver.delTour(tour);
         assertNull(tour.getDriver());
     }
+
     /**
      * validate that removing a tour from a driver removes the driver from the tour
      */
@@ -227,6 +228,7 @@ public class TestDataCollections {
         driver.addTour(tour);
         assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(null);} );
     }
+
 
     /**
      * Test the basic node constructor

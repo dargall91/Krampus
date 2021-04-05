@@ -87,7 +87,7 @@ public class StickerConfirmation extends JDialog {
                 header.setFont(new java.awt.Font("Dialog", 0, 20));
                 header.setForeground(new Color(0, 0, 124));
                 header.setText(Local.getString("Sticker"));
-                header.setIcon(new ImageIcon(NewDriverDialog.class.getResource(
+                header.setIcon(new ImageIcon(DriverDialog.class.getResource(
             "/ui/icons/sticker48.png")));
 
 
