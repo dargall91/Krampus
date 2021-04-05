@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 
+/**
+ * Used to load drivers with numeric IDs from JSON and subsequently be converted into an object hierarchy
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
+ */
 public class DriverLoader extends IndexedObject{
     private String name;
     private String phoneNumber;
@@ -12,11 +18,12 @@ public class DriverLoader extends IndexedObject{
 
 
     /**
+     * constructor for json deserialization
      *
-     * @param id
-     * @param name
-     * @param phoneNumber
-     * @param tourIDs
+     * @param id id of driver
+     * @param name name of driver
+     * @param phoneNumber phone number of driver
+     * @param tourIDs integer ids for tours associated with driver
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public DriverLoader(@JsonProperty("id") int id, @JsonProperty("name") String name,
@@ -30,16 +37,18 @@ public class DriverLoader extends IndexedObject{
 
 
     /**
+     * name getter
      *
-     * @return
+     * @return name of driver
      */
     public String getName(){
         return name;
     }
 
     /**
+     * phonenumber getter
      *
-     * @return
+     * @return phone number of driver
      */
     public String getPhoneNumber(){
         return phoneNumber;
@@ -47,8 +56,9 @@ public class DriverLoader extends IndexedObject{
 
 
     /**
+     * returns a list of integer tour IDs for this driver
      *
-     * @return
+     * @return list of integer tour IDs for this driver
      */
     public LinkedList<Integer> getTourIDs(){
         return tourIDs;
@@ -56,8 +66,9 @@ public class DriverLoader extends IndexedObject{
 
 
     /**
+     * standard toString()
      *
-     * @return
+     * @return string repr of obj
      */
     @Override
     public String toString(){
