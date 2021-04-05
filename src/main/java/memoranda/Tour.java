@@ -15,6 +15,7 @@ public class Tour extends IndexedObject{
     private LocalTime time;
     private Bus bus;
     private Route route;
+    private Driver driver;
 
 
     /**
@@ -129,6 +130,33 @@ public class Tour extends IndexedObject{
     @JsonProperty("time")
     public String getTimeString(){
         return time.toString();
+    }
+
+
+   /**
+    * Set a driver for this tour.
+    *
+    * @param driver Driver to set.
+    */
+   public void setDriver(Driver driver){
+        this.driver=driver;
+   }
+
+    /**
+     * Get the driver associated with this tour.
+     *
+     * @return Driver associated with this tour.
+     */
+    @JsonIgnore
+    public Driver getDriver(){
+        return driver;
+    }
+
+    /**
+     * Delete driver associated with this tour.
+     */
+    public void delDriver(){
+        driver=null;
     }
 
     /**
