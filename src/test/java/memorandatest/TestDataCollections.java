@@ -162,7 +162,7 @@ public class TestDataCollections {
         Driver driver=createNamedDriver(1, "Fred");
         Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
         driver.addTour(tour);
-        assertEquals(driver.getID(),tour.getDriverID());
+        assertEquals(driver, tour.getDriver());
     }
 
     /**
@@ -212,7 +212,7 @@ public class TestDataCollections {
         driver.addTour(tour);
 
         Driver driver2=createNamedDriver(2, "Jim");
-        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(driver2.getID());} );
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriverByID(driver2.getID());} );
     }
 
     /**
@@ -225,7 +225,7 @@ public class TestDataCollections {
         Driver driver=createNamedDriver(1, "Fred");
         Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
         driver.addTour(tour);
-        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(tour.getNoDriverID());} );
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(null);} );
     }
 
     /**
@@ -377,7 +377,7 @@ public class TestDataCollections {
 
         Driver d1=createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
-       System.out.println("Tour1 driver="+tourColl.get(TOUR1).getDriverID());
+        System.out.println("Tour1 driver="+tourColl.get(TOUR1).getDriverID());
 
         Driver d2=createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));

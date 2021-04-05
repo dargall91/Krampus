@@ -266,7 +266,7 @@ public class DriverTable extends JTable {
     		
     		//remove driver from all scheduled tours    		
     		for (int i = 0; i < tourIDs.size(); i++) {
-    			tours.get(tourIDs.get(i)).delDriver(driver.getID());
+    			tours.get(tourIDs.get(i)).delDriverByID(driver.getID());
     		}
     		
     		drivers.del(driver.getID());

@@ -18,6 +18,7 @@ public class Tour extends IndexedObject{
     private LocalTime time;
     private Bus bus;
     private Route route;
+    private Driver driver;
     private int driverID;
 
     private final int NO_DRIVER_ID = -1;
@@ -163,16 +164,25 @@ public class Tour extends IndexedObject{
     public String getTimeString(){
         return time.toString();
     }
+    
+    /**
+     * Set a driver for this tour.
+     *
+     * @param driver Driver to set.
+     */
+    public void setDriver(Driver driver){
+        this.driver = driver;
+    }
 
 
-   /**
-    * Set a driver for this tour.
-    *
-    * @param driver Driver to set.
-    */
-   public void setDriverID(int driverID){
+    /**
+     * Set a driver for this tour.
+     *
+     * @param driver Driver to set.
+     */
+    public void setDriverID(int driverID){
         this.driverID = driverID;
-   }
+    }
 
     /**
      * Get the ID of the driver associated with this tour.
@@ -183,14 +193,39 @@ public class Tour extends IndexedObject{
     public int getDriverID(){
         return driverID;
     }
+    
+    /**
+     * Get the ID of the driver associated with this tour.
+     *
+     * @return Driver ID associated with this tour.
+     */
+    @JsonIgnore
+    public Driver getDriver(){
+        return driver;
+    }
+    
     /**
      * Delete driver associated with this tour.
      * 
      * @param int The associated driver ID
      */
-    public void delDriver(int driverID) throws UnsupportedOperationException{
+    public void delDriverByID(int driverID) throws UnsupportedOperationException{
         if (this.driverID == driverID) {
             this.driverID = NO_DRIVER_ID;
+        } else{
+            throw new UnsupportedOperationException("Cannot unilaterally remove driver.  Call driver.delTour()");
+        }
+
+    }
+    
+    /**
+     * Delete driver associated with this tour.
+     * 
+     * @param int The associated driver ID
+     */
+    public void delDriver(Driver driver) throws UnsupportedOperationException{
+        if (this.driver.equals(driver)) {
+            this.driver = null;
         } else{
             throw new UnsupportedOperationException("Cannot unilaterally remove driver.  Call driver.delTour()");
         }
