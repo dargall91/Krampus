@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 
 /**
  * DriverDialog is a JDialog that has fields to enter and edit a driver's name and phone number
- *
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
  */
 public class DriverDialog extends JDialog {
 	private boolean cancelled;

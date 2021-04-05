@@ -31,7 +31,9 @@ import java.util.ArrayList;
 
 /**
  * DriverScheduleTable is a JTable that contains the data related to a Driver's Schedule (Tour Name, bus ID, tour ID, date, time)
- *
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
  */
 public class DriverScheduleTable extends JTable {
     private ArrayList<Tour> tours;
@@ -143,7 +145,6 @@ public class DriverScheduleTable extends JTable {
      */
     public void tableChanged() {
         init();
-        initColumnsWidth();
         updateUI();
     }
 
@@ -240,13 +241,12 @@ public class DriverScheduleTable extends JTable {
     	int result = JOptionPane.showConfirmDialog(null,  "Remove Tour from " + driver.getName() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		tour.removeDriver();
-    		driver.removeTour(tour.getID());
-    		tours.remove(tour);
+    		driver.delTour(tour);
     		
     		try {
 				CurrentStorage.get().storeDriverList(CurrentProject.get(), driverColl);
 				CurrentStorage.get().storeTourList(CurrentProject.get(), tourColl);
+				setDriver(driver);
 				tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();

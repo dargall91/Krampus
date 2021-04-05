@@ -18,8 +18,9 @@ public class Tour extends IndexedObject{
     private LocalTime time;
     private Bus bus;
     private Route route;
-    private Driver driver;
+    private int driverID;
 
+    private final int NO_DRIVER_ID = -1;
 
     /**
      * create new Tour object with given id
@@ -80,6 +81,16 @@ public class Tour extends IndexedObject{
             throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID() + " not found");
         } else {
             route=r;
+        }
+        
+        int d = newTour.getDriverID();
+        
+        if (d == NO_DRIVER_ID) {
+        	driverID = NO_DRIVER_ID;
+        }
+        
+        else {
+        	driverID = d;
         }
     }
 
@@ -157,26 +168,27 @@ public class Tour extends IndexedObject{
     *
     * @param driver Driver to set.
     */
-   public void setDriver(Driver driver){
-        this.driver=driver;
+   public void setDriverID(int driverID){
+        this.driverID = driverID;
    }
 
     /**
-     * Get the driver associated with this tour.
+     * Get the ID of the driver associated with this tour.
      *
-     * @return Driver associated with this tour.
+     * @return Driver ID associated with this tour.
      */
-    @JsonIgnore
-    public Driver getDriver(){
-        return driver;
+    @JsonProperty
+    public int getDriverID(){
+        return driverID;
     }
-
     /**
      * Delete driver associated with this tour.
+     * 
+     * @param int The associated driver ID
      */
-    public void delDriver(Driver driver) throws UnsupportedOperationException{
-        if (this.driver.equals(driver)) {
-            this.driver=null;
+    public void delDriver(int driverID) throws UnsupportedOperationException{
+        if (this.driverID == driverID) {
+            this.driverID = NO_DRIVER_ID;
         } else{
             throw new UnsupportedOperationException("Cannot unilaterally remove driver.  Call driver.delTour()");
         }
@@ -212,6 +224,16 @@ public class Tour extends IndexedObject{
     @JsonIgnore
     public Bus getBus(){
         return bus;
+    }
+    
+    /**
+     * No Driver ID Value getter.
+     *
+     * @return The value used to mark if this tour has no associated driver
+     */
+    @JsonIgnore
+    public int getNoDriverID(){
+        return NO_DRIVER_ID;
     }
 
 

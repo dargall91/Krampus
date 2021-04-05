@@ -22,9 +22,12 @@ import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
 
 /**
- *
+ * CurrentProject holds the various data collections required for the software to run.
+ * Used in a static context, you can get a reference to these collections
+ * 
+ * @author Alex V. Alishevskikh, alex@openmechanics.net, Derek Argall
+ * @version 04/05/2020
  */
-/*$Id: CurrentProject.java,v 1.6 2005/12/01 08:12:26 alexeya Exp $*/
 public class CurrentProject {
 
     private static Project _project = null;

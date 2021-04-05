@@ -22,7 +22,9 @@ import java.util.ArrayList;
 /**
  * DriverTourDialogTable is a JTable that displays unscheduled tours to be scheduled to a driver.
  * This table is intended to be used in the DriverTourDialog component
- *
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
  */
 public class DriverTourDialogTable extends JTable {
     private Driver driver;
@@ -45,6 +47,8 @@ public class DriverTourDialogTable extends JTable {
         
         for (int i = 0; i < tours.size(); i++) {
         	Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
+        	
+        	//only display tours without a driver
     		if (tour.getDriverID() == tour.getNoDriverID()) {
     			tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
     		}

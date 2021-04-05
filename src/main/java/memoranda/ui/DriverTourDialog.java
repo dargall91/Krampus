@@ -18,7 +18,9 @@ import main.java.memoranda.Tour;
 
 /**
  * DriverTourDialog is a JDialog that allows the user to schedule a Driver for a Tour
- *
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
  */
 public class DriverTourDialog extends JDialog {
 	private boolean cancelled;

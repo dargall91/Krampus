@@ -26,6 +26,9 @@ import main.java.memoranda.util.Util;
 
 /**
  * A JPanel that provides the interface for a user to add, edit, and delete drivers from the system, as well as schedule tours for a driver
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
  */
 public class DriverPanel extends JSplitPane {
 	private DriverTable driverTable;
@@ -101,10 +104,12 @@ public class DriverPanel extends JSplitPane {
 				dlg.setVisible(true);
 				
 				if (!dlg.isCancelled()) {
-					Driver driver = new Driver(OVER_9000, dlg.getName(), dlg.getPhone());
+					Driver driver = CurrentProject.getDriverColl().newItem();
+					driver.setName(dlg.getName());
+					driver.setPhoneNumber(dlg.getPhone());
 					
 					try {
-						CurrentProject.getDriverColl().createUnique(driver);
+						CurrentProject.getDriverColl().add(driver);
 						CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
 						driverTable.tableChanged();
 						scheduleTable.setDriver(driverTable.getDriver());
@@ -162,11 +167,9 @@ public class DriverPanel extends JSplitPane {
 					dlg.setVisible(true);
 					
 					if (!dlg.isCancelled() && dlg.getTour() != null) {
-						scheduleTable.getDriver().addTour(dlg.getTour());
-						scheduleTable.addTour(dlg.getTour());
-						dlg.getTour().setDriverID(scheduleTable.getDriver().getID());
-						
 						try {
+							scheduleTable.getDriver().addTour(dlg.getTour());
+							scheduleTable.addTour(dlg.getTour());
 							CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
 							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
 							scheduleTable.tableChanged();

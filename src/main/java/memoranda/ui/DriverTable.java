@@ -33,7 +33,9 @@ import java.util.LinkedList;
 
 /**
  * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
- *
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
  */
 public class DriverTable extends JTable {
     private DriverColl drivers;
@@ -146,7 +148,6 @@ public class DriverTable extends JTable {
      */
     public void tableChanged() {
         init();
-        initColumnsWidth();
         updateUI();
     }
 
@@ -265,7 +266,7 @@ public class DriverTable extends JTable {
     		
     		//remove driver from all scheduled tours    		
     		for (int i = 0; i < tourIDs.size(); i++) {
-    			tours.get(tourIDs.get(i)).removeDriver();
+    			tours.get(tourIDs.get(i)).delDriver(driver.getID());
     		}
     		
     		drivers.del(driver.getID());
