@@ -1,79 +1,156 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * Driver object representing a driver in the MTB scheduling system.  Drivers can be associated with tours.
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
+ */
 public class Driver extends IndexedObject {
-    String name;
-    String phoneNumber;
+    private String name;
+    private String phoneNumber;
 
     @JsonIgnore
-    LinkedList<Tour> tours;
+    HashMap<Integer, Tour> tours;
 
 
     /**
+     * stock constructor
      *
-     * @param id
-     * @param name
-     * @param phoneNumber
+     * @param id id for driver
      */
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Driver(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("phoneNumber")
-                  String phoneNumber){
+    public Driver(int id){
         super(id);
+        tours=new HashMap<>();
+    }
+
+    /**
+     * create driver obj with specified ID, name, phonenumber
+     *
+     * @param id driver id
+     * @param name driver name
+     * @param phoneNumber driver phonenumber
+     */
+    public Driver(int id, String name, String phoneNumber){
+        this(id);
         this.name=name;
         this.phoneNumber=phoneNumber;
     }
 
-    // WIP
+
     /**
+     * build a Driver based upon json deserialization data (DriverLoader) which requires Tour information
      *
-     * @param tour
+     * @param tc the tourColl
+     * @param newDriver the DriverLoader object
+     */
+    public Driver(TourColl tc, DriverLoader newDriver){
+        this(newDriver.getID());
+        this.name=newDriver.getName();
+        this.phoneNumber= newDriver.getPhoneNumber();
+        for (int t:newDriver.getTourIDs()){
+            addTour(tc.get(t));
+        }
+    }
+
+    /**
+     * Add a tour to this driver
+     *
+     * @param tour the tour to add
      */
     public void addTour(Tour tour){
-
+        tours.put(tour.getID(), tour);
     }
 
-    // WIP
+
     /**
+     * Get a tour from by ID
      *
-     * @return
+     * @param id the integer id for the tour
+     * @return Tour if exists, null otherwise
      */
-    public LinkedList<Tour> getTours(){
-        return null;
-    }
-
-    // WIP
-    public LinkedList<Integer> getTourIDs(){
-        return null;
+    @JsonIgnore
+    public Tour getTour(int id){
+        return tours.get(id);
     }
 
     /**
+     * gets a full list of this driver's tours
      *
-     * @return
+     * @return Tour collection; null if no tours
+     */
+    @JsonIgnore
+    public Collection<Tour> getTours(){
+        return tours.values();
+    }
+
+    /**
+     * gets a list of integer tour IDs for all tours for this driver. Used for json serialization.
+     *
+     * @return a linked list of integers representing the tour IDs associated with this driver
+     */
+    @JsonProperty("tourIDs")
+    public LinkedList<Integer> getTourIDs(){
+        LinkedList<Integer> li=new LinkedList<>();
+        for (Tour t: tours.values()){
+            li.add(t.getID());
+        }
+        return li;
+    }
+
+
+    /**
+     * name setter
+     *
+     * @param name the driver's name
+     */
+    public void setName(String name){
+        this.name=name;
+    }
+
+    /**
+     * phonenumber setter
+     *
+     * @param phoneNumber the driver's phone number
+     */
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber=phoneNumber;
+    }
+
+
+    /**
+     * name getter
+     *
+     * @return driver's name
      */
     public String getName(){
         return name;
     }
 
     /**
+     * phonenumber getter
      *
-     * @return
+     * @return driver's phone number
      */
     public String getPhoneNumber(){
         return phoneNumber;
     }
 
     /**
+     * standard toString() function
      *
-     * @return
+     * @return string repr of this obj
      */
     @Override
     public String toString(){
-        return "Driver "+getId()+":'"+name+"','"+phoneNumber+"'";
+        return "Driver "+ getID()+":'"+name+"','"+phoneNumber+"'";
     }
 
 }

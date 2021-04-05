@@ -5,6 +5,9 @@ package main.java.memoranda;
  *
  * supports up to 12 significant digits, 9 after decimal point
  * expects coordinates in decimal degrees, -longitudes are west of the prime meridian, -latitudes are south of the equator
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
  */
 public class Coordinate {
     private Double lat;
@@ -12,8 +15,8 @@ public class Coordinate {
 
     /**
      * immutable object; must use this constructor
-     * @param lat
-     * @param lon
+     * @param lat latitude of coordinate
+     * @param lon longitude of coordinate
      */
     public Coordinate(Double lat, Double lon){
         if (lat < -90 || lat > 90) {
@@ -27,7 +30,8 @@ public class Coordinate {
 
     /**
      * standard getter for latitude
-     * @return
+     *
+     * @return latitude in decimal degrees
      */
     public Double getLat(){
         return lat;
@@ -35,7 +39,8 @@ public class Coordinate {
 
     /**
      * standard getter for longitude
-     * @return
+     *
+     * @return in decimal degrees
      */
     public Double getLon() {
         return lon;
@@ -74,8 +79,9 @@ public class Coordinate {
 
     /**
      * return distance in km to another coordinate using Haversine formula
-     * @param c
-     * @return
+     *
+     * @param c other coordinate
+     * @return distance in km to other coordinate
      */
     public Double distanceTo(Coordinate c) throws NullPointerException{
         return haversine(lat, c.getLat(), lon, c.getLon());
@@ -83,6 +89,7 @@ public class Coordinate {
 
     /**
      * convert degrees to radians for haversine formula
+     *
      * @param deg
      * @return
      */
@@ -92,8 +99,9 @@ public class Coordinate {
 
     /**
      * Get difference in latitudes in degrees
-     * @param c
-     * @return
+     *
+     * @param c other coordinate
+     * @return absolute distance to provided coordinate
      */
     public Double latitudeDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLat()- lat);
@@ -101,8 +109,9 @@ public class Coordinate {
 
     /**
      * get difference in longitudes in degrees
-     * @param c
-     * @return
+     *
+     * @param c other coordinate
+     * @return absolute distance to provided coordinate
      */
     public Double longitudeDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLon()- lon);
@@ -110,8 +119,9 @@ public class Coordinate {
 
     /**
      * whether this coordinate is north of coordinate c
-     * @param c
-     * @return
+     *
+     * @param c other coordinate
+     * @return whether this coordinate is north of supplied coordinate
      */
     public boolean northOf(Coordinate c) throws NullPointerException{
         return lat -c.lat > 0;
@@ -130,8 +140,8 @@ public class Coordinate {
 
     /**
      * whether this coordinate is south of coordinate c
-     * @param c
-     * @return
+     * @param c other coordinate
+     * @return whether this coordinate is north of supplied coordinate
      */
     public boolean southOf(Coordinate c) throws NullPointerException{
         return lat -c.lat < 0;
@@ -148,6 +158,11 @@ public class Coordinate {
 //        return false;
 //    }
 
+    /**
+     * standard toString()
+     *
+     * @return string repr of obj
+     */
     @Override
     public String toString(){
         return lat+","+lon;
@@ -155,8 +170,9 @@ public class Coordinate {
 
     /**
      * check for equality to 9 decimal places
-     * @param o
-     * @return
+     *
+     * @param o another coordinate for comparison
+     * @return whether supplied coordinate is equal to this one
      */
     @Override
     public boolean equals(Object o){
