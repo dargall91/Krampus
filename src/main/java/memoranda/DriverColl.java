@@ -6,6 +6,12 @@ import main.java.memoranda.util.DuplicateKeyException;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * DriverColl object holding a collection of drivers in the MTB scheduling system.
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
+ */
 public class DriverColl extends DataCollection<Driver> implements Iterable<Driver>{
 
     /**
@@ -18,7 +24,9 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     /**
      * add an entire collection of Drivers (post json import)
      *
-     * @param c
+     * @param tourColl collection of Tours containing a Tour with the integer IDs associated with this driver's Tours
+     * @param c collection of DriverLoader objects to convert to Driver objs and add to this collection
+     * @throws DuplicateKeyException if a provided Driver id (in DriverLoader obj) is not unique
      */
     public DriverColl(TourColl tourColl, Collection<DriverLoader> c) throws DuplicateKeyException {
         this();
@@ -31,26 +39,17 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     /**
      * Returns a new collection item with a unique key
      *
-     * @return
+     * @return new Driver obj with unique key
      */
     public Driver newItem(){
         return new Driver(getUniqueID());
     }
 
+
     /**
-     * Creates a new driver object with a unique ID
+     * json serialization routine - return collection of Drivers for json output
      *
-     * @param d
-     * @throws DuplicateKeyException
-     */
-    public void createUnique(Driver d) throws DuplicateKeyException {
-        add(new Driver(getUniqueID(), d.getName(), d.getPhoneNumber()));
-    }
-
-
-    /**
-     * return collection of Drivers for json output
-     * @return
+     * @return collection of Drivers in this collection
      */
     @JsonProperty
     public Collection<IndexedObject> getDrivers(){
@@ -61,7 +60,8 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
 
     /**
      * iterator
-     * @return
+     *
+     * @return Iterator
      */
     @Override
     public Iterator<Driver> iterator() {
@@ -70,6 +70,7 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
 
     /**
      * iterator
+     *
      * @param <Driver>
      */
     public class DriverIterator<Driver> implements Iterator<Driver>{

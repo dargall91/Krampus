@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * Driver object representing a driver in the MTB scheduling system.  Drivers can be associated with tours.
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
+ */
 public class Driver extends IndexedObject {
     private String name;
     private String phoneNumber;
@@ -16,16 +22,22 @@ public class Driver extends IndexedObject {
     private HashMap<Integer, Tour> tours;
 
 
+    /**
+     * stock constructor
+     *
+     * @param id id for driver
+     */
     public Driver(int id){
         super(id);
         tours=new HashMap<>();
     }
 
     /**
+     * create driver obj with specified ID, name, phonenumber
      *
-     * @param id
-     * @param name
-     * @param phoneNumber
+     * @param id driver id
+     * @param name driver name
+     * @param phoneNumber driver phonenumber
      */
     public Driver(int id, String name, String phoneNumber){
         this(id);
@@ -35,9 +47,10 @@ public class Driver extends IndexedObject {
 
 
     /**
+     * build a Driver based upon json deserialization data (DriverLoader) which requires Tour information
      *
-     * @param tc
-     * @param newDriver
+     * @param tc the tourColl
+     * @param newDriver the DriverLoader object
      */
     public Driver(TourColl tc, DriverLoader newDriver) throws DuplicateKeyException {
         this(newDriver.getID());
@@ -51,8 +64,9 @@ public class Driver extends IndexedObject {
     }
 
     /**
+     * Add a tour to this driver
      *
-     * @param tour
+     * @param tour the tour to add
      */
     public void addTour(Tour tour) throws DuplicateKeyException {
         if (tour.getDriver() != this && tour.getDriver() != null){
@@ -78,8 +92,8 @@ public class Driver extends IndexedObject {
 
     /**
      *
-     * @param id
-     * @return
+     * @param id the integer id for the tour
+     * @return Tour if exists, null otherwise
      */
     @JsonIgnore
     public Tour getTour(int id){
@@ -87,8 +101,9 @@ public class Driver extends IndexedObject {
     }
 
     /**
+     * gets a full list of this driver's tours
      *
-     * @return
+     * @return Tour collection; null if no tours
      */
     @JsonIgnore
     public Collection<Tour> getTours(){
@@ -96,8 +111,9 @@ public class Driver extends IndexedObject {
     }
 
     /**
+     * gets a list of integer tour IDs for all tours for this driver. Used for json serialization.
      *
-     * @return
+     * @return a linked list of integers representing the tour IDs associated with this driver
      */
     @JsonProperty("tourIDs")
     public LinkedList<Integer> getTourIDs(){
@@ -110,16 +126,18 @@ public class Driver extends IndexedObject {
 
 
     /**
+     * name setter
      *
-     * @param name
+     * @param name the driver's name
      */
     public void setName(String name){
         this.name=name;
     }
 
     /**
+     * phonenumber setter
      *
-     * @param phoneNumber
+     * @param phoneNumber the driver's phone number
      */
     public void setPhoneNumber(String phoneNumber){
         this.phoneNumber=phoneNumber;
@@ -127,24 +145,27 @@ public class Driver extends IndexedObject {
 
 
     /**
+     * name getter
      *
-     * @return
+     * @return driver's name
      */
     public String getName(){
         return name;
     }
 
     /**
+     * phonenumber getter
      *
-     * @return
+     * @return driver's phone number
      */
     public String getPhoneNumber(){
         return phoneNumber;
     }
 
     /**
+     * standard toString() function
      *
-     * @return
+     * @return string repr of this obj
      */
     @Override
     public String toString(){
