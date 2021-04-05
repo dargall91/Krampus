@@ -162,7 +162,7 @@ public class TestDataCollections {
         Driver driver=createNamedDriver(1, "Fred");
         Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
         driver.addTour(tour);
-        assertEquals(driver,tour.getDriver());
+        assertEquals(driver.getID(),tour.getDriverID());
     }
 
     /**
@@ -186,7 +186,7 @@ public class TestDataCollections {
         Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
         driver.addTour(tour);
         driver.delTour(tour);
-        assertNull(tour.getDriver());
+        assertEquals(tour.getNoDriverID(), tour.getDriverID());
     }
     /**
      * validate that removing a tour from a driver removes the driver from the tour
@@ -212,7 +212,7 @@ public class TestDataCollections {
         driver.addTour(tour);
 
         Driver driver2=createNamedDriver(2, "Jim");
-        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(driver2);} );
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(driver2.getID());} );
     }
 
     /**
@@ -225,7 +225,7 @@ public class TestDataCollections {
         Driver driver=createNamedDriver(1, "Fred");
         Tour tour=createNamedTourAtTime("Tour 1", 13, 15);
         driver.addTour(tour);
-        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(null);} );
+        assertThrows(UnsupportedOperationException.class, () -> {tour.delDriver(tour.getNoDriverID());} );
     }
 
     /**
@@ -377,11 +377,11 @@ public class TestDataCollections {
 
         Driver d1=createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
-        System.out.println("Tour1 driver="+tourColl.get(TOUR1).getDriver());
+        System.out.println("Tour1 driver="+driverColl.get(tourColl.get(TOUR1).getDriverID()));
 
         Driver d2=createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));
-        System.out.println("Tour2 driver="+tourColl.get(TOUR2).getDriver());
+        System.out.println("Tour2 driver="+driverColl.get(tourColl.get(TOUR2).getDriverID()));
 
         DriverColl dc=new DriverColl();
         dc.add(d1);
