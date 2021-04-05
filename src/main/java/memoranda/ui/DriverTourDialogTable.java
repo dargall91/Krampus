@@ -4,15 +4,11 @@ import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.Tour;
 import main.java.memoranda.TourColl;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -21,17 +17,11 @@ import javax.swing.table.TableRowSorter;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * ScheduleTable is a JTable that contains the data related to a Driver's Schedule (Tour Name, bus ID, tour ID, date, time)
+ * DriverTourDialogTable is a JTable that displays unscheduled tours to be scheduled to a driver.
+ * This table is intended to be used in the DriverTourDialog component
  *
  */
 public class DriverTourDialogTable extends JTable {

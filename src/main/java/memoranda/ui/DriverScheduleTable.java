@@ -30,7 +30,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * ScheduleTable is a JTable that contains the data related to a Driver's Schedule (Tour Name, bus ID, tour ID, date, time)
+ * DriverScheduleTable is a JTable that contains the data related to a Driver's Schedule (Tour Name, bus ID, tour ID, date, time)
  *
  */
 public class DriverScheduleTable extends JTable {
