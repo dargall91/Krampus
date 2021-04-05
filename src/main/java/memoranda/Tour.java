@@ -29,6 +29,7 @@ public class Tour extends IndexedObject{
      */
     public Tour(int id){
         super(id);
+        driverID = NO_DRIVER_ID;
     }
 
 
@@ -47,6 +48,7 @@ public class Tour extends IndexedObject{
         this.bus=bus;
         this.route=route;
         this.time=time;
+        driverID = NO_DRIVER_ID;
     }
 
 

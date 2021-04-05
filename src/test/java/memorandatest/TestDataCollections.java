@@ -377,11 +377,11 @@ public class TestDataCollections {
 
         Driver d1=createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
-        System.out.println("Tour1 driver="+driverColl.get(tourColl.get(TOUR1).getDriverID()));
+       System.out.println("Tour1 driver="+tourColl.get(TOUR1).getDriverID());
 
         Driver d2=createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));
-        System.out.println("Tour2 driver="+driverColl.get(tourColl.get(TOUR2).getDriverID()));
+        System.out.println("Tour2 driver="+tourColl.get(TOUR2).getDriverID());
 
         DriverColl dc=new DriverColl();
         dc.add(d1);

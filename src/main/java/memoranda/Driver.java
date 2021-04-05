@@ -82,6 +82,7 @@ public class Driver extends IndexedObject {
      * @param tour the tour to add
      */
     private void addTourOnLoad(Tour tour) {
+    	tour.setDriverID(getID());
         tours.put(tour.getID(), tour);
     }
 
