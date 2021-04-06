@@ -4,7 +4,7 @@ import java.awt.*;
 
 /**
  * NodeMapper class
- *
+ * <p>
  * Maps nodes (coordinates) to a given plotting window size
  * Implement scale object to allow for easy cartesian plotting of map coordinates assuming an ideal
  * Mercator projection.
@@ -27,15 +27,15 @@ public class NodeMapper {
      * @param nodeColl
      */
     public NodeMapper(NodeColl nodeColl) {
-        if (nodeColl.size() ==0){
+        if (nodeColl.size() == 0) {
             throw new IllegalStateException("Cannot operate on empty node list");
         }
         this.nodeColl = nodeColl;
         findBaseline();
         findOutlier();
         setMapSize(new Dimension(MAP_DEFAULT_WIDTH, MAP_DEFAULT_HEIGHT));
-        System.out.println("origin="+origin);
-        System.out.println("outlier="+outlier);
+        System.out.println("origin=" + origin);
+        System.out.println("outlier=" + outlier);
     }
 
     private class Scale {
@@ -53,7 +53,10 @@ public class NodeMapper {
         public double getLonScale() {
             return lonScale;
         }
-        public String toString(){return latScale+","+lonScale;}
+
+        public String toString() {
+            return latScale + "," + lonScale;
+        }
     }
 
     /**
@@ -67,14 +70,14 @@ public class NodeMapper {
     }
 
     /**
-     * Set the map size for calculations. Note that scales are 0-based, so a map size of 1000x1000 results
-     * in a return range of 0-999 x 0-999
+     * Set the map size for calculations. Note that scales are 0-based, so a map size of
+     * 1000x1000 results in a return range of 0-999 x 0-999
      *
      * @param dim dimensions
      */
     public void setMapSize(Dimension dim) {
-        dim.setSize(dim.getWidth()-1,dim.getHeight()-1);
-        if (dim.getWidth()<0 || dim.getHeight() < 0){
+        dim.setSize(dim.getWidth() - 1, dim.getHeight() - 1);
+        if (dim.getWidth() < 0 || dim.getHeight() < 0) {
             throw new IllegalArgumentException("Dimensions must be positive.");
         }
         this.dim = dim;
@@ -98,10 +101,10 @@ public class NodeMapper {
      * @param n node
      * @return scaled Point
      */
-    public Point getScaled(Node n) throws IllegalArgumentException, NullPointerException{
+    public Point getScaled(Node n) throws IllegalArgumentException, NullPointerException {
         int lat, lon;
 
-        if (! inRange(n.getCoords())){
+        if (!inRange(n.getCoords())) {
             throw new IllegalArgumentException("Node is not in range of provided node collection");
         }
 
@@ -112,15 +115,15 @@ public class NodeMapper {
 
 
     /**
-     *
      * @param coord
      * @return
      */
-    private boolean inRange(Coordinate coord){
-        if ( (coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon() )
-            && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat()) ) {
+    private boolean inRange(Coordinate coord) {
+        if ((coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon())
+                && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat())) {
             return true;
-        };
+        }
+        ;
         return false;
     }
 
