@@ -124,46 +124,6 @@ public class Coordinate {
         return Math.abs(c.getLon()- lon);
     }
 
-    /**
-     * whether this coordinate is north of coordinate c
-     *
-     * @param c other coordinate
-     * @return whether this coordinate is north of supplied coordinate
-     */
-    public boolean northOf(Coordinate c) throws NullPointerException{
-        return lat -c.lat > 0;
-    }
-
-    /**
-     * whether this coordinate is east of coordinate c
-     * ** UNIMPLEMENTED **
-     * @param c
-     * @return
-     */
-//    public boolean eastOf(Coordinate c) throws NullPointerException
-//    {
-//        return false;
-//    }
-
-    /**
-     * whether this coordinate is south of coordinate c
-     * @param c other coordinate
-     * @return whether this coordinate is north of supplied coordinate
-     */
-    public boolean southOf(Coordinate c) throws NullPointerException{
-        return lat -c.lat < 0;
-    }
-
-    /**
-     * whether this coordinate is west of coordinate c
-     * ** UNIMPLEMENTED **
-     *
-     * @param c
-     * @return
-     */
-//    public boolean westOf(Coordinate c) throws NullPointerException{
-//        return false;
-//    }
 
     /**
      * standard toString()
