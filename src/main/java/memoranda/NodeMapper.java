@@ -74,10 +74,10 @@ public class NodeMapper {
      * @param dim dimensions
      */
     public void setMapSize(Dimension dim) {
-        dim.setSize(dim.getWidth() - 1, dim.getHeight() - 1);
-        if (dim.getWidth() < 0 || dim.getHeight() < 0) {
+        if (dim.getWidth() < 1 || dim.getHeight() < 1) {
             throw new IllegalArgumentException("Dimensions must be positive.");
         }
+        dim.setSize(dim.getWidth() - 1, dim.getHeight() - 1);
         this.dim = dim;
         setScale(dim);
     }
@@ -113,15 +113,16 @@ public class NodeMapper {
 
 
     /**
-     * @param coord
-     * @return
+     * Check to see if provided coordinate is in range of this mapper's NodeColl.
+     *
+     * @param coord coordinate to check
+     * @return true if coord is in domain/range of this mapper's NodeColl
      */
     private boolean inRange(Coordinate coord) {
         if ((coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon())
                 && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat())) {
             return true;
         }
-        ;
         return false;
     }
 
