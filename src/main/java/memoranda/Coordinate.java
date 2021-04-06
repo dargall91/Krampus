@@ -12,6 +12,10 @@ package main.java.memoranda;
 public class Coordinate {
     private Double lat;
     private Double lon;
+    public final static double lonMin = -180;
+    public final static double lonMax = 180;
+    public final static double latMin = -90;
+    public final static double latMax = 90;
 
     /**
      * immutable object; must use this constructor
@@ -19,10 +23,12 @@ public class Coordinate {
      * @param lon longitude of coordinate
      */
     public Coordinate(Double lat, Double lon){
-        if (lat < -90 || lat > 90) {
-            throw new IllegalArgumentException("Latitude must be between -90 and 90 decimal degrees, inclusive.");
-        } else if (lon < -180 || lon > 180){
-            throw new IllegalArgumentException("Longitude must be between -180 and 180 decimal degrees, inclusive.");
+        if (lat < latMin || lat > latMax) {
+            throw new IllegalArgumentException("Latitude must be between "+latMin+" and "
+                    +latMax+" decimal degrees, inclusive.");
+        } else if (lon < lonMin || lon > lonMax){
+            throw new IllegalArgumentException("Longitude must be between "+lonMin+" and "
+                    +lonMax+" decimal degrees, inclusive.");
         }
         this.lat = lat;
         this.lon = lon;
@@ -87,6 +93,7 @@ public class Coordinate {
         return haversine(lat, c.getLat(), lon, c.getLon());
     }
 
+
     /**
      * convert degrees to radians for haversine formula
      *
@@ -103,7 +110,7 @@ public class Coordinate {
      * @param c other coordinate
      * @return absolute distance to provided coordinate
      */
-    public Double latitudeDelta(Coordinate c) throws NullPointerException{
+    public Double latDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLat()- lat);
     }
 
@@ -113,7 +120,7 @@ public class Coordinate {
      * @param c other coordinate
      * @return absolute distance to provided coordinate
      */
-    public Double longitudeDelta(Coordinate c) throws NullPointerException{
+    public Double lonDelta(Coordinate c) throws NullPointerException{
         return Math.abs(c.getLon()- lon);
     }
 
