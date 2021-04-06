@@ -4,6 +4,9 @@ plugins {
     id 'application'
     id 'jacoco'
     id 'java'
+    id "com.github.spotbugs" version "4.7.0"
+    id 'checkstyle'
+
 }
 
 mainClassName = 'main/java/memoranda/Start'
@@ -42,5 +45,40 @@ test {
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
+}
+
+apply plugin: 'checkstyle'
+checkstyle {
+  ignoreFailures = true
+  showViolations = false
+}
+
+tasks.withType(Checkstyle) {
+  reports {
+    html.enabled = true
+    xml.enabled = false
+  }
+}
+
+
+spotbugsTest {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+spotbugs {
+    ignoreFailures = true
+    showStackTraces = false
+    showProgress = true
+    effort = 'default'
+    maxHeapSize = '2g'
 }
 

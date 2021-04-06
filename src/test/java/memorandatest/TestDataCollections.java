@@ -1,6 +1,19 @@
 package memorandatest;
 
-import main.java.memoranda.*;
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
+import main.java.memoranda.Coordinate;
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
+import main.java.memoranda.Node;
+import main.java.memoranda.NodeColl;
+import main.java.memoranda.Project;
+import main.java.memoranda.ProjectManager;
+import main.java.memoranda.Route;
+import main.java.memoranda.RouteColl;
+import main.java.memoranda.RouteLoader;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
@@ -64,7 +77,7 @@ public class TestDataCollections {
     @BeforeAll
     static void beforeAll() {
         System.out.println("Before all test methods");
-        prj=ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        prj= ProjectManager.createProject("Test project", CalendarDate.today(), null);
         stg=new FileStorage();
         stg.createProjectStorage(prj);
     }
