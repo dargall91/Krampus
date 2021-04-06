@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -29,6 +30,10 @@ public class TestDataCollections {
     private static DriverColl driverColl;
     private static BusColl busColl;
 
+    private static NodeMapper nodeMapper;
+
+
+    // constants used for consistent testing
     private final static int NODE1=1;
     private final static int NODE2=2;
 
@@ -43,6 +48,9 @@ public class TestDataCollections {
 
     private final static int BUS1=1;
     private final static int BUS2=2;
+
+
+
 
     /**
      * Run before all test methods
@@ -749,5 +757,156 @@ public class TestDataCollections {
         assertFalse(c1.equals(c2));
     }
 
+    public static final int MAPPER_TOP=1;
+    public static final int MAPPER_RIGHT=4;
+    public static final int MAPPER_BOTTOM=3;
+    public static final int MAPPER_LEFT=2;
+
+    /**
+     * utility function to set up nodes/coordinates for scale testing
+     * @return
+     * @throws DuplicateKeyException
+     */
+    NodeMapper setupMapperNodes() throws DuplicateKeyException {
+
+        NodeColl nc=new NodeColl();
+
+        // total lat range = -0.1 - 0.9 = 1.0
+        // total lon range = -1.0 - 1.0 = 2.0
+        Coordinate c1=new Coordinate(-0.1, 0.5);
+        Node n1=nc.newItem();
+        n1.setCoords(c1);
+
+        Coordinate c2 =new Coordinate(0.1, -1.0);
+        Node n2=nc.newItem();
+        n2.setCoords(c2);
+
+        Coordinate c3 =new Coordinate(0.9, 0.5);
+        Node n3=nc.newItem();
+        n3.setCoords(c3);
+
+        Coordinate c4 =new Coordinate(0.1, 1.0);
+        Node n4=nc.newItem();
+        n4.setCoords(c4);
+
+        Coordinate c5 =new Coordinate(0.4, 0.5);
+        Node n5=nc.newItem();
+        n5.setCoords(c5);
+
+        nc.add(n1);
+        nc.add(n2);
+        nc.add(n3);
+        nc.add(n4);
+        nc.add(n5);
+
+        nodeMapper=new NodeMapper(nc);
+        nodeMapper.setMapSize(new Dimension(1000, 600));
+
+        return nodeMapper;
+
+//        System.out.println("node 1="+nm.getScaled(n1));
+//        System.out.println("node 2="+nm.getScaled(n2));
+//        System.out.println("node 3="+nm.getScaled(n3));
+    }
+
+
+
+    /**
+     * test rightmost node
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperRight() throws DuplicateKeyException{
+        NodeMapper nm=setupMapperNodes();
+        NodeColl nc=nm.getNodeColl();
+
+        assertEquals(new Point(999,119), nm.getScaled(nc.get(MAPPER_RIGHT)));
+    }
+
+    /**
+     * test bottommost node
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperBottom() throws DuplicateKeyException {
+        NodeMapper nm=setupMapperNodes();
+        NodeColl nc=nm.getNodeColl();
+
+        assertEquals(new Point(749,599), nm.getScaled(nc.get(MAPPER_BOTTOM)));
+    }
+
+    /**
+     * test topmost node
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperTop() throws DuplicateKeyException {
+        NodeMapper nm=setupMapperNodes();
+        NodeColl nc=nm.getNodeColl();
+
+        assertEquals(new Point(749,0), nm.getScaled(nc.get(MAPPER_TOP)));
+    }
+
+    /**
+     * test leftmost node
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperLeft() throws DuplicateKeyException {
+        NodeMapper nm=setupMapperNodes();
+        NodeColl nc=nm.getNodeColl();
+
+        assertEquals(new Point(0,119), nm.getScaled(nc.get(MAPPER_LEFT)));
+    }
+
+    /**
+     * test behavior with node not in node collection
+     */
+    @Test
+    void testOutOfRangeNode() throws DuplicateKeyException {
+        NodeMapper nm=setupMapperNodes();
+        Node nmissing=nm.getNodeColl().newItem();
+        nmissing.setCoords(new Coordinate(-10.0,10.0));
+
+        assertThrows(IllegalArgumentException.class, () -> { nm.getScaled(nmissing); } );
+    }
+
+    /**
+     * test behavior with empty node collection
+     */
+    @Test
+    void testEmptyNodeColl(){
+        NodeColl nc=new NodeColl();
+
+        assertThrows(IllegalStateException.class, () -> { new NodeMapper(nc); } );
+    }
+
+    /**
+     * test node collection with 0 range
+     * @throws DuplicateKeyException
+     */
+    @Test
+    void testRangelessNodeColl() throws DuplicateKeyException {
+
+        NodeColl nc=new NodeColl();
+
+        Coordinate c1=new Coordinate(0.0, 0.0);
+        Node n1=nc.newItem();
+        Node n2=nc.newItem();
+        n1.setCoords(c1);
+        n2.setCoords(c1);
+
+        nc.add(n1);
+        nc.add(n2);
+
+        NodeMapper nm=new NodeMapper(nc);
+        nm.setMapSize(new Dimension(1000, 600));
+
+        assertEquals(new Point(0,0), nm.getScaled(n1));
+    }
 
 }
