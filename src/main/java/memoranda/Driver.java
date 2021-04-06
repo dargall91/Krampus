@@ -23,7 +23,7 @@ public class Driver extends IndexedObject {
 
 
     /**
-     * stock constructor
+     * stock constructor.
      *
      * @param id id for driver
      */
@@ -33,7 +33,7 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * create driver obj with specified ID, name, phonenumber
+     * create driver obj with specified ID, name, phonenumber.
      *
      * @param id          driver id
      * @param name        driver name
@@ -47,7 +47,8 @@ public class Driver extends IndexedObject {
 
 
     /**
-     * build a Driver based upon json deserialization data (DriverLoader) which requires Tour information
+     * build a Driver based upon json deserialization data (DriverLoader) which requires Tour
+     * information.
      *
      * @param tc        the tourColl
      * @param newDriver the DriverLoader object
@@ -64,7 +65,7 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * Add a tour to this driver
+     * Add a tour to this driver.
      *
      * @param tour the tour to add
      */
@@ -78,7 +79,7 @@ public class Driver extends IndexedObject {
 
 
     /**
-     * Remove a tour from this driver
+     * Remove a tour from this driver.
      *
      * @param tour Tour to delete from this driver
      */
@@ -91,6 +92,8 @@ public class Driver extends IndexedObject {
     }
 
     /**
+     * gets a tour based on ID.
+     *
      * @param id the integer id for the tour
      * @return Tour if exists, null otherwise
      */
@@ -100,7 +103,7 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * gets a full list of this driver's tours
+     * gets a full list of this driver's tours.
      *
      * @return Tour collection; null if no tours
      */
@@ -125,7 +128,7 @@ public class Driver extends IndexedObject {
 
 
     /**
-     * name setter
+     * name setter.
      *
      * @param name the driver's name
      */
@@ -134,7 +137,7 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * phonenumber setter
+     * phonenumber setter.
      *
      * @param phoneNumber the driver's phone number
      */
@@ -144,7 +147,7 @@ public class Driver extends IndexedObject {
 
 
     /**
-     * name getter
+     * name getter.
      *
      * @return driver's name
      */
@@ -153,7 +156,7 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * phonenumber getter
+     * phonenumber getter.
      *
      * @return driver's phone number
      */
@@ -162,7 +165,7 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * standard toString() function
+     * standard toString() function.
      *
      * @return string repr of this obj
      */

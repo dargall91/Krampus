@@ -177,6 +177,9 @@ public class Tour extends IndexedObject {
 
     /**
      * Delete driver associated with this tour.
+     *
+     * @param driver driver to delete
+     * @throws UnsupportedOperationException if an invalid driver is passed to the method.
      */
     public void delDriver(Driver driver) throws UnsupportedOperationException {
         if (this.driver.equals(driver)) {
@@ -189,7 +192,7 @@ public class Tour extends IndexedObject {
     }
 
     /**
-     * route getter
+     * route getter.
      *
      * @return route for tour
      */
@@ -199,7 +202,7 @@ public class Tour extends IndexedObject {
     }
 
     /**
-     * json serialization routine
+     * json serialization routine.
      *
      * @return integer id of this tour's route
      */
@@ -210,7 +213,7 @@ public class Tour extends IndexedObject {
 
 
     /**
-     * bus getter
+     * bus getter.
      *
      * @return Bus for this route
      */
@@ -221,7 +224,7 @@ public class Tour extends IndexedObject {
 
 
     /**
-     * json serialization routine
+     * json serialization routine.
      *
      * @return integer id of this tour's bus
      */
@@ -231,7 +234,7 @@ public class Tour extends IndexedObject {
     }
 
     /**
-     * standard toString()
+     * standard toString().
      *
      * @return string repr of obj
      */
