@@ -34,8 +34,6 @@ public class NodeMapper {
         findBaseline();
         findOutlier();
         setMapSize(new Dimension(MAP_DEFAULT_WIDTH, MAP_DEFAULT_HEIGHT));
-        System.out.println("origin=" + origin);
-        System.out.println("outlier=" + outlier);
     }
 
     private class Scale {
