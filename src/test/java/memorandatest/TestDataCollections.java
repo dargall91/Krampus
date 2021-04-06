@@ -1,7 +1,5 @@
 package memorandatest;
 
-
-
 import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
@@ -19,6 +17,12 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+/**
+ * TestDataCollection unit test suite.
+ *
+ * @author Brian Pape
+ * @version 2021-04-06
+ */
 public class TestDataCollections {
 
     private static Project prj;

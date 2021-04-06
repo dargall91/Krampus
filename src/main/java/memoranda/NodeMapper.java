@@ -3,8 +3,14 @@ package main.java.memoranda;
 import java.awt.*;
 
 /**
+ * NodeMapper class
  *
+ * Maps nodes (coordinates) to a given plotting window size
+ *
+ * @author Brian Pape
+ * @version 2021-04-06
  */
+
 public class NodeMapper {
     private static final int MAP_DEFAULT_WIDTH = 640;
     private static final int MAP_DEFAULT_HEIGHT = 480;
