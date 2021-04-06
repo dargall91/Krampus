@@ -1,70 +1,147 @@
 package main.java.memoranda;
 
+import java.awt.*;
+
+/**
+ *
+ */
 public class NodeMapper {
-    private static final int mapDefaultX=640;
-    private static final int mapDefaultY=480;
-    private int mapX;
-    private int mapY;
+    private static final int MAP_DEFAULT_WIDTH = 640;
+    private static final int MAP_DEFAULT_HEIGHT = 480;
+
+    private Dimension dim;
     private NodeColl nodeColl;
     private Coordinate origin;
     private Coordinate outlier;
-    private Double lonScale =1.0;
-    private Double latScale =1.0;
+    private Scale scale;
 
-    public NodeMapper(NodeColl nodeColl){
-        this.nodeColl=nodeColl;
+    /**
+     * @param nodeColl
+     */
+    public NodeMapper(NodeColl nodeColl) {
+        if (nodeColl.size() ==0){
+            throw new IllegalStateException("Cannot operate on empty node list");
+        }
+        this.nodeColl = nodeColl;
         findBaseline();
         findOutlier();
-        setMapSize(mapDefaultX, mapDefaultY);
+        setMapSize(new Dimension(MAP_DEFAULT_WIDTH, MAP_DEFAULT_HEIGHT));
+        System.out.println("origin="+origin);
+        System.out.println("outlier="+outlier);
     }
 
-    public void setScale(int xSize, int ySize){
-        lonScale =mapX / origin.lonDelta(outlier);
-        latScale =mapY / origin.latDelta(outlier);
+    private class Scale {
+        double latScale, lonScale;
+
+        Scale(double lonScale, double latScale) {
+            this.latScale = latScale;
+            this.lonScale = lonScale;
+        }
+
+        public double getLatScale() {
+            return latScale;
+        }
+
+        public double getLonScale() {
+            return lonScale;
+        }
+        public String toString(){return latScale+","+lonScale;}
     }
 
-    public void setMapSize(int mapX, int mapY){
-        this.mapX=mapX;
-        this.mapY=mapY;
-        setScale(mapX, mapY);
+    /**
+     * @param dim
+     */
+    private void setScale(Dimension dim) {
+        System.out.println("origin.lonDelta(outlier)="+origin.lonDelta(outlier)+ " and (int)(1000*(10/0))="+(int)(1000*(10/0.0)));
+        scale = new Scale(dim.getWidth() / origin.lonDelta(outlier),
+                dim.getHeight() / origin.latDelta(outlier));
+        System.out.println("my scale="+scale);
     }
 
-    public NodeColl getNodeColl(){
+    /**
+     * Set the map size for calculations. Note that scales are 0-based, so a map size of 1000x1000 results
+     * in a return range of 0-999 x 0-999
+     *
+     * @param dim dimensions
+     */
+    public void setMapSize(Dimension dim) {
+        dim.setSize(dim.getWidth()-1,dim.getHeight()-1);
+        if (dim.getWidth()<0 || dim.getHeight() < 0){
+            throw new IllegalArgumentException("Dimensions must be positive.");
+        }
+        this.dim = dim;
+        setScale(dim);
+    }
+
+    /**
+     * the node collection associated with this mapper object.
+     *
+     * @return node collection
+     */
+    public NodeColl getNodeColl() {
         return nodeColl;
     }
 
-    public Coordinate getScaled(Node n){
-        double lat, lon;
-        lat=origin.latDelta(n.getCoords()) * latScale;
-        lon=origin.lonDelta(n.getCoords()) * lonScale;
-        return new Coordinate(lat, lon);
+    /**
+     * get the point scaled to the specified map size. Allows passing arbitrary nodes for scaling
+     * as long as they are within the scale window calculated from the original nodes passed to
+     * this object's constructor.
+     *
+     * @param n node
+     * @return scaled Point
+     */
+    public Point getScaled(Node n) throws IllegalArgumentException, NullPointerException{
+        int lat, lon;
+
+        if (! inRange(n.getCoords())){
+            throw new IllegalArgumentException("Node is not in range of provided node collection");
+        }
+
+        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale());
+        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale());
+        return new Point(lon, lat);
     }
 
-    private void findBaseline(){
+
+    private boolean inRange(Coordinate coord){
+        if ( (coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon() )
+            && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat()) ) {
+            return true;
+        };
+        return false;
+    }
+
+    /**
+     *
+     */
+    private void findBaseline() {
         double lat = Coordinate.latMax;
         double lon = Coordinate.lonMax;
-        for (Node n:nodeColl){
-            if (n.getLat()<lat){
-                lat=n.getLat();
+        for (Node n : nodeColl) {
+            if (n.getLat() < lat) {
+                lat = n.getLat();
             }
-            if (n.getLon()<lon){
-                lon=n.getLon();
+            if (n.getLon() < lon) {
+                lon = n.getLon();
             }
         }
-        origin=new Coordinate(lat, lon);
+        origin = new Coordinate(lat, lon);
     }
 
-    private void findOutlier(){
+    /**
+     *
+     */
+    private void findOutlier() {
         double lat = Coordinate.latMin;
         double lon = Coordinate.lonMin;
-        for (Node n:nodeColl){
-            if (n.getLat()<lat){
-                lat=n.getLat();
+        for (Node n : nodeColl) {
+            if (n.getLat() > lat) {
+                lat = n.getLat();
             }
-            if (n.getLon()<lon){
-                lon=n.getLon();
+            if (n.getLon() > lon) {
+                lon = n.getLon();
             }
         }
-        outlier=new Coordinate(lat,lon);
+        outlier = new Coordinate(lat, lon);
     }
 }
