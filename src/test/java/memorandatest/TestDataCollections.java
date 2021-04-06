@@ -57,7 +57,7 @@ public class TestDataCollections {
 
 
     /**
-     * Run before all test methods
+     * Run before all test methods.
      *
      * We need to create a project and file storage object for use by all test methods
      */
@@ -70,7 +70,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Run before each test method
+     * Run before each test method.
      *
      * We need to have a known test fixture for most tests
      *
@@ -86,7 +86,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Run after each test method
+     * Run after each test method.
      *
      * No tear-down needed
      *
@@ -98,7 +98,7 @@ public class TestDataCollections {
 
     /**
      *
-     * Run after all test methods
+     * Run after all test methods.
      *
      * Need to remove temporary project storage
      */
@@ -110,7 +110,7 @@ public class TestDataCollections {
 
 
     /**
-     * test error handling for duplicate driver in collection
+     * test error handling for duplicate driver in collection.
      */
     @Test
     void testAddDuplicateDriverToCollection() throws DuplicateKeyException {
@@ -123,7 +123,7 @@ public class TestDataCollections {
 
 
     /**
-     * Utility method: Create a generic driver with a name
+     * Utility method: Create a generic driver with a name.
      *
      * @param id the id for the driver
      * @param name the name for the driver
@@ -134,7 +134,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Utility method: Create a generic driver associated with a tour
+     * Utility method: Create a generic driver associated with a tour.
      *
      * @param id A the id for the driver
      * @return the Driver object
@@ -167,7 +167,7 @@ public class TestDataCollections {
 
 
     /**
-     * validate that adding a tour to a driver adds the driver to the tour
+     * validate that adding a tour to a driver adds the driver to the tour.
      */
     @Test
     void testAddTourToDriver() throws DuplicateKeyException {
@@ -178,7 +178,7 @@ public class TestDataCollections {
     }
 
     /**
-     * validate that adding a tour to a driver adds the driver to the tour
+     * validate that adding a tour to a driver adds the driver to the tour.
      */
     @Test
     void testAddTourToTwoDrivers() throws DuplicateKeyException {
@@ -190,7 +190,7 @@ public class TestDataCollections {
     }
 
     /**
-     * validate that removing a tour from a driver removes the driver from the tour
+     * validate that removing a tour from a driver removes the driver from the tour.
      */
     @Test
     void testRemoveTourFromDriver() throws DuplicateKeyException {
@@ -202,7 +202,7 @@ public class TestDataCollections {
     }
 
     /**
-     * validate that removing a tour from a driver removes the driver from the tour
+     * validate that removing a tour from a driver removes the driver from the tour.
      */
     @Test
     void testRemoveTourFromDriver2() throws DuplicateKeyException {
@@ -214,7 +214,7 @@ public class TestDataCollections {
     }
 
     /**
-     * validate that an invalid driver cannot be removed from tour
+     * validate that an invalid driver cannot be removed from tour.
      *
      * @throws DuplicateKeyException if non-unique key encountered
      */
@@ -229,7 +229,7 @@ public class TestDataCollections {
     }
 
     /**
-     * validate that a null driver cannot be removed from tour
+     * validate that a null driver cannot be removed from tour.
      *
      * @throws DuplicateKeyException if non-unique key encountered
      */
@@ -243,7 +243,7 @@ public class TestDataCollections {
 
 
     /**
-     * Test the basic node constructor
+     * Test the basic node constructor.
      */
     @Test
     void testNodeConstructor(){
@@ -254,7 +254,7 @@ public class TestDataCollections {
 
 
     /**
-     * Utility method: Create a node collection
+     * Utility method: Create a node collection.
      *
      * @return a node collection
      */
@@ -271,7 +271,7 @@ public class TestDataCollections {
 
 
     /**
-     * Utility method: create a bus collection
+     * Utility method: create a bus collection.
      *
      * @return a bus collection
      * @throws DuplicateKeyException if duplicate key is added to collection
@@ -294,7 +294,7 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a bus object
+     * test creating a bus object.
      */
     @Test
     void testCreateBus(){
@@ -306,7 +306,7 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a bus collection
+     * test creating a bus collection.
      */
     @Test
     void testBusCollCreation(){
@@ -315,7 +315,7 @@ public class TestDataCollections {
 
 
     /**
-     * test adding several buses to a bus collection
+     * test adding several buses to a bus collection.
      */
     @Test
     void testBusCollStatus(){
@@ -324,7 +324,7 @@ public class TestDataCollections {
 
 
     /**
-     * test serializing a bus collection
+     * test serializing a bus collection.
      *
      * @throws IOException if output file cannot be opened
      * @throws DuplicateKeyException if duplicate key is added to bus collection
@@ -349,7 +349,7 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a driver with multiple tours
+     * test creating a driver with multiple tours.
      *
      * @throws DuplicateKeyException if duplicate IDs are added to collection
      */
@@ -362,7 +362,7 @@ public class TestDataCollections {
 //    }
 
     /**
-     * test creating a driver with multiple tours
+     * test creating a driver with multiple tours.
      *
      * @throws DuplicateKeyException if duplicate IDs are added to collection
      */
@@ -375,7 +375,7 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a driver collection
+     * test creating a driver collection.
      *
      * @return a driver collection
      * @throws DuplicateKeyException if duplicate IDs are added to collection
@@ -406,7 +406,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test ability to add a node
+     * test ability to add a node.
      */
     @Test
     void testCreateDriverColl() throws DuplicateKeyException {
@@ -417,7 +417,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Test ability to read and write JSON values (serialize/deserialize data)
+     * Test ability to read and write JSON values (serialize/deserialize data).
      *
      * @throws JsonProcessingException if json error occurs
      * @throws IOException if output file cannot be written
@@ -448,7 +448,7 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a route collection
+     * test creating a route collection.
      *
      * @return route collection
      * @throws DuplicateKeyException if duplicate id is added to collection
@@ -493,7 +493,7 @@ public class TestDataCollections {
 
 
     /**
-     * Test ability to read and write JSON values
+     * Test ability to read and write JSON values.
      *
      * @throws JsonProcessingException if json error occurs
      * @throws IOException if file read/write error occurs
@@ -541,7 +541,7 @@ public class TestDataCollections {
 
 
     /**
-     * Utility function: create a named tour at a particular time
+     * Utility function: create a named tour at a particular time.
      *
      * @param name the name for the tour
      * @param hour the hour of the tour
@@ -563,7 +563,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test creating tours and valid IDs
+     * test creating tours and valid IDs.
      *
      * @throws JsonProcessingException if Json error occurs
      * @throws IOException if output file cannot be written
@@ -576,7 +576,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test creating a tour
+     * test creating a tour.
      *
      * @throws JsonProcessingException if Json error occurs
      * @throws IOException if output file cannot be written
@@ -589,7 +589,7 @@ public class TestDataCollections {
 
 
     /**
-     * Utility function: test creating a tour collection
+     * Utility function: test creating a tour collection.
      *
      * @return a tour collection
      * @throws DuplicateKeyException if duplicate id is added to collection
@@ -609,7 +609,7 @@ public class TestDataCollections {
 
 
     /**
-     * test creating a tour collection
+     * test creating a tour collection.
      */
     @Test
     void testCreateTourColl(){
@@ -618,7 +618,7 @@ public class TestDataCollections {
 
 
     /**
-     * test serializing/deserializing a Tour collection
+     * test serializing/deserializing a Tour collection.
      *
      * @throws IOException if output file cannot be written
      * @throws DuplicateKeyException if duplicate id is added to collection
@@ -646,7 +646,7 @@ public class TestDataCollections {
 
 
     /**
-     * test ability to add a node
+     * test ability to add a node.
      */
     @Test
     void testAddNode() throws DuplicateKeyException {
@@ -658,7 +658,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Test ability to read and write JSON values
+     * Test ability to read and write JSON values.
      *
      * @throws JsonProcessingException if Json error occurs
      * @throws IOException if output file cannot be written
@@ -687,7 +687,7 @@ public class TestDataCollections {
     }
 
     /**
-     * Test ability to create and remove project storage directory in $HOME/.memoranda
+     * Test ability to create and remove project storage directory in $HOME/.memoranda.
      */
     @Test
     void testProjectStorage(){
@@ -702,7 +702,7 @@ public class TestDataCollections {
 
 
     /**
-     * Test haversine distance formula calculations
+     * Test haversine distance formula calculations.
      */
     @Test
     void testHaversine(){
@@ -719,7 +719,7 @@ public class TestDataCollections {
 
 
     /**
-     *A Test distance to a null coordinate
+     *A Test distance to a null coordinate.
      */
     @Test
     void testDistanceToNull(){
@@ -729,7 +729,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test coordinate equality
+     * test coordinate equality.
      */
     @Test
     void testCoordinateEquality() {
@@ -740,7 +740,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test coordinate inequality based upon significant digit difference
+     * test coordinate inequality based upon significant digit difference.
      */
     @Test
     void testCoordinateInequalityDigits() {
@@ -751,7 +751,7 @@ public class TestDataCollections {
     }
 
     /**
-     * check for coordinate inequality based on sign
+     * check for coordinate inequality based on sign.
      */
     @Test
     void testCoordinateInequalitySign(){
@@ -767,7 +767,7 @@ public class TestDataCollections {
     public static final int MAPPER_LEFT=2;
 
     /**
-     * utility function to set up nodes/coordinates for scale testing
+     * utility function to set up nodes/coordinates for scale testing.
      * @return
      * @throws DuplicateKeyException
      */
@@ -816,7 +816,7 @@ public class TestDataCollections {
 
 
     /**
-     * test rightmost node
+     * test rightmost node.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -829,7 +829,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test bottommost node
+     * test bottommost node.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -842,7 +842,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test topmost node
+     * test topmost node.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -855,7 +855,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test leftmost node
+     * test leftmost node.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -868,7 +868,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test behavior with node not in node collection
+     * test behavior with node not in node collection.
      */
     @Test
     void testOutOfRangeNode() throws DuplicateKeyException {
@@ -880,7 +880,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test behavior with empty node collection
+     * test behavior with empty node collection.
      */
     @Test
     void testEmptyNodeColl(){
@@ -890,7 +890,8 @@ public class TestDataCollections {
     }
 
     /**
-     * test node collection with 0 range
+     * test node collection with 0 range.
+     * 
      * @throws DuplicateKeyException
      */
     @Test
