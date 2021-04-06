@@ -6,6 +6,8 @@ import java.awt.*;
  * NodeMapper class
  *
  * Maps nodes (coordinates) to a given plotting window size
+ * Implement scale object to allow for easy cartesian plotting of map coordinates assuming an ideal
+ * Mercator projection.
  *
  * @author Brian Pape
  * @version 2021-04-06
