@@ -18,7 +18,7 @@ public class NodeMapper {
     private static final int MAP_DEFAULT_HEIGHT = 480;
 
     private Dimension dim;
-    private NodeColl nodeColl;
+    private final NodeColl nodeColl;
     private Coordinate origin;
     private Coordinate outlier;
     private Scale scale;
