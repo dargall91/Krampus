@@ -29,6 +29,7 @@ public class DriverTourDialog extends JDialog {
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
 	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+	private String driver;
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Driver to the system
@@ -38,9 +39,10 @@ public class DriverTourDialog extends JDialog {
 	 * @param title The title for this JDialog
 	 * @param posButtonName The name for the positive button
 	 */
-	public DriverTourDialog(Frame frame) {
+	public DriverTourDialog(Frame frame, String driver) {
 		super(frame);
 		try {
+			this.driver = driver;
 			init();
 			pack();
 		} catch (Exception ex) {
@@ -57,6 +59,11 @@ public class DriverTourDialog extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		JPanel namePanel = new JPanel();
+		JLabel driverName = new JLabel("Schedule a Tour for " + driver);
+		driverName.setHorizontalAlignment(JLabel.CENTER);
+		
+		namePanel.add(driverName);
+		
 		
 		errorPanel = new JPanel();
 		errorPanel.setVisible(false);
@@ -99,6 +106,8 @@ public class DriverTourDialog extends JDialog {
 		buttonPanel.add(Box.createRigidArea(HORIZONTAL_GAP));
 		buttonPanel.add(cancelButton);
 		
+		panel.add(namePanel);
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(errorPanel);
 		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(scroll);

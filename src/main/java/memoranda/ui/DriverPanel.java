@@ -155,7 +155,7 @@ public class DriverPanel extends JSplitPane {
 				}
 				
 				else {
-					DriverTourDialog dlg = new DriverTourDialog(App.getFrame());
+					DriverTourDialog dlg = new DriverTourDialog(App.getFrame(), scheduleTable.getDriver().getName());
 					Dimension frmSize = App.getFrame().getSize();
 					Point loc = App.getFrame().getLocation();
 					
