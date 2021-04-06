@@ -55,13 +55,13 @@ public class NodeMapper {
     }
 
     /**
-     * @param dim
+     * sets scaling factor for this plotting window
+     *
+     * @param dim dimension to scale to
      */
     private void setScale(Dimension dim) {
-        System.out.println("origin.lonDelta(outlier)="+origin.lonDelta(outlier)+ " and (int)(1000*(10/0))="+(int)(1000*(10/0.0)));
         scale = new Scale(dim.getWidth() / origin.lonDelta(outlier),
                 dim.getHeight() / origin.latDelta(outlier));
-        System.out.println("my scale="+scale);
     }
 
     /**
@@ -109,6 +109,11 @@ public class NodeMapper {
     }
 
 
+    /**
+     *
+     * @param coord
+     * @return
+     */
     private boolean inRange(Coordinate coord){
         if ( (coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon() )
             && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat()) ) {
