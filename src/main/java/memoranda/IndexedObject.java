@@ -15,15 +15,16 @@ public abstract class IndexedObject {
      *
      * @param id id for new object
      */
-    IndexedObject(Integer id){
-        this.id=id;
+    IndexedObject(Integer id) {
+        this.id = id;
     }
 
     /**
      * id getter
+     *
      * @return
      */
-    public int getID(){
+    public int getID() {
         return id;
     }
 

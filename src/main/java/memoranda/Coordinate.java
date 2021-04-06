@@ -1,9 +1,9 @@
 package main.java.memoranda;
 
 /**
- * Holds a coordinate (a location on Earth) and calculates distances between them
- * <p>
- * supports up to 12 significant digits, 9 after decimal point
+ * Holds a coordinate (a location on Earth) and calculates distances between them.
+ *
+ * <p>supports up to 12 significant digits, 9 after decimal point
  * expects coordinates in decimal degrees, -longitudes are west of the prime meridian, -latitudes
  * are south of the equator
  *
@@ -13,13 +13,13 @@ package main.java.memoranda;
 public class Coordinate {
     private Double lat;
     private Double lon;
-    public final static double lonMin = -180;
-    public final static double lonMax = 180;
-    public final static double latMin = -90;
-    public final static double latMax = 90;
+    public static final double lonMin = -180;
+    public static final double lonMax = 180;
+    public static final double latMin = -90;
+    public static final double latMax = 90;
 
     /**
-     * immutable object; must use this constructor
+     * immutable object; must use this constructor.
      *
      * @param lat latitude of coordinate
      * @param lon longitude of coordinate
@@ -37,7 +37,7 @@ public class Coordinate {
     }
 
     /**
-     * standard getter for latitude
+     * standard getter for latitude.
      *
      * @return latitude in decimal degrees
      */
@@ -46,7 +46,7 @@ public class Coordinate {
     }
 
     /**
-     * standard getter for longitude
+     * standard getter for longitude.
      *
      * @return in decimal degrees
      */
@@ -57,9 +57,9 @@ public class Coordinate {
 
     /**
      * Haversine formula for calculating the great-circle distance between two points on an
-     * idealized spheroid (Earth)
-     * <p>
-     * Formula pulled from wikipedia and cross-checked with several other sources.
+     * idealized spheroid (Earth).
+     *
+     * <p>Formula pulled from wikipedia and cross-checked with several other sources.
      *
      * @param lat1 latitude in decimal degrees
      * @param lat2 latitude in decimal degrees
@@ -86,7 +86,7 @@ public class Coordinate {
 
 
     /**
-     * return distance in km to another coordinate using Haversine formula
+     * return distance in km to another coordinate using Haversine formula.
      *
      * @param c other coordinate
      * @return distance in km to other coordinate
@@ -97,17 +97,17 @@ public class Coordinate {
 
 
     /**
-     * convert degrees to radians for haversine formula
+     * convert degrees to radians for haversine formula.
      *
-     * @param deg
-     * @return
+     * @param deg degrees to convert
+     * @return degrees as radians
      */
     private double deg2rad(double deg) {
         return deg / 360 * 2 * Math.PI;
     }
 
     /**
-     * Get difference in latitudes in degrees
+     * Get difference in latitudes in degrees.
      *
      * @param c other coordinate
      * @return absolute distance to provided coordinate
@@ -117,7 +117,7 @@ public class Coordinate {
     }
 
     /**
-     * get difference in longitudes in degrees
+     * get difference in longitudes in degrees.
      *
      * @param c other coordinate
      * @return absolute distance to provided coordinate
@@ -128,7 +128,7 @@ public class Coordinate {
 
 
     /**
-     * standard toString()
+     * standard toString().
      *
      * @return string repr of obj
      */
@@ -138,7 +138,7 @@ public class Coordinate {
     }
 
     /**
-     * check for equality to 9 decimal places
+     * check for equality to 9 decimal places.
      *
      * @param o another coordinate for comparison
      * @return whether supplied coordinate is equal to this one
