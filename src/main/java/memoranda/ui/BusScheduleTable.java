@@ -1,8 +1,8 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
 import main.java.memoranda.Tour;
 import main.java.memoranda.TourColl;
 import main.java.memoranda.util.CurrentStorage;
@@ -30,43 +30,43 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * DriverScheduleTable is a JTable that contains the data related to a Driver's Schedule (Tour Name, bus ID, tour ID, date, time)
+ * BusScheduleTable is a JTable that contains the data related to a Bus's Schedule (Tour Name, bus ID, tour ID, date, time)
  * 
  * @author Derek Argall
  * @version 04/05/2020
  */
 public class BusScheduleTable extends JTable {
     private ArrayList<Tour> tours;
-    private Driver driver;
+    private Bus bus;
     private TourColl tourColl;
-    private DriverColl driverColl;
+    private BusColl busColl;
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
 
     /**
-     * Constructor for DriverScheduleTable. Sets a default driver
+     * Constructor for BusScheduleTable. Sets a default bus
      * 
-     * @param driver The default driver's who's schedule will be displayed
+     * @param bus The default bus who's schedule will be displayed
      */
-    public BusScheduleTable(Driver driver) {
+    public BusScheduleTable(Bus bus) {
         super();
-        setDriver(driver);
+        setBus(bus);
         init();
     }
 
     /**
-     * Constructor for DriverScheduleTable to be used when DriverColl is empty
+     * Constructor for BusScheduleTable to be used when BusColl is empty
      */
     public BusScheduleTable() {
 		super();
-		setDriver(null);
+		setBus(null);
         init();
 	}
 
 	private void init() {
 		setToolTipText("Click to select a tour. Right-click for options.");
 		
-		driverColl = CurrentProject.getDriverColl();
+		busColl = CurrentProject.getBusColl();
 		tourColl = CurrentProject.getTourColl();
     	
     	JPopupMenu optionsMenu = new JPopupMenu();
@@ -197,7 +197,7 @@ public class BusScheduleTable extends JTable {
 
         public Object getValueAt(int row, int col) {
             //String tour = "Tour";
-        	Tour tour = driver.getTours().toArray(new Tour[tours.size()])[row];
+        	Tour tour = bus.getTours().toArray(new Tour[tours.size()])[row];
 
             if (col == 0) {
             	return tour.getName();
@@ -238,15 +238,15 @@ public class BusScheduleTable extends JTable {
     
     private void removeActionEvent(ActionEvent e) {
     	Tour tour = getTour();
-    	int result = JOptionPane.showConfirmDialog(null,  "Remove Tour from " + driver.getName() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+    	int result = JOptionPane.showConfirmDialog(null,  "Remove Tour from " + bus.getName() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		driver.delTour(tour);
+    		bus.delTour(tour);
     		
     		try {
-				CurrentStorage.get().storeDriverList(CurrentProject.get(), driverColl);
+				CurrentStorage.get().storeBusList(CurrentProject.get(), busColl);
 				CurrentStorage.get().storeTourList(CurrentProject.get(), tourColl);
-				setDriver(driver);
+				setBus(bus);
 				tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -255,29 +255,29 @@ public class BusScheduleTable extends JTable {
     }
     
     /**
-     * Sets the driver who's schedule is to be displayed
+     * Sets the bus who's schedule is to be displayed
      * 
-     * @param driver The driver to display the schedule for
+     * @param bus The bus to display the schedule for
      */
-    public void setDriver(Driver driver) {
-    	this.driver = driver;
+    public void setBus(Bus bus) {
+    	this.bus = bus;
     	
-    	if (driver == null) {
+    	if (bus == null) {
     		tours = new ArrayList<Tour>();
     	}
     	
     	else {
-    		tours = new ArrayList<Tour>(driver.getTours());    		
+    		tours = new ArrayList<Tour>(bus.getTours());    		
     	}
     }
     
     /**
-     * Gets the driver who's schedule is being displayed
+     * Gets the bus who's schedule is being displayed
      * 
-     * @param driver The driver to display the schedule for
+     * @param bus The bus to display the schedule for
      */
-    public Driver getDriver() {
-    	return driver;
+    public Bus getBus() {
+    	return bus;
     }
     
     /**

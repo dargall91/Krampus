@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import main.java.memoranda.Tour;
 
 /**
- * DriverTourDialog is a JDialog that allows the user to schedule a Driver for a Tour
+ * BusTourDialog is a JDialog that allows the user to schedule a Bus for a Tour
  * 
  * @author Derek Argall
  * @version 04/05/2020
@@ -25,24 +25,24 @@ import main.java.memoranda.Tour;
 public class BusTourDialog extends JDialog {
 	private boolean cancelled;
 	private JPanel errorPanel;
-	private DriverTourDialogTable tourTable;
+	private BusTourDialogTable tourTable;
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
 	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private String driver;
+	private int bus;
 
 	/**
-	 * Creates a JDialog window that allows the user to add a new Driver to the system
+	 * Creates a JDialog window that allows the user to add a new Bus to the system
 	 * or edit an existing one
 	 * 
 	 * @param frame The main application Frame
 	 * @param title The title for this JDialog
 	 * @param posButtonName The name for the positive button
 	 */
-	public BusTourDialog(Frame frame, String driver) {
+	public BusTourDialog(Frame frame, int bus) {
 		super(frame);
 		try {
-			this.driver = driver;
+			this.bus = bus;
 			init();
 			pack();
 		} catch (Exception ex) {
@@ -59,10 +59,10 @@ public class BusTourDialog extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		JPanel namePanel = new JPanel();
-		JLabel driverName = new JLabel("Schedule a Tour for " + driver);
-		driverName.setHorizontalAlignment(JLabel.CENTER);
+		JLabel busNo = new JLabel("Schedule a Tour for Bus No. " + bus);
+		busNo.setHorizontalAlignment(JLabel.CENTER);
 		
-		namePanel.add(driverName);
+		namePanel.add(busNo);
 		
 		
 		errorPanel = new JPanel();
@@ -75,7 +75,7 @@ public class BusTourDialog extends JDialog {
 		errorPanel.add(errorLabel);
 
 		JScrollPane scroll = new JScrollPane();
-		tourTable = new DriverTourDialogTable();
+		tourTable = new BusTourDialogTable();
 		scroll.setViewportView(tourTable);
 		
 		JPanel buttonPanel = new JPanel();
@@ -145,7 +145,7 @@ public class BusTourDialog extends JDialog {
 	}
 	
 	/**
-	 * Gets the tour selected in the DriverTourDialogTable
+	 * Gets the tour selected in the BusTourDialogTable
 	 */
 	public Tour getTour() {
 		return tourTable.getTour();

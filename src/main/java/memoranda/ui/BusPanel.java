@@ -20,8 +20,6 @@ import javax.swing.SwingUtilities;
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
@@ -112,7 +110,7 @@ public class BusPanel extends JSplitPane {
 						CurrentProject.getBusColl().add(bus);
 						CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
 						busTable.tableChanged();
-						scheduleTable.setDriver(busTable.getDriver());
+						scheduleTable.setBus(busTable.getBus());
 						scheduleTable.tableChanged();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -136,7 +134,7 @@ public class BusPanel extends JSplitPane {
 
 	private JPanel getSchedulePanel() {
 		if (buses.size() >= 1) {
-			scheduleTable = new BusScheduleTable(busTable.getDriver());
+			scheduleTable = new BusScheduleTable(busTable.getBus());
 		}
 		
 		else {
@@ -150,13 +148,13 @@ public class BusPanel extends JSplitPane {
 		schedule.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				if (scheduleTable.getDriver() == null) {
+				if (scheduleTable.getBus() == null) {
 					JOptionPane.showMessageDialog(null,  "Cannot Schedule Tour: No Bus Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
 				            "/ui/icons/error.png")));
 				}
 				
 				else {
-					BusTourDialog dlg = new BusTourDialog(App.getFrame(), scheduleTable.getDriver().getName());
+					BusTourDialog dlg = new BusTourDialog(App.getFrame(), scheduleTable.getBus().getNumber());
 					Dimension frmSize = App.getFrame().getSize();
 					Point loc = App.getFrame().getLocation();
 					
@@ -168,7 +166,7 @@ public class BusPanel extends JSplitPane {
 					
 					if (!dlg.isCancelled() && dlg.getTour() != null) {
 						try {
-							scheduleTable.getDriver().addTour(dlg.getTour());
+							scheduleTable.getBus().addTour(dlg.getTour());
 							scheduleTable.addTour(dlg.getTour());
 							CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
 							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
