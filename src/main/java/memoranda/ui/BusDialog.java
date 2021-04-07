@@ -6,6 +6,9 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -16,7 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * BusDialog is a JDialog that has fields to enter and edit a bus's number
+ * BusDialog is a JDialog that has fields to enter and edit a bus's number. This dialog will not
+ * allow for the user to enter non numeric characters for the Bus's Number
  * 
  * @author Derek Argall
  * @version 04/05/2020
@@ -28,7 +32,7 @@ public class BusDialog extends JDialog {
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
 	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private final int FIELD_WIDTH = 15;
+	private final int FIELD_WIDTH = 5;
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Bus to the system
@@ -58,7 +62,7 @@ public class BusDialog extends JDialog {
 		errorPanel = new JPanel();
 		errorPanel.setVisible(false);
 		
-		JLabel errorLabel = new JLabel("All Fields Must Be Filled In");
+		JLabel errorLabel = new JLabel("Number Field Cannot Be Empty");
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setHorizontalAlignment(JLabel.CENTER);
 		
@@ -71,6 +75,25 @@ public class BusDialog extends JDialog {
 		numberLabel.setHorizontalAlignment(JLabel.RIGHT);
 		
 		numberField = new JTextField(FIELD_WIDTH);
+		numberField.addKeyListener(new KeyAdapter() {
+			//Do not allow non-numeric characters to be entered into this field
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE 
+					|| e.getKeyCode() == KeyEvent.VK_DELETE))
+					numberField.setEditable(true);
+					
+				else
+					numberField.setEditable(false);
+			}
+			
+			//If the bus number is multiple digits and the first digit is 0, drop the the 0
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (numberField.getText().length() > 1 && numberField.getText().charAt(0) == '0')
+					numberField.setText(numberField.getText().substring(1));
+			}
+		});
 		
 		gridPanel.add(numberLabel);
 		gridPanel.add(numberField);
@@ -118,7 +141,7 @@ public class BusDialog extends JDialog {
 	}
 
 	private void posButton_actionPerformed(ActionEvent e) {
-		if (getNumber() == 0) {
+		if (getNumber() < 0) {
 			errorPanel.setVisible(true);
 			pack();
 			validate();
@@ -141,8 +164,14 @@ public class BusDialog extends JDialog {
 	
 	/**
 	 * New Bus number getter
+	 * 
+	 * @return The bus's number, or -1 if no number is entered
 	 */
 	public int getNumber() {
+		if (numberField.getText().equals("")) {
+			return -1;
+		}
+		
 		return Integer.parseInt(numberField.getText());
 	}
 	
