@@ -196,8 +196,8 @@ public class BusScheduleTable extends JTable {
         }
 
         public Object getValueAt(int row, int col) {
-            //String tour = "Tour";
-        	Tour tour = bus.getTours().toArray(new Tour[tours.size()])[row];
+        	//TODO: change once Brian has updated Tour and Bus classes
+        	Tour tour = CurrentProject.getTourColl().get(0);//bus.getTours().toArray(new Tour[tours.size()])[row];
 
             if (col == 0) {
             	return tour.getName();
@@ -238,10 +238,11 @@ public class BusScheduleTable extends JTable {
     
     private void removeActionEvent(ActionEvent e) {
     	Tour tour = getTour();
-    	int result = JOptionPane.showConfirmDialog(null,  "Remove Tour from " + bus.getName() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+    	int result = JOptionPane.showConfirmDialog(null,  "Remove Tour from " + bus.getNumber() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		bus.delTour(tour);
+    		//TODO: uncomment once Brian has updated Tour and Bus classes
+    		//bus.delTour(tour);
     		
     		try {
 				CurrentStorage.get().storeBusList(CurrentProject.get(), busColl);
@@ -267,7 +268,8 @@ public class BusScheduleTable extends JTable {
     	}
     	
     	else {
-    		tours = new ArrayList<Tour>(bus.getTours());    		
+    		//TODO: uncomment once Brian has updated Tour and Bus classes
+    		//tours = new ArrayList<Tour>(bus.getTours());    		
     	}
     }
     

@@ -179,9 +179,8 @@ public class BusTable extends JTable {
      */
     private class BusTableModel extends AbstractTableModel {
         private String[] columnNames = {
-                Local.getString("Name"),
-                Local.getString("ID"),
-                Local.getString("Phone Number")};
+                Local.getString("Number"),
+                Local.getString("ID")};
 
         public String getColumnName(int i) {
             return columnNames[i];
@@ -200,15 +199,11 @@ public class BusTable extends JTable {
             Bus bus = buses.getBuses().toArray(new Bus[buses.size()])[row];
 
             if (col == 0) {
-            	return bus.getName();
+            	return bus.getNumber();
             }
             
             if (col == 1) {
             	return bus.getID();
-            }
-            
-            if (col == 2) {
-            	return bus.getPhoneNumber();
             }
 
             return null;
@@ -231,8 +226,7 @@ public class BusTable extends JTable {
     private void editActionEvent(ActionEvent e) {
     	BusDialog dlg = new BusDialog(App.getFrame(), "Edit Bus", "Edit");
     	Bus bus = getBus();
-    	dlg.setName(bus.getName());
-    	dlg.setPhone(bus.getPhoneNumber());
+    	dlg.setNumber(bus.getNumber());
     	
     	Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
@@ -244,8 +238,7 @@ public class BusTable extends JTable {
 		dlg.setVisible(true);
 		
 		if (!dlg.isCancelled()) {
-			bus.setName(dlg.getName());
-			bus.setPhoneNumber(dlg.getPhone());
+			bus.setNumber(dlg.getNumber());
 			
 			try {
 				CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
@@ -258,22 +251,24 @@ public class BusTable extends JTable {
     
     private void deleteActionEvent(ActionEvent e) {
     	Bus bus = getBus();
-    	int result = JOptionPane.showConfirmDialog(null,  "Delete " + bus.getName() + "?", "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
+    	int result = JOptionPane.showConfirmDialog(null,  "Delete Bus No. " + bus.getNumber() + "?", "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		LinkedList<Integer> tourIDs = bus.getTourIDs();
+    		//TODO: uncomment once Brian has updated Tour and Bus classes
+    		/*LinkedList<Integer> tourIDs = bus.getTourIDs();
     		TourColl tours = CurrentProject.getTourColl();
     		
     		//remove bus from all scheduled tours
 			for (Tour t:bus.getTours()){
 				bus.delTour(t);
-			}
+			}*/
     		
     		buses.del(bus.getID());
     		
     		try {
 				CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
-				CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
+				//TODO: uncomment once Brian has updated Tour and Bus classes
+				//CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
 				tableChanged();
 				
 				if (buses.size() == 0) {

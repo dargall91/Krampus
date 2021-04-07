@@ -65,10 +65,6 @@ public class BusTourDialogTable extends JTable {
         
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        if (bus != null && bus.getTours().size() == 0) {
-        	System.out.println("Test");
-        }
-        
         setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         
         initColumnsWidth();

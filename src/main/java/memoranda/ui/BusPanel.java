@@ -166,7 +166,8 @@ public class BusPanel extends JSplitPane {
 					
 					if (!dlg.isCancelled() && dlg.getTour() != null) {
 						try {
-							scheduleTable.getBus().addTour(dlg.getTour());
+							//TODO: uncomment once Brian has updated Tour and Bus classes
+							//scheduleTable.getBus().addTour(dlg.getTour());
 							scheduleTable.addTour(dlg.getTour());
 							CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
 							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
