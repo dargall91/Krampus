@@ -1,28 +1,56 @@
 package main.java.memoranda.ui;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
 import main.java.memoranda.date.CalendarDate;
-import main.java.memoranda.ui.table.TableMap;
+import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
 
-/*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
-public class DriverPanel extends JPanel {
+/**
+ * A JPanel that provides the interface for a user to add, edit, and delete drivers from the system, as well as schedule tours for a driver
+ * 
+ * @author Derek Argall
+ * @version 04/05/2020
+ */
+public class DriverPanel extends JSplitPane {
 	private DriverTable driverTable;
-	private ScheduleTable scheduleTable;
+	private DriverScheduleTable scheduleTable;
 	private DailyItemsPanel parentPanel;
-	String gotoTask = null;
+	private DriverColl drivers;
+	private final int OVER_9000 = 9001;
+	private String gotoTask;
+	private boolean isActive;
+	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+	private final int LABEL_SIZE = 25;
 
-	private boolean isActive = true;
-
+	/**
+	 * Constructor for the DriverPanel
+	 * 
+	 * Creates a JPanel which houses the the information about the Driver Schedule
+	 * 
+	 * @param parentPanel The DailyItemsPanel which will house this panel
+	 */
 	public DriverPanel(DailyItemsPanel parentPanel) {
+		super(JSplitPane.HORIZONTAL_SPLIT);
+		
 		try {
 			this.parentPanel = parentPanel;
 			jbInit();
@@ -33,80 +61,154 @@ public class DriverPanel extends JPanel {
 	}
 
 	private void jbInit() throws Exception {
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		drivers = CurrentProject.getDriverColl();
+		
+		setActive(true);
 
-		driverTable = new DriverTable();
-		driverTable.setMaximumSize(new Dimension(500, 500));
-		driverTable.setRowHeight(24);
+		setDividerSize(5);
+		setResizeWeight(0.4);
+		setOneTouchExpandable(false);
+		setEnabled(false);
 
-		scheduleTable = new ScheduleTable();
-		//scheduleTable.setMaximumSize(new Dimension(800, 800));
-		scheduleTable.setRowHeight(24);
-
-		add(getDriverPanel());
-		add(Box.createRigidArea(new Dimension(5, 0)));
-		add(getSchedulePanel());
+		setLeftComponent(getDriverPanel());
+		setRightComponent(getSchedulePanel());
 	}
 
 	private JPanel getDriverPanel() {
+		driverTable = new DriverTable();
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.setAlignmentX(JPanel.TOP_ALIGNMENT);
+		
+		panel.setMaximumSize(new Dimension());
+		
 		JLabel label = new JLabel("Drivers");
-		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, 25));
-		label.setAlignmentX(Component.LEFT_ALIGNMENT);
+		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, LABEL_SIZE));
+		label.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
 		JButton add = new JButton("Add Driver");
-		add.setAlignmentX(Component.LEFT_ALIGNMENT);
+		add.setAlignmentX(JButton.LEFT_ALIGNMENT);
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				NewDriverDialog dlg = new NewDriverDialog(App.getFrame());
+				DriverDialog dlg = new DriverDialog(App.getFrame(), "Add Driver", "Add");
 				Dimension frmSize = App.getFrame().getSize();
 				Point loc = App.getFrame().getLocation();
+				
 				dlg.setLocation(
 						(frmSize.width - dlg.getSize().width) / 2 + loc.x,
 						(frmSize.height - dlg.getSize().height) / 2
 								+ loc.y);
 				dlg.setVisible(true);
-				if (!dlg.CANCELLED) {
-					System.out.println("Not Cancelled");
+				
+				if (!dlg.isCancelled()) {
+					Driver driver = CurrentProject.getDriverColl().newItem();
+					driver.setName(dlg.getName());
+					driver.setPhoneNumber(dlg.getPhone());
+					
+					try {
+						CurrentProject.getDriverColl().add(driver);
+						CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
+						driverTable.tableChanged();
+						scheduleTable.setDriver(driverTable.getDriver());
+						scheduleTable.tableChanged();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
 
 		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(driverTable);
-		scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+		scroll.setAlignmentX(JScrollPane.LEFT_ALIGNMENT);
 
 		panel.add(label);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(add);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(scroll);
 
 		return panel;
 	}
 
 	private JPanel getSchedulePanel() {
+		if (drivers.size() >= 1) {
+			scheduleTable = new DriverScheduleTable(driverTable.getDriver());
+		}
+		
+		else {
+			scheduleTable = new DriverScheduleTable();
+		}
+		
+		driverTable.setScheduleTable(scheduleTable);
+		
+		JButton schedule = new JButton("Schedule Tour");
+		schedule.setAlignmentX(JButton.LEFT_ALIGNMENT);
+		schedule.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				if (scheduleTable.getDriver() == null) {
+					JOptionPane.showMessageDialog(null,  "Cannot Schedule Tour: No Driver Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
+				            "/ui/icons/error.png")));
+				}
+				
+				else {
+					DriverTourDialog dlg = new DriverTourDialog(App.getFrame(), scheduleTable.getDriver().getName());
+					Dimension frmSize = App.getFrame().getSize();
+					Point loc = App.getFrame().getLocation();
+					
+					dlg.setLocation(
+							(frmSize.width - dlg.getSize().width) / 2 + loc.x,
+							(frmSize.height - dlg.getSize().height) / 2
+									+ loc.y);
+					dlg.setVisible(true);
+					
+					if (!dlg.isCancelled() && dlg.getTour() != null) {
+						try {
+							scheduleTable.getDriver().addTour(dlg.getTour());
+							scheduleTable.addTour(dlg.getTour());
+							CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
+							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
+							scheduleTable.tableChanged();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.setAlignmentX(JPanel.TOP_ALIGNMENT);
+		
 		JLabel label = new JLabel("Schedule");
-		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, 25));
-		label.setAlignmentX(Component.LEFT_ALIGNMENT);
+		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, LABEL_SIZE));
+		label.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
 		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(scheduleTable);
-		scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+		scroll.setAlignmentX(JButton.LEFT_ALIGNMENT);
 
 		panel.add(label);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
+		panel.add(schedule);
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(scroll);
 
 		return panel;
 	}
 
+	/**
+	 * Refreshes this panel
+	 * 
+	 * TODO: Is CalendarDate needed? What did it do before? Only usage commented out in original code.
+	 * Does this method even do anything, or did it only refresh something related to the Calendar system?
+	 * 
+	 * @param date
+	 */
 	public void refresh(CalendarDate date) {
 		//viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
 		SwingUtilities.invokeLater(new Runnable() {
@@ -122,52 +224,12 @@ public class DriverPanel extends JPanel {
 		Util.debug("Summary updated.");
 	}
 
+	/**
+	 * Flags this panel as the active panel
+	 * 
+	 * @param isa
+	 */
 	public void setActive(boolean isa) {
 		isActive = isa;
 	}
-
-	//	void toggleShowActiveOnly_actionPerformed(ActionEvent e) {
-	//		Context.put(
-	//			"SHOW_ACTIVE_TASKS_ONLY",
-	//			new Boolean(ppShowActiveOnlyChB.isSelected()));
-	//		/*if (taskTable.isShowActiveOnly()) {
-	//			// is true, toggle to false
-	//			taskTable.setShowActiveOnly(false);
-	//			//showActiveOnly.setToolTipText(Local.getString("Show Active Only"));			
-	//		}
-	//		else {
-	//			// is false, toggle to true
-	//			taskTable.setShowActiveOnly(true);
-	//			showActiveOnly.setToolTipText(Local.getString("Show All"));			
-	//		}*/	    
-	//		refresh(CurrentDate.get());
-	////		parentPanel.updateIndicators();
-	//		//taskTable.updateUI();
-	//	}
-
-	//    class PopupListener extends MouseAdapter {
-	//
-	//        public void mouseClicked(MouseEvent e) {
-	//        	System.out.println("mouse clicked!");
-	////			if ((e.getClickCount() == 2) && (taskTable.getSelectedRow() > -1))
-	////				editTaskB_actionPerformed(null);
-	//		}
-	//
-	//		public void mousePressed(MouseEvent e) {
-	//        	System.out.println("mouse pressed!");
-	//			maybeShowPopup(e);
-	//		}
-	//
-	//		public void mouseReleased(MouseEvent e) {
-	//        	System.out.println("mouse released!");
-	//			maybeShowPopup(e);
-	//		}
-	//
-	//		private void maybeShowPopup(MouseEvent e) {
-	//			if (e.isPopupTrigger()) {
-	//				agendaPPMenu.show(e.getComponent(), e.getX(), e.getY());
-	//			}
-	//		}
-	//
-	//    }
 }

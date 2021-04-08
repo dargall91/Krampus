@@ -6,10 +6,16 @@ import main.java.memoranda.util.DuplicateKeyException;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * BusColl object holding a collection of buses in the MTB scheduling system.
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
+ */
 public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
     /**
-     * create a new node collection
+     * create a new bus collection
      */
     public BusColl(){
         super();
@@ -18,9 +24,10 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
 
     /**
-     * add an entire collection of nodes (post json import)
+     * add an entire collection of buses (post json import)
      *
-     * @param c
+     * @param c Bus objs to add to collection
+     * @throws DuplicateKeyException if a provided Bus id is not unique
      */
     public BusColl(Collection<Bus> c) throws DuplicateKeyException {
         this();
@@ -30,8 +37,9 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
     }
 
     /**
+     * return new Bus obj with unique id
      *
-     * @return
+     * @return new Bus obj with unique id
      */
     @Override
     public Bus newItem(){
@@ -41,8 +49,9 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
     /**
      * get bus by ID
-     * @param id
-     * @return
+     *
+     * @param id id of bus to lookup
+     * @return Bus obj if found, null otherwise
      */
     public Bus get(int id){
         return (Bus)super.get(id);
@@ -50,8 +59,9 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
 
     /**
+     * json serialization routine
      *
-     * @return
+     * @return collection of Bus objects held in this collection
      */
     @JsonProperty
     public Collection<IndexedObject> getBuses(){
@@ -62,7 +72,8 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
     /**
      * iterator
-     * @return
+     *
+     * @return Bus Iterator
      */
     @Override
     public Iterator<Bus> iterator() {
@@ -71,6 +82,7 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus>{
 
     /**
      * iterator
+     *
      * @param <Bus>
      */
     public class BusIterator<Bus> implements Iterator<Bus>{

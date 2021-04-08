@@ -7,21 +7,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Route object representing a route in the MTB scheduling system.
+ * Routes contain an ordered list of Nodes
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
+ */
 public class Route extends IndexedObject{
     private String name;
     private LinkedList<Node> route;
 
 
+    /**
+     * Create a new route
+     *
+     * @param id id for this route
+     */
     public Route(int id){
         super(id);
         route=new LinkedList<>();
     }
 
     /**
+     * constructor for json deserialization
      *
-     * @param nodeColl
-     * @param newRoute
-     * @throws IndexOutOfBoundsException
+     * @param nodeColl collection of nodes used to associate node IDs in deserialized Route object
+     * @param newRoute a RouteLoader class with data to populate this object
+     * @throws IndexOutOfBoundsException if provided ID is not unique
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Route(NodeColl nodeColl, RouteLoader newRoute) throws IndexOutOfBoundsException{
@@ -40,23 +53,11 @@ public class Route extends IndexedObject{
         this.name=name;
     }
 
-    /**
-     * Create a new Route based upon the supplied route but with the newly supplied id.  This is to support
-     * creation of routes by RouteColl that have a guaranteed unique id.
-     * @param id
-     * @param r
-     */
-    public Route(int id, Route r){
-        this(id);
-        this.name=r.getName();
-        this.route=r.getRoute();
-    }
-
 
     /**
      * Add an ordered list of nodes to this route
      *
-     * @param nodes
+     * @param nodes list of nodes to add
      */
     public  void addNodes(List<Node> nodes){
         for (Node n:nodes){
@@ -64,10 +65,10 @@ public class Route extends IndexedObject{
         }
     }
 
-                 /**
+    /**
      * Add a new node to the end of this route
      *
-     * @param node
+     * @param node node to add
      */
     public void addNode(Node node){
         route.add(node);
@@ -75,8 +76,9 @@ public class Route extends IndexedObject{
 
 
     /**
-     * Returns the length of this route
-     * @return
+     * Returns the length of this route (in km!)
+     *
+     * @return length in km
      */
     public Double length() {
         double len=0.0;
@@ -103,8 +105,9 @@ public class Route extends IndexedObject{
 
     /**
      * returns the amount of time in hours required to traverse this route based upon the given speed in km/h.
-     * @param speed
-     * @return
+     *
+     * @param speed speed in km/h
+     * @return duration in hours (e.g. 61 minutes would be 1.01666... )
      */
     public Double duration(double speed){
         return length()/speed;
@@ -112,7 +115,8 @@ public class Route extends IndexedObject{
 
     /**
      * standard getter for name
-     * @return
+     *
+     * @return name of this node
      */
     public String getName(){
         return name;
@@ -120,7 +124,8 @@ public class Route extends IndexedObject{
 
     /**
      * returns an ordered list of the nodes in the route
-     * @return
+     *
+     * @return list of nodes in the route
      */
     @JsonIgnore
     public LinkedList<Node> getRoute(){
@@ -128,8 +133,9 @@ public class Route extends IndexedObject{
     }
 
     /**
-     * Returns an ordered list of only the IDs of the nodes in this route for storing in json file
-     * @return
+     * Returns an ordered list of only the IDs of the nodes in this route for json serialization
+     *
+     * @return ordered list of integer IDs of nodes in this route
      */
     @JsonProperty
     public LinkedList<Integer> getNodeIDs(){
@@ -142,7 +148,8 @@ public class Route extends IndexedObject{
 
     /**
      * standard toString()
-     * @return
+     *
+     * @return string repr of obj
      */
     @Override
     public String toString(){

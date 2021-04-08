@@ -756,7 +756,7 @@ public class FileStorage implements Storage {
      */
     public void storeDriverList(Project prj, DriverColl driverColl) throws JsonProcessingException, IOException{
         String fn = getDriverFileName(prj);
-
+        
         // create new object mapper
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);

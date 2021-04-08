@@ -4,15 +4,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * Bus object representing a bus in the MTB scheduling system.
+ * Buses can be part of tours
  *
- * From a commit perspective, was co-developed with US82
+ * @author Brian Pape
+ * @version 2021-04-01
  */
+
 public class Bus extends IndexedObject{
     private int number;
 
     /**
+     * Standard constructor. Sets id for this bus.
      *
-     * @param id
+     * @param id bus id
      */
     Bus(Integer id) {
         super(id);
@@ -20,9 +25,10 @@ public class Bus extends IndexedObject{
 
 
     /**
+     * constructor for json deserialization
      *
-     * @param id
-     * @param number
+     * @param id bus ID (typically unique)
+     * @param number bus number (the number painted on the bus's side)
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     Bus(@JsonProperty("id") Integer id, @JsonProperty("number") int number){
@@ -33,16 +39,18 @@ public class Bus extends IndexedObject{
 
 
     /**
+     * number setter
      *
-     * @param number
+     * @param number bus number
      */
     public void setNumber(int number) {
         this.number = number;
     }
 
     /**
+     * number getter
      *
-     * @return
+     * @return bus number
      */
     public int getNumber() {
         return number;
@@ -50,8 +58,9 @@ public class Bus extends IndexedObject{
 
 
     /**
+     * standard toString() returns string repr of obj
      *
-     * @return
+     * @return string repr of obj
      */
     @Override
     public String toString(){
