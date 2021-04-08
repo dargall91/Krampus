@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @version 2021-04-01
  */
 
-public class Bus extends IndexedObject{
+public class Bus extends IndexedObject {
     private int number;
 
     /**
@@ -27,15 +27,14 @@ public class Bus extends IndexedObject{
     /**
      * constructor for json deserialization
      *
-     * @param id bus ID (typically unique)
+     * @param id     bus ID (typically unique)
      * @param number bus number (the number painted on the bus's side)
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    Bus(@JsonProperty("id") Integer id, @JsonProperty("number") int number){
+    Bus(@JsonProperty("id") Integer id, @JsonProperty("number") int number) {
         this(id);
-        this.number=number;
+        this.number = number;
     }
-
 
 
     /**
@@ -63,7 +62,7 @@ public class Bus extends IndexedObject{
      * @return string repr of obj
      */
     @Override
-    public String toString(){
-        return "bus id "+getID()+" number "+getNumber();
+    public String toString() {
+        return "bus id " + getID() + " number " + getNumber();
     }
 }

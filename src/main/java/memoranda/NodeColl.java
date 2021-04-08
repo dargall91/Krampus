@@ -13,12 +13,12 @@ import java.util.Iterator;
  * @author Brian Pape
  * @version 2021-04-01
  */
-public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
+public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
 
     /**
      * create a new node collection
      */
-    public NodeColl(){
+    public NodeColl() {
         super();
     }
 
@@ -28,9 +28,9 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      * @param c collection of Nodes to add to collection
      * @throws DuplicateKeyException if a provided Node id is not unique
      */
-    public NodeColl(Collection<Node> c) throws DuplicateKeyException{
+    public NodeColl(Collection<Node> c) throws DuplicateKeyException {
         this();
-        for (Node n:c){
+        for (Node n : c) {
             add(n);
         }
     }
@@ -42,7 +42,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      * @return new Node
      */
     @Override
-    public Node newItem(){
+    public Node newItem() {
         return new Node(getUniqueID());
     }
 
@@ -53,8 +53,8 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      * @param id id of the node to get
      * @return Node if found, null otherwise
      */
-    public Node get(int id){
-        return (Node)super.get(id);
+    public Node get(int id) {
+        return (Node) super.get(id);
     }
 
     /**
@@ -63,7 +63,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      * @return All nodes in this collection, null otherwise
      */
     @JsonProperty
-    public Collection<IndexedObject> getNodes(){
+    public Collection<IndexedObject> getNodes() {
         return getData();
     }
 
@@ -82,12 +82,13 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
      *
      * @param <Node>
      */
-    public class NodeIterator<Node> implements Iterator<Node>{
+    public class NodeIterator<Node> implements Iterator<Node> {
         Collection coll;
         Iterator<Node> it;
-        public NodeIterator(){
-            coll=getData();
-            it=coll.iterator();
+
+        public NodeIterator() {
+            coll = getData();
+            it = coll.iterator();
         }
 
         @Override
