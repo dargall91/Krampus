@@ -161,6 +161,8 @@ public class DriverDialog extends JDialog {
 	
 	/**
 	 * Sets the driver name field when editing a Driver
+	 * 
+	 * @param name The driver's name
 	 */
 	public void setName(String name) {
 		nameField.setText(name);
@@ -168,6 +170,8 @@ public class DriverDialog extends JDialog {
 	
 	/**
 	 * Sets the driver phone number field when editing a Driver
+	 * 
+	 * @param phone The driver's phone number
 	 */
 	public void setPhone(String phone) {
 		phoneField.setText(phone);
