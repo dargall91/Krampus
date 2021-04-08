@@ -13,10 +13,10 @@ package main.java.memoranda;
 public class Coordinate {
     private Double lat;
     private Double lon;
-    public static final double lonMin = -180;
-    public static final double lonMax = 180;
-    public static final double latMin = -90;
-    public static final double latMax = 90;
+    public static final double LON_MIN = -180;
+    public static final double LON_MAX = 180;
+    public static final double LAT_MIN = -90;
+    public static final double LAT_MAX = 90;
 
     /**
      * immutable object; must use this constructor.
@@ -25,12 +25,12 @@ public class Coordinate {
      * @param lon longitude of coordinate
      */
     public Coordinate(Double lat, Double lon) {
-        if (lat < latMin || lat > latMax) {
-            throw new IllegalArgumentException("Latitude must be between " + latMin + " and "
-                    + latMax + " decimal degrees, inclusive.");
-        } else if (lon < lonMin || lon > lonMax) {
-            throw new IllegalArgumentException("Longitude must be between " + lonMin + " and "
-                    + lonMax + " decimal degrees, inclusive.");
+        if (lat < LAT_MIN || lat > LAT_MAX) {
+            throw new IllegalArgumentException("Latitude must be between " + LAT_MIN + " and "
+                    + LAT_MAX + " decimal degrees, inclusive.");
+        } else if (lon < LON_MIN || lon > LON_MAX) {
+            throw new IllegalArgumentException("Longitude must be between " + LON_MIN + " and "
+                    + LON_MAX + " decimal degrees, inclusive.");
         }
         this.lat = lat;
         this.lon = lon;
