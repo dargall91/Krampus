@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Brian Pape
  * @version 2021-04-01
  */
-public class TourLoader extends IndexedObject{
+public class TourLoader extends IndexedObject {
     private String name;
     private String time;
     private int busID;
@@ -18,10 +18,10 @@ public class TourLoader extends IndexedObject{
     /**
      * constructor for json deserialization
      *
-     * @param id id for Tour
-     * @param name name of tour
-     * @param time time of tour
-     * @param busID integer id for this tour's bus
+     * @param id      id for Tour
+     * @param name    name of tour
+     * @param time    time of tour
+     * @param busID   integer id for this tour's bus
      * @param routeID integer id for this tour's route
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -57,7 +57,7 @@ public class TourLoader extends IndexedObject{
      *
      * @return id of bus as integer
      */
-    public Integer getBusID(){
+    public Integer getBusID() {
         return busID;
     }
 
@@ -66,7 +66,7 @@ public class TourLoader extends IndexedObject{
      *
      * @return id of route as integer
      */
-    public Integer getRouteID(){
+    public Integer getRouteID() {
         return routeID;
     }
 

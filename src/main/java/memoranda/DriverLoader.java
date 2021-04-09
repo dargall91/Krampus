@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * @author Brian Pape
  * @version 2021-04-01
  */
-public class DriverLoader extends IndexedObject{
+public class DriverLoader extends IndexedObject {
     private String name;
     private String phoneNumber;
     private LinkedList<Integer> tourIDs;
@@ -20,10 +20,10 @@ public class DriverLoader extends IndexedObject{
     /**
      * constructor for json deserialization
      *
-     * @param id id of driver
-     * @param name name of driver
+     * @param id          id of driver
+     * @param name        name of driver
      * @param phoneNumber phone number of driver
-     * @param tourIDs integer ids for tours associated with driver
+     * @param tourIDs     integer ids for tours associated with driver
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public DriverLoader(@JsonProperty("id") int id, @JsonProperty("name") String name,
@@ -31,7 +31,7 @@ public class DriverLoader extends IndexedObject{
                         @JsonProperty("tourIDs") LinkedList<Integer> tourIDs) {
         super(id);
         this.name = name;
-        this.phoneNumber=phoneNumber;
+        this.phoneNumber = phoneNumber;
         this.tourIDs = tourIDs;
     }
 
@@ -41,7 +41,7 @@ public class DriverLoader extends IndexedObject{
      *
      * @return name of driver
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -50,7 +50,7 @@ public class DriverLoader extends IndexedObject{
      *
      * @return phone number of driver
      */
-    public String getPhoneNumber(){
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -60,7 +60,7 @@ public class DriverLoader extends IndexedObject{
      *
      * @return list of integer tour IDs for this driver
      */
-    public LinkedList<Integer> getTourIDs(){
+    public LinkedList<Integer> getTourIDs() {
         return tourIDs;
     }
 
@@ -71,7 +71,7 @@ public class DriverLoader extends IndexedObject{
      * @return string repr of obj
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "driver " + getID() + " " + name;
     }
 
