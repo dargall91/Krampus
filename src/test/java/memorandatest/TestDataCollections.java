@@ -287,7 +287,6 @@ public class TestDataCollections {
         return nodeColl;
     }
 
-
     /**
      * Utility method: create a bus collection.
      *
@@ -709,10 +708,10 @@ public class TestDataCollections {
         stg.storeNodeList(nodeColl, prj);
 
         System.out.println("Load node list");
-        nodeColl = stg.openNodeList(prj);
+        NodeColl loadedNodeColl = stg.openNodeList(prj);
 
         int count = 0;
-        for (Node nn : nodeColl) {
+        for (Node nn : loadedNodeColl) {
             count++;
             System.out.println("Found node in list=" + nn);
         }
