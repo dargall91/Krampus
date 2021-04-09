@@ -14,7 +14,10 @@ import java.time.format.DateTimeFormatter;
  * @version 2021-04-01
  */
 public class Tour extends IndexedObject {
+    public final static int DEFAULT_SPEED = 1;
+
     private String name;
+    private int speed;
     private LocalTime time;
     private Bus bus;
     private Route route;
@@ -28,6 +31,7 @@ public class Tour extends IndexedObject {
      */
     public Tour(int id) {
         super(id);
+        speed = DEFAULT_SPEED;
     }
 
 
@@ -70,6 +74,8 @@ public class Tour extends IndexedObject {
 
         DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
         time = LocalTime.parse(newTour.getTime(), timeParser);
+
+        speed = newTour.getSpeed();
 
         Bus b = busColl.get(newTour.getBusID());
         if (b == null) {
@@ -143,6 +149,49 @@ public class Tour extends IndexedObject {
     @JsonIgnore
     public LocalTime getTime() {
         return time;
+    }
+
+    /**
+     * updated name for this method.
+     *
+     * @return the time this tour starts
+     */
+    @JsonIgnore
+    public LocalTime getStartTime() {
+        return getTime();
+    }
+
+    /**
+     * return the end time of this tour based on supplied speed.
+     *
+     * @return end time of the tour
+     */
+    @JsonIgnore
+    public LocalTime getEndTime() {
+
+        // route.duration is returned in hours.
+        final int SECS_PER_HOUR = 3600;
+
+        int travelTime = (int) (route.duration(speed) * SECS_PER_HOUR);
+        return getTime().plusSeconds(travelTime);
+    }
+
+    /**
+     * Sets the speed for this tour in km/h to support end-time calculation.
+     *
+     * @param speed speed to set in km/h
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * set the bus speed for duration calculations.
+     *
+     * @return the bus speed
+     */
+    public int getSpeed() {
+        return speed;
     }
 
     /**
@@ -220,6 +269,21 @@ public class Tour extends IndexedObject {
     @JsonIgnore
     public Bus getBus() {
         return bus;
+    }
+
+    /**
+     * Delete bus associated with this tour.
+     *
+     * @param bus driver to delete
+     * @throws UnsupportedOperationException if an invalid bus is passed to the method.
+     */
+    public void delBus(Bus bus) throws UnsupportedOperationException {
+        if (this.bus.equals(bus)) {
+            this.bus = null;
+        } else {
+            throw new UnsupportedOperationException("Cannot unilaterally remove bus. " +
+                    "Call bus.delTour()");
+        }
     }
 
 
