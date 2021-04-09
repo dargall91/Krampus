@@ -1,41 +1,54 @@
 package main.java.memoranda;
 
 /**
- * Holds a coordinate (a location on Earth) and calculates distances between them
+ * Holds a coordinate (a location on Earth) and calculates distances between them.
  *
- * supports up to 12 significant digits, 9 after decimal point
- * expects coordinates in decimal degrees, -longitudes are west of the prime meridian, -latitudes are south of the equator
+ * <p>supports up to 12 significant digits, 9 after decimal point
+ * expects coordinates in decimal degrees, -longitudes are west of the prime meridian, -latitudes
+ * are south of the equator
+ *
+ * @author Brian Pape
+ * @version 2021-04-01
  */
 public class Coordinate {
     private Double lat;
     private Double lon;
+    public static final double LON_MIN = -180;
+    public static final double LON_MAX = 180;
+    public static final double LAT_MIN = -90;
+    public static final double LAT_MAX = 90;
 
     /**
-     * immutable object; must use this constructor
-     * @param lat
-     * @param lon
+     * immutable object; must use this constructor.
+     *
+     * @param lat latitude of coordinate
+     * @param lon longitude of coordinate
      */
-    public Coordinate(Double lat, Double lon){
-        if (lat < -90 || lat > 90) {
-            throw new IllegalArgumentException("Latitude must be between -90 and 90 decimal degrees, inclusive.");
-        } else if (lon < -180 || lon > 180){
-            throw new IllegalArgumentException("Longitude must be between -180 and 180 decimal degrees, inclusive.");
+    public Coordinate(Double lat, Double lon) {
+        if (lat < LAT_MIN || lat > LAT_MAX) {
+            throw new IllegalArgumentException("Latitude must be between " + LAT_MIN + " and "
+                    + LAT_MAX + " decimal degrees, inclusive.");
+        } else if (lon < LON_MIN || lon > LON_MAX) {
+            throw new IllegalArgumentException("Longitude must be between " + LON_MIN + " and "
+                    + LON_MAX + " decimal degrees, inclusive.");
         }
         this.lat = lat;
         this.lon = lon;
     }
 
     /**
-     * standard getter for latitude
-     * @return
+     * standard getter for latitude.
+     *
+     * @return latitude in decimal degrees
      */
-    public Double getLat(){
+    public Double getLat() {
         return lat;
     }
 
     /**
-     * standard getter for longitude
-     * @return
+     * standard getter for longitude.
+     *
+     * @return in decimal degrees
      */
     public Double getLon() {
         return lon;
@@ -43,131 +56,103 @@ public class Coordinate {
 
 
     /**
-     * Haversine formula for calculating the great-circle distance between two points on an idealized spheroid (Earth)
+     * Haversine formula for calculating the great-circle distance between two points on an
+     * idealized spheroid (Earth).
      *
-     * Formula pulled from wikipedia and cross-checked with several other sources.
+     * <p>Formula pulled from wikipedia and cross-checked with several other sources.
      *
      * @param lat1 latitude in decimal degrees
      * @param lat2 latitude in decimal degrees
      * @param lon1 longitude in decimal degrees
      * @param lon2 longitude in decimal degrees
      */
-    private Double haversine(double lat1, double lat2, double lon1, double lon2){
-        lat1=deg2rad(lat1);
-        lat2=deg2rad(lat2);
-        lon1=deg2rad(lon1);
-        lon2=deg2rad(lon2);
+    private Double haversine(double lat1, double lat2, double lon1, double lon2) {
+        lat1 = deg2rad(lat1);
+        lat2 = deg2rad(lat2);
+        lon1 = deg2rad(lon1);
+        lon2 = deg2rad(lon2);
 
         // use 6371km for avg radius of Earth
-        double r=6371;
+        double r = 6371;
 
-        return 2*r*Math.asin(
+        return 2 * r * Math.asin(
                 Math.sqrt(
-                        Math.pow(Math.sin((lat2-lat1)/2), 2)
-                        + Math.cos(lat1) * Math.cos(lat2) *
-                        Math.pow(Math.sin((lon2-lon1)/2), 2)
+                        Math.pow(Math.sin((lat2 - lat1) / 2), 2)
+                                + Math.cos(lat1) * Math.cos(lat2) *
+                                Math.pow(Math.sin((lon2 - lon1) / 2), 2)
                 )
         );
     }
 
 
-
     /**
-     * return distance in km to another coordinate using Haversine formula
-     * @param c
-     * @return
+     * return distance in km to another coordinate using Haversine formula.
+     *
+     * @param c other coordinate
+     * @return distance in km to other coordinate
      */
-    public Double distanceTo(Coordinate c) throws NullPointerException{
+    public Double distanceTo(Coordinate c) throws NullPointerException {
         return haversine(lat, c.getLat(), lon, c.getLon());
     }
 
-    /**
-     * convert degrees to radians for haversine formula
-     * @param deg
-     * @return
-     */
-    private double deg2rad(double deg){
-        return deg/360*2*Math.PI;
-    }
 
     /**
-     * Get difference in latitudes in degrees
-     * @param c
-     * @return
-     */
-    public Double latitudeDelta(Coordinate c) throws NullPointerException{
-        return Math.abs(c.getLat()- lat);
-    }
-
-    /**
-     * get difference in longitudes in degrees
-     * @param c
-     * @return
-     */
-    public Double longitudeDelta(Coordinate c) throws NullPointerException{
-        return Math.abs(c.getLon()- lon);
-    }
-
-    /**
-     * whether this coordinate is north of coordinate c
-     * @param c
-     * @return
-     */
-    public boolean northOf(Coordinate c) throws NullPointerException{
-        return lat -c.lat > 0;
-    }
-
-    /**
-     * whether this coordinate is east of coordinate c
-     * ** UNIMPLEMENTED **
-     * @param c
-     * @return
-     */
-//    public boolean eastOf(Coordinate c) throws NullPointerException
-//    {
-//        return false;
-//    }
-
-    /**
-     * whether this coordinate is south of coordinate c
-     * @param c
-     * @return
-     */
-    public boolean southOf(Coordinate c) throws NullPointerException{
-        return lat -c.lat < 0;
-    }
-
-    /**
-     * whether this coordinate is west of coordinate c
-     * ** UNIMPLEMENTED **
+     * convert degrees to radians for haversine formula.
      *
-     * @param c
-     * @return
+     * @param deg degrees to convert
+     * @return degrees as radians
      */
-//    public boolean westOf(Coordinate c) throws NullPointerException{
-//        return false;
-//    }
-
-    @Override
-    public String toString(){
-        return lat+","+lon;
+    private double deg2rad(double deg) {
+        return deg / 360 * 2 * Math.PI;
     }
 
     /**
-     * check for equality to 9 decimal places
-     * @param o
-     * @return
+     * Get difference in latitudes in degrees.
+     *
+     * @param c other coordinate
+     * @return absolute distance to provided coordinate
+     */
+    public Double latDelta(Coordinate c) throws NullPointerException {
+        return Math.abs(c.getLat() - lat);
+    }
+
+    /**
+     * get difference in longitudes in degrees.
+     *
+     * @param c other coordinate
+     * @return absolute distance to provided coordinate
+     */
+    public Double lonDelta(Coordinate c) throws NullPointerException {
+        return Math.abs(c.getLon() - lon);
+    }
+
+
+    /**
+     * standard toString().
+     *
+     * @return string repr of obj
      */
     @Override
-    public boolean equals(Object o){
+    public String toString() {
+        return lat + "," + lon;
+    }
+
+    /**
+     * check for equality to 9 decimal places.
+     *
+     * @param o another coordinate for comparison
+     * @return whether supplied coordinate is equal to this one
+     */
+    @Override
+    public boolean equals(Object o) {
         if (o == null) {
             return false;
         }
-        Coordinate c=(Coordinate) o;
-        String lat1=lat.toString();
-        String lat2=c.lat.toString();
-        String long1=lat.toString();
-        String long2=c.lat.toString();
+        Coordinate c = (Coordinate) o;
+        String lat1 = lat.toString();
+        String lat2 = c.lat.toString();
+        String long1 = lat.toString();
+        String long2 = c.lat.toString();
         return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
     }
 }
