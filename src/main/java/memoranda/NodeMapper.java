@@ -127,11 +127,12 @@ public class NodeMapper {
     }
 
     /**
-     *
+     * Find the farthest "west" and "north" nodes.
+     * Based on 0,-180 (lat/lon) being west
      */
     private void findBaseline() {
-        double lat = Coordinate.latMax;
-        double lon = Coordinate.lonMax;
+        double lat = Coordinate.LAT_MAX;
+        double lon = Coordinate.LON_MAX;
         for (Node n : nodeColl) {
             if (n.getLat() < lat) {
                 lat = n.getLat();
@@ -144,11 +145,12 @@ public class NodeMapper {
     }
 
     /**
-     *
+     * Find the farthest "east" and "south" nodes.
+     * Based on 0,-180 (lat/lon) being west
      */
     private void findOutlier() {
-        double lat = Coordinate.latMin;
-        double lon = Coordinate.lonMin;
+        double lat = Coordinate.LAT_MIN;
+        double lon = Coordinate.LON_MIN;
         for (Node n : nodeColl) {
             if (n.getLat() > lat) {
                 lat = n.getLat();
