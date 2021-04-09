@@ -3,11 +3,13 @@ package memorandatest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
+
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.Coordinate;
@@ -509,6 +511,20 @@ public class TestDataCollections {
         assertEquals(2, rc.size());
     }
 
+    /**
+     * test the start and end times of a tour
+     */
+    @Test
+    void testTourLength() {
+        Tour tour = tourColl.get(1);
+        tour.setSpeed(100);
+
+        System.out.println("route length=" + tour.getRoute().length());
+        System.out.println("tour start time=" + tour.getStartTime());
+        System.out.println("tour end time=" + tour.getEndTime());
+        assertEquals(LocalTime.of(20, 42, 24), tour.getEndTime());
+    }
+
 
     /**
      * Test ability to read and write JSON values.
@@ -617,7 +633,9 @@ public class TestDataCollections {
         tourColl = new TourColl();
 
         Tour tour1 = createTour();
+        tour1.setSpeed(60);
         Tour tour2 = createNamedTourAtTime("A long tour", 17, 0);
+        tour2.setSpeed(100);
 
         tourColl.add(tour1);
         tourColl.add(tour2);
