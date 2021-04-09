@@ -35,7 +35,7 @@ import java.util.LinkedList;
  * BusTable is a JTable that contains the data related to a Bus (Bus Number and ID)
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
 public class BusTable extends JTable {
     private BusColl buses;
@@ -255,20 +255,20 @@ public class BusTable extends JTable {
     	
     	if (result == JOptionPane.OK_OPTION) {
     		//TODO: uncomment once Brian has updated Tour and Bus classes
-    		/*LinkedList<Integer> tourIDs = bus.getTourIDs();
+    		LinkedList<Integer> tourIDs = bus.getTourIDs();
     		TourColl tours = CurrentProject.getTourColl();
     		
     		//remove bus from all scheduled tours
-			for (Tour t:bus.getTours()){
+			for (Tour t:bus.getTours()) {
 				bus.delTour(t);
-			}*/
+			}
     		
     		buses.del(bus.getID());
     		
     		try {
 				CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
 				//TODO: uncomment once Brian has updated Tour and Bus classes
-				//CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
+				CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
 				tableChanged();
 				
 				if (buses.size() == 0) {

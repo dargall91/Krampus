@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * This table is intended to be used in the BusTourDialog component
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
 public class BusTourDialogTable extends JTable {
     private Bus bus;
@@ -49,7 +49,7 @@ public class BusTourDialogTable extends JTable {
         	Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
         	
         	//only display tours without a bus
-    		if (tour.getDriver() == null) {
+    		if (tour.getBus() == null) {
     			tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
     		}
     	}

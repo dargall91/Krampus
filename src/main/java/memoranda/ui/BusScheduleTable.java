@@ -33,7 +33,6 @@ import java.util.ArrayList;
  * BusScheduleTable is a JTable that contains the data related to a Bus's Schedule (Tour Name, bus ID, tour ID, date, time)
  * 
  * @author Derek Argall
- * @version 04/05/2020
  */
 public class BusScheduleTable extends JTable {
     private ArrayList<Tour> tours;
@@ -196,7 +195,7 @@ public class BusScheduleTable extends JTable {
 
         public Object getValueAt(int row, int col) {
         	//TODO: change once Brian has updated Tour and Bus classes
-        	Tour tour = CurrentProject.getTourColl().get(0);//bus.getTours().toArray(new Tour[tours.size()])[row];
+        	Tour tour = bus.getTours().toArray(new Tour[tours.size()])[row];//CurrentProject.getTourColl().get(0);
 
             if (col == 0) {
             	return tour.getName();
@@ -233,7 +232,7 @@ public class BusScheduleTable extends JTable {
     	
     	if (result == JOptionPane.OK_OPTION) {
     		//TODO: uncomment once Brian has updated Tour and Bus classes
-    		//bus.delTour(tour);
+    		bus.delTour(tour);
     		
     		try {
 				CurrentStorage.get().storeBusList(CurrentProject.get(), busColl);
@@ -260,8 +259,8 @@ public class BusScheduleTable extends JTable {
     	
     	else {
     		//TODO: uncomment once Brian has updated Tour and Bus classes
-    		//tours = new ArrayList<Tour>(bus.getTours());    	
-    		tours = new ArrayList<Tour>();
+    		tours = new ArrayList<Tour>(bus.getTours());    	
+    		//tours = new ArrayList<Tour>();
     	}
     }
     

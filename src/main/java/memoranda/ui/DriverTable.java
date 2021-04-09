@@ -265,7 +265,7 @@ public class DriverTable extends JTable {
     		TourColl tours = CurrentProject.getTourColl();
     		
     		//remove driver from all scheduled tours
-			for (Tour t:driver.getTours()){
+			for (Tour t:driver.getTours()) {
 				driver.delTour(t);
 			}
     		
