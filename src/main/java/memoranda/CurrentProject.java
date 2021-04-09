@@ -10,24 +10,18 @@
 package main.java.memoranda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Vector;
 
 import main.java.memoranda.ui.AppFrame;
-import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
 
 /**
- * CurrentProject holds the various data collections required for the software to run.
- * Used in a static context, you can get a reference to these collections
- * 
- * @author Alex V. Alishevskikh, alex@openmechanics.net, Derek Argall
- * @version 04/05/2020
+ *
  */
+/*$Id: CurrentProject.java,v 1.6 2005/12/01 08:12:26 alexeya Exp $*/
 public class CurrentProject {
 
     private static Project _project = null;
@@ -35,11 +29,6 @@ public class CurrentProject {
     private static NoteList _notelist = null;
     private static ResourcesList _resources = null;
     private static Vector projectListeners = new Vector();
-    private static DriverColl _drivers = null;
-    private static TourColl _tours = null;
-    private static RouteColl _routes = null;
-    private static BusColl _buses = null;
-    private static NodeColl _nodes = null;
 
         
     static {
@@ -64,15 +53,6 @@ public class CurrentProject {
         _tasklist = CurrentStorage.get().openTaskList(_project);
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
-        try {
-        	_nodes = CurrentStorage.get().openNodeList(_project);
-        	_buses = CurrentStorage.get().openBusList(_project);
-        	_routes = CurrentStorage.get().openRouteList(_project, _nodes);
-        	_tours = CurrentStorage.get().openTourList(_project, _routes, _buses);
-			_drivers = CurrentStorage.get().openDriverList(_project, _tours);
-		} catch (IOException | DuplicateKeyException e) {
-			new ExceptionDialog(e);
-		}
         AppFrame.addExitListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 save();                                               
@@ -96,83 +76,17 @@ public class CurrentProject {
     public static ResourcesList getResourcesList() {
             return _resources;
     }
-    
-    /**
-     * Gets this project's DriverColl
-     * 
-     * @return the DriverColl
-     */
-    public static DriverColl getDriverColl() {
-        return _drivers;
-    }
-    
-    /**
-     * Gets this project's DriverColl
-     * 
-     * @return the DriverColl
-     */
-    public static TourColl getTourColl() {
-        return _tours;
-    }
-    
-    /**
-     * Gets this project's RouteColl
-     * 
-     * @return the DriverColl
-     */
-    public static RouteColl getRouteColl() {
-        return _routes;
-    }
-    
-    /**
-     * Gets this project's NodeColl
-     * 
-     * @return the DriverColl
-     */
-    public static NodeColl getNodeColl() {
-        return _nodes;
-    }
-    
-    /**
-     * Gets this project's BusColl
-     * 
-     * @return the DriverColl
-     */
-    public static BusColl getBusColl() {
-        return _buses;
-    }
-
 
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
-        DriverColl newDriverColl = null;
-        TourColl newTourColl = null;
-        NodeColl newNodeColl = null;
-        RouteColl newRouteColl = null;
-        BusColl newBusColl = null;
-        try {
-        	newNodeColl = CurrentStorage.get().openNodeList(project);
-        	newRouteColl = CurrentStorage.get().openRouteList(project, newNodeColl);
-        	newBusColl = CurrentStorage.get().openBusList(project);
-        	newTourColl = CurrentStorage.get().openTourList(project, newRouteColl, newBusColl);
-			newDriverColl = CurrentStorage.get().openDriverList(project, newTourColl);
-		} catch (IOException | DuplicateKeyException e) {
-			new ExceptionDialog(e);
-		}
-        //TODO: Potentially modify this method for additional collections
         notifyListenersBefore(project, newnotelist, newtasklist, newresources);
         _project = project;
         _tasklist = newtasklist;
         _notelist = newnotelist;
         _resources = newresources;
-        _drivers = newDriverColl;
-        _tours = newTourColl;
-        _routes = newRouteColl;
-        _nodes = newNodeColl;
-        _buses = newBusColl;
         notifyListenersAfter();
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }
@@ -185,7 +99,6 @@ public class CurrentProject {
         return projectListeners;
     }
 
-    //TODO: Potentially modify this method for additional collections
     private static void notifyListenersBefore(Project project, NoteList nl, TaskList tl, ResourcesList rl) {
         for (int i = 0; i < projectListeners.size(); i++) {
             ((ProjectListener)projectListeners.get(i)).projectChange(project, nl, tl, rl);
@@ -205,16 +118,6 @@ public class CurrentProject {
         storage.storeNoteList(_notelist, _project);
         storage.storeTaskList(_tasklist, _project); 
         storage.storeResourcesList(_resources, _project);
-        try {
-			storage.storeNodeList(_nodes, _project);
-			storage.storeRouteList(_project, _routes);
-			storage.storeBusList(_project, _buses);
-			storage.storeTourList(_project, _tours);
-			storage.storeDriverList(_project, _drivers);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         storage.storeProjectManager();
     }
     
@@ -223,10 +126,5 @@ public class CurrentProject {
         _tasklist = null;
         _notelist = null;
         _resources = null;
-        _nodes = null;
-        _routes = null;
-        _buses = null;
-        _tours = null;
-        _drivers = null;
     }
 }

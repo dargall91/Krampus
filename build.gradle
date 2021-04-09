@@ -1,13 +1,14 @@
-// updated to replace 'compile' dependencies with 'implementation' for gradle7 compatibility
+//apply plugin: 'application'
 
 plugins {
-    id 'application'
-    id 'jacoco'
     id 'java'
-    id "com.github.spotbugs" version "4.7.0"
-    id 'checkstyle'
-
+    id 'application'
 }
+
+//plugins {
+//    id 'java'
+//}
+
 
 mainClassName = 'main/java/memoranda/Start'
 
@@ -19,19 +20,13 @@ repositories {
 }
 
 dependencies {
-
-// resolve dependency/POM relocation for old xom
-    implementation 'com.io7m.xom:xom:1.2.+', {
-       exclude group: "xml-apis", module: "xml-apis"
-    }
-    implementation "xml-apis:xml-apis:1.0.b2"
-
-    implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
+    compile 'com.io7m.xom:xom:1.2.+'
+    compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 
 // Jackson JSON
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.1'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.10.1'
 
 // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
@@ -40,45 +35,5 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport // report is always generated after tests run
-}
-
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
-}
-
-apply plugin: 'checkstyle'
-checkstyle {
-  ignoreFailures = true
-  showViolations = false
-}
-
-tasks.withType(Checkstyle) {
-  reports {
-    html.enabled = true
-    xml.enabled = false
-  }
-}
-
-
-spotbugsTest {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-spotbugsMain {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-spotbugs {
-    ignoreFailures = true
-    showStackTraces = false
-    showProgress = true
-    effort = 'default'
-    maxHeapSize = '2g'
 }
 

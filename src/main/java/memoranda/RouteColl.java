@@ -6,87 +6,68 @@ import main.java.memoranda.util.DuplicateKeyException;
 import java.util.Collection;
 import java.util.Iterator;
 
-/**
- * RouteColl object holding a collection of routes in the MTB scheduling system.
- *
- * @author Brian Pape
- * @version 2021-04-01
- */
 public class RouteColl extends DataCollection<Route> implements Iterable<Route> {
 
 
     /**
      * create a new route collection
      */
-    public RouteColl() {
+    public RouteColl(){
         super();
     }
 
     /**
-     * add an entire collection of routes (post json import).
+     * add an entire collection of routes (post json import)
      *
-     * @param c collection of routes to add to collection
-     * @throws DuplicateKeyException if a provided Route has a non-unique key
+     * @param c
      */
     public RouteColl(Collection<Route> c) throws DuplicateKeyException {
         this();
-        for (Route n : c) {
+        for (Route n:c){
             add(n);
         }
     }
 
-    /**
-     * Allows deserializing routes from JSON files.  RouteLoader class is needed to deal with
-     * converting node IDs to node objects in json deserialization.
-     *
-     * @param nodeColl collection of nodes that holds IDs matching those used in each Route being
-     *                 added.
-     * @param c        collection of RouteLoader objects (only used in json deserialization)
-     * @throws DuplicateKeyException if duplicate key exists in provided routes
-     */
-    public RouteColl(NodeColl nodeColl, Collection<RouteLoader> c) throws DuplicateKeyException {
+    public RouteColl(NodeColl nodeColl, Collection<RouteLoader> c) throws DuplicateKeyException{
         this();
-        for (RouteLoader rl : c) {
+        for (RouteLoader rl: c){
             add(new Route(nodeColl, rl));
         }
     }
 
 
     /**
-     * Returns a new collection item with a unique key.
+     * Creates a new Route object with a unique ID
      *
-     * @return a new Route object with a unique id
+     * @param n
+     * @throws DuplicateKeyException
      */
     @Override
-    public Route newItem() {
-        return new Route(getUniqueID());
+    public void createUnique(Route r) throws DuplicateKeyException {
+        add(new Route(getUniqueID(), r));
     }
 
-
     /**
-     * get route by ID.
-     *
-     * @param id route id to find
-     * @return matching Route or null if none found
+     * get route by ID
+     * @param id
+     * @return
      */
-    public Route get(int id) {
-        return (Route) super.get(id);
+    public Route get(int id){
+        return (Route)super.get(id);
     }
 
     /**
-     * returns a collection of Routes.
      *
-     * @return all routes in this collection
+     * @return
      */
     @JsonProperty
-    public Collection<IndexedObject> getRoutes() {
+    public Collection<IndexedObject> getRoutes(){
         return getData();
     }
 
     /**
-     * iterator.
-     *
-     * @return a Route Iterator
+     * iterator
+     * @return
      */
     @Override
     public Iterator<Route> iterator() {
@@ -94,17 +75,15 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     }
 
     /**
-     * iterator class.
-     *
+     * iterator
      * @param <Route>
      */
-    public class RouteIterator<Route> implements Iterator<Route> {
+    public class RouteIterator<Route> implements Iterator<Route>{
         Collection coll;
         Iterator<Route> it;
-
-        public RouteIterator() {
-            coll = getData();
-            it = coll.iterator();
+        public RouteIterator(){
+            coll=getData();
+            it=coll.iterator();
         }
 
         @Override
