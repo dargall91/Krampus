@@ -11,17 +11,17 @@ import javax.swing.table.TableColumn;
 import java.awt.Component;
 import java.util.ArrayList;
 
-public class DriverTable extends JTable {
-    //TODO: ArrayList->DriverColl
-    private ArrayList<String> drivers;
+public class ScheduleTable extends JTable {
+    //TODO: ArrayList->TourColl
+    private ArrayList<String> tours;
     private TableSorter sorter;
 
-    public DriverTable() {
+    public ScheduleTable() {
         super();
-        //TODO: ArrayList->DriverColl
-        drivers = new ArrayList<String>();
+        //TODO: ArrayList->TourColl
+        tours = new ArrayList<String>();
         initTable();
-        sorter = new TableSorter(new DriverTableModel());
+        sorter = new TableSorter(new ScheduleTableModel());
         sorter.addMouseListenerToHeaderInTable(this);
         setModel(sorter);
         this.setShowGrid(false);
@@ -29,10 +29,10 @@ public class DriverTable extends JTable {
     }
 
     private void initTable() {
-        //TODO: read data from DriverColl
-        drivers.add("Count Dooku");
-        drivers.add("Lucifer Morningstar");
-        drivers.add("Bowser");
+        //TODO: read data from TourColl
+        tours.add("Tour1");
+        tours.add("Tour2");
+        tours.add("Tour3");
     }
 
     void initColumnsWidth() {
@@ -42,7 +42,6 @@ public class DriverTable extends JTable {
                 column.setMinWidth(100);
                 column.setPreferredWidth(300);
             }
-
             else {
                 column.setMinWidth(100);
                 column.setPreferredWidth(100);
@@ -73,11 +72,13 @@ public class DriverTable extends JTable {
         };
     }
 
-    class DriverTableModel extends AbstractTableModel {
+    class ScheduleTableModel extends AbstractTableModel {
         private String[] columnNames = {
-                Local.getString("Name"),
-                Local.getString("ID"),
-                Local.getString("Phone Number")};
+                Local.getString("Driver"),
+                Local.getString("Bus ID"),
+                Local.getString("Tour"),
+                Local.getString("Date"),
+                Local.getString("Time")};
 
         public String getColumnName(int i) {
             return columnNames[i];
@@ -88,20 +89,24 @@ public class DriverTable extends JTable {
         }
 
         public int getRowCount() {
-            return drivers.size();
+            return tours.size();
         }
 
         public Object getValueAt(int row, int col) {
-            //TODO: String -> DriverColl
-            String driver = drivers.get(row);
+            //TODO: String -> TourColl
+            String tour = tours.get(row);
 
             switch (col) {
                 case 0:
-                    return driver;//driver.getName();
+                    return tour;//driver.getDriver();
                 case 1:
-                    return driver;//driver.getID();
+                    return tour;//driver.getBusID();
                 case 2:
-                    return driver;//driver.getPhone();
+                    return tour;//driver.getName();
+                case 3:
+                    return tour;//driver.getDate();
+                case 4:
+                    return tour;//driver.getTime();
             }
 
             return null;
@@ -115,6 +120,10 @@ public class DriverTable extends JTable {
                     case 0:
                     case 2:
                         return Class.forName("java.lang.String");
+                    case 3:
+                        return Class.forName("java.util.Date");
+                    case 4:
+                        return Class.forName("java.sql.Time");
                 }
             }
 

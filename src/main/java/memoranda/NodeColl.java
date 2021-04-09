@@ -8,69 +8,62 @@ import java.util.Iterator;
 
 
 /**
- * NodeColl object holding a collection of nodes in the MTB scheduling system.
  *
- * @author Brian Pape
- * @version 2021-04-01
  */
-public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
+public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
 
     /**
      * create a new node collection
      */
-    public NodeColl() {
+    public NodeColl(){
         super();
     }
 
     /**
      * add an entire collection of nodes (post json import)
      *
-     * @param c collection of Nodes to add to collection
-     * @throws DuplicateKeyException if a provided Node id is not unique
+     * @param c
      */
-    public NodeColl(Collection<Node> c) throws DuplicateKeyException {
+    public NodeColl(Collection<Node> c) throws DuplicateKeyException{
         this();
-        for (Node n : c) {
+        for (Node n:c){
             add(n);
         }
     }
 
 
-    /**
-     * Returns a new collection item with a unique key
+     /**
+     * Creates a new Node object with a unique ID
      *
-     * @return new Node
+     * @param n
+     * @throws DuplicateKeyException
      */
     @Override
-    public Node newItem() {
-        return new Node(getUniqueID());
+    public void createUnique(Node n) throws DuplicateKeyException {
+        add(new Node(getUniqueID(), n.getName(), n.getLat(), n.getLon()));
     }
-
 
     /**
      * get node by ID
-     *
-     * @param id id of the node to get
-     * @return Node if found, null otherwise
+     * @param id
+     * @return
      */
-    public Node get(int id) {
-        return (Node) super.get(id);
+    public Node get(int id){
+        return (Node)super.get(id);
     }
 
     /**
-     * return a collection of all nodes in this collection
      *
-     * @return All nodes in this collection, null otherwise
+     * @return
      */
     @JsonProperty
-    public Collection<IndexedObject> getNodes() {
+    public Collection<IndexedObject> getNodes(){
         return getData();
     }
 
     /**
      * iterator
-     *
-     * @return Iterator of Node type
+     * @return
      */
     @Override
     public Iterator<Node> iterator() {
@@ -79,16 +72,14 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
 
     /**
      * iterator
-     *
      * @param <Node>
      */
-    public class NodeIterator<Node> implements Iterator<Node> {
+    public class NodeIterator<Node> implements Iterator<Node>{
         Collection coll;
         Iterator<Node> it;
-
-        public NodeIterator() {
-            coll = getData();
-            it = coll.iterator();
+        public NodeIterator(){
+            coll=getData();
+            it=coll.iterator();
         }
 
         @Override

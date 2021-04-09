@@ -78,7 +78,7 @@ public class WorkPanel extends JPanel {
 		driverB.setContentAreaFilled(false);
 		driverB.setFocusPainted(false);
 		driverB.setHorizontalTextPosition(SwingConstants.CENTER);
-		driverB.setText(Local.getString("Drivers"));
+		driverB.setText(Local.getString("Driver"));
 		driverB.setVerticalAlignment(SwingConstants.TOP);
 		driverB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		driverB.addActionListener(new java.awt.event.ActionListener() {

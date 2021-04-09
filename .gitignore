@@ -21,12 +21,9 @@
 ### Gradle ###
 .gradle
 /build/
-!/gradle/wrapper
 
 # Mac DS file
 .DS_Store
 
-/bin/
 
-# vim swap files
-.swp
+/bin/
