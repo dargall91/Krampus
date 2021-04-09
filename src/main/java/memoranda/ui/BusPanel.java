@@ -36,7 +36,6 @@ public class BusPanel extends JSplitPane {
 	private DailyItemsPanel parentPanel;
 	private BusColl buses;
 	private String gotoTask;
-	private boolean isActive;
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
 	private final int LABEL_SIZE = 25;
 
@@ -61,8 +60,6 @@ public class BusPanel extends JSplitPane {
 
 	private void jbInit() throws Exception {
 		buses = CurrentProject.getBusColl();
-		
-		setActive(true);
 
 		setDividerSize(5);
 		setResizeWeight(0.4);
@@ -222,14 +219,5 @@ public class BusPanel extends JSplitPane {
 		});
 
 		Util.debug("Summary updated.");
-	}
-
-	/**
-	 * Flags this panel as the active panel
-	 * 
-	 * @param isa
-	 */
-	public void setActive(boolean isa) {
-		isActive = isa;
 	}
 }

@@ -175,7 +175,6 @@ public class BusScheduleTable extends JTable {
         private String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("Tour ID"),
-                Local.getString("Bus ID"),
                 //Local.getString("Date"),
                 Local.getString("Time")};
 
@@ -208,16 +207,8 @@ public class BusScheduleTable extends JTable {
             }
             
             if (col == 2) {
-            	return tour.getBusID();
-            }
-            
-            if (col == 3) {
             	return tour.getTime();
             }
-            
-            /*if (col == 4) {
-            	return tour.getDate();
-            }*/
 
             return null;
         }
@@ -269,7 +260,8 @@ public class BusScheduleTable extends JTable {
     	
     	else {
     		//TODO: uncomment once Brian has updated Tour and Bus classes
-    		//tours = new ArrayList<Tour>(bus.getTours());    		
+    		//tours = new ArrayList<Tour>(bus.getTours());    	
+    		tours = new ArrayList<Tour>();
     	}
     }
     

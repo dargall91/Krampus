@@ -35,7 +35,8 @@ public class WorkPanel extends JPanel {
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JButton driverB = new JButton();
-	public JButton tasksB = new JButton();
+	//public JButton tasksB = new JButton();
+	public JButton busesB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
 	JButton currentB = null;
@@ -120,30 +121,30 @@ public class WorkPanel extends JPanel {
 		eventsB.setMargin(new Insets(0, 0, 0, 0));
 		//eventsB.setSelected(true);
 
-		tasksB.setSelected(true);
-		tasksB.setFont(new java.awt.Font("Dialog", 1, 10));
-		tasksB.setMargin(new Insets(0, 0, 0, 0));
-		tasksB.setIcon(
+		busesB.setSelected(true);
+		busesB.setFont(new java.awt.Font("Dialog", 1, 10));
+		busesB.setMargin(new Insets(0, 0, 0, 0));
+		busesB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
 					"/ui/icons/tasks.png")));
-		tasksB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		tasksB.addActionListener(new java.awt.event.ActionListener() {
+		busesB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		busesB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tasksB_actionPerformed(e);
+				busB_actionPerformed(e);
 			}
 		});
-		tasksB.setVerticalAlignment(SwingConstants.TOP);
-		tasksB.setText(Local.getString("Tasks"));
-		tasksB.setHorizontalTextPosition(SwingConstants.CENTER);
-		tasksB.setFocusPainted(false);
-		tasksB.setBorderPainted(false);
-		tasksB.setContentAreaFilled(false);
-		tasksB.setPreferredSize(new Dimension(50, 50));
-		tasksB.setMinimumSize(new Dimension(30, 30));
-		tasksB.setOpaque(false);
-		tasksB.setMaximumSize(new Dimension(60, 80));
-		tasksB.setBackground(Color.white);
+		busesB.setVerticalAlignment(SwingConstants.TOP);
+		busesB.setText(Local.getString("Buses"));
+		busesB.setHorizontalTextPosition(SwingConstants.CENTER);
+		busesB.setFocusPainted(false);
+		busesB.setBorderPainted(false);
+		busesB.setContentAreaFilled(false);
+		busesB.setPreferredSize(new Dimension(50, 50));
+		busesB.setMinimumSize(new Dimension(30, 30));
+		busesB.setOpaque(false);
+		busesB.setMaximumSize(new Dimension(60, 80));
+		busesB.setBackground(Color.white);
 
 		notesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		notesB.setBackground(Color.white);
@@ -202,7 +203,7 @@ public class WorkPanel extends JPanel {
 		panel.add(filesPanel, "FILES");
 		toolBar.add(driverB, null);
 		toolBar.add(eventsB, null);
-		toolBar.add(tasksB, null);
+		toolBar.add(busesB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
 		currentB = driverB;
@@ -221,8 +222,8 @@ public class WorkPanel extends JPanel {
 		if (pan != null) {
 			if (pan.equals("NOTES"))
 				notesB_actionPerformed(null);
-			else if (pan.equals("TASKS"))
-				tasksB_actionPerformed(null);
+			else if (pan.equals("BUSES"))
+				busB_actionPerformed(null);
 			else if (pan.equals("EVENTS"))
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
@@ -234,7 +235,7 @@ public class WorkPanel extends JPanel {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("DRIVERS");
 		setCurrentButton(driverB);
-		Context.put("CURRENT_PANEL", "DRIVER");
+		Context.put("CURRENT_PANEL", "DRIVERS");
 	}
 
 	public void notesB_actionPerformed(ActionEvent e) {
@@ -244,11 +245,11 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
 
-	public void tasksB_actionPerformed(ActionEvent e) {
+	public void busB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("TASKS");
-		setCurrentButton(tasksB);
-		Context.put("CURRENT_PANEL", "TASKS");
+		dailyItemsPanel.selectPanel("BUSES");
+		setCurrentButton(busesB);
+		Context.put("CURRENT_PANEL", "BUSES");
 	}
 
 	public void eventsB_actionPerformed(ActionEvent e) {
