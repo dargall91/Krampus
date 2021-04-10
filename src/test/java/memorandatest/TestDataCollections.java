@@ -444,7 +444,7 @@ public class TestDataCollections {
     @Test
     void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException {
 
-        Driver d = driverColl.newItem();
+        Driver d=driverColl.newItem();
         driverColl.add(d);
 
         stg.storeDriverList(prj, driverColl);
@@ -682,28 +682,21 @@ public class TestDataCollections {
     }
 
 
-    /**
-     * test serializing/deserializing a Tour collection with no route.
-     *
-     * @throws IOException           if output file cannot be written
-     * @throws DuplicateKeyException if duplicate id is added to collection
-     */
     @Test
     void testWriteTourWithNoRoute() throws DuplicateKeyException, IOException {
 
-        Tour t = tourColl.newItem();
+        Tour t=tourColl.newItem();
 
         // add a driver
-        Driver d = driverColl.newItem();
+        Driver d=driverColl.newItem();
         d.addTour(t);
 
         // add a time
-        t.setTime(LocalTime.of(6, 0));
+        t.setTime(LocalTime.of(6,0));
 
-        // add a bus
-        Bus b = busColl.newItem();
-        busColl.add(b);
-        b.addTour(t);
+
+        Bus b=busColl.newItem();
+
 
         // but no route
         tourColl.add(t);
@@ -725,27 +718,20 @@ public class TestDataCollections {
 
     }
 
-    /**
-     * test serializing/deserializing a Tour collection with no bus.
-     *
-     * @throws IOException           if output file cannot be written
-     * @throws DuplicateKeyException if duplicate id is added to collection
-     */
     @Test
     void testWriteTourWithNoBus() throws DuplicateKeyException, IOException {
 
-        Tour t = tourColl.newItem();
+        Tour t=tourColl.newItem();
 
         // add a driver
-        Driver d = driverColl.newItem();
+        Driver d=driverColl.newItem();
         d.addTour(t);
 
         // add a time
-        t.setTime(LocalTime.of(6, 0));
+        t.setTime(LocalTime.of(6,0));
 
         // add a route
-        Route r = routeColl.newItem();
-        routeColl.add(r);
+        Route r=routeColl.newItem();
         t.setRoute(r);
 
         // but no bus
@@ -767,31 +753,18 @@ public class TestDataCollections {
 
     }
 
-
-    /**
-     * test serializing/deserializing a Tour collection with no time.
-     *
-     * @throws IOException           if output file cannot be written
-     * @throws DuplicateKeyException if duplicate id is added to collection
-     */
     @Test
     void testWriteTourWithNoTime() throws DuplicateKeyException, IOException {
 
-        Tour t = tourColl.newItem();
+        Tour t=tourColl.newItem();
 
         // add a driver
-        Driver d = driverColl.newItem();
+        Driver d=driverColl.newItem();
         d.addTour(t);
 
         // add a route
-        Route r = routeColl.newItem();
-        routeColl.add(r);
+        Route r=routeColl.newItem();
         t.setRoute(r);
-
-        // add a bus
-        Bus b = busColl.newItem();
-        busColl.add(b);
-        b.addTour(t);
 
         // but no time
         tourColl.add(t);
