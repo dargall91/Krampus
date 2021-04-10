@@ -63,13 +63,8 @@ public class DailyItemsPanel extends JPanel {
     JLabel currentDateLabel = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
     TaskPanel tasksPanel = new TaskPanel(this);
-<<<<<<< .merge_file_a16724
     TourPanel tourPanel = new TourPanel(this);
-    DriverPanel driverPanel = new DriverPanel(this);
-=======
-    EventsPanel eventsPanel = new EventsPanel(this);
     private DriverPanel driverPanel = new DriverPanel(this);
->>>>>>> .merge_file_a24672
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));

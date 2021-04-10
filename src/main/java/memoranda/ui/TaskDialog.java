@@ -315,7 +315,7 @@ public class TaskDialog extends JDialog {
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/notify.png")));
         setNotifB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setNotifB_actionPerformed(e);
+                //setNotifB_actionPerformed(e);
             }
         });
         jLabel7.setMaximumSize(new Dimension(100, 16));
@@ -436,9 +436,9 @@ public class TaskDialog extends JDialog {
         endCalFrame.show();
     }
     
-    void setNotifB_actionPerformed(ActionEvent e) {
-    	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.tourPanel.newTourB_actionPerformed(e, 
-			this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
-    }
+    //void setNotifB_actionPerformed(ActionEvent e) {
+    //	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.tourPanel.newTourB_actionPerformed(e, 
+	//		this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
+    //}
 
 }
