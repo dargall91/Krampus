@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.HashMap;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * DataCollection abstract class.

@@ -12,9 +12,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TourLoader extends IndexedObject {
     private String name;
     private String time;
-    private int speed;
-    private int busID;
-    private int routeID;
+    private Integer speed;
+    private Integer busID;
+    private Integer routeID;
 
     /**
      * constructor for json deserialization

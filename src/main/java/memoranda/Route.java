@@ -3,7 +3,6 @@ package main.java.memoranda;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.LinkedList;
 import java.util.List;
 
