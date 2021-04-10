@@ -256,7 +256,10 @@ public class Tour extends IndexedObject {
      * @return integer id of this tour's route
      */
     @JsonProperty
-    public int getRouteID() {
+    public Integer getRouteID() {
+        if (route ==null){
+            return null;
+        }
         return route.getID();
     }
 
