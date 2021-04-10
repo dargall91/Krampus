@@ -3,6 +3,7 @@ package main.java.memoranda;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import main.java.memoranda.util.DuplicateKeyException;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -13,8 +14,11 @@ import java.time.format.DateTimeFormatter;
  * @author Brian Pape
  * @version 2021-04-01
  */
-public class Tour extends IndexedObject{
+public class Tour extends IndexedObject {
+    public final static int DEFAULT_SPEED = 1;
+
     private String name;
+    private int speed;
     private LocalTime time;
     private Bus bus;
     private Route route;
@@ -22,70 +26,91 @@ public class Tour extends IndexedObject{
 
 
     /**
-     * create new Tour object with given id
+     * create new Tour object with given id.
      *
      * @param id id for Tour
      */
-    public Tour(int id){
+    public Tour(int id) {
         super(id);
+        speed = DEFAULT_SPEED;
     }
 
 
     /**
-     * create new tour with given information
+     * create new tour with given information.
      *
-     * @param id id for tour
-     * @param name name for tour
-     * @param bus bus assigned to tour
+     * @param id    id for tour
+     * @param name  name for tour
+     * @param bus   bus assigned to tour
      * @param route Route for tour
-     * @param time time that tour starts
+     * @param time  time that tour starts
      */
-    public Tour(int id, String name, Bus bus, Route route, LocalTime time){
+    public Tour(int id, String name, Bus bus, Route route, LocalTime time) {
         this(id);
-        this.name=name;
-        this.bus=bus;
-        this.route=route;
-        this.time=time;
+        this.name = name;
+        this.bus = bus;
+        this.route = route;
+        this.time = time;
     }
 
 
     /**
-     * constructor for json deserialization
+     * constructor for json deserialization.
      *
-     * @param routeColl collection of Routes containing the route with an ID matching that specified in TourLoader obj
-     * @param busColl collection of Buses containing the Bus with an ID matching that specified in TourLoader obj
-     * @param newTour TourLoader obj holding deserialized json data with integer route and bus IDs
+     * @param routeColl collection of Routes containing the route with an ID matching that
+     *                  specified in TourLoader obj
+     * @param busColl   collection of Buses containing the Bus with an ID matching that
+     *                  specified in TourLoader obj
+     * @param newTour   TourLoader obj holding deserialized json data with integer route and bus IDs
      * @throws IndexOutOfBoundsException if provided id is not unique
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour) throws IndexOutOfBoundsException{
+    public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour)
+            throws IndexOutOfBoundsException, DuplicateKeyException {
         this(newTour.getID());
 
-        System.out.println("In Tour: newTour="+newTour);
+        System.out.println("In Tour: newTour=" + newTour);
 
-        name=newTour.getName();
+        name = newTour.getName();
 
-        DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
-        time = LocalTime.parse(newTour.getTime(), timeParser);
 
-        Bus b= busColl.get(newTour.getBusID());
-        if (b == null) {
-            throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
+        if (newTour.getTime() == null) {
+            time = null;
         } else {
-            bus=b;
+            DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
+            time = LocalTime.parse(newTour.getTime(), timeParser);
         }
 
-        Route r = routeColl.get(newTour.getRouteID());
-        if (r == null) {
-            throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID() + " not found");
+        speed = newTour.getSpeed();
+
+        if (newTour.getBusID() == null) {
+            bus = null;
         } else {
-            route=r;
+            Bus b = busColl.get(newTour.getBusID());
+            if (b == null) {
+                throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
+            } else {
+                bus = b;
+                bus.addTour(this);
+            }
+        }
+
+        if (newTour.getRouteID() == null) {
+            route = null;
+        } else {
+            Route r = routeColl.get(newTour.getRouteID());
+            if (r == null) {
+                throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID()
+                        + " not found");
+            } else {
+                route = r;
+            }
         }
     }
 
 
     /**
-     * name setter
+     * name setter.
      *
      * @param name name for Tour
      */
@@ -95,71 +120,117 @@ public class Tour extends IndexedObject{
 
 
     /**
-     * bus setter
+     * bus setter.
      *
      * @param bus Bus for tour
      */
-    public void setBus(Bus bus){
-        this.bus=bus;
+    public void setBus(Bus bus) {
+        this.bus = bus;
     }
 
     /**
-     * route setter
+     * route setter.
      *
      * @param route Route for bus to travel
      */
-    public void setRoute(Route route){
-        this.route=route;
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
 
     /**
-     * time setter
+     * time setter.
      *
      * @param time time for Tour to start
      */
-    public void setTime(LocalTime time){
-        this.time=time;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     /**
-     * standard getter for name
+     * standard getter for name.
      *
      * @return name of tour
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
     /**
-     * time getter
+     * time getter.
      *
      * @return time of tour
      */
     @JsonIgnore
-    public LocalTime getTime(){
+    public LocalTime getTime() {
         return time;
     }
 
     /**
-     * json serialization routine
+     * updated name for this method.
+     *
+     * @return the time this tour starts
+     */
+    @JsonIgnore
+    public LocalTime getStartTime() {
+        return getTime();
+    }
+
+    /**
+     * return the end time of this tour based on supplied speed.
+     *
+     * @return end time of the tour
+     */
+    @JsonIgnore
+    public LocalTime getEndTime() {
+
+        // route.duration is returned in hours.
+        final int SECS_PER_HOUR = 3600;
+
+        int travelTime = (int) (route.duration(speed) * SECS_PER_HOUR);
+        return getTime().plusSeconds(travelTime);
+    }
+
+    /**
+     * Sets the speed for this tour in km/h to support end-time calculation.
+     *
+     * @param speed speed to set in km/h
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * set the bus speed for duration calculations.
+     *
+     * @return the bus speed
+     */
+    public int getSpeed() {
+        return speed;
+    }
+
+    /**
+     * json serialization routine.
      *
      * @return time as a string
      */
     @JsonProperty("time")
-    public String getTimeString(){
+    public String getTimeString() {
+        if (time == null) {
+            return null;
+        }
         return time.toString();
     }
 
 
-   /**
-    * Set a driver for this tour.
-    *
-    * @param driver Driver to set.
-    */
-   public void setDriver(Driver driver){
-        this.driver=driver;
-   }
+    /**
+     * Set a driver for this tour.
+     *
+     * @param driver Driver to set.
+     */
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
 
     /**
      * Get the driver associated with this tour.
@@ -167,71 +238,97 @@ public class Tour extends IndexedObject{
      * @return Driver associated with this tour.
      */
     @JsonIgnore
-    public Driver getDriver(){
+    public Driver getDriver() {
         return driver;
     }
 
     /**
      * Delete driver associated with this tour.
+     *
+     * @param driver driver to delete
+     * @throws UnsupportedOperationException if an invalid driver is passed to the method.
      */
-    public void delDriver(Driver driver) throws UnsupportedOperationException{
+    public void delDriver(Driver driver) throws UnsupportedOperationException {
         if (this.driver.equals(driver)) {
-            this.driver=null;
-        } else{
-            throw new UnsupportedOperationException("Cannot unilaterally remove driver.  Call driver.delTour()");
+            this.driver = null;
+        } else {
+            throw new UnsupportedOperationException("Cannot unilaterally remove driver. " +
+                    "Call driver.delTour()");
         }
 
     }
 
     /**
-     * route getter
+     * route getter.
      *
      * @return route for tour
      */
     @JsonIgnore
-    public Route getRoute(){
+    public Route getRoute() {
         return route;
     }
 
     /**
-     * json serialization routine
+     * json serialization routine.
      *
      * @return integer id of this tour's route
      */
     @JsonProperty
-    public int getRouteID(){
+    public Integer getRouteID() {
+        if (route == null) {
+            return null;
+        }
         return route.getID();
     }
 
 
     /**
-     * bus getter
+     * bus getter.
      *
      * @return Bus for this route
      */
     @JsonIgnore
-    public Bus getBus(){
+    public Bus getBus() {
         return bus;
+    }
+
+    /**
+     * Delete bus associated with this tour.
+     *
+     * @param bus driver to delete
+     * @throws UnsupportedOperationException if an invalid bus is passed to the method.
+     */
+    public void delBus(Bus bus) throws UnsupportedOperationException {
+        if (this.bus.equals(bus)) {
+            this.bus = null;
+        } else {
+            throw new UnsupportedOperationException("Cannot unilaterally remove bus. " +
+                    "Call bus.delTour()");
+        }
     }
 
 
     /**
-     * json serialization routine
+     * json serialization routine.
      *
      * @return integer id of this tour's bus
      */
     @JsonProperty("busID")
-    public int getBusID(){
-        return bus.getID();
+    public Integer getBusID() {
+        if (bus == null) {
+            return null;
+        } else {
+            return bus.getID();
+        }
     }
 
     /**
-     * standard toString()
+     * standard toString().
      *
      * @return string repr of obj
      */
     @Override
-    public String toString(){
-        return getID()+":"+"'"+name+"'"+route;
+    public String toString() {
+        return getID() + ":" + "'" + name + "'" + route;
     }
 }

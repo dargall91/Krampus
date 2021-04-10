@@ -3,7 +3,6 @@ package main.java.memoranda.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -13,82 +12,79 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+
+import main.java.memoranda.Tour;
 
 /**
- * DriverDialog is a JDialog that has fields to enter and edit a driver's name and phone number
+ * BusTourDialog is a JDialog that allows the user to schedule a Bus for a Tour
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
-public class DriverDialog extends JDialog {
+public class BusTourDialog extends JDialog {
 	private boolean cancelled;
 	private JPanel errorPanel;
-	private JTextField nameField;
-	private JTextField phoneField;
+	private BusTourDialogTable tourTable;
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
 	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private final int FIELD_WIDTH = 15;
+	private int bus;
 
 	/**
-	 * Creates a JDialog window that allows the user to add a new Driver to the system
+	 * Creates a JDialog window that allows the user to add a new Bus to the system
 	 * or edit an existing one
 	 * 
 	 * @param frame The main application Frame
 	 * @param title The title for this JDialog
 	 * @param posButtonName The name for the positive button
 	 */
-	public DriverDialog(Frame frame, String title, String posButtonName) {
-		super(frame, title);
+	public BusTourDialog(Frame frame, int bus) {
+		super(frame);
 		try {
-			init(posButtonName);
+			this.bus = bus;
+			init();
 			pack();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
 		}
 	}
 	
-	private void init(String posButtonName) throws Exception {
+	private void init() throws Exception {
 		setModal(true);
+		setTitle("Schedule Tour");
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
+		JPanel namePanel = new JPanel();
+		JLabel busNo = new JLabel("Schedule a Tour for Bus No. " + bus);
+		busNo.setHorizontalAlignment(JLabel.CENTER);
+		
+		namePanel.add(busNo);
+
 		errorPanel = new JPanel();
 		errorPanel.setVisible(false);
 		
-		JLabel errorLabel = new JLabel("All Fields Must Be Filled In");
+		JLabel errorLabel = new JLabel("No Tour Selected");
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		errorPanel.add(errorLabel);
-		
-		JPanel gridPanel = new JPanel();
-		gridPanel.setLayout(new GridLayout(2, 2, 5, 5));
-		
-		JLabel nameLabel = new JLabel("Name:");
-		nameLabel.setHorizontalAlignment(JLabel.RIGHT);
-		JLabel phoneLabel = new JLabel("Phone Number:");
-		phoneLabel.setHorizontalAlignment(JLabel.RIGHT);
-		
-		nameField = new JTextField(FIELD_WIDTH);
-		phoneField = new JTextField(FIELD_WIDTH);
-		
-		gridPanel.add(nameLabel);
-		gridPanel.add(nameField);
-		gridPanel.add(phoneLabel);
-		gridPanel.add(phoneField);
+
+		JScrollPane scroll = new JScrollPane();
+		tourTable = new BusTourDialogTable();
+		scroll.setViewportView(tourTable);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		
 		//TODO: OK and Cancel Buttons maximize window
-		JButton posButton = new JButton(posButtonName);
-		posButton.setHorizontalAlignment(JButton.CENTER);
-		posButton.setMaximumSize(BUTTON_SIZE);
-		posButton.addActionListener(new ActionListener() {
+		JButton scheduleButton = new JButton("Schedule");
+		scheduleButton.setHorizontalAlignment(JButton.CENTER);
+		scheduleButton.setMaximumSize(BUTTON_SIZE);
+		scheduleButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				posButton_actionPerformed(e);
@@ -105,13 +101,15 @@ public class DriverDialog extends JDialog {
 			}
 		});
 		
-		buttonPanel.add(posButton);
+		buttonPanel.add(scheduleButton);
 		buttonPanel.add(Box.createRigidArea(HORIZONTAL_GAP));
 		buttonPanel.add(cancelButton);
 		
+		panel.add(namePanel);
+		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(errorPanel);
 		panel.add(Box.createRigidArea(VERTICAL_GAP));
-		panel.add(gridPanel);
+		panel.add(scroll);
 		panel.add(Box.createRigidArea(VERTICAL_GAP));
 		panel.add(buttonPanel);
 		
@@ -124,7 +122,7 @@ public class DriverDialog extends JDialog {
 	}
 
 	private void posButton_actionPerformed(ActionEvent e) {
-		if (getName().equals("") || getPhone().contentEquals("")) {
+		if (tourTable.getSelectionModel().isSelectionEmpty()) {
 			errorPanel.setVisible(true);
 			pack();
 			validate();
@@ -146,34 +144,9 @@ public class DriverDialog extends JDialog {
 	}
 	
 	/**
-	 * New Driver name getter
+	 * Gets the tour selected in the BusTourDialogTable
 	 */
-	public String getName() {
-		return nameField.getText();
-	}
-	
-	/**
-	 * New Driver phone number getter
-	 */
-	public String getPhone() {
-		return phoneField.getText();
-	}
-	
-	/**
-	 * Sets the driver name field when editing a Driver
-	 * 
-	 * @param name The driver's name
-	 */
-	public void setName(String name) {
-		nameField.setText(name);
-	}
-	
-	/**
-	 * Sets the driver phone number field when editing a Driver
-	 * 
-	 * @param phone The driver's phone number
-	 */
-	public void setPhone(String phone) {
-		phoneField.setText(phone);
+	public Tour getTour() {
+		return tourTable.getTour();
 	}
 }

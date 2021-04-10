@@ -1,7 +1,7 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
+import main.java.memoranda.Bus;
 import main.java.memoranda.Tour;
 import main.java.memoranda.TourColl;
 import main.java.memoranda.util.Local;
@@ -20,22 +20,22 @@ import java.awt.Component;
 import java.util.ArrayList;
 
 /**
- * DriverTourDialogTable is a JTable that displays unscheduled tours to be scheduled to a driver.
- * This table is intended to be used in the DriverTourDialog component
+ * BusTourDialogTable is a JTable that displays unscheduled tours to be scheduled to a bus.
+ * This table is intended to be used in the BusTourDialog component
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
-public class DriverTourDialogTable extends JTable {
-    private Driver driver;
+public class BusTourDialogTable extends JTable {
+    private Bus bus;
     private TableRowSorter<TableModel> sorter;
     private ArrayList<Tour> tourArray;
     private final int HEIGHT = 24;
 
     /**
-     * Constructor to the DriverTourDialogTable
+     * Constructor to the BusTourDialogTable
      */
-    public DriverTourDialogTable() {
+    public BusTourDialogTable() {
 		super();
         init();
 	}
@@ -48,8 +48,8 @@ public class DriverTourDialogTable extends JTable {
         for (int i = 0; i < tours.size(); i++) {
         	Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
         	
-        	//only display tours with a bus scheduled that do not have a driver
-    		if (tour.getDriver() == null && tour.getBus() != null) {
+        	//only display tours without a bus
+    		if (tour.getBus() == null) {
     			tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
     		}
     	}
@@ -125,7 +125,6 @@ public class DriverTourDialogTable extends JTable {
         private String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("Tour ID"),
-                Local.getString("Bus ID"),
                 //Local.getString("Date"),
                 Local.getString("Time")};
 
@@ -151,16 +150,8 @@ public class DriverTourDialogTable extends JTable {
             }
             
             if (col == 2) {
-            	return tourArray.get(row).getBusID();
-            }
-            
-            if (col == 3) {
             	return tourArray.get(row).getTime();
             }
-            
-            /*if (col == 4) {
-            	return tour.get(row).getDate();
-            }*/
 
             return null;
         }

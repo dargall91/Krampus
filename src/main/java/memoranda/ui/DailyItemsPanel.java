@@ -62,7 +62,8 @@ public class DailyItemsPanel extends JPanel {
     public EditorPanel editorPanel = new EditorPanel(this);
     JLabel currentDateLabel = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
-    TaskPanel tasksPanel = new TaskPanel(this);
+    //TaskPanel tasksPanel = new TaskPanel(this);
+    private BusPanel busPanel = new BusPanel(this);
     TourPanel tourPanel = new TourPanel(this);
     private DriverPanel driverPanel = new DriverPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
@@ -204,7 +205,8 @@ public class DailyItemsPanel extends JPanel {
         
         editorsPanel.add(driverPanel, "DRIVERS");
         editorsPanel.add(tourPanel, "TOURS");
-        editorsPanel.add(tasksPanel, "TASKS");
+        //editorsPanel.add(tasksPanel, "TASKS");
+        editorsPanel.add(busPanel, "BUSES");
         editorsPanel.add(editorPanel, "NOTES");
         
         splitPane.add(mainPanel, JSplitPane.RIGHT);
@@ -449,7 +451,9 @@ public class DailyItemsPanel extends JPanel {
             calendar.jnCalendar.renderer.setTask(null);
          //   calendar.jnCalendar.updateUI();
         }
-        if (pan.equals("TASKS") && (tasksPanel.taskTable.getSelectedRow() > -1)) {
+        
+        /*
+        if (pan.equals("TASKS") && (taskPanel.taskTable.getSelectedRow() > -1)) {
             Task t =
                 CurrentProject.getTaskList().getTask(
                     tasksPanel
@@ -459,9 +463,15 @@ public class DailyItemsPanel extends JPanel {
                         .toString());
             calendar.jnCalendar.renderer.setTask(t);
        //     calendar.jnCalendar.updateUI();
-        }
+        }*/
+        //TODO: (Derek) This method to have been relevant for the calendar system, but not for the Bus system
+        //Test what happens if it's removed after completing US7
         boolean isAg = pan.equals("DRIVERS");
         driverPanel.setActive(isAg);
+        
+        //TODO: (Derek) Found where DriverPanel.refresh is called (I missed it the first time because all changes
+        //were made via the Refactor function). But does it actually do anything relevant to the new 
+        //bus scheduling system? It does not appear so, but will be tested sometime after US7 is completed
         if (isAg)
         	driverPanel.refresh(CurrentDate.get());
         cardLayout1.show(editorsPanel, pan);
@@ -474,7 +484,7 @@ public class DailyItemsPanel extends JPanel {
 		return CurrentPanel;
 	}
     void taskB_actionPerformed(ActionEvent e) {
-        parentPanel.tasksB_actionPerformed(null);
+        parentPanel.busB_actionPerformed(null);
     }
 
     void alarmB_actionPerformed(ActionEvent e) {

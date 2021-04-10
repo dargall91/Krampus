@@ -583,7 +583,7 @@ public class AppFrame extends JFrame {
         this.workPanel.dailyItemsPanel.alarmB.addActionListener(
                 setMenusDisabled);
 
-        this.workPanel.tasksB.addActionListener(setMenusDisabled);
+        this.workPanel.busesB.addActionListener(setMenusDisabled);
         this.workPanel.toursB.addActionListener(setMenusDisabled);
         this.workPanel.filesB.addActionListener(setMenusDisabled);
         this.workPanel.driverB.addActionListener(setMenusDisabled);
