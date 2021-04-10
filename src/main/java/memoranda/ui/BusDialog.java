@@ -24,6 +24,7 @@ import javax.swing.JTextField;
  * 
  * @author Derek Argall
  * @version 04/09/2020
+
  */
 public class BusDialog extends JDialog {
 	private boolean cancelled;

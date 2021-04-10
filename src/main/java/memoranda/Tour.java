@@ -3,6 +3,8 @@ package main.java.memoranda;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import main.java.memoranda.util.DuplicateKeyException;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -64,7 +66,7 @@ public class Tour extends IndexedObject {
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour)
-            throws IndexOutOfBoundsException {
+            throws IndexOutOfBoundsException, DuplicateKeyException {
         this(newTour.getID());
 
         System.out.println("In Tour: newTour=" + newTour);
@@ -89,6 +91,7 @@ public class Tour extends IndexedObject {
                 throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
             } else {
                 bus = b;
+                bus.addTour(this);
             }
         }
 
