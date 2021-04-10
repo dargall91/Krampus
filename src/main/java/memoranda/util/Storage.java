@@ -46,7 +46,7 @@ public interface Storage {
     ResourcesList openResourcesList(Project prj);
     void storeResourcesList(ResourcesList rl, Project prj);
 
-    public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
+    public void storeNodeList(Project prj, NodeColl nodeColl) throws JsonProcessingException, IOException;
     public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
     
     public BusColl openBusList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;

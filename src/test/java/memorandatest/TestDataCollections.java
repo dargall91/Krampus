@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.Coordinate;
+import main.java.memoranda.Database;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.Node;
@@ -839,7 +840,7 @@ public class TestDataCollections {
 
         System.out.println("After adding two entries, list contains " + nodeColl.size() + " elements.");
 
-        stg.storeNodeList(nodeColl, prj);
+        stg.storeNodeList(prj, nodeColl);
 
         System.out.println("Load node list");
         NodeColl loadedNodeColl = stg.openNodeList(prj);
@@ -1091,6 +1092,20 @@ public class TestDataCollections {
         nm.setMapSize(new Dimension(1000, 600));
 
         assertEquals(new Point(0, 0), nm.getScaled(n1));
+    }
+
+
+    @Test
+    void testDatabaseExists(){
+        Database db=Database.getDatabase(stg, prj);
+        assertNotNull(db);
+    }
+
+    @Test
+    void testDatabaseLoad() throws IOException {
+        Database db=Database.getDatabase(stg, prj);
+        db.write();
+        db.load();
     }
 
 }
