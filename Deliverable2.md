@@ -46,16 +46,19 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 31MAR21 | -John | Sprint1 retrospective and Sprint2 planning | n/a | n/a | via Slack/Zoom, no blockers |
+| 04APR21 | Brian, Derek, John | Discussing progress, check TravisCI, check Taiga | On track | All builds are good | Slack/zoom, no blockers |
+| 07APR21 | All | Slack check-in | On track | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
+| 09APR21 | Brian, Derek | Discussing progress, check TravisCI, check Taiga | Catch-up required | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
 
 ### Meeting Summary:
 
-| Name | Meeting Attended This Sprint | Project Total |
-|---|---|---|
-|Brian Pape| 1| 8|
-|Chris Boveda| 1| 8|
-|Derek Argall| 1| 8|
-|John Thurstonson| 0| 7|
-|Kevin Dolan| 1| 8|
+| Name | Meeting Attended This Sprint | Sprint 1 | Project Total |
+|---|---|---|---|
+|Brian Pape| 4| 8| 12|
+|Chris Boveda| 2| 8| 10|
+|Derek Argall| 4| 8| 12|
+|John Thurstonson| 2| 7| 9|
+|Kevin Dolan| 2| 8| 10|
 
 
 ## 3: After the Sprint
