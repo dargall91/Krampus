@@ -60,6 +60,9 @@ public class TourLoader extends IndexedObject {
      * @return speed for this tour
      */
     public Integer getSpeed() {
+        if (speed == null) {
+            speed = 10;
+        }
         return speed;
     }
 
