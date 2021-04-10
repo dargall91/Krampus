@@ -2,11 +2,10 @@ package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * Driver object representing a driver in the MTB scheduling system.  Drivers can be associated with tours.
@@ -94,7 +93,7 @@ public class Driver extends IndexedObject {
     /**
      * gets a tour based on ID.
      *
-     * @param id the integer id for the tour
+     * @param id the integer id for the tour.
      * @return Tour if exists, null otherwise
      */
     @JsonIgnore
@@ -105,7 +104,7 @@ public class Driver extends IndexedObject {
     /**
      * gets a full list of this driver's tours.
      *
-     * @return Tour collection; null if no tours
+     * @return Tour collection; null if no tours.
      */
     @JsonIgnore
     public Collection<Tour> getTours() {

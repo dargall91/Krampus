@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.Iterator;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * DriverColl object holding a collection of drivers in the MTB scheduling system.
@@ -15,7 +14,7 @@ import java.util.Iterator;
 public class DriverColl extends DataCollection<Driver> implements Iterable<Driver> {
 
     /**
-     * create a new Driver collection
+     * create a new Driver collection.
      */
     public DriverColl() {
         super();

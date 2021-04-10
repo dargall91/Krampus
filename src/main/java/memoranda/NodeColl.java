@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.Iterator;
+import main.java.memoranda.util.DuplicateKeyException;
 
 
 /**
@@ -23,7 +22,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
     }
 
     /**
-     * add an entire collection of nodes (post json import)
+     * add an entire collection of nodes (post json import).
      *
      * @param c collection of Nodes to add to collection
      * @throws DuplicateKeyException if a provided Node id is not unique
@@ -37,7 +36,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
 
 
     /**
-     * Returns a new collection item with a unique key
+     * Returns a new collection item with a unique key.
      *
      * @return new Node
      */
@@ -48,7 +47,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
 
 
     /**
-     * get node by ID
+     * get node by ID.
      *
      * @param id id of the node to get
      * @return Node if found, null otherwise
@@ -58,7 +57,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
     }
 
     /**
-     * return a collection of all nodes in this collection
+     * return a collection of all nodes in this collection.
      *
      * @return All nodes in this collection, null otherwise
      */
@@ -68,7 +67,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
     }
 
     /**
-     * iterator
+     * iterator.
      *
      * @return Iterator of Node type
      */
@@ -78,7 +77,7 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
     }
 
     /**
-     * iterator
+     * iterator.
      *
      * @param <Node>
      */

@@ -1,8 +1,8 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
 import main.java.memoranda.Tour;
 import main.java.memoranda.TourColl;
 import main.java.memoranda.util.CurrentStorage;
@@ -32,56 +32,56 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 /**
- * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
+ * BusTable is a JTable that contains the data related to a Bus (Bus Number and ID)
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
-public class DriverTable extends JTable {
-    private DriverColl drivers;
+public class BusTable extends JTable {
+    private BusColl buses;
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
     private final int ID_COLUMN = 1;
-    private DriverScheduleTable scheduleTable;
+    private BusScheduleTable scheduleTable;
 
     /**
-     * Constructor for a DriverTable
+     * Constructor for a BusTable
      */
-    public DriverTable() {
+    public BusTable() {
         super();
         init();   
     }
 
     private void init() {
-    	setToolTipText("Click a driver to display their schedule. Right-click for options.");
+    	setToolTipText("Click a bus to display their schedule. Right-click for options.");
     	
-    	drivers = CurrentProject.getDriverColl();
+    	buses = CurrentProject.getBusColl();
     	
     	JPopupMenu optionsMenu = new JPopupMenu();
     	optionsMenu.setFont(new Font("Dialog", 1, 10));
     	
-    	JMenuItem editDriver = new JMenuItem("Edit Driver");
-    	editDriver.addActionListener(new ActionListener() {
+    	JMenuItem editBus = new JMenuItem("Edit Bus");
+    	editBus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editActionEvent(e);
 			}
     	});
     	
-    	JMenuItem deleteDriver = new JMenuItem("Delete Driver");
-    	deleteDriver.addActionListener(new ActionListener() {
+    	JMenuItem deleteBus = new JMenuItem("Delete Bus");
+    	deleteBus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				deleteActionEvent(e);
 			}
     	});
     	
-    	optionsMenu.add(editDriver);
-    	optionsMenu.add(deleteDriver);
+    	optionsMenu.add(editBus);
+    	optionsMenu.add(deleteBus);
     	
     	addMouseListener(new MouseAdapter() {
     		public void mouseClicked(MouseEvent e) {
-    			scheduleTable.setDriver(getDriver());
+    			scheduleTable.setBus(getBus());
     			scheduleTable.tableChanged();
     		}
     		
@@ -103,7 +103,7 @@ public class DriverTable extends JTable {
         setRowHeight(HEIGHT);
         setShowGrid(false);
         
-        DriverTableModel model = new DriverTableModel();
+        BusTableModel model = new BusTableModel();
         setModel(model);
         
         sorter = new TableRowSorter<>(model);
@@ -111,7 +111,7 @@ public class DriverTable extends JTable {
         
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        if (drivers.size() >= 1) {
+        if (buses.size() >= 1) {
         	setRowSelectionInterval(0, 0);
         }
         
@@ -175,13 +175,12 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * Defines the table model for the Driver Table
+     * Defines the table model for the Bus Table
      */
-    private class DriverTableModel extends AbstractTableModel {
+    private class BusTableModel extends AbstractTableModel {
         private String[] columnNames = {
-                Local.getString("Name"),
-                Local.getString("ID"),
-                Local.getString("Phone Number")};
+                Local.getString("Number"),
+                Local.getString("ID")};
 
         public String getColumnName(int i) {
             return columnNames[i];
@@ -192,23 +191,19 @@ public class DriverTable extends JTable {
         }
 
         public int getRowCount() {
-            return drivers.size();
+            return buses.size();
         }
 
         public Object getValueAt(int row, int col) {
-            //set the selected driver for use by other methods in addition to displaying information
-            Driver driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
+            //set the selected bus for use by other methods in addition to displaying information
+            Bus bus = buses.getBuses().toArray(new Bus[buses.size()])[row];
 
             if (col == 0) {
-            	return driver.getName();
+            	return bus.getNumber();
             }
             
             if (col == 1) {
-            	return driver.getID();
-            }
-            
-            if (col == 2) {
-            	return driver.getPhoneNumber();
+            	return bus.getID();
             }
 
             return null;
@@ -229,10 +224,9 @@ public class DriverTable extends JTable {
     }
     
     private void editActionEvent(ActionEvent e) {
-    	DriverDialog dlg = new DriverDialog(App.getFrame(), "Edit Driver", "Edit");
-    	Driver driver = getDriver();
-    	dlg.setName(driver.getName());
-    	dlg.setPhone(driver.getPhoneNumber());
+    	BusDialog dlg = new BusDialog(App.getFrame(), "Edit Bus", "Edit");
+    	Bus bus = getBus();
+    	dlg.setNumber(bus.getNumber());
     	
     	Dimension frmSize = App.getFrame().getSize();
 		Point loc = App.getFrame().getLocation();
@@ -244,11 +238,10 @@ public class DriverTable extends JTable {
 		dlg.setVisible(true);
 		
 		if (!dlg.isCancelled()) {
-			driver.setName(dlg.getName());
-			driver.setPhoneNumber(dlg.getPhone());
+			bus.setNumber(dlg.getNumber());
 			
 			try {
-				CurrentStorage.get().storeDriverList(CurrentProject.get(), drivers);
+				CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
 				tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -257,31 +250,31 @@ public class DriverTable extends JTable {
     }
     
     private void deleteActionEvent(ActionEvent e) {
-    	Driver driver = getDriver();
-    	int result = JOptionPane.showConfirmDialog(null,  "Delete " + driver.getName() + "?", "Delete Driver", JOptionPane.OK_CANCEL_OPTION);
+    	Bus bus = getBus();
+    	int result = JOptionPane.showConfirmDialog(null,  "Delete Bus No. " + bus.getNumber() + "?", "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		LinkedList<Integer> tourIDs = driver.getTourIDs();
+    		LinkedList<Integer> tourIDs = bus.getTourIDs();
     		TourColl tours = CurrentProject.getTourColl();
     		
-    		//remove driver from all scheduled tours
-			for (Tour t:driver.getTours()) {
-				driver.delTour(t);
+    		//remove bus from all scheduled tours
+			for (Tour t:bus.getTours()) {
+				bus.delTour(t);
 			}
     		
-    		drivers.del(driver.getID());
+    		buses.del(bus.getID());
     		
     		try {
-				CurrentStorage.get().storeDriverList(CurrentProject.get(), drivers);
+				CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
 				CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
 				tableChanged();
 				
-				if (drivers.size() == 0) {
-					scheduleTable.setDriver(null);
+				if (buses.size() == 0) {
+					scheduleTable.setBus(null);
 				}
 				
 				else {
-					scheduleTable.setDriver(getDriver());
+					scheduleTable.setBus(getBus());
 				}
 				
 				scheduleTable.tableChanged();
@@ -294,20 +287,20 @@ public class DriverTable extends JTable {
     }
     
     /**
-     * Gets the currently selected Driver
+     * Gets the currently selected Bus
      * 
-     * @return the Driver
+     * @return the Bus
      */
-    public Driver getDriver() {
-    	return (Driver) drivers.get((int) getValueAt(getSelectedRow(), ID_COLUMN));
+    public Bus getBus() {
+    	return (Bus) buses.get((int) getValueAt(getSelectedRow(), ID_COLUMN));
     }
     
     /**
-     * Sets the DriverScheduleTable to be updated when a user selects a driver in this table
+     * Sets the BusScheduleTable to be updated when a user selects a bus in this table
      * 
-     * @param scheduleTable The DriverScheduleTable
+     * @param scheduleTable The BusScheduleTable
      */
-    public void setScheduleTable(DriverScheduleTable scheduleTable) {
+    public void setScheduleTable(BusScheduleTable scheduleTable) {
         this.scheduleTable = scheduleTable;
     }
 }

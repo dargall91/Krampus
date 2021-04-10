@@ -2,11 +2,11 @@ package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.LinkedList;
 
 /**
- * Used to load drivers with numeric IDs from JSON and subsequently be converted into an object hierarchy
+ * Used to load drivers with numeric IDs from JSON and subsequently be converted into an object
+ * hierarchy.
  *
  * @author Brian Pape
  * @version 2021-04-01
@@ -18,7 +18,7 @@ public class DriverLoader extends IndexedObject {
 
 
     /**
-     * constructor for json deserialization
+     * constructor for json deserialization.
      *
      * @param id          id of driver
      * @param name        name of driver
@@ -37,7 +37,7 @@ public class DriverLoader extends IndexedObject {
 
 
     /**
-     * name getter
+     * name getter.
      *
      * @return name of driver
      */
@@ -46,7 +46,7 @@ public class DriverLoader extends IndexedObject {
     }
 
     /**
-     * phonenumber getter
+     * phonenumber getter.
      *
      * @return phone number of driver
      */
@@ -56,7 +56,7 @@ public class DriverLoader extends IndexedObject {
 
 
     /**
-     * returns a list of integer tour IDs for this driver
+     * returns a list of integer tour IDs for this driver.
      *
      * @return list of integer tour IDs for this driver
      */
@@ -66,7 +66,7 @@ public class DriverLoader extends IndexedObject {
 
 
     /**
-     * standard toString()
+     * standard toString().
      *
      * @return string repr of obj
      */
