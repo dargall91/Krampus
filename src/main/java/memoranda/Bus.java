@@ -27,9 +27,19 @@ public class Bus extends IndexedObject {
      *
      * @param id bus id
      */
-    Bus(Integer id) {
+    public Bus(Integer id) {
         super(id);
         tours = new HashMap<>();
+    }
+    
+    /**
+     * Create bus obj with specified number
+     *
+     * @param id bus id
+     */
+    public Bus(int id, int number) {
+        this(id);
+        this.number = number;
     }
 
 

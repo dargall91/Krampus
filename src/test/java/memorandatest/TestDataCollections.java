@@ -258,7 +258,128 @@ public class TestDataCollections {
             tour.delDriver(null);
         });
     }
+    
+    /**
+     * Utility method: Create a generic bus with a number.
+     *
+     * @param id   the id for the driver
+     * @param name the name for the driver
+     * @return a Bus object
+     */
+    Bus createNumberedBus(int id, int number) {
+        return new Bus(id, number);
+    }
 
+    /**
+     * Utility method: Create a generic bus associated with a tour.
+     *
+     * @param id A the id for the bus
+     * @return the Bus object
+     */
+    Bus createGenericBusWithTour(int id) throws DuplicateKeyException {
+        // routeColl set in @BeforeAll
+
+        TourColl tourColl = new TourColl();
+        Tour tour = tourColl.newItem();
+        tour.setName("A tour");
+        tour.setTime(LocalTime.of(12, 0));
+        tour.setRoute(routeColl.get(ROUTE1));
+
+        Tour tour2 = tourColl.newItem();
+        tour2.setName("Tour number 2");
+        tour2.setTime(LocalTime.of(14, 0));
+        tour2.setRoute(routeColl.get(ROUTE2));
+
+
+        Bus b = createNumberedBus(id, 1);
+        b.addTour(tour);
+        b.addTour(tour2);
+
+        assertNotNull(b);
+
+        return b;
+    }
+    
+    /**
+     * validate that adding a tour to a bus adds the bus to the tour.
+     */
+    @Test
+    void testAddTourToBus() throws DuplicateKeyException {
+        Bus bus = createNumberedBus(1, 1);
+        Tour tour = createNamedTourAtTime("Tour 1", 13, 15);
+        bus.addTour(tour);
+        assertEquals(bus, tour.getBus());
+    }
+
+    /**
+     * validate that a tour cannot be added to two different buses
+     */
+    @Test
+    void testAddTourToTwoBus() throws DuplicateKeyException {
+        Bus bus = createNumberedBus(1, 1);
+        Bus bus2 = createNumberedBus(2, 2);
+        Tour tour = createNamedTourAtTime("Tour 1", 13, 15);
+        bus.addTour(tour);
+        assertThrows(DuplicateKeyException.class, () -> {
+            bus2.addTour(tour);
+        });
+    }
+
+    /**
+     * validate that removing a tour from a bus removes the bus from the tour.
+     */
+    @Test
+    void testRemoveTourFromBus() throws DuplicateKeyException {
+        Bus bus = createNumberedBus(1, 1);
+        Tour tour = createNamedTourAtTime("Tour 1", 13, 15);
+        bus.addTour(tour);
+        bus.delTour(tour);
+        assertNull(tour.getBus());
+    }
+
+    /**
+     * validate that removing a tour from a bus successfully removes the tour from the bus
+     */
+    @Test
+    void testRemoveTourFromBus2() throws DuplicateKeyException {
+        Bus bus = createNumberedBus(1, 1);
+        Tour tour = createNamedTourAtTime("Tour 1", 13, 15);
+        bus.addTour(tour);
+        bus.delTour(tour);
+        assertNull(bus.getTour(tour.getID()));
+    }
+    
+    /**
+     * validate that an invalid bus cannot be removed from tour.
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testInvalidBusRemovalFromTour() throws DuplicateKeyException {
+        Bus bus = createNumberedBus(1, 1);
+        Tour tour = createNamedTourAtTime("Tour 1", 13, 15);
+        bus.addTour(tour);
+
+        Bus bus2 = createNumberedBus(2, 2);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            tour.delBus(bus2);
+        });
+    }
+    
+    /**
+     * validate that a null bus cannot be removed from tour.
+     *
+     * @throws DuplicateKeyException if non-unique key encountered
+     */
+    @Test
+    void testNullBusRemovalFromTour() throws DuplicateKeyException {
+        Bus bus = createNumberedBus(1, 1);
+        Tour tour = createNamedTourAtTime("Tour 1", 13, 15);
+        bus.addTour(tour);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            tour.delBus(null);
+        });
+    }
 
     /**
      * Test the basic node constructor.
@@ -590,7 +711,6 @@ public class TestDataCollections {
         tour.setName(name);
         tour.setTime(LocalTime.of(hour, minute));
         tour.setRoute(routeColl.get(ROUTE1));
-        tour.setBus(busColl.get(BUS1));
 
         return tour;
     }
