@@ -65,7 +65,7 @@ public class TourPanel extends JPanel {
         }
     }
     
-    void jbInit() throws Exception {
+    private void jbInit() throws Exception {
         this.setLayout(borderLayout1);
         toursToolBar.setFloatable(false);
 
@@ -113,7 +113,7 @@ public class TourPanel extends JPanel {
         ppEditTour.setText("Edit Tour");
         ppEditTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ppEditEvent_actionPerformed(e);
+                ppEditTour_actionPerformed(e);
             }
         });
         
@@ -121,7 +121,7 @@ public class TourPanel extends JPanel {
         ppRemoveTour.setText("Remove Tour");
         ppRemoveTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ppRemoveEvent_actionPerformed(e);
+                ppRemoveTour_actionPerformed(e);
             }
         });
         
@@ -129,7 +129,7 @@ public class TourPanel extends JPanel {
         ppNewTour.setText("New Tour");
         ppNewTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ppNewEvent_actionPerformed(e);
+                ppNewTour_actionPerformed(e);
             }
         });
         
@@ -180,7 +180,7 @@ public class TourPanel extends JPanel {
      * 
      * @param e new tour ActionEvent
      */
-    void newTourB_actionPerformed(ActionEvent e) {
+    public void newTourB_actionPerformed(ActionEvent e) {
         TourDialog dlg = new TourDialog(App.getFrame(), "Add Tour");
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -216,7 +216,7 @@ public class TourPanel extends JPanel {
      * 
      * @param e edit tour ActionEvent
      */
-    void editTourB_actionPerformed(ActionEvent e) {
+    public void editTourB_actionPerformed(ActionEvent e) {
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
         TourDialog dlg = new TourDialog(App.getFrame(), "Edit Tour");
         dlg.setName(tour.getName());
@@ -255,7 +255,7 @@ public class TourPanel extends JPanel {
      * 
      * @param e remove tour ActionEvent
      */
-    void removeTourB_actionPerformed(ActionEvent e) {
+    public void removeTourB_actionPerformed(ActionEvent e) {
         Driver driver;
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
         int result = JOptionPane.showConfirmDialog(null,  "Delete " + tour.getName() + 
@@ -315,21 +315,41 @@ public class TourPanel extends JPanel {
     
 
 
+    /**
+     * PopupListener for mouse on specific tour
+     * 
+     * @author John Thurstonson
+     * @version 04/10/2021
+     *
+     */
     class PopupListener extends MouseAdapter {
 
+        /**
+         * Double click for edit
+         */
         public void mouseClicked(MouseEvent e) {
             if ((e.getClickCount() == 2) && (tourTable.getSelectedRow() > -1))
                 editTourB_actionPerformed(null);
         }
 
+        /**
+         * Mouse clicked
+         */
         public void mousePressed(MouseEvent e) {
             maybeShowPopup(e);
         }
 
+        /**
+         * Mouse released
+         */
         public void mouseReleased(MouseEvent e) {
             maybeShowPopup(e);
         }
 
+        /**
+         * Shows pop up for add, edit, remove
+         * @param e mouse click
+         */
         private void maybeShowPopup(MouseEvent e) {
             if (e.isPopupTrigger()) {
                 tourPPMenu.show(e.getComponent(), e.getX(), e.getY());
@@ -337,13 +357,25 @@ public class TourPanel extends JPanel {
         }
 
     }
-    void ppEditEvent_actionPerformed(ActionEvent e) {
+    /**
+     * Edit tour selected
+     * @param e edit even
+     */
+    public void ppEditTour_actionPerformed(ActionEvent e) {
         editTourB_actionPerformed(e);
     }
-    void ppRemoveEvent_actionPerformed(ActionEvent e) {
+    /**
+     * Remove tour selected
+     * @param e remove tour
+     */
+    public void ppRemoveTour_actionPerformed(ActionEvent e) {
         removeTourB_actionPerformed(e);
     }
-    void ppNewEvent_actionPerformed(ActionEvent e) {
+    /**
+     * New tour selected
+     * @param e new tour
+     */
+    public void ppNewTour_actionPerformed(ActionEvent e) {
         newTourB_actionPerformed(e);
     }
 }

@@ -243,36 +243,69 @@ public class TourDialog extends JDialog {
         this.dispose();
     }
     
+    /**
+     * Return if cancelled or not
+     * @return true if cancelled
+     */
     public boolean isCancelled() {
         return cancelled;
     }
     
+    
+    /**
+     * Returns name
+     * @return name
+     */
     public String getName() {
         return nameField.getText();
     }
     
+    /**
+     * Sets current name
+     * @param name tour name
+     */
     public void setName(String name) {
         nameField.setText(name);
     }
     
+    /**
+     * Returns route
+     * @return route
+     */
     public Route getRoute() {
         return (Route) routeCB.getSelectedItem();
     }
     
+    /**
+     * Sets current route
+     * @param route tour route
+     */
     public void setRoute(Route route) {
         routeCB.setSelectedItem(route);
     }
     
+    /**
+     * Returns bus
+     * @return bus
+     */
     public Bus getBus() {
         return (Bus) busCB.getSelectedItem();
     }
     
+    /**
+     * Sets current bus
+     * @param bus tour bus
+     */
     public void setBus(Bus bus) {
         busCB.setSelectedItem(bus);
     }
     
-    //https://stackoverflow.com/questions/63502597/how-to-set-the-value-of-a-jspinner-using-a-localtime-object
+    /**
+     * Returns time
+     * @return set time in HH:MM
+     */
     public LocalTime getTime() {
+      //https://stackoverflow.com/questions/63502597/how-to-set-the-value-of-a-jspinner-using-a-localtime-object
         //Time formatting
         Object obj = timeSpin.getValue();
         if (obj instanceof java.util.Date) {
@@ -304,6 +337,10 @@ public class TourDialog extends JDialog {
     }
     
     
+    /**
+     * Sets to current tour time
+     * @param time tour time
+     */
     public void setTime(LocalTime time) {
         Instant inst = time.atDate(LocalDate.now()).
                 atZone(ZoneId.systemDefault()).toInstant();
@@ -311,6 +348,10 @@ public class TourDialog extends JDialog {
         timeSpin.setValue(dateTime);
     }
 
+    /**
+     * Returns 1 for error and 0 for no error
+     * @return error
+     */
     public int getError() {
         return error;
     }

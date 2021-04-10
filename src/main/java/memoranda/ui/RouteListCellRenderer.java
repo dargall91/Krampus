@@ -19,6 +19,9 @@ import main.java.memoranda.Route;
  */
 public class RouteListCellRenderer extends DefaultListCellRenderer {
     
+    /**
+     * Create readable format for route drop down box
+     */
     public Component getListCellRendererComponent(
             JList list, Object value, int index,
             boolean isSelected, boolean cellHasFocus) {

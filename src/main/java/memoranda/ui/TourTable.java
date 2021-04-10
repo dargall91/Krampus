@@ -24,7 +24,7 @@ import main.java.memoranda.TourColl;
 public class TourTable extends JTable {
 
     public static final int TOUR = 100;
-    TourColl tours;
+    private TourColl tours;
     
     /**
      * TourTable constructor
@@ -36,7 +36,7 @@ public class TourTable extends JTable {
         this.setShowGrid(false);
     }
 
-    public void initTable() {
+    private void initTable() {
         
         tours = CurrentProject.getTourColl();
         getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -45,11 +45,17 @@ public class TourTable extends JTable {
         updateUI();
     }
 
+    /**
+     * Refresh table 
+     */
     public void refresh() {
         initTable();
     }
 
-     public TableCellRenderer getCellRenderer(int row, int column) {
+     /**
+     * Setup Cells for Table
+     */
+    public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(
@@ -80,17 +86,28 @@ public class TourTable extends JTable {
      */
     class TourTableModel extends AbstractTableModel {
 
-        String[] columnNames = { "Time" , "Tour" , "Route" , "Bus" };
+        private String[] columnNames = { "Time" , "Tour" , "Route" , "Bus" };
         
 
-        TourTableModel() {
+        /**
+         * Tour table model constructor
+         */
+        public TourTableModel() {
             super();
         }
 
+        /**
+         * Return number of columns in table
+         * @return int
+         */
         public int getColumnCount() {
             return 4;
         }
 
+        /**
+         * Return number of rows in table
+         * @return int
+         */
         public int getRowCount() {
             int i;
             try {
@@ -102,6 +119,10 @@ public class TourTable extends JTable {
             return i;
         }
 
+        /**
+         * Return object in cell
+         * @return Object
+         */
         public Object getValueAt(int row, int col) {
             Tour tour = tours.getTours().toArray(new Tour[tours.size()])[row];
             
@@ -118,6 +139,10 @@ public class TourTable extends JTable {
             else return tour;
         }
 
+        /**
+         * Return name of column
+         * @return String
+         */
         public String getColumnName(int col) {
             return columnNames[col];
         }
