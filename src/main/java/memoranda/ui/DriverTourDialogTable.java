@@ -48,8 +48,8 @@ public class DriverTourDialogTable extends JTable {
         for (int i = 0; i < tours.size(); i++) {
         	Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
         	
-        	//only display tours without a driver
-    		if (tour.getDriver() == null) {
+        	//only display tours with a bus scheduled that do not have a driver
+    		if (tour.getDriver() == null && tour.getBus() != null) {
     			tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
     		}
     	}

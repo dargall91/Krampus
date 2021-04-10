@@ -254,7 +254,6 @@ public class BusTable extends JTable {
     	int result = JOptionPane.showConfirmDialog(null,  "Delete Bus No. " + bus.getNumber() + "?", "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		//TODO: uncomment once Brian has updated Tour and Bus classes
     		LinkedList<Integer> tourIDs = bus.getTourIDs();
     		TourColl tours = CurrentProject.getTourColl();
     		
@@ -267,7 +266,6 @@ public class BusTable extends JTable {
     		
     		try {
 				CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
-				//TODO: uncomment once Brian has updated Tour and Bus classes
 				CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
 				tableChanged();
 				

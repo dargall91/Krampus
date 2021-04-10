@@ -63,7 +63,7 @@ public class BusTourDialog extends JDialog {
 		busNo.setHorizontalAlignment(JLabel.CENTER);
 		
 		namePanel.add(busNo);
-		
+
 		errorPanel = new JPanel();
 		errorPanel.setVisible(false);
 		
