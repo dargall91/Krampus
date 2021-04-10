@@ -38,16 +38,16 @@ import main.java.memoranda.util.Local;
  *
  */
 public class TourPanel extends JPanel {
-    BorderLayout borderLayout1 = new BorderLayout();
-    JToolBar toursToolBar = new JToolBar();
-    JScrollPane scrollPane = new JScrollPane();
-    TourTable tourTable = new TourTable();
-    JPopupMenu tourPPMenu = new JPopupMenu();
-    JMenuItem ppEditTour = new JMenuItem();
-    JMenuItem ppRemoveTour = new JMenuItem();
-    JMenuItem ppNewTour = new JMenuItem();
-    DailyItemsPanel parentPanel = null;
-    DriverScheduleTable scheduleTable;
+    private BorderLayout borderLayout1 = new BorderLayout();
+    private JToolBar toursToolBar = new JToolBar();
+    private JScrollPane scrollPane = new JScrollPane();
+    private TourTable tourTable = new TourTable();
+    private JPopupMenu tourPPMenu = new JPopupMenu();
+    private JMenuItem ppEditTour = new JMenuItem();
+    private JMenuItem ppRemoveTour = new JMenuItem();
+    private JMenuItem ppNewTour = new JMenuItem();
+    private DailyItemsPanel parentPanel = null;
+    //private DriverScheduleTable scheduleTable;
 
     /**
      * TourPanel Constructor
