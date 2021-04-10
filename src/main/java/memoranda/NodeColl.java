@@ -1,69 +1,75 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.Iterator;
+import main.java.memoranda.util.DuplicateKeyException;
 
 
 /**
+ * NodeColl object holding a collection of nodes in the MTB scheduling system.
  *
+ * @author Brian Pape
+ * @version 2021-04-01
  */
-public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
+public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
 
     /**
      * create a new node collection
      */
-    public NodeColl(){
+    public NodeColl() {
         super();
     }
 
     /**
-     * add an entire collection of nodes (post json import)
+     * add an entire collection of nodes (post json import).
      *
-     * @param c
+     * @param c collection of Nodes to add to collection
+     * @throws DuplicateKeyException if a provided Node id is not unique
      */
-    public NodeColl(Collection<Node> c) throws DuplicateKeyException{
+    public NodeColl(Collection<Node> c) throws DuplicateKeyException {
         this();
-        for (Node n:c){
+        for (Node n : c) {
             add(n);
         }
     }
 
 
-     /**
-     * Creates a new Node object with a unique ID
+    /**
+     * Returns a new collection item with a unique key.
      *
-     * @param n
-     * @throws DuplicateKeyException
+     * @return new Node
      */
     @Override
-    public void createUnique(Node n) throws DuplicateKeyException {
-        add(new Node(getUniqueID(), n.getName(), n.getLat(), n.getLon()));
+    public Node newItem() {
+        return new Node(getUniqueID());
     }
 
-    /**
-     * get node by ID
-     * @param id
-     * @return
-     */
-    public Node get(int id){
-        return (Node)super.get(id);
-    }
 
     /**
+     * get node by ID.
      *
-     * @return
+     * @param id id of the node to get
+     * @return Node if found, null otherwise
+     */
+    public Node get(int id) {
+        return (Node) super.get(id);
+    }
+
+    /**
+     * return a collection of all nodes in this collection.
+     *
+     * @return All nodes in this collection, null otherwise
      */
     @JsonProperty
-    public Collection<IndexedObject> getNodes(){
+    public Collection<IndexedObject> getNodes() {
         return getData();
     }
 
     /**
-     * iterator
-     * @return
+     * iterator.
+     *
+     * @return Iterator of Node type
      */
     @Override
     public Iterator<Node> iterator() {
@@ -71,15 +77,17 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node>{
     }
 
     /**
-     * iterator
+     * iterator.
+     *
      * @param <Node>
      */
-    public class NodeIterator<Node> implements Iterator<Node>{
+    public class NodeIterator<Node> implements Iterator<Node> {
         Collection coll;
         Iterator<Node> it;
-        public NodeIterator(){
-            coll=getData();
-            it=coll.iterator();
+
+        public NodeIterator() {
+            coll = getData();
+            it = coll.iterator();
         }
 
         @Override

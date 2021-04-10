@@ -17,38 +17,36 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
 
 /**
- * A JPanel that provides the interface for a user to add, edit, and delete drivers from the system, as well as schedule tours for a driver
+ * A JPanel that provides the interface for a user to add, edit, and delete buses from the system, as well as schedule tours for a bus
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
-public class DriverPanel extends JSplitPane {
-	private DriverTable driverTable;
-	private DriverScheduleTable scheduleTable;
+public class BusPanel extends JSplitPane {
+	private BusTable busTable;
+	private BusScheduleTable scheduleTable;
 	private DailyItemsPanel parentPanel;
-	private DriverColl drivers;
-	private final int OVER_9000 = 9001;
+	private BusColl buses;
 	private String gotoTask;
-	private boolean isActive;
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
 	private final int LABEL_SIZE = 25;
 
 	/**
-	 * Constructor for the DriverPanel
+	 * Constructor for the BusPanel
 	 * 
-	 * Creates a JPanel which houses the the information about the Driver Schedule
+	 * Creates a JPanel which houses the the information about the Bus Schedule
 	 * 
 	 * @param parentPanel The DailyItemsPanel which will house this panel
 	 */
-	public DriverPanel(DailyItemsPanel parentPanel) {
+	public BusPanel(DailyItemsPanel parentPanel) {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		
 		try {
@@ -61,21 +59,19 @@ public class DriverPanel extends JSplitPane {
 	}
 
 	private void jbInit() throws Exception {
-		drivers = CurrentProject.getDriverColl();
-		
-		setActive(true);
+		buses = CurrentProject.getBusColl();
 
 		setDividerSize(5);
 		setResizeWeight(0.4);
 		setOneTouchExpandable(false);
 		setEnabled(false);
 
-		setLeftComponent(getDriverPanel());
+		setLeftComponent(getBusPanel());
 		setRightComponent(getSchedulePanel());
 	}
 
-	private JPanel getDriverPanel() {
-		driverTable = new DriverTable();
+	private JPanel getBusPanel() {
+		busTable = new BusTable();
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -83,16 +79,16 @@ public class DriverPanel extends JSplitPane {
 		
 		panel.setMaximumSize(new Dimension());
 		
-		JLabel label = new JLabel("Drivers");
+		JLabel label = new JLabel("Buses");
 		label.setFont(new Font(label.getFont().getFontName(), Font.PLAIN, LABEL_SIZE));
 		label.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
-		JButton add = new JButton("Add Driver");
+		JButton add = new JButton("Add Bus");
 		add.setAlignmentX(JButton.LEFT_ALIGNMENT);
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				DriverDialog dlg = new DriverDialog(App.getFrame(), "Add Driver", "Add");
+				BusDialog dlg = new BusDialog(App.getFrame(), "Add Bus", "Add");
 				Dimension frmSize = App.getFrame().getSize();
 				Point loc = App.getFrame().getLocation();
 				
@@ -103,15 +99,15 @@ public class DriverPanel extends JSplitPane {
 				dlg.setVisible(true);
 				
 				if (!dlg.isCancelled()) {
-					Driver driver = CurrentProject.getDriverColl().newItem();
-					driver.setName(dlg.getName());
-					driver.setPhoneNumber(dlg.getPhone());
+					Bus bus = CurrentProject.getBusColl().newItem();
+					//bus.setName(dlg.getName());
+					//bus.setPhoneNumber(dlg.getPhone());
 					
 					try {
-						CurrentProject.getDriverColl().add(driver);
-						CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
-						driverTable.tableChanged();
-						scheduleTable.setDriver(driverTable.getDriver());
+						CurrentProject.getBusColl().add(bus);
+						CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
+						busTable.tableChanged();
+						scheduleTable.setBus(busTable.getBus());
 						scheduleTable.tableChanged();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -121,7 +117,7 @@ public class DriverPanel extends JSplitPane {
 		});
 
 		JScrollPane scroll = new JScrollPane();
-		scroll.setViewportView(driverTable);
+		scroll.setViewportView(busTable);
 		scroll.setAlignmentX(JScrollPane.LEFT_ALIGNMENT);
 
 		panel.add(label);
@@ -134,28 +130,28 @@ public class DriverPanel extends JSplitPane {
 	}
 
 	private JPanel getSchedulePanel() {
-		if (drivers.size() >= 1) {
-			scheduleTable = new DriverScheduleTable(driverTable.getDriver());
+		if (buses.size() >= 1) {
+			scheduleTable = new BusScheduleTable(busTable.getBus());
 		}
 		
 		else {
-			scheduleTable = new DriverScheduleTable();
+			scheduleTable = new BusScheduleTable();
 		}
 		
-		driverTable.setScheduleTable(scheduleTable);
+		busTable.setScheduleTable(scheduleTable);
 		
 		JButton schedule = new JButton("Schedule Tour");
 		schedule.setAlignmentX(JButton.LEFT_ALIGNMENT);
 		schedule.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
-				if (scheduleTable.getDriver() == null) {
-					JOptionPane.showMessageDialog(null,  "Cannot Schedule Tour: No Driver Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
+				if (scheduleTable.getBus() == null) {
+					JOptionPane.showMessageDialog(null,  "Cannot Schedule Tour: No Bus Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
 				            "/ui/icons/error.png")));
 				}
 				
 				else {
-					DriverTourDialog dlg = new DriverTourDialog(App.getFrame(), scheduleTable.getDriver().getName());
+					BusTourDialog dlg = new BusTourDialog(App.getFrame(), scheduleTable.getBus().getNumber());
 					Dimension frmSize = App.getFrame().getSize();
 					Point loc = App.getFrame().getLocation();
 					
@@ -167,9 +163,9 @@ public class DriverPanel extends JSplitPane {
 					
 					if (!dlg.isCancelled() && dlg.getTour() != null) {
 						try {
-							scheduleTable.getDriver().addTour(dlg.getTour());
+							scheduleTable.getBus().addTour(dlg.getTour());
 							scheduleTable.addTour(dlg.getTour());
-							CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
+							CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
 							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
 							scheduleTable.tableChanged();
 						} catch (Exception e) {
@@ -222,14 +218,5 @@ public class DriverPanel extends JSplitPane {
 		});
 
 		Util.debug("Summary updated.");
-	}
-
-	/**
-	 * Flags this panel as the active panel
-	 * 
-	 * @param isa
-	 */
-	public void setActive(boolean isa) {
-		isActive = isa;
 	}
 }
