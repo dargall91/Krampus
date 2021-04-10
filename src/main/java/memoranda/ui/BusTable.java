@@ -254,7 +254,6 @@ public class BusTable extends JTable {
     	int result = JOptionPane.showConfirmDialog(null,  "Delete Bus No. " + bus.getNumber() + "?", "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
-    		LinkedList<Integer> tourIDs = bus.getTourIDs();
     		TourColl tours = CurrentProject.getTourColl();
     		
     		//remove bus from all scheduled tours
