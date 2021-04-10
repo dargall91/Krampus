@@ -28,7 +28,11 @@ import main.java.memoranda.util.Util;
  * A JPanel that provides the interface for a user to add, edit, and delete buses from the system, as well as schedule tours for a bus
  * 
  * @author Derek Argall
+<<<<<<< HEAD
  * @version 04/05/2020
+=======
+ * @version 04/09/2020
+>>>>>>> cc41ba898a43c2f6217504b9fc0371fa64ea7559
  */
 public class BusPanel extends JSplitPane {
 	private BusTable busTable;
@@ -163,8 +167,7 @@ public class BusPanel extends JSplitPane {
 					
 					if (!dlg.isCancelled() && dlg.getTour() != null) {
 						try {
-							//TODO: uncomment once Brian has updated Tour and Bus classes
-							//scheduleTable.getBus().addTour(dlg.getTour());
+							scheduleTable.getBus().addTour(dlg.getTour());
 							scheduleTable.addTour(dlg.getTour());
 							CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
 							CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());

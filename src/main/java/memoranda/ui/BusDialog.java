@@ -23,7 +23,11 @@ import javax.swing.JTextField;
  * allow for the user to enter non numeric characters for the Bus's Number
  * 
  * @author Derek Argall
+<<<<<<< HEAD
  * @version 04/05/2020
+=======
+ * @version 04/09/2020
+>>>>>>> cc41ba898a43c2f6217504b9fc0371fa64ea7559
  */
 public class BusDialog extends JDialog {
 	private boolean cancelled;
@@ -33,6 +37,7 @@ public class BusDialog extends JDialog {
 	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
 	private final int FIELD_WIDTH = 5;
+	private final int NO_NUMBER = -1;
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Bus to the system
@@ -141,7 +146,7 @@ public class BusDialog extends JDialog {
 	}
 
 	private void posButton_actionPerformed(ActionEvent e) {
-		if (getNumber() < 0) {
+		if (getNumber() <= NO_NUMBER) {
 			errorPanel.setVisible(true);
 			pack();
 			validate();
@@ -169,7 +174,7 @@ public class BusDialog extends JDialog {
 	 */
 	public int getNumber() {
 		if (numberField.getText().equals("")) {
-			return -1;
+			return NO_NUMBER;
 		}
 		
 		return Integer.parseInt(numberField.getText());

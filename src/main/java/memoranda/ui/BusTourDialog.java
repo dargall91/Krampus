@@ -20,7 +20,7 @@ import main.java.memoranda.Tour;
  * BusTourDialog is a JDialog that allows the user to schedule a Bus for a Tour
  * 
  * @author Derek Argall
- * @version 04/05/2020
+ * @version 04/09/2020
  */
 public class BusTourDialog extends JDialog {
 	private boolean cancelled;
@@ -63,8 +63,7 @@ public class BusTourDialog extends JDialog {
 		busNo.setHorizontalAlignment(JLabel.CENTER);
 		
 		namePanel.add(busNo);
-		
-		
+
 		errorPanel = new JPanel();
 		errorPanel.setVisible(false);
 		
