@@ -23,11 +23,7 @@ import javax.swing.JTextField;
  * allow for the user to enter non numeric characters for the Bus's Number
  * 
  * @author Derek Argall
-<<<<<<< HEAD
- * @version 04/05/2020
-=======
  * @version 04/09/2020
->>>>>>> cc41ba898a43c2f6217504b9fc0371fa64ea7559
  */
 public class BusDialog extends JDialog {
 	private boolean cancelled;
