@@ -64,7 +64,7 @@ public class Tour extends IndexedObject {
      * @throws IndexOutOfBoundsException if provided id is not unique
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour)
+    public Tour(RouteColl routeColl, TourLoader newTour)
             throws IndexOutOfBoundsException {
         this(newTour.getID());
 
@@ -76,13 +76,6 @@ public class Tour extends IndexedObject {
         time = LocalTime.parse(newTour.getTime(), timeParser);
 
         speed = newTour.getSpeed();
-
-        Bus b = busColl.get(newTour.getBusID());
-        if (b == null) {
-            throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
-        } else {
-            bus = b;
-        }
 
         Route r = routeColl.get(newTour.getRouteID());
         if (r == null) {
@@ -292,7 +285,7 @@ public class Tour extends IndexedObject {
      *
      * @return integer id of this tour's bus
      */
-    @JsonProperty("busID")
+    @JsonIgnore
     public int getBusID() {
         return bus.getID();
     }

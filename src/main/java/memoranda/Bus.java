@@ -44,6 +44,23 @@ public class Bus extends IndexedObject {
         this(id);
         this.number = number;
     }
+    
+    /**
+     * build a Driver based upon json deserialization data (DriverLoader) which requires Tour
+     * information.
+     *
+     * @param tc        the tourColl
+     * @param newDriver the DriverLoader object
+     */
+    public Bus(TourColl tc, BusLoader newBus) throws DuplicateKeyException {
+        this(newBus.getID());
+        System.out.println("Adding tour driver " + newBus.getID() + " to tours " + newBus.getTourIDs());
+        //WIP
+        this.number = newBus.getNumber();
+        for (int t : newBus.getTourIDs()) {
+            addTour(tc.get(t));
+        }
+    }
 
 
     /**

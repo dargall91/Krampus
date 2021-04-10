@@ -49,7 +49,7 @@ public interface Storage {
     public void storeNodeList(NodeColl nodeColl, Project prj) throws JsonProcessingException, IOException;
     public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
     
-    public BusColl openBusList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;
+    public BusColl openBusList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException, DuplicateKeyException;
     public void storeBusList(Project prj, BusColl busColl) throws JsonProcessingException, IOException;
 
     public RouteColl openRouteList(Project prj, NodeColl nodeList) throws JsonProcessingException, IOException, DuplicateKeyException;
@@ -58,7 +58,7 @@ public interface Storage {
     public DriverColl openDriverList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException, DuplicateKeyException;
     public void storeDriverList(Project prj, DriverColl driverColl) throws JsonProcessingException, IOException;
 
-    public TourColl openTourList(Project prj, RouteColl routeColl, BusColl busColl) throws JsonProcessingException, IOException, DuplicateKeyException;
+    public TourColl openTourList(Project prj, RouteColl routeColl) throws JsonProcessingException, IOException, DuplicateKeyException;
     public void storeTourList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException;
 
     void restoreContext();

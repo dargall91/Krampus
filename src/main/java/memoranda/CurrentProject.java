@@ -66,9 +66,9 @@ public class CurrentProject {
         _resources = CurrentStorage.get().openResourcesList(_project);
         try {
         	_nodes = CurrentStorage.get().openNodeList(_project);
-        	_buses = CurrentStorage.get().openBusList(_project);
         	_routes = CurrentStorage.get().openRouteList(_project, _nodes);
-        	_tours = CurrentStorage.get().openTourList(_project, _routes, _buses);
+        	_tours = CurrentStorage.get().openTourList(_project, _routes);
+        	_buses = CurrentStorage.get().openBusList(_project, _tours);
 			_drivers = CurrentStorage.get().openDriverList(_project, _tours);
 		} catch (IOException | DuplicateKeyException e) {
 			new ExceptionDialog(e);
@@ -156,8 +156,8 @@ public class CurrentProject {
         try {
         	newNodeColl = CurrentStorage.get().openNodeList(project);
         	newRouteColl = CurrentStorage.get().openRouteList(project, newNodeColl);
-        	newBusColl = CurrentStorage.get().openBusList(project);
-        	newTourColl = CurrentStorage.get().openTourList(project, newRouteColl, newBusColl);
+        	newBusColl = CurrentStorage.get().openBusList(project, newTourColl);
+        	newTourColl = CurrentStorage.get().openTourList(project, newRouteColl);
 			newDriverColl = CurrentStorage.get().openDriverList(project, newTourColl);
 		} catch (IOException | DuplicateKeyException e) {
 			new ExceptionDialog(e);

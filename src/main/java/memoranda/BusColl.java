@@ -28,10 +28,10 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus> {
      * @param c Bus objs to add to collection
      * @throws DuplicateKeyException if a provided Bus id is not unique
      */
-    public BusColl(Collection<Bus> c) throws DuplicateKeyException {
+    public BusColl(TourColl tourColl, Collection<BusLoader> c) throws DuplicateKeyException {
         this();
-        for (Bus b : c) {
-            add(b);
+        for (BusLoader b : c) {
+            add(new Bus(tourColl, b));
         }
     }
 

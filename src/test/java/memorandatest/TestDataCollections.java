@@ -353,7 +353,7 @@ public class TestDataCollections {
         stg.storeBusList(prj, busColl);
 
         System.out.println("Load bus list");
-        BusColl bl = stg.openBusList(prj);
+        BusColl bl = stg.openBusList(prj, tourColl);
 
         int count = 0;
         for (Bus bb : bl) {
@@ -667,7 +667,7 @@ public class TestDataCollections {
         stg.storeTourList(prj, tourColl);
 
         System.out.println("Load tour list");
-        TourColl tl = stg.openTourList(prj, routeColl, busColl);
+        TourColl tl = stg.openTourList(prj, routeColl);
 
         int count = 0;
         for (Tour tt : tl) {

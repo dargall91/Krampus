@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.*;
 
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
+import main.java.memoranda.BusLoader;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.DriverLoader;
@@ -684,7 +685,7 @@ public class FileStorage implements Storage {
      * @throws IOException
      * @throws DuplicateKeyException
      */
-    public TourColl openTourList(Project prj, RouteColl routeColl, BusColl busColl) throws JsonProcessingException, IOException, DuplicateKeyException{
+    public TourColl openTourList(Project prj, RouteColl routeColl) throws JsonProcessingException, IOException, DuplicateKeyException{
         String fn= getTourFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
@@ -696,7 +697,7 @@ public class FileStorage implements Storage {
         List<TourLoader> tourList=mapper.readValue(jsonNode.get("tours").toString(), new TypeReference<>(){});
 
         // create new nodeColl based on read data/objects
-        TourColl tourColl=new TourColl(routeColl, busColl, tourList);
+        TourColl tourColl=new TourColl(routeColl, tourList);
 
         System.out.println("[DEBUG] RouteColl has "+tourColl.size()+" in openRouteList");
         return tourColl;
@@ -775,7 +776,7 @@ public class FileStorage implements Storage {
      * @throws IOException
      * @throws DuplicateKeyException
      */
-    public BusColl openBusList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException{
+    public BusColl openBusList(Project prj, TourColl tourColl) throws JsonProcessingException, IOException, DuplicateKeyException{
         String fn= getBusFileName(prj);
 
         ObjectMapper mapper=new ObjectMapper();
@@ -784,11 +785,11 @@ public class FileStorage implements Storage {
         JsonNode jsonNode=mapper.readTree(new File(fn));
 
         // find value of "nodes" object (which is an array) and create list of Bus objects
-        List<Bus> busList=mapper.readValue(jsonNode.get("buses").toString(), new TypeReference<>(){});
+        List<BusLoader> busList=mapper.readValue(jsonNode.get("buses").toString(), new TypeReference<>(){});
 
         System.out.println("Buslist="+busList);
         // create new busColl based on read data/objects
-        BusColl busColl=new BusColl(busList);
+        BusColl busColl=new BusColl(tourColl, busList);
 
         System.out.println("[DEBUG] BusColl has "+busColl.size()+" in openBusList");
         return busColl;
