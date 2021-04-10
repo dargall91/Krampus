@@ -3,11 +3,10 @@ package main.java.memoranda;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * Bus object representing a bus in the MTB scheduling system.
@@ -34,7 +33,7 @@ public class Bus extends IndexedObject {
 
 
     /**
-     * constructor for json deserialization
+     * constructor for json deserialization.
      *
      * @param id     bus ID (typically unique)
      * @param number bus number (the number painted on the bus's side)
@@ -109,7 +108,7 @@ public class Bus extends IndexedObject {
     }
 
     /**
-     * number setter
+     * number setter.
      *
      * @param number bus number
      */
@@ -118,7 +117,7 @@ public class Bus extends IndexedObject {
     }
 
     /**
-     * number getter
+     * number getter.
      *
      * @return bus number
      */
@@ -128,7 +127,7 @@ public class Bus extends IndexedObject {
 
 
     /**
-     * standard toString() returns string repr of obj
+     * standard toString() returns string repr of obj.
      *
      * @return string repr of obj
      */

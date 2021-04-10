@@ -115,7 +115,7 @@ public class TestDataCollections {
     @AfterAll
     static void afterAll() {
         System.out.println("After all test methods");
-        stg.removeProjectStorage(prj);
+        //stg.removeProjectStorage(prj);
     }
 
 
@@ -444,6 +444,9 @@ public class TestDataCollections {
     @Test
     void testWriteDriverColl() throws JsonProcessingException, IOException, DuplicateKeyException {
 
+        Driver d = driverColl.newItem();
+        driverColl.add(d);
+
         stg.storeDriverList(prj, driverColl);
 
         // need to create all new collections so tours aren't already occupied by drivers
@@ -462,7 +465,7 @@ public class TestDataCollections {
             System.out.println("Found driver in list=" + nn);
         }
 
-        assertEquals(2, count);
+        assertEquals(3, count);
     }
 
 
@@ -676,6 +679,137 @@ public class TestDataCollections {
         }
 
         assertEquals(2, count);
+    }
+
+
+    /**
+     * test serializing/deserializing a Tour collection with no route.
+     *
+     * @throws IOException           if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
+     */
+    @Test
+    void testWriteTourWithNoRoute() throws DuplicateKeyException, IOException {
+
+        Tour t = tourColl.newItem();
+
+        // add a driver
+        Driver d = driverColl.newItem();
+        d.addTour(t);
+
+        // add a time
+        t.setTime(LocalTime.of(6, 0));
+
+        // add a bus
+        Bus b = busColl.newItem();
+        busColl.add(b);
+        b.addTour(t);
+
+        // but no route
+        tourColl.add(t);
+
+        System.out.println("Save tour list");
+        stg.storeTourList(prj, tourColl);
+
+        System.out.println("Load tour list");
+        TourColl tl = stg.openTourList(prj, routeColl, busColl);
+
+        int count = 0;
+        for (Tour tt : tl) {
+            count++;
+            System.out.println("Found route in list=" + tt);
+        }
+
+        assertEquals(3, count);
+
+
+    }
+
+    /**
+     * test serializing/deserializing a Tour collection with no bus.
+     *
+     * @throws IOException           if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
+     */
+    @Test
+    void testWriteTourWithNoBus() throws DuplicateKeyException, IOException {
+
+        Tour t = tourColl.newItem();
+
+        // add a driver
+        Driver d = driverColl.newItem();
+        d.addTour(t);
+
+        // add a time
+        t.setTime(LocalTime.of(6, 0));
+
+        // add a route
+        Route r = routeColl.newItem();
+        routeColl.add(r);
+        t.setRoute(r);
+
+        // but no bus
+        tourColl.add(t);
+
+        System.out.println("Save tour list");
+        stg.storeTourList(prj, tourColl);
+
+        System.out.println("Load tour list");
+        TourColl tl = stg.openTourList(prj, routeColl, busColl);
+
+        int count = 0;
+        for (Tour tt : tl) {
+            count++;
+            System.out.println("Found route in list=" + tt);
+        }
+
+        assertEquals(3, count);
+
+    }
+
+
+    /**
+     * test serializing/deserializing a Tour collection with no time.
+     *
+     * @throws IOException           if output file cannot be written
+     * @throws DuplicateKeyException if duplicate id is added to collection
+     */
+    @Test
+    void testWriteTourWithNoTime() throws DuplicateKeyException, IOException {
+
+        Tour t = tourColl.newItem();
+
+        // add a driver
+        Driver d = driverColl.newItem();
+        d.addTour(t);
+
+        // add a route
+        Route r = routeColl.newItem();
+        routeColl.add(r);
+        t.setRoute(r);
+
+        // add a bus
+        Bus b = busColl.newItem();
+        busColl.add(b);
+        b.addTour(t);
+
+        // but no time
+        tourColl.add(t);
+
+        System.out.println("Save tour list");
+        stg.storeTourList(prj, tourColl);
+
+        System.out.println("Load tour list");
+        TourColl tl = stg.openTourList(prj, routeColl, busColl);
+
+        int count = 0;
+        for (Tour tt : tl) {
+            count++;
+            System.out.println("Found route in list=" + tt);
+        }
+
+        assertEquals(3, count);
+
     }
 
 
