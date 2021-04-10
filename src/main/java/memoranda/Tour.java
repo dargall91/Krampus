@@ -72,24 +72,37 @@ public class Tour extends IndexedObject {
 
         name = newTour.getName();
 
-        DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
-        time = LocalTime.parse(newTour.getTime(), timeParser);
+
+        if (newTour.getTime() == null) {
+            time = null;
+        } else {
+            DateTimeFormatter timeParser = DateTimeFormatter.ofPattern("HH:mm");
+            time = LocalTime.parse(newTour.getTime(), timeParser);
+        }
 
         speed = newTour.getSpeed();
 
-        Bus b = busColl.get(newTour.getBusID());
-        if (b == null) {
-            throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
+        if (newTour.getBusID() == null) {
+            bus = null;
         } else {
-            bus = b;
+            Bus b = busColl.get(newTour.getBusID());
+            if (b == null) {
+                throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
+            } else {
+                bus = b;
+            }
         }
 
-        Route r = routeColl.get(newTour.getRouteID());
-        if (r == null) {
-            throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID()
-                    + " not found");
+        if (newTour.getRouteID() == null) {
+            route = null;
         } else {
-            route = r;
+            Route r = routeColl.get(newTour.getRouteID());
+            if (r == null) {
+                throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID()
+                        + " not found");
+            } else {
+                route = r;
+            }
         }
     }
 
@@ -201,6 +214,9 @@ public class Tour extends IndexedObject {
      */
     @JsonProperty("time")
     public String getTimeString() {
+        if (time == null) {
+            return null;
+        }
         return time.toString();
     }
 
@@ -257,7 +273,7 @@ public class Tour extends IndexedObject {
      */
     @JsonProperty
     public Integer getRouteID() {
-        if (route ==null){
+        if (route == null) {
             return null;
         }
         return route.getID();
@@ -296,8 +312,12 @@ public class Tour extends IndexedObject {
      * @return integer id of this tour's bus
      */
     @JsonProperty("busID")
-    public int getBusID() {
-        return bus.getID();
+    public Integer getBusID() {
+        if (bus == null) {
+            return null;
+        } else {
+            return bus.getID();
+        }
     }
 
     /**
