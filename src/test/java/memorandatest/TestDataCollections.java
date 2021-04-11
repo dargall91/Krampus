@@ -29,6 +29,7 @@ import main.java.memoranda.TourColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
+import main.java.memoranda.util.Storage;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
@@ -1095,17 +1096,56 @@ public class TestDataCollections {
     }
 
 
+    /**
+     * test getting a new database
+     */
     @Test
-    void testDatabaseExists(){
-        Database db=Database.getDatabase(stg, prj);
+    void testDatabaseExists() throws InterruptedException {
+        Database db = Database.getDatabase(stg, prj);
         assertNotNull(db);
     }
 
+
+    /**
+     * test writing/reading database
+     *
+     * @throws IOException if file I/O error occurs
+     */
     @Test
-    void testDatabaseLoad() throws IOException {
-        Database db=Database.getDatabase(stg, prj);
+    void testDatabaseLoad() throws IOException, InterruptedException {
+
+        System.out.println("Before all test methods");
+        Project prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        FileStorage stg = new FileStorage();
+        stg.createProjectStorage(prj);
+
+        Database db = Database.getDatabase(stg, prj);
         db.write();
-        db.load();
+        Thread.sleep(1000);
+        for (int i = 0; i < 1000; i++) {
+
+            Runnable runnable1= () -> {
+                try {
+                    db.write();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+            //Runnable runnable2 = () -> {
+            //    try {
+            //        db.load();
+            //    } catch (InterruptedException e) {
+            //        e.printStackTrace();
+            //    }
+            //};
+            Thread thread1 = new Thread(runnable1);
+            //Thread thread2 = new Thread(runnable2);
+            thread1.start();
+            //thread2.start();
+
+        }
     }
 
 }
