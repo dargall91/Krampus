@@ -40,7 +40,6 @@ import main.java.memoranda.util.Util;
 
 import java.io.*;
 
-/*$Id: ResourcesPanel.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
 public class RouteMapPanel extends JPanel {
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
@@ -69,7 +68,7 @@ public class RouteMapPanel extends JPanel {
 
     /**
      * Initiates the JButtons on the panel.
-     * 
+     *
      * @throws Exception
      */
     void jbInit() throws Exception {
