@@ -1113,32 +1113,28 @@ public class TestDataCollections {
 
     /**
      * Test that the optimization results in a shorter length route
-     *
-     * @throws InterruptedException if the optimizer thread is interrupted
      */
     @Test
-    void testRouteOptimizerSuccess() throws InterruptedException {
+    void testRouteOptimizerSuccess() {
         Route r = routeColl.get(ROUTE1);
 
         Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
-        r.addNode(n3);
+        routeColl.get(ROUTE1).addNode(n3);
+
         Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
         r.addNode(n4);
 
         double originalDistance = r.length();
         r.optimize();
-        r.getThread().join();
         assertTrue(r.length() <= originalDistance);
     }
 
 
     /**
      * Test that the optimization results in a deterministic output for a given set
-     *
-     * @throws InterruptedException if the optimizer thread is interrupted
      */
     @Test
-    void testRouteOptimizerSpecificOutcome() throws InterruptedException {
+    void testRouteOptimizerSpecificOutcome() {
         Route r = routeColl.get(ROUTE1);
 
         r.getRoute().get(0).setCoords(new Coordinate (0.0, 0.0));
@@ -1152,7 +1148,6 @@ public class TestDataCollections {
         r.addNode(n4);
 
         r.optimize();
-        r.getThread().join();
 
         // Expected order: n1, n4, n3, n2
         assertEquals(n1, r.getRoute().get(0)); //start unchanged
