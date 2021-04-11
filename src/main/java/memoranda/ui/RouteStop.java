@@ -1,12 +1,19 @@
+/**
+ * RouteStop creates stops and connections for RouteMap.
+ * @author Kevin Dolan
+ * @version 1.0
+ */
 package main.java.memoranda.ui;
 
 import java.awt.*;
-import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.lang.String;
 
+/**
+ * Constructor for RouteStop.
+ */
 public class RouteStop{
     /**
      * RouteStop creates the graphical representation of bus stops.
@@ -56,18 +63,34 @@ public class RouteStop{
         //Set the style of the line
     }
 
+    /**
+     * Getter for x.
+     * @return
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Getter for y.
+     * @return
+     */
     public double getY() {
         return y;
     }
 
+    /**
+     * Getter for BusStop.
+     * @return
+     */
     public Point2D getBusStop() {
         return busStop;
     }
 
+    /**
+     * Getter for id.
+     * @return
+     */
     public int getId() {
         return id;
     }

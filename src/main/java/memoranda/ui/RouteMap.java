@@ -1,3 +1,9 @@
+/**
+ * RouteMap plots the stops on the map to visualize the nodes.
+ *
+ * @author Kevin Dolan
+ * @version 1.0
+ */
 package main.java.memoranda.ui;
 
 import main.java.memoranda.Coordinate;
@@ -17,6 +23,9 @@ public class RouteMap extends JPanel {
     private List<RouteStop> stops;
     private int id;
 
+    /**
+     * Constructor for RouteMap.
+     */
     public RouteMap() {
         id = 1;
         nodes = new NodeColl();
@@ -38,14 +47,26 @@ public class RouteMap extends JPanel {
         setBackground( Color.WHITE );
     }
 
+    /**
+     * Getter for stops list.
+     * @return
+     */
     public List<RouteStop> getStops() {
         return stops;
     }
 
+    /**
+     * Getter for id.
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setter for ID.
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
