@@ -206,7 +206,7 @@ public class CurrentProject {
         storage.storeTaskList(_tasklist, _project); 
         storage.storeResourcesList(_resources, _project);
         try {
-			storage.storeNodeList(_nodes, _project);
+			storage.storeNodeList(_project, _nodes);
 			storage.storeRouteList(_project, _routes);
 			storage.storeBusList(_project, _buses);
 			storage.storeTourList(_project, _tours);

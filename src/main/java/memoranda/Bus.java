@@ -98,7 +98,8 @@ public class Bus extends IndexedObject {
      *
      * @return a linked list of integers representing the tour IDs associated with this bus
      */
-    @JsonProperty("tourIDs")
+    //@JsonProperty("tourIDs")
+    @JsonIgnore
     public LinkedList<Integer> getTourIDs() {
         LinkedList<Integer> li = new LinkedList<>();
         for (Tour t : tours.values()) {

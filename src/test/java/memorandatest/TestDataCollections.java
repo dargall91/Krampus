@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.Coordinate;
+import main.java.memoranda.Database;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.Node;
@@ -294,18 +295,19 @@ public class TestDataCollections {
      * @throws DuplicateKeyException if duplicate key is added to collection
      */
     BusColl createBusColl() throws DuplicateKeyException {
-        busColl = new BusColl();
+        BusColl bc = new BusColl();
 
-        Bus b1 = busColl.newItem();
+        Bus b1 = bc.newItem();
         b1.setNumber(BUS1);
-        Bus b2 = busColl.newItem();
+        Bus b2 = bc.newItem();
         b2.setNumber(BUS2);
 
-        busColl.add(b1);
-        busColl.add(b2);
+        bc.add(b1);
+        bc.add(b2);
 
-        System.out.println("In createBusColl: Bus list contains " + busColl.get(BUS1) + ", " + busColl.get(BUS2));
+        System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
 
+        busColl=bc;
         return busColl;
     }
 
@@ -839,7 +841,7 @@ public class TestDataCollections {
 
         System.out.println("After adding two entries, list contains " + nodeColl.size() + " elements.");
 
-        stg.storeNodeList(nodeColl, prj);
+        stg.storeNodeList(prj, nodeColl);
 
         System.out.println("Load node list");
         NodeColl loadedNodeColl = stg.openNodeList(prj);
@@ -1091,6 +1093,59 @@ public class TestDataCollections {
         nm.setMapSize(new Dimension(1000, 600));
 
         assertEquals(new Point(0, 0), nm.getScaled(n1));
+    }
+
+
+    /**
+     * test getting a new database
+     */
+    @Test
+    void testDatabaseExists() throws InterruptedException {
+        Database db = Database.getDatabase(stg, prj);
+        assertNotNull(db);
+    }
+
+
+    /**
+     * test writing/reading database
+     *
+     * @throws IOException if file I/O error occurs
+     */
+    @Test
+    void testDatabaseLoad() throws IOException, InterruptedException {
+
+        System.out.println("Before all test methods");
+        Project prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        FileStorage stg = new FileStorage();
+        stg.createProjectStorage(prj);
+
+        Database db = Database.getDatabase(stg, prj);
+        db.write();
+        Thread.sleep(1000);
+        for (int i = 0; i < 1000; i++) {
+
+            Runnable runnable1= () -> {
+                try {
+                    db.write();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+            //Runnable runnable2 = () -> {
+            //    try {
+            //        db.load();
+            //    } catch (InterruptedException e) {
+            //        e.printStackTrace();
+            //    }
+            //};
+            Thread thread1 = new Thread(runnable1);
+            //Thread thread2 = new Thread(runnable2);
+            thread1.start();
+            //thread2.start();
+
+        }
     }
 
 }
