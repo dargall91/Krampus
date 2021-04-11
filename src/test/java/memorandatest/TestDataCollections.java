@@ -10,21 +10,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import main.java.memoranda.Bus;
-import main.java.memoranda.BusColl;
-import main.java.memoranda.Coordinate;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
-import main.java.memoranda.Node;
-import main.java.memoranda.NodeColl;
-import main.java.memoranda.NodeMapper;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectManager;
-import main.java.memoranda.Route;
-import main.java.memoranda.RouteColl;
-import main.java.memoranda.RouteLoader;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
+import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
@@ -1101,12 +1087,30 @@ public class TestDataCollections {
      */
     @Test
     void testRouteOptimizerForDataIntegrity() {
-        LinkedList<Node> nodes = (LinkedList<Node>) routeColl.get(ROUTE1).getRoute().clone();
+        Route r = routeColl.get(ROUTE1);
+        LinkedList<Node> nodes = (LinkedList<Node>) r.getRoute().clone();
         int size = nodes.size();
-        routeColl.get(ROUTE1).optimize();
-        assertEquals(size, routeColl.get(ROUTE1).getRoute().size());
+        new RouteOptimizer(r).optimize();
+        assertEquals(size, r.getRoute().size());
         for (Node n : nodes) {
-            assertTrue(routeColl.get(ROUTE1).getRoute().contains(n));
+            assertTrue(r.getRoute().contains(n));
+        }
+    }
+
+
+    /**
+     * Test that the route contains all original nodes with no losses after optimization with
+     * start selection.
+     */
+    @Test
+    void testRouteOptimizeWithStartForDataIntegrity() {
+        Route r = routeColl.get(ROUTE1);
+        LinkedList<Node> nodes = (LinkedList<Node>) r.getRoute().clone();
+        int size = nodes.size();
+        new RouteOptimizer(r).optimizeWithStart();
+        assertEquals(size, r.getRoute().size());
+        for (Node n : nodes) {
+            assertTrue(r.getRoute().contains(n));
         }
     }
 
@@ -1117,16 +1121,31 @@ public class TestDataCollections {
     @Test
     void testRouteOptimizerSuccess() {
         Route r = routeColl.get(ROUTE1);
-
         Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
         routeColl.get(ROUTE1).addNode(n3);
-
         Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
         r.addNode(n4);
-
         double originalDistance = r.length();
-        r.optimize();
+        new RouteOptimizer(r).optimize();
         assertTrue(r.length() <= originalDistance);
+    }
+
+
+    /**
+     * Test that the optimization with start selection results in a path at least
+     * as short as a non-start selected path.
+     */
+    @Test
+    void testRouteOptimizerWithStartSuccess() {
+        Route r = routeColl.get(ROUTE1);
+        Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
+        routeColl.get(ROUTE1).addNode(n3);
+        Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
+        r.addNode(n4);
+        new RouteOptimizer(r).optimize();
+        double optimizedDistance = r.length();
+        new RouteOptimizer(r).optimizeWithStart();
+        assertTrue(r.length() <= optimizedDistance);
     }
 
 
@@ -1147,13 +1166,39 @@ public class TestDataCollections {
         Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
         r.addNode(n4);
 
-        r.optimize();
+        new RouteOptimizer(r).optimize();
 
         // Expected order: n1, n4, n3, n2
         assertEquals(n1, r.getRoute().get(0)); //start unchanged
         assertEquals(n4, r.getRoute().get(1));
         assertEquals(n3, r.getRoute().get(2));
         assertEquals(n2, r.getRoute().get(3));
+    }
+
+
+    /**
+     * Test that the optimization with start selection results in a deterministic
+     * output for a given set
+     */
+    @Test
+    void testRouteOptimizerWithStartSpecificOutcome() {
+        Route r = routeColl.get(ROUTE1);
+
+        r.getRoute().get(0).setCoords(new Coordinate (10.0, 0.0));
+        Node n1 = r.getRoute().get(0);
+        r.getRoute().get(1).setCoords(new Coordinate (0.0, 0.0));
+        Node n2 = r.getRoute().get(1);
+
+        Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
+        r.addNode(n3);
+
+        new RouteOptimizer(r).optimizeWithStart();
+
+        // Expected order WITHOUT start: n1, n2, n3 (length 30)
+        // Expected order WITH start: n3, n1, n2 (length 20)
+        assertEquals(n3, r.getRoute().get(0)); //start changed
+        assertEquals(n1, r.getRoute().get(1));
+        assertEquals(n2, r.getRoute().get(2));
     }
 
 
@@ -1181,6 +1226,7 @@ public class TestDataCollections {
         routeColl.get(ROUTE1).setStart(routeColl.get(ROUTE1).getRoute().get(1));
         assertEquals(n, routeColl.get(ROUTE1).getRoute().get(0));
     }
+
 
     /**
      * Test that a node must be in the route to be set as the start
