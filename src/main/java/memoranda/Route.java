@@ -16,7 +16,6 @@ import java.util.List;
 public class Route extends IndexedObject {
     private String name;
     private LinkedList<Node> route;
-    private Thread thread;
 
 
     /**
@@ -116,37 +115,6 @@ public class Route extends IndexedObject {
 
 
     /**
-     * Optimizes the path between the nodes of the routes using a nearest-neighbor/greedy algorithm.
-     * Behavior with duplicate nodes is uncertain. Will select first element of a set of nodes that
-     * are equidistant from the current. Only factor that affects the determination of the route is the
-     * starting node.
-     */
-    public void optimize() {
-        thread = new Thread(() -> {
-            LinkedList<Node> routeCopy = new LinkedList<>(route);
-            LinkedList<Node> newRoute = new LinkedList<>();
-
-            newRoute.add(routeCopy.removeFirst());
-            while (!routeCopy.isEmpty()) {
-                double thisDistance, minDistance = Double.MAX_VALUE;
-                int minDistIndex = 0;
-                for (Node n : routeCopy) {
-                    thisDistance = newRoute.getLast().distanceTo(n);
-                    if (thisDistance < minDistance) {
-                        minDistance = thisDistance;
-                        minDistIndex = routeCopy.indexOf(n);
-                    }
-                }
-                newRoute.add(routeCopy.remove(minDistIndex));
-            }
-            route = newRoute;
-            //notify listeners
-        });
-        thread.start();
-    }
-
-
-    /**
      * Sets the given node as the start of the route. May be used in route generation interface.
      *
      * @param n the node to set as the new start
@@ -158,6 +126,12 @@ public class Route extends IndexedObject {
             return true;
         }
         return false;
+    }
+
+
+    protected void setRoute(LinkedList<Node> newRoute) {
+        route = null;
+        addNodes(newRoute);
     }
 
 
@@ -180,14 +154,6 @@ public class Route extends IndexedObject {
         return route;
     }
 
-    /**
-     * returns the optimizer thread for purposes of synchronization
-     *
-     * @return the thread of the optimizer
-     */
-    public Thread getThread() {
-        return thread;
-    }
 
     /**
      * Returns an ordered list of only the IDs of the nodes in this route for json serialization.

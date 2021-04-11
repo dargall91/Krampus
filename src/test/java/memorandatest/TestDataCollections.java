@@ -10,21 +10,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import main.java.memoranda.Bus;
-import main.java.memoranda.BusColl;
-import main.java.memoranda.Coordinate;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
-import main.java.memoranda.Node;
-import main.java.memoranda.NodeColl;
-import main.java.memoranda.NodeMapper;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectManager;
-import main.java.memoranda.Route;
-import main.java.memoranda.RouteColl;
-import main.java.memoranda.RouteLoader;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
+import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
@@ -1098,12 +1084,18 @@ public class TestDataCollections {
 
     /**
      * Test that the route contains all original nodes with no losses after optimization
+     *
+     * @throws InterruptedException if the optimizer thread is interrupted
      */
     @Test
-    void testRouteOptimizerForDataIntegrity() {
+    void testRouteOptimizerForDataIntegrity() throws InterruptedException{
         LinkedList<Node> nodes = (LinkedList<Node>) routeColl.get(ROUTE1).getRoute().clone();
         int size = nodes.size();
-        routeColl.get(ROUTE1).optimize();
+
+        RouteOptimizer ro = new RouteOptimizer(routeColl.get(ROUTE1));
+        ro.optimize();
+        ro.getThread().join();
+
         assertEquals(size, routeColl.get(ROUTE1).getRoute().size());
         for (Node n : nodes) {
             assertTrue(routeColl.get(ROUTE1).getRoute().contains(n));
@@ -1126,8 +1118,11 @@ public class TestDataCollections {
         r.addNode(n4);
 
         double originalDistance = r.length();
-        r.optimize();
-        r.getThread().join();
+
+        RouteOptimizer ro = new RouteOptimizer(r);
+        ro.optimize();
+        ro.getThread().join();
+
         assertTrue(r.length() <= originalDistance);
     }
 
@@ -1151,8 +1146,9 @@ public class TestDataCollections {
         Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
         r.addNode(n4);
 
-        r.optimize();
-        r.getThread().join();
+        RouteOptimizer ro = new RouteOptimizer(r);
+        ro.optimize();
+        ro.getThread().join();
 
         // Expected order: n1, n4, n3, n2
         assertEquals(n1, r.getRoute().get(0)); //start unchanged
