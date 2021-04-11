@@ -10,21 +10,23 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.*;
 
 public class RouteMap extends JPanel {
     private NodeColl nodes;
     private List<RouteStop> stops;
-
+    private int id;
 
     public RouteMap() {
+        id = 1;
         nodes = new NodeColl();
         stops = new ArrayList<>();
 
-        RouteStop s1 = new RouteStop(createPoint(100,100));
-        RouteStop s2 = new RouteStop(createPoint(200,110));
-        RouteStop s3 = new RouteStop(createPoint(300,250));
-        RouteStop s4 = new RouteStop(createPoint(400,10));
-        RouteStop s5 = new RouteStop(createPoint(500,700));
+        RouteStop s1 = new RouteStop(1, createPoint(100,100));
+        RouteStop s2 = new RouteStop(2, createPoint(200,110));
+        RouteStop s3 = new RouteStop(3, createPoint(300,250));
+        RouteStop s4 = new RouteStop(4, createPoint(400,10));
+        RouteStop s5 = new RouteStop(5, createPoint(500,700));
 
         addStop(stops, s1.getBusStop());
         addStop(stops, s2.getBusStop());
@@ -38,6 +40,14 @@ public class RouteMap extends JPanel {
 
     public List<RouteStop> getStops() {
         return stops;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -81,7 +91,8 @@ public class RouteMap extends JPanel {
      * @param point
      */
     public void addStop(List<RouteStop> list, Point2D point) {
-        list.add(new RouteStop(point));
+        list.add(new RouteStop(getId(), point));
+        setId(getId() + 1);
         repaint();
     }
 

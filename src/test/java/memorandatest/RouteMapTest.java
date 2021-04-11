@@ -42,11 +42,11 @@ class RouteMapTest {
     void testCheckPopulatedListAmount(){
         testRouteMapList = new ArrayList<>();
 
-        RouteStop p1 = new RouteStop(new Point(100,100));
-        RouteStop p2 = new RouteStop(new Point(100,100));
-        RouteStop p3 = new RouteStop(new Point(100,100));
-        RouteStop p4 = new RouteStop(new Point(100,100));
-        RouteStop p5 = new RouteStop(new Point(100,100));
+        RouteStop p1 = new RouteStop(1, new Point(100,100));
+        RouteStop p2 = new RouteStop(2, new Point(100,100));
+        RouteStop p3 = new RouteStop(3, new Point(100,100));
+        RouteStop p4 = new RouteStop(4, new Point(100,100));
+        RouteStop p5 = new RouteStop(5, new Point(100,100));
 
         testRouteMapList.add(0, p1);
         testRouteMapList.add(1, p2);
@@ -78,21 +78,21 @@ class RouteMapTest {
     void testListPopulatedCorrectlyX(){
         testRouteMapList = new ArrayList<>();
 
-        RouteStop p1 = new RouteStop(new Point(100,100));
-        RouteStop p2 = new RouteStop(new Point(10,10));
-        RouteStop p3 = new RouteStop(new Point(2,300));
-        RouteStop p4 = new RouteStop(new Point(34,233));
-        RouteStop p5 = new RouteStop(new Point(5,100));
-        RouteStop p6 = new RouteStop(new Point(482,597));
-        RouteStop p7 = new RouteStop(new Point(420,420));
-        RouteStop p8 = new RouteStop(new Point(1,999));
-        RouteStop p9 = new RouteStop(new Point(424,43));
-        RouteStop p10 = new RouteStop(new Point(800,420));
-        RouteStop p11 = new RouteStop(new Point(600,732));
-        RouteStop p12 = new RouteStop(new Point(690,89));
-        RouteStop p13 = new RouteStop(new Point(534,585));
-        RouteStop p14 = new RouteStop(new Point(113,333));
-        RouteStop p15 = new RouteStop(new Point(500,500));
+        RouteStop p1 = new RouteStop(1, new Point(100,100));
+        RouteStop p2 = new RouteStop(2, new Point(10,10));
+        RouteStop p3 = new RouteStop(3, new Point(2,300));
+        RouteStop p4 = new RouteStop(4, new Point(34,233));
+        RouteStop p5 = new RouteStop(5, new Point(5,100));
+        RouteStop p6 = new RouteStop(6, new Point(482,597));
+        RouteStop p7 = new RouteStop(7, new Point(420,420));
+        RouteStop p8 = new RouteStop(8, new Point(1,999));
+        RouteStop p9 = new RouteStop(9, new Point(424,43));
+        RouteStop p10 = new RouteStop(10, new Point(800,420));
+        RouteStop p11 = new RouteStop(11, new Point(600,732));
+        RouteStop p12 = new RouteStop(12, new Point(690,89));
+        RouteStop p13 = new RouteStop(13, new Point(534,585));
+        RouteStop p14 = new RouteStop(14, new Point(113,333));
+        RouteStop p15 = new RouteStop(15, new Point(500,500));
 
         testRouteMapList.add(p1);
         testRouteMapList.add(p2);
@@ -124,21 +124,21 @@ class RouteMapTest {
     void testListPopulatedCorrectlyY(){
         testRouteMapList = new ArrayList<>();
 
-        RouteStop p1 = new RouteStop(new Point(100,100));
-        RouteStop p2 = new RouteStop(new Point(10,10));
-        RouteStop p3 = new RouteStop(new Point(2,300));
-        RouteStop p4 = new RouteStop(new Point(34,233));
-        RouteStop p5 = new RouteStop(new Point(5,100));
-        RouteStop p6 = new RouteStop(new Point(482,597));
-        RouteStop p7 = new RouteStop(new Point(420,420));
-        RouteStop p8 = new RouteStop(new Point(1,999));
-        RouteStop p9 = new RouteStop(new Point(424,43));
-        RouteStop p10 = new RouteStop(new Point(800,420));
-        RouteStop p11 = new RouteStop(new Point(600,732));
-        RouteStop p12 = new RouteStop(new Point(690,89));
-        RouteStop p13 = new RouteStop(new Point(534,585));
-        RouteStop p14 = new RouteStop(new Point(113,333));
-        RouteStop p15 = new RouteStop(new Point(500,500));
+        RouteStop p1 = new RouteStop(1, new Point(100,100));
+        RouteStop p2 = new RouteStop(2, new Point(10,10));
+        RouteStop p3 = new RouteStop(3, new Point(2,300));
+        RouteStop p4 = new RouteStop(4, new Point(34,233));
+        RouteStop p5 = new RouteStop(5, new Point(5,100));
+        RouteStop p6 = new RouteStop(6, new Point(482,597));
+        RouteStop p7 = new RouteStop(7, new Point(420,420));
+        RouteStop p8 = new RouteStop(8, new Point(1,999));
+        RouteStop p9 = new RouteStop(9, new Point(424,43));
+        RouteStop p10 = new RouteStop(10, new Point(800,420));
+        RouteStop p11 = new RouteStop(11, new Point(600,732));
+        RouteStop p12 = new RouteStop(12, new Point(690,89));
+        RouteStop p13 = new RouteStop(13, new Point(534,585));
+        RouteStop p14 = new RouteStop(14, new Point(113,333));
+        RouteStop p15 = new RouteStop(15, new Point(500,500));
 
         testRouteMapList.add(p1);
         testRouteMapList.add(p2);
