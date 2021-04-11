@@ -147,6 +147,12 @@ public class CurrentProject {
 
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
+        try {
+			db = Database.getDatabase(project);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
@@ -156,12 +162,12 @@ public class CurrentProject {
         RouteColl newRouteColl = null;
         BusColl newBusColl = null;
         try {
-        	newNodeColl = CurrentStorage.get().openNodeList(project);
-        	newRouteColl = CurrentStorage.get().openRouteList(project, newNodeColl);
-        	newBusColl = CurrentStorage.get().openBusList(project);
-        	newTourColl = CurrentStorage.get().openTourList(project, newRouteColl, newBusColl);
-			newDriverColl = CurrentStorage.get().openDriverList(project, newTourColl);
-		} catch (IOException | DuplicateKeyException e) {
+        	newNodeColl = db.getNodeColl();
+        	newRouteColl = db.getRouteColl();
+        	newBusColl = db.getBusColl();
+        	newTourColl = db.getTourColl();
+			newDriverColl = db.getDriverColl();
+		} catch (Exception e) {
 			new ExceptionDialog(e);
 		}
         //TODO: Potentially modify this method for additional collections

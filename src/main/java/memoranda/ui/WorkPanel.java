@@ -273,4 +273,8 @@ public class WorkPanel extends JPanel {
 		currentB.setBackground(new Color(215, 225, 250));
 		currentB.setOpaque(true);
 	}
+	
+	public DailyItemsPanel getDailyItemsPanel() {
+		return dailyItemsPanel;
+	}
 }

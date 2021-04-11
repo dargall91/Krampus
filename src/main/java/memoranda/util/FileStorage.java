@@ -338,8 +338,9 @@ public class FileStorage implements Storage {
                 "[DEBUG] Create project dir: " + JN_DOCPATH + prj.getID());
         File dir = new File(JN_DOCPATH + prj.getID());
         dir.mkdirs();
+        
         try {
-			Database.getDatabase(this, prj).write();
+			Database.getDatabase(prj).write();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			new ExceptionDialog(e);
