@@ -33,7 +33,7 @@ public class WorkPanel extends JPanel {
 
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
-	public ResourcesPanel filesPanel = new ResourcesPanel();
+	public RouteMapPanel filesPanel = new RouteMapPanel();
 	public JButton driverB = new JButton();
 	//public JButton tasksB = new JButton();
 	public JButton busesB = new JButton();
@@ -178,7 +178,7 @@ public class WorkPanel extends JPanel {
 		filesB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/files.png")));
+					"/ui/icons/map_icon.png")));
 		filesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		filesB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,7 +187,7 @@ public class WorkPanel extends JPanel {
 		});
 		filesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		filesB.setVerticalAlignment(SwingConstants.TOP);
-		filesB.setText(Local.getString("Resources"));
+		filesB.setText(Local.getString("Map"));
 		filesB.setHorizontalTextPosition(SwingConstants.CENTER);
 		filesB.setFocusPainted(false);
 		filesB.setBorderPainted(false);
