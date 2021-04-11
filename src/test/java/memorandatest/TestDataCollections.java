@@ -1095,7 +1095,6 @@ public class TestDataCollections {
         assertEquals(new Point(0, 0), nm.getScaled(n1));
     }
 
-
     /**
      * test getting a new database
      */
@@ -1147,5 +1146,4 @@ public class TestDataCollections {
 
         }
     }
-
 }

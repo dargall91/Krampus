@@ -587,6 +587,7 @@ public class FileStorage implements Storage {
      */
     public void storeNodeList(Project prj, NodeColl nodeColl) throws JsonProcessingException,
             IOException {
+
         String fn = getNodeFileName(prj);
 
         // create new object mapper

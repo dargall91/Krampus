@@ -34,11 +34,11 @@ import main.java.memoranda.util.Util;
 import java.io.*;
 
 /*$Id: ResourcesPanel.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
-public class ResourcesPanel extends JPanel {
+public class RouteMapPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
     JToolBar toolBar = new JToolBar();
     JButton newResB = new JButton();
-    ResourcesTable resourcesTable = new ResourcesTable();
+    RouteMap map = new RouteMap();
     JButton removeResB = new JButton();
     JScrollPane scrollPane = new JScrollPane();
     JButton refreshB = new JButton();
@@ -48,7 +48,7 @@ public class ResourcesPanel extends JPanel {
   JMenuItem ppNewRes = new JMenuItem();
   JMenuItem ppRefresh = new JMenuItem();
 
-    public ResourcesPanel() {
+    public RouteMapPanel() {
         try {
             jbInit();
         }
@@ -68,21 +68,21 @@ public class ResourcesPanel extends JPanel {
         newResB.setRequestFocusEnabled(false);
         newResB.setPreferredSize(new Dimension(24, 24));
         newResB.setFocusable(false);
-        newResB.addActionListener(new java.awt.event.ActionListener() {
+        /*newResB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 newResB_actionPerformed(e);
             }
-        });
+        });*/
         newResB.setBorderPainted(false);
-        resourcesTable.setMaximumSize(new Dimension(32767, 32767));
-        resourcesTable.setRowHeight(24);
+        map.setMaximumSize(new Dimension(32767, 32767));
+        //map.setRowHeight(24);
         removeResB.setBorderPainted(false);
         removeResB.setFocusable(false);
-        removeResB.addActionListener(new java.awt.event.ActionListener() {
+        /*removeResB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 removeResB_actionPerformed(e);
             }
-        });
+        });*/
         removeResB.setPreferredSize(new Dimension(24, 24));
         removeResB.setRequestFocusEnabled(false);
         removeResB.setToolTipText(Local.getString("Remove resource"));
@@ -97,24 +97,24 @@ public class ResourcesPanel extends JPanel {
         toolBar.addSeparator(new Dimension(8, 24));
 
 
-        PopupListener ppListener = new PopupListener();
+        /*PopupListener ppListener = new PopupListener();
         scrollPane.addMouseListener(ppListener);
-        resourcesTable.addMouseListener(ppListener);
+        map.addMouseListener(ppListener);*/
 
-        resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        /*map.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                boolean enbl = (resourcesTable.getRowCount() > 0) && (resourcesTable.getSelectedRow() > -1);
+                boolean enbl = (map.getRowCount() > 0) && (map.getSelectedRow() > -1);
 
                 removeResB.setEnabled(enbl); ppRemoveRes.setEnabled(enbl);
                 ppRun.setEnabled(enbl);
             }
-        });
+        });*/
         refreshB.setBorderPainted(false);
-        refreshB.addActionListener(new java.awt.event.ActionListener() {
+        /*refreshB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 refreshB_actionPerformed(e);
             }
-        });
+        });*/
         refreshB.setFocusable(false);
         refreshB.setPreferredSize(new Dimension(24, 24));
         refreshB.setRequestFocusEnabled(false);
@@ -127,38 +127,38 @@ public class ResourcesPanel extends JPanel {
         resPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
     ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRun.setText(Local.getString("Open resource")+"...");
-    ppRun.addActionListener(new java.awt.event.ActionListener() {
+    /*ppRun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppRun_actionPerformed(e);
             }
-        });
+        });*/
     ppRun.setEnabled(false);
 
     ppRemoveRes.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRemoveRes.setText(Local.getString("Remove resource"));
-    ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
+    /*ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppRemoveRes_actionPerformed(e);
             }
-        });
+        });*/
     ppRemoveRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
     ppRemoveRes.setEnabled(false);
     ppNewRes.setFont(new java.awt.Font("Dialog", 1, 11));
     ppNewRes.setText(Local.getString("New resource")+"...");
-    ppNewRes.addActionListener(new java.awt.event.ActionListener() {
+    /*ppNewRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppNewRes_actionPerformed(e);
             }
-        });
+        });*/
     ppNewRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
 
     ppRefresh.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRefresh.setText(Local.getString("Refresh"));
-    ppRefresh.addActionListener(new java.awt.event.ActionListener() {
+    /*ppRefresh.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
         ppRefresh_actionPerformed(e);
       }
-    });
+    });*/
     ppRefresh.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
 
     toolBar.add(newResB, null);
@@ -166,7 +166,7 @@ public class ResourcesPanel extends JPanel {
         toolBar.addSeparator();
         toolBar.add(refreshB, null);
         this.add(scrollPane, BorderLayout.CENTER);
-        scrollPane.getViewport().add(resourcesTable, null);
+        scrollPane.getViewport().add(map, null);
         this.add(toolBar, BorderLayout.NORTH);
     resPPMenu.add(ppRun);
     resPPMenu.addSeparator();
@@ -174,20 +174,20 @@ public class ResourcesPanel extends JPanel {
     resPPMenu.add(ppRemoveRes);
     resPPMenu.addSeparator();
     resPPMenu.add(ppRefresh);
-	
+
 		// remove resources using the DEL key
-		resourcesTable.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e){
-				if(resourcesTable.getSelectedRows().length>0 
-					&& e.getKeyCode()==KeyEvent.VK_DELETE)
-					ppRemoveRes_actionPerformed(null);
-			}
-			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
-		});
+       /*map.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e){
+                if(map.getSelectedRows().length>0
+                        && e.getKeyCode()==KeyEvent.VK_DELETE)
+                    ppRemoveRes_actionPerformed(null);
+            }
+            public void	keyReleased(KeyEvent e){}
+            public void keyTyped(KeyEvent e){}
+        });	*/
     }
 
-    void newResB_actionPerformed(ActionEvent e) {
+    /*void newResB_actionPerformed(ActionEvent e) {
         AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New resource"));
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -213,24 +213,24 @@ public class ResourcesPanel extends JPanel {
             else
             	CurrentProject.getResourcesList().addResource(fpath);            	     	
             
-            resourcesTable.tableChanged();
+            map.tableChanged();
         }
         else {
             if (!Util.checkBrowser())
                 return;
             CurrentProject.getResourcesList().addResource(dlg.urlField.getText(), true, false);
-            resourcesTable.tableChanged();
+            map.tableChanged();
         }
-    }
+    }*/
 
-    void removeResB_actionPerformed(ActionEvent e) {
-        int[] toRemove = resourcesTable.getSelectedRows();
+    /*void removeResB_actionPerformed(ActionEvent e) {
+        int[] toRemove = map.getSelectedRows();
         String msg = "";
         if (toRemove.length == 1)
             msg =
                 Local.getString("Remove the shortcut to resource")
                     + "\n'"
-                    + resourcesTable.getModel().getValueAt(toRemove[0], 0)
+                    + map.getModel().getValueAt(toRemove[0], 0)
                     + "'";
 
         else
@@ -248,12 +248,12 @@ public class ResourcesPanel extends JPanel {
             return;
         for (int i = 0; i < toRemove.length; i++) {        	
         		CurrentProject.getResourcesList().removeResource(
-                        ((Resource) resourcesTable.getModel().getValueAt(toRemove[i], ResourcesTable._RESOURCE)).getPath());
+                        ((Resource) map.getModel().getValueAt(toRemove[i], ResourcesTable._RESOURCE)).getPath());
         }
-        resourcesTable.tableChanged();
-    }
+        map.tableChanged();
+    }*/
 
-    MimeType addResourceType(String fpath) {
+    /*MimeType addResourceType(String fpath) {
         ResourceTypeDialog dlg = new ResourceTypeDialog(App.getFrame(), Local.getString("Resource type"));
         Dimension dlgSize = new Dimension(420, 300);
         dlg.setSize(dlgSize);
@@ -269,9 +269,9 @@ public class ResourcesPanel extends JPanel {
         mt.addExtension(MimeTypesList.getExtension(fpath));
         CurrentStorage.get().storeMimeTypesList();
         return mt;
-    }
+    }*/
 
-    boolean checkApp(MimeType mt) {
+    /*boolean checkApp(MimeType mt) {
         String appId = mt.getAppId();
         AppList appList = MimeTypesList.getAppList();
         File d;
@@ -310,13 +310,13 @@ public class ResourcesPanel extends JPanel {
             dlg.appPanel.argumentsField.getText());
         mt.setApp(appId);
         /*appList.setFindPath(appId, chooser.getSelectedFile().getParent().replace('\\','/'));
-        appList.setExec(appId, chooser.getSelectedFile().getName().replace('\\','/'));*/
+        appList.setExec(appId, chooser.getSelectedFile().getName().replace('\\','/'));
         CurrentStorage.get().storeMimeTypesList();
         return true;
-    }
+    }*/
     
 
-    void runApp(String fpath) {
+    /*void runApp(String fpath) {
         MimeType mt = MimeTypesList.getMimeTypeForFile(fpath);
         if (mt.getMimeTypeId().equals("__UNKNOWN")) {
             mt = addResourceType(fpath);
@@ -328,7 +328,7 @@ public class ResourcesPanel extends JPanel {
         String[] command = MimeTypesList.getAppList().getCommand(mt.getAppId(), fpath);
         if (command == null)
             return;
-        /*DEBUG*/
+        //DEBUG
         System.out.println("Run: " + command[0]);
         try {
             Runtime.getRuntime().exec(command);
@@ -342,17 +342,17 @@ public class ResourcesPanel extends JPanel {
 
     void runBrowser(String url) {
         Util.runBrowser(url);
-    }
+    }*/
 
-    class PopupListener extends MouseAdapter {
+    /*class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            if ((e.getClickCount() == 2) && (resourcesTable.getSelectedRow() > -1)) {
-                String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
+            if ((e.getClickCount() == 2) && (map.getSelectedRow() > -1)) {
+                String path = (String) map.getValueAt(map.getSelectedRow(), 3);
                 if (path.length() >0)
                     runApp(path);
                 else
-                    runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
+                    runBrowser((String) map.getValueAt(map.getSelectedRow(), 0));
             }
             //editTaskB_actionPerformed(null);
         }
@@ -373,15 +373,15 @@ public class ResourcesPanel extends JPanel {
 
     }
     void refreshB_actionPerformed(ActionEvent e) {
-        resourcesTable.tableChanged();
-    }
+        map.tableChanged();
+    }*/
 
-  void ppRun_actionPerformed(ActionEvent e) {
-    String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
+  /*void ppRun_actionPerformed(ActionEvent e) {
+    String path = (String) map.getValueAt(map.getSelectedRow(), 3);
                 if (path.length() >0)
                     runApp(path);
                 else
-                    runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
+                    runBrowser((String) map.getValueAt(map.getSelectedRow(), 0));
   }
   void ppRemoveRes_actionPerformed(ActionEvent e) {
     removeResB_actionPerformed(e);
@@ -391,16 +391,16 @@ public class ResourcesPanel extends JPanel {
   }
 
   void ppRefresh_actionPerformed(ActionEvent e) {
-     resourcesTable.tableChanged();
-  }
-  
+     map.tableChanged();
+  }*/
+
   /**
    * Copy a file to the directory of the current project
    * @param srcStr The path of the source file.
    * @param destStr The destination path.
    * @return The new path of the file.
    */
-  String copyFileToProjectDir(String srcStr) {
+  /*String copyFileToProjectDir(String srcStr) {
 	  
 	  String JN_DOCPATH = Util.getEnvDir();	    
 	  
@@ -436,5 +436,5 @@ public class ResourcesPanel extends JPanel {
        }
 		     
   return destStr;
-  }
+  }*/
 }
