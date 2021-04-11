@@ -46,6 +46,8 @@ public class RouteMapPanel extends JPanel {
     private JButton newResB = new JButton();
     private RouteMap map = new RouteMap();
     private JButton removeResB = new JButton();
+    private JButton optRoute = new JButton();
+    private JButton optRouteWithStart = new JButton();
     private JScrollPane scrollPane = new JScrollPane();
     private JButton refreshB = new JButton();
     private JPopupMenu resPPMenu = new JPopupMenu();
@@ -74,6 +76,7 @@ public class RouteMapPanel extends JPanel {
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
+
         newResB.setIcon(
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
         newResB.setEnabled(true);
@@ -109,6 +112,39 @@ public class RouteMapPanel extends JPanel {
         removeResB.setEnabled(false);
         scrollPane.getViewport().setBackground(Color.white);
         toolBar.addSeparator(new Dimension(8, 24));
+
+        optRoute.setIcon(
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
+        optRoute.setEnabled(true);
+        optRoute.setMaximumSize(new Dimension(24, 24));
+        optRoute.setMinimumSize(new Dimension(24, 24));
+        optRoute.setToolTipText(Local.getString("Optimize route."));
+        optRoute.setRequestFocusEnabled(false);
+        optRoute.setPreferredSize(new Dimension(24, 24));
+        optRoute.setFocusable(false);
+        /*newResB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                newResB_actionPerformed(e);
+            }
+        });*/
+        optRoute.setBorderPainted(false);
+
+        optRouteWithStart.setIcon(
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
+        optRouteWithStart.setEnabled(true);
+        optRouteWithStart.setMaximumSize(new Dimension(24, 24));
+        optRouteWithStart.setMinimumSize(new Dimension(24, 24));
+        optRouteWithStart.setToolTipText(Local.getString("Optimize route with best start."));
+        optRouteWithStart.setRequestFocusEnabled(false);
+        optRouteWithStart.setPreferredSize(new Dimension(24, 24));
+        optRouteWithStart.setFocusable(false);
+        /*newResB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                newResB_actionPerformed(e);
+            }
+        });*/
+        optRouteWithStart.setBorderPainted(false);
+
         toolBar.addSeparator(new Dimension(8, 24));
 
 
@@ -178,6 +214,9 @@ public class RouteMapPanel extends JPanel {
 
         toolBar.add(newResB, null);
         toolBar.add(removeResB, null);
+        toolBar.addSeparator();
+        toolBar.add(optRoute, null);
+        toolBar.add(optRouteWithStart, null);
         toolBar.addSeparator();
         toolBar.add(refreshB, null);
         this.add(scrollPane, BorderLayout.CENTER);
