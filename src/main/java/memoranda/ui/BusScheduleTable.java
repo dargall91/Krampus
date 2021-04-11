@@ -42,14 +42,16 @@ public class BusScheduleTable extends JTable {
     private BusColl busColl;
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
+    private DriverScheduleTable driverTable;
 
     /**
      * Constructor for BusScheduleTable. Sets a default bus
      * 
      * @param bus The default bus who's schedule will be displayed
      */
-    public BusScheduleTable(Bus bus) {
+    public BusScheduleTable(Bus bus, DriverScheduleTable driverTable) {
         super();
+		this.driverTable = driverTable;
         setBus(bus);
         init();
     }
@@ -57,8 +59,9 @@ public class BusScheduleTable extends JTable {
     /**
      * Constructor for BusScheduleTable to be used when BusColl is empty
      */
-    public BusScheduleTable() {
+    public BusScheduleTable(DriverScheduleTable driverTable) {
 		super();
+		this.driverTable = driverTable;
 		setBus(null);
         init();
 	}
@@ -231,6 +234,13 @@ public class BusScheduleTable extends JTable {
     	int result = JOptionPane.showConfirmDialog(null,  "Remove Tour from " + bus.getNumber() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
     	
     	if (result == JOptionPane.OK_OPTION) {
+    		//A driver cannot be scheduled for a tour without a bus. Check if the tour has a driver, then unschedule
+			//the tour from the driver if there is
+    		if (tour.getDriver() != null) {
+    			tour.getDriver().delTour(tour);
+    			driverTable.tableChanged();
+    		}
+    		
     		bus.delTour(tour);
     		
     		try {

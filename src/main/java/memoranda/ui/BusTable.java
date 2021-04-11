@@ -42,13 +42,16 @@ public class BusTable extends JTable {
     private TableRowSorter<TableModel> sorter;
     private final int HEIGHT = 24;
     private final int ID_COLUMN = 1;
-    private BusScheduleTable scheduleTable;
+    private BusScheduleTable busSchedule;
+    private DriverScheduleTable driverTable;
 
     /**
      * Constructor for a BusTable
      */
-    public BusTable() {
+    public BusTable(BusScheduleTable busSchedule, DriverScheduleTable driverTable) {
         super();
+        //this.busSchedule = busSchedule;
+        this.driverTable = driverTable;
         init();   
     }
 
@@ -81,8 +84,8 @@ public class BusTable extends JTable {
     	
     	addMouseListener(new MouseAdapter() {
     		public void mouseClicked(MouseEvent e) {
-    			scheduleTable.setBus(getBus());
-    			scheduleTable.tableChanged();
+    			busSchedule.setBus(getBus());
+    			busSchedule.tableChanged();
     		}
     		
     		public void mousePressed(MouseEvent e) {
@@ -258,6 +261,13 @@ public class BusTable extends JTable {
     		
     		//remove bus from all scheduled tours
 			for (Tour t:bus.getTours()) {
+				//A driver cannot be scheduled for a tour without a bus. Check if the tour has a driver, then unschedule
+				//the tour from the driver if there is
+				if (t.getDriver() != null) {
+					t.getDriver().delTour(t);
+	    			driverTable.tableChanged();
+				}
+				
 				bus.delTour(t);
 			}
     		
@@ -269,14 +279,14 @@ public class BusTable extends JTable {
 				tableChanged();
 				
 				if (buses.size() == 0) {
-					scheduleTable.setBus(null);
+					busSchedule.setBus(null);
 				}
 				
 				else {
-					scheduleTable.setBus(getBus());
+					busSchedule.setBus(getBus());
 				}
 				
-				scheduleTable.tableChanged();
+				busSchedule.tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -296,10 +306,11 @@ public class BusTable extends JTable {
     
     /**
      * Sets the BusScheduleTable to be updated when a user selects a bus in this table
+     * The BusScheduleTable MUST be set for else errors will occur
      * 
-     * @param scheduleTable The BusScheduleTable
+     * @param busSchedule The BusScheduleTable
      */
-    public void setScheduleTable(BusScheduleTable scheduleTable) {
-        this.scheduleTable = scheduleTable;
+    public void setBusScheduleTable(BusScheduleTable busSchedule) {
+        this.busSchedule = busSchedule;
     }
 }

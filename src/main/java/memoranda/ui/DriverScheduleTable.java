@@ -144,6 +144,8 @@ public class DriverScheduleTable extends JTable {
      * Repaints the table to reflect any changes to the data
      */
     public void tableChanged() {
+    	//Reload driver's tours in case this method was called from BusTable or BusScheduleTable
+    	setDriver(driver);
         init();
         updateUI();
     }

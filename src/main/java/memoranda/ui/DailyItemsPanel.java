@@ -63,9 +63,9 @@ public class DailyItemsPanel extends JPanel {
     JLabel currentDateLabel = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
     //TaskPanel tasksPanel = new TaskPanel(this);
+    private DriverPanel driverPanel = new DriverPanel(this);
     private BusPanel busPanel = new BusPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
-    private DriverPanel driverPanel = new DriverPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
@@ -483,6 +483,16 @@ public class DailyItemsPanel extends JPanel {
 	public String getCurrentPanel() {
 		return CurrentPanel;
 	}
+	
+	/**
+	 * Gets the DriverScheduleTable used to display a Driver's schedule
+	 * 
+	 * @return The DriverScheduleTable
+	 */
+	public DriverScheduleTable getDriverScheduleTable() {
+		return driverPanel.getDriverScheduleTable();
+	}
+	
     void taskB_actionPerformed(ActionEvent e) {
         parentPanel.busB_actionPerformed(null);
     }

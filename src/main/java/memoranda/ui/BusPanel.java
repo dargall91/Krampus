@@ -71,7 +71,7 @@ public class BusPanel extends JSplitPane {
 	}
 
 	private JPanel getBusPanel() {
-		busTable = new BusTable();
+		busTable = new BusTable(scheduleTable, parentPanel.getDriverScheduleTable());
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -131,14 +131,14 @@ public class BusPanel extends JSplitPane {
 
 	private JPanel getSchedulePanel() {
 		if (buses.size() >= 1) {
-			scheduleTable = new BusScheduleTable(busTable.getBus());
+			scheduleTable = new BusScheduleTable(busTable.getBus(), parentPanel.getDriverScheduleTable());
 		}
 		
 		else {
-			scheduleTable = new BusScheduleTable();
+			scheduleTable = new BusScheduleTable(parentPanel.getDriverScheduleTable());
 		}
 		
-		busTable.setScheduleTable(scheduleTable);
+		busTable.setBusScheduleTable(scheduleTable);
 		
 		JButton schedule = new JButton("Schedule Tour");
 		schedule.setAlignmentX(JButton.LEFT_ALIGNMENT);
