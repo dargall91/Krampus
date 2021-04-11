@@ -24,13 +24,17 @@ public class RouteMap extends JPanel {
         setPreferredSize( new Dimension(1000, 1000) );
         setBackground( Color.WHITE );
 
-        addStop(createPoint(100,100));
-        addStop(createPoint(110,110));
-        addStop(createPoint(120,120));
-        addStop(createPoint(80, 80));
-        addStop(createPoint(75, 60));
-        addStop(createPoint(250,10));
-        addStop(createPoint(300,400));
+        addStop(stops, createPoint(100,100));
+        addStop(stops, createPoint(110,110));
+        addStop(stops, createPoint(120,120));
+        addStop(stops, createPoint(80, 80));
+        addStop(stops, createPoint(75, 60));
+        addStop(stops, createPoint(250,10));
+        addStop(stops, createPoint(300,400));
+    }
+
+    public List<RouteStop> getStops() {
+        return stops;
     }
 
     @Override
@@ -38,8 +42,8 @@ public class RouteMap extends JPanel {
         super.paintComponent( g );
         for (int i = 0; i < stops.size(); i++) {
             if (i < stops.size() - 1){
-                stops.get(i).drawConnection(g, stops.get(i).busStop,
-                        stops.get(i + 1).busStop);
+                stops.get(i).drawConnection(g, stops.get(i).getBusStop(),
+                        stops.get(i + 1).getBusStop());
             }
         }
         for (RouteStop s : stops) {
@@ -53,13 +57,13 @@ public class RouteMap extends JPanel {
 
         while(nodeCollection.iterator().hasNext()){
             for (Node n : nodeCollection) {
-                addStop(mapper.getScaled(n));
+                addStop(stops, mapper.getScaled(n));
             }
         }
     }
 
-    public void addStop(Point2D point) {
-        stops.add(new RouteStop(point));
+    public void addStop(List<RouteStop> list, Point2D point) {
+        list.add(new RouteStop(point));
         repaint();
     }
 
@@ -69,9 +73,11 @@ public class RouteMap extends JPanel {
     }
 
     public void buildStopList(List<RouteStop> stopList) {
-        stops = null;
-        for (int i = 0; i < stopList.size(); i++){
-            stops.add(i, stopList.get(i));
+        stops.clear();
+        if (stopList != null) {
+            for (int i = 0; i < stopList.size(); i++) {
+                getStops().add(i, stopList.get(i));
+            }
         }
     }
 
@@ -82,45 +88,4 @@ public class RouteMap extends JPanel {
         n.setCoords(c);
         return n;
     }*/
-
-
-
-    /**
-     * RouteStop creates the graphical representation of bus stops.
-     */
-    private class RouteStop {
-        protected final double RADIUS = 10;
-        private final double x;
-        private final double y;
-        private final Point2D busStop;
-
-        /**
-         * Constructor for RouteStop.
-         * @param x the x coordinate
-         * @param y the y coordinate
-         */
-        public RouteStop(Point2D point) {
-            busStop = point;
-            this.x = point.getX();
-            this.y = point.getY();
-        }
-
-        /**
-         * Draws the stop on the map.
-         * @param g
-         */
-        public void drawStop(Graphics g) {
-            Graphics2D g2d = (Graphics2D) g;
-            Ellipse2D.Double circle = new Ellipse2D.Double(x, y, RADIUS, RADIUS);
-
-            g2d.setColor(Color.BLUE);
-            g2d.fill(circle);
-        }
-
-        public void drawConnection(Graphics g, Point2D p1, Point2D p2){
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.draw(new Line2D.Double(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
-            //Set the style of the line
-        }
-    }
 }
