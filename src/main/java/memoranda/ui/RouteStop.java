@@ -36,9 +36,16 @@ public class RouteStop {
         g2d.fill(circle);
     }
 
+    /**
+     * Draws the connections between stops.
+     *
+     * @param g
+     * @param p1
+     * @param p2
+     */
     public void drawConnection(Graphics g, Point2D p1, Point2D p2){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.draw(new Line2D.Double(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
+        g2d.draw(new Line2D.Double(p1, p2));
         //Set the style of the line
     }
 

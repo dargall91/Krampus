@@ -4,15 +4,11 @@ import main.java.memoranda.Coordinate;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
 import main.java.memoranda.NodeMapper;
-import main.java.memoranda.util.DuplicateKeyException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class RouteMap extends JPanel {
@@ -24,13 +20,17 @@ public class RouteMap extends JPanel {
         nodes = new NodeColl();
         stops = new ArrayList<>();
 
-        addStop(stops, createPoint(100,100));
-        addStop(stops, createPoint(110,110));
-        addStop(stops, createPoint(120,120));
-        addStop(stops, createPoint(80, 80));
-        addStop(stops, createPoint(75, 60));
-        addStop(stops, createPoint(250,10));
-        addStop(stops, createPoint(300,400));
+        RouteStop s1 = new RouteStop(createPoint(100,100));
+        RouteStop s2 = new RouteStop(createPoint(200,110));
+        RouteStop s3 = new RouteStop(createPoint(300,250));
+        RouteStop s4 = new RouteStop(createPoint(400,10));
+        RouteStop s5 = new RouteStop(createPoint(500,700));
+
+        addStop(stops, s1.getBusStop());
+        addStop(stops, s2.getBusStop());
+        addStop(stops, s3.getBusStop());
+        addStop(stops, s4.getBusStop());
+        addStop(stops, s5.getBusStop());
 
         setPreferredSize( new Dimension(1000, 1000) );
         setBackground( Color.WHITE );
