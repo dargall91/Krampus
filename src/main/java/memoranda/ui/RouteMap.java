@@ -1,5 +1,6 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.Coordinate;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
 import main.java.memoranda.NodeMapper;
@@ -10,38 +11,41 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class RouteMap extends JPanel {
     private NodeColl nodes = new NodeColl(); //will need to implement after you look at TourLoader
-    private List<RouteStop> stops = new LinkedList<>();
+    private List<RouteStop> stops = new ArrayList<>();
+
 
     public RouteMap() {
-        try {
-            nodes = createNodeColl();
-            populateStops(nodes);
-        }
-        catch (DuplicateKeyException e){
-            System.out.println("Duplicate key exception");
-        }
-
         setPreferredSize( new Dimension(1000, 1000) );
         setBackground( Color.WHITE );
+
+        addStop(createPoint(100,100));
+        addStop(createPoint(110,110));
+        addStop(createPoint(120,120));
+        addStop(createPoint(80, 80));
+        addStop(createPoint(75, 60));
+        addStop(createPoint(250,10));
+        addStop(createPoint(300,400));
     }
 
     @Override
     public void paintComponent ( Graphics g ) {
         super.paintComponent( g );
-        for (RouteStop s : stops) {
-            s.drawStop(g);
-        }
         for (int i = 0; i < stops.size(); i++) {
             if (i < stops.size() - 1){
                 stops.get(i).drawConnection(g, stops.get(i).busStop,
                         stops.get(i + 1).busStop);
             }
         }
+        for (RouteStop s : stops) {
+            s.drawStop(g);
+        }
+
     }
 
     public void populateStops(NodeColl nodeCollection) {
@@ -59,16 +63,27 @@ public class RouteMap extends JPanel {
         repaint();
     }
 
-    NodeColl createNodeColl() throws DuplicateKeyException {
-        NodeColl nc = new NodeColl();
-        Node n = new Node(1, "busstop1", 1.23, 3.24);
-        Node n2 = new Node(2, "bus stop number 2", 2.34, -134.2331);
-        nc.add(n);
-        nc.add(n2);
-
-        nodes = nc;
-        return nodes;
+    public Point2D createPoint(double x, double y) {
+        Point2D p = new Point2D.Double(x, y);
+        return p;
     }
+
+    public void buildStopList(List<RouteStop> stopList) {
+        stops = null;
+        for (int i = 0; i < stopList.size(); i++){
+            stops.add(i, stopList.get(i));
+        }
+    }
+
+    /*public Node createNode(double lat, double lon){
+        Node n = new Node(1);
+        n.setName("1");
+        Coordinate c = new Coordinate(lat, lon);
+        n.setCoords(c);
+        return n;
+    }*/
+
+
 
     /**
      * RouteStop creates the graphical representation of bus stops.
@@ -104,7 +119,7 @@ public class RouteMap extends JPanel {
 
         public void drawConnection(Graphics g, Point2D p1, Point2D p2){
             Graphics2D g2d = (Graphics2D) g;
-            g2d.draw(new Line2D.Double(p1, p2));
+            g2d.draw(new Line2D.Double(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
             //Set the style of the line
         }
     }
