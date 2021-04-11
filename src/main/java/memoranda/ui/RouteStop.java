@@ -1,5 +1,6 @@
 /**
  * RouteStop creates stops and connections for RouteMap.
+ *
  * @author Kevin Dolan
  * @version 1.0
  */

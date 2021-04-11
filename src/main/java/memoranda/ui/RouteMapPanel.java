@@ -1,3 +1,10 @@
+/**
+ * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of
+ * the Route Map.
+ *
+ * @autor alexeya, Kevin Dolan
+ * @version 2.0
+ */
 package main.java.memoranda.ui;
 
 import java.awt.BorderLayout;
@@ -35,19 +42,22 @@ import java.io.*;
 
 /*$Id: ResourcesPanel.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
 public class RouteMapPanel extends JPanel {
-    BorderLayout borderLayout1 = new BorderLayout();
-    JToolBar toolBar = new JToolBar();
-    JButton newResB = new JButton();
-    RouteMap map = new RouteMap();
-    JButton removeResB = new JButton();
-    JScrollPane scrollPane = new JScrollPane();
-    JButton refreshB = new JButton();
-  JPopupMenu resPPMenu = new JPopupMenu();
-  JMenuItem ppRun = new JMenuItem();
-  JMenuItem ppRemoveRes = new JMenuItem();
-  JMenuItem ppNewRes = new JMenuItem();
-  JMenuItem ppRefresh = new JMenuItem();
+    private BorderLayout borderLayout1 = new BorderLayout();
+    private JToolBar toolBar = new JToolBar();
+    private JButton newResB = new JButton();
+    private RouteMap map = new RouteMap();
+    private JButton removeResB = new JButton();
+    private JScrollPane scrollPane = new JScrollPane();
+    private JButton refreshB = new JButton();
+    private JPopupMenu resPPMenu = new JPopupMenu();
+    private JMenuItem ppRun = new JMenuItem();
+    private JMenuItem ppRemoveRes = new JMenuItem();
+    private JMenuItem ppNewRes = new JMenuItem();
+    private JMenuItem ppRefresh = new JMenuItem();
 
+    /**
+     * Constructor for RouteMapPanel
+     */
     public RouteMapPanel() {
         try {
             jbInit();
@@ -56,6 +66,12 @@ public class RouteMapPanel extends JPanel {
            new ExceptionDialog(ex);
         }
     }
+
+    /**
+     * Initiates the JButtons on the panel.
+     * 
+     * @throws Exception
+     */
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
@@ -125,55 +141,55 @@ public class RouteMapPanel extends JPanel {
         refreshB.setIcon(
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
         resPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
-    ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
-    ppRun.setText(Local.getString("Open resource")+"...");
-    /*ppRun.addActionListener(new java.awt.event.ActionListener() {
+        ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppRun.setText(Local.getString("Open resource")+"...");
+        /*ppRun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppRun_actionPerformed(e);
             }
         });*/
-    ppRun.setEnabled(false);
+        ppRun.setEnabled(false);
 
-    ppRemoveRes.setFont(new java.awt.Font("Dialog", 1, 11));
-    ppRemoveRes.setText(Local.getString("Remove resource"));
-    /*ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
+        ppRemoveRes.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppRemoveRes.setText(Local.getString("Remove resource"));
+        /*ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppRemoveRes_actionPerformed(e);
             }
         });*/
-    ppRemoveRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
-    ppRemoveRes.setEnabled(false);
-    ppNewRes.setFont(new java.awt.Font("Dialog", 1, 11));
-    ppNewRes.setText(Local.getString("New resource")+"...");
-    /*ppNewRes.addActionListener(new java.awt.event.ActionListener() {
+        ppRemoveRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
+        ppRemoveRes.setEnabled(false);
+        ppNewRes.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppNewRes.setText(Local.getString("New resource")+"...");
+        /*ppNewRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppNewRes_actionPerformed(e);
             }
         });*/
-    ppNewRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
+        ppNewRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
 
-    ppRefresh.setFont(new java.awt.Font("Dialog", 1, 11));
-    ppRefresh.setText(Local.getString("Refresh"));
-    /*ppRefresh.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        ppRefresh_actionPerformed(e);
-      }
-    });*/
-    ppRefresh.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
+        ppRefresh.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppRefresh.setText(Local.getString("Refresh"));
+        /*ppRefresh.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            ppRefresh_actionPerformed(e);
+        }
+        });*/
+        ppRefresh.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
 
-    toolBar.add(newResB, null);
+        toolBar.add(newResB, null);
         toolBar.add(removeResB, null);
         toolBar.addSeparator();
         toolBar.add(refreshB, null);
         this.add(scrollPane, BorderLayout.CENTER);
         scrollPane.getViewport().add(map, null);
         this.add(toolBar, BorderLayout.NORTH);
-    resPPMenu.add(ppRun);
-    resPPMenu.addSeparator();
-    resPPMenu.add(ppNewRes);
-    resPPMenu.add(ppRemoveRes);
-    resPPMenu.addSeparator();
-    resPPMenu.add(ppRefresh);
+        resPPMenu.add(ppRun);
+        resPPMenu.addSeparator();
+        resPPMenu.add(ppNewRes);
+        resPPMenu.add(ppRemoveRes);
+        resPPMenu.addSeparator();
+        resPPMenu.add(ppRefresh);
 
 		// remove resources using the DEL key
        /*map.addKeyListener(new KeyListener() {
@@ -187,7 +203,7 @@ public class RouteMapPanel extends JPanel {
         });	*/
     }
 
-    /*void newResB_actionPerformed(ActionEvent e) {
+        /*void newResB_actionPerformed(ActionEvent e) {
         AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New resource"));
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
