@@ -16,6 +16,7 @@ import java.util.List;
 public class Route extends IndexedObject {
     private String name;
     private LinkedList<Node> route;
+    private Thread thread;
 
 
     /**
@@ -121,24 +122,27 @@ public class Route extends IndexedObject {
      * starting node.
      */
     public void optimize() {
-        LinkedList<Node> routeCopy = new LinkedList<>(route);
-        LinkedList<Node> newRoute = new LinkedList<>();
+        thread = new Thread(() -> {
+            LinkedList<Node> routeCopy = new LinkedList<>(route);
+            LinkedList<Node> newRoute = new LinkedList<>();
 
-        newRoute.add(routeCopy.removeFirst());
-        while(!routeCopy.isEmpty()) {
-            double thisDistance, minDistance = Double.MAX_VALUE;
-            int minDistIndex = 0;
-            for (Node n : routeCopy) {
-                thisDistance = newRoute.getLast().distanceTo(n);
-                if (thisDistance < minDistance) {
-                    minDistance = thisDistance;
-                    minDistIndex = routeCopy.indexOf(n);
+            newRoute.add(routeCopy.removeFirst());
+            while (!routeCopy.isEmpty()) {
+                double thisDistance, minDistance = Double.MAX_VALUE;
+                int minDistIndex = 0;
+                for (Node n : routeCopy) {
+                    thisDistance = newRoute.getLast().distanceTo(n);
+                    if (thisDistance < minDistance) {
+                        minDistance = thisDistance;
+                        minDistIndex = routeCopy.indexOf(n);
+                    }
                 }
+                newRoute.add(routeCopy.remove(minDistIndex));
             }
-            newRoute.add(routeCopy.remove(minDistIndex));
-        }
-        route = newRoute;
-        //notify listeners
+            route = newRoute;
+            //notify listeners
+        });
+        thread.start();
     }
 
 
@@ -174,6 +178,15 @@ public class Route extends IndexedObject {
     @JsonIgnore
     public LinkedList<Node> getRoute() {
         return route;
+    }
+
+    /**
+     * returns the optimizer thread for purposes of synchronization
+     *
+     * @return the thread of the optimizer
+     */
+    public Thread getThread() {
+        return thread;
     }
 
     /**
