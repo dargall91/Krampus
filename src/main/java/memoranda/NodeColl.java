@@ -29,8 +29,10 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
      */
     public NodeColl(Collection<Node> c) throws DuplicateKeyException {
         this();
-        for (Node n : c) {
-            add(n);
+        if (c != null) {
+            for (Node n : c) {
+                add(n);
+            }
         }
     }
 
