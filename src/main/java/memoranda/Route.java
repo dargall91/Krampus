@@ -113,6 +113,33 @@ public class Route extends IndexedObject {
         return length() / speed;
     }
 
+
+    /**
+     * Optimizes the path between the nodes of the routes using a
+     * nearest-neighbor/greedy algorithm.
+     */
+    public void optimize() {
+        LinkedList<Node> routeCopy = new LinkedList<>(route);
+        LinkedList<Node> newRoute = new LinkedList<>();
+        double thisDistance, minDistance = Double.MAX_VALUE;
+        int minDistIndex = 0;
+
+        newRoute.add(routeCopy.removeFirst());
+        while(!routeCopy.isEmpty()) {
+            for (Node n : routeCopy) {
+                thisDistance = newRoute.getLast().distanceTo(n);
+                if (thisDistance < minDistance) {
+                    minDistance = thisDistance;
+                    minDistIndex = routeCopy.indexOf(n);
+                }
+            }
+            newRoute.add(routeCopy.remove(minDistIndex));
+        }
+        route = newRoute;
+        //notify listeners
+    }
+
+
     /**
      * standard getter for name.
      *
