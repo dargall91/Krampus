@@ -64,7 +64,7 @@ public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout4 = new BorderLayout();
     //TaskPanel tasksPanel = new TaskPanel(this);
     private BusPanel busPanel = new BusPanel(this);
-    EventsPanel eventsPanel = new EventsPanel(this);
+    private TourPanel tourPanel = new TourPanel(this);
     private DriverPanel driverPanel = new DriverPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
@@ -95,7 +95,7 @@ public class DailyItemsPanel extends JPanel {
     CardLayout cardLayout2 = new CardLayout();
         
     JTabbedPane tasksTabbedPane = new JTabbedPane();
-    JTabbedPane eventsTabbedPane = new JTabbedPane();
+    JTabbedPane toursTabbedPane = new JTabbedPane();
 	JTabbedPane driverTabbedPane = new JTabbedPane();
     Border border2;
 
@@ -204,7 +204,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
         
         editorsPanel.add(driverPanel, "DRIVERS");
-        editorsPanel.add(eventsPanel, "EVENTS");
+        editorsPanel.add(tourPanel, "TOURS");
         //editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(busPanel, "BUSES");
         editorsPanel.add(editorPanel, "NOTES");
@@ -299,7 +299,7 @@ public class DailyItemsPanel extends JPanel {
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
-        mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
+        mainTabsPanel.add(toursTabbedPane, "TOURSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(driverTabbedPane, "DRIVERSTAB");
@@ -488,6 +488,6 @@ public class DailyItemsPanel extends JPanel {
     }
 
     void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.eventsB_actionPerformed(null);
+        parentPanel.toursB_actionPerformed(null);
     }
 }

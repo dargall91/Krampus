@@ -10,7 +10,23 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import main.java.memoranda.*;
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
+import main.java.memoranda.Coordinate;
+import main.java.memoranda.Database;
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
+import main.java.memoranda.Node;
+import main.java.memoranda.NodeColl;
+import main.java.memoranda.NodeMapper;
+import main.java.memoranda.Project;
+import main.java.memoranda.ProjectManager;
+import main.java.memoranda.Route;
+import main.java.memoranda.RouteColl;
+import main.java.memoranda.RouteLoader;
+import main.java.memoranda.RouteOptimizer;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
@@ -282,18 +298,19 @@ public class TestDataCollections {
      * @throws DuplicateKeyException if duplicate key is added to collection
      */
     BusColl createBusColl() throws DuplicateKeyException {
-        busColl = new BusColl();
+        BusColl bc = new BusColl();
 
-        Bus b1 = busColl.newItem();
+        Bus b1 = bc.newItem();
         b1.setNumber(BUS1);
-        Bus b2 = busColl.newItem();
+        Bus b2 = bc.newItem();
         b2.setNumber(BUS2);
 
-        busColl.add(b1);
-        busColl.add(b2);
+        bc.add(b1);
+        bc.add(b2);
 
-        System.out.println("In createBusColl: Bus list contains " + busColl.get(BUS1) + ", " + busColl.get(BUS2));
+        System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
 
+        busColl=bc;
         return busColl;
     }
 
@@ -827,7 +844,7 @@ public class TestDataCollections {
 
         System.out.println("After adding two entries, list contains " + nodeColl.size() + " elements.");
 
-        stg.storeNodeList(nodeColl, prj);
+        stg.storeNodeList(prj, nodeColl);
 
         System.out.println("Load node list");
         NodeColl loadedNodeColl = stg.openNodeList(prj);
@@ -1083,6 +1100,16 @@ public class TestDataCollections {
 
 
     /**
+     * test getting a new database
+     */
+    @Test
+    void testDatabaseExists() throws InterruptedException {
+        Database db = Database.getDatabase(stg, prj);
+        assertNotNull(db);
+    }
+
+
+    /**
      * Test that the route contains all original nodes with no losses after optimization
      */
     @Test
@@ -1235,5 +1262,46 @@ public class TestDataCollections {
     void testStartFail() {
         Node n = new Node(NODE3, "node3", 20.0, 0.0);
         assertFalse(routeColl.get(ROUTE1).setStart(n));
+    }
+
+    /** test writing/reading database
+     *
+     * @throws IOException if file I/O error occurs
+     */
+    @Test
+    void testDatabaseLoad() throws IOException, InterruptedException {
+
+        System.out.println("Before all test methods");
+        Project prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        FileStorage stg = new FileStorage();
+        stg.createProjectStorage(prj);
+
+        Database db = Database.getDatabase(stg, prj);
+        db.write();
+        Thread.sleep(1000);
+        for (int i = 0; i < 1000; i++) {
+
+            Runnable runnable1= () -> {
+                try {
+                    db.write();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+            //Runnable runnable2 = () -> {
+            //    try {
+            //        db.load();
+            //    } catch (InterruptedException e) {
+            //        e.printStackTrace();
+            //    }
+            //};
+            Thread thread1 = new Thread(runnable1);
+            //Thread thread2 = new Thread(runnable2);
+            thread1.start();
+            //thread2.start();
+
+        }
     }
 }
