@@ -16,13 +16,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RouteMap extends JPanel {
-    private NodeColl nodes = new NodeColl(); //will need to implement after you look at TourLoader
-    private List<RouteStop> stops = new ArrayList<>();
+    private NodeColl nodes;
+    private List<RouteStop> stops;
 
 
     public RouteMap() {
-        setPreferredSize( new Dimension(1000, 1000) );
-        setBackground( Color.WHITE );
+        nodes = new NodeColl();
+        stops = new ArrayList<>();
 
         addStop(stops, createPoint(100,100));
         addStop(stops, createPoint(110,110));
@@ -31,6 +31,9 @@ public class RouteMap extends JPanel {
         addStop(stops, createPoint(75, 60));
         addStop(stops, createPoint(250,10));
         addStop(stops, createPoint(300,400));
+
+        setPreferredSize( new Dimension(1000, 1000) );
+        setBackground( Color.WHITE );
     }
 
     public List<RouteStop> getStops() {
@@ -38,6 +41,9 @@ public class RouteMap extends JPanel {
     }
 
     @Override
+    /**
+     * paintComponent draws the graphics to JPanal.
+     */
     public void paintComponent ( Graphics g ) {
         super.paintComponent( g );
         for (int i = 0; i < stops.size(); i++) {
@@ -52,6 +58,12 @@ public class RouteMap extends JPanel {
 
     }
 
+    /**
+     * populateStops retrieves stops from the NodeCollection and stores
+     * them in the list for mapping.
+     *
+     * @param nodeCollection
+     */
     public void populateStops(NodeColl nodeCollection) {
         NodeMapper mapper = new NodeMapper(nodeCollection);
 
@@ -62,16 +74,36 @@ public class RouteMap extends JPanel {
         }
     }
 
+    /**
+     * addStop adds a stop to the list for mapping.
+     *
+     * @param list
+     * @param point
+     */
     public void addStop(List<RouteStop> list, Point2D point) {
         list.add(new RouteStop(point));
         repaint();
     }
 
+    /**
+     * createPoint is a utility method for testing. It creates a Point2D point
+     * from x and y coordinates.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public Point2D createPoint(double x, double y) {
         Point2D p = new Point2D.Double(x, y);
         return p;
     }
 
+    /**
+     * buildStopList is a utility method for testing. It loads data into
+     * the stops list.
+     *
+     * @param stopList
+     */
     public void buildStopList(List<RouteStop> stopList) {
         stops.clear();
         if (stopList != null) {
@@ -81,11 +113,18 @@ public class RouteMap extends JPanel {
         }
     }
 
-    /*public Node createNode(double lat, double lon){
+    /**
+     * createNode is a utility method for testing. it creates a node.
+     *
+     * @param lat
+     * @param lon
+     * @return
+     */
+    public Node createNode(double lat, double lon){
         Node n = new Node(1);
         n.setName("1");
         Coordinate c = new Coordinate(lat, lon);
         n.setCoords(c);
         return n;
-    }*/
+    }
 }
