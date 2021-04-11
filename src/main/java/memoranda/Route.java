@@ -121,11 +121,11 @@ public class Route extends IndexedObject {
     public void optimize() {
         LinkedList<Node> routeCopy = new LinkedList<>(route);
         LinkedList<Node> newRoute = new LinkedList<>();
-        double thisDistance, minDistance = Double.MAX_VALUE;
-        int minDistIndex = 0;
 
         newRoute.add(routeCopy.removeFirst());
         while(!routeCopy.isEmpty()) {
+            double thisDistance, minDistance = Double.MAX_VALUE;
+            int minDistIndex = 0;
             for (Node n : routeCopy) {
                 thisDistance = newRoute.getLast().distanceTo(n);
                 if (thisDistance < minDistance) {
