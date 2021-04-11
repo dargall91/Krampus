@@ -64,7 +64,7 @@ public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout4 = new BorderLayout();
     //TaskPanel tasksPanel = new TaskPanel(this);
     private BusPanel busPanel = new BusPanel(this);
-    TourPanel tourPanel = new TourPanel(this);
+    private TourPanel tourPanel = new TourPanel(this);
     private DriverPanel driverPanel = new DriverPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));

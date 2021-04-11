@@ -84,7 +84,7 @@ public class TourTable extends JTable {
      * @version 04/10/2021
      *
      */
-    class TourTableModel extends AbstractTableModel {
+    private class TourTableModel extends AbstractTableModel {
 
         private String[] columnNames = { "Time" , "Tour" , "Route" , "Bus" };
         
@@ -126,13 +126,15 @@ public class TourTable extends JTable {
         public Object getValueAt(int row, int col) {
             Tour tour = tours.getTours().toArray(new Tour[tours.size()])[row];
             
-            if (col == 0)
-                
+            if (col == 0) {   
                 return tour.getTimeString();
-            else if (col == 1)
+            }
+            else if (col == 1) {
                 return tour.getName();
-            else if (col == 2)
+            }
+            else if (col == 2) {
                 return tour.getRoute().getName();
+            }
             else if (col == 3) {
                 return tour.getBus();
             }

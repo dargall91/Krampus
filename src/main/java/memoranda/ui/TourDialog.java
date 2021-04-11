@@ -69,6 +69,7 @@ public class TourDialog extends JDialog {
     private JComboBox<Route> routeCB = new JComboBox<Route>();
     private JComboBox<Bus> busCB = new JComboBox<Bus>();
     private int error = 0;
+    private final int ERROR_VALUE = 1;
     
     /**
      * TourDialog constructor
@@ -94,10 +95,10 @@ public class TourDialog extends JDialog {
             int result = JOptionPane.showConfirmDialog(null, "No Routes In System", "Need Route", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
-                return 1;
+                return ERROR_VALUE;
             } else {
                 cancelled = true;
-                return 1;
+                return ERROR_VALUE;
             }
         }
         Iterator<Route> routeIter = routes.iterator();
@@ -112,10 +113,10 @@ public class TourDialog extends JDialog {
             int result = JOptionPane.showConfirmDialog(null, "No Busses In System", "Need Buss", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
-                return 1;
+                return ERROR_VALUE;
             } else {
                 cancelled = true;
-                return 1;
+                return ERROR_VALUE;
             }
         }
         Iterator<Bus> busIter = busses.iterator();

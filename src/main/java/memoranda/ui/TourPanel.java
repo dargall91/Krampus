@@ -322,7 +322,7 @@ public class TourPanel extends JPanel {
      * @version 04/10/2021
      *
      */
-    class PopupListener extends MouseAdapter {
+    private class PopupListener extends MouseAdapter {
 
         /**
          * Double click for edit
