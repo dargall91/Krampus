@@ -296,18 +296,19 @@ public class TestDataCollections {
      * @throws DuplicateKeyException if duplicate key is added to collection
      */
     BusColl createBusColl() throws DuplicateKeyException {
-        busColl = new BusColl();
+        BusColl bc = new BusColl();
 
-        Bus b1 = busColl.newItem();
+        Bus b1 = bc.newItem();
         b1.setNumber(BUS1);
-        Bus b2 = busColl.newItem();
+        Bus b2 = bc.newItem();
         b2.setNumber(BUS2);
 
-        busColl.add(b1);
-        busColl.add(b2);
+        bc.add(b1);
+        bc.add(b2);
 
-        System.out.println("In createBusColl: Bus list contains " + busColl.get(BUS1) + ", " + busColl.get(BUS2));
+        System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
 
+        busColl=bc;
         return busColl;
     }
 
