@@ -30,8 +30,10 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus> {
      */
     public BusColl(Collection<Bus> c) throws DuplicateKeyException {
         this();
-        for (Bus b : c) {
-            add(b);
+        if (c != null) {
+            for (Bus b : c) {
+                add(b);
+            }
         }
     }
 
