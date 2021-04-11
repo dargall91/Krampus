@@ -116,7 +116,9 @@ public class Route extends IndexedObject {
 
     /**
      * Optimizes the path between the nodes of the routes using a nearest-neighbor/greedy algorithm.
-     * Behavior with duplicate nodes is uncertain.
+     * Behavior with duplicate nodes is uncertain. Will select first element of a set of nodes that
+     * are equidistant from the current. Only factor that affects the determination of the route is the
+     * starting node.
      */
     public void optimize() {
         LinkedList<Node> routeCopy = new LinkedList<>(route);
@@ -141,7 +143,7 @@ public class Route extends IndexedObject {
 
 
     /**
-     * Attempts to set the given node as the start of the route.
+     * Sets the given node as the start of the route. May be used in route generation interface.
      *
      * @param n the node to set as the new start
      * @return  false if the route did not contain the node
