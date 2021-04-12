@@ -34,6 +34,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Database;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
@@ -74,6 +75,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 	JButton ppOpenB = new JButton();
 	ProjectsTablePanel prjTablePanel = new ProjectsTablePanel();
+	private DailyItemsPanel dailyItemsPanel;
 
 	public Action newProjectAction =
 		new AbstractAction(
@@ -88,8 +90,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	};
 
 	
-	public ProjectsPanel() {
+	public ProjectsPanel(DailyItemsPanel dailyItemsPanel) {
 		try {
+			this.dailyItemsPanel = dailyItemsPanel;
 			jbInit();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
@@ -339,6 +342,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		prjTablePanel.updateUI();
 		ppDeleteProject.setEnabled(false);
 		ppOpenProject.setEnabled(false);
+		dailyItemsPanel.refresh();
 	}
 
 	void ppNewProject_actionPerformed(ActionEvent e) {
@@ -397,6 +401,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		prjTablePanel.projectsTable.clearSelection();
 		prjTablePanel.updateUI();
 		setMenuEnabled(false);
+		dailyItemsPanel.refresh();
 	}
 
 	void ppProperties_actionPerformed(ActionEvent e) {

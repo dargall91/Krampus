@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.*;
 
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
+import main.java.memoranda.Database;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.DriverLoader;
@@ -337,6 +338,13 @@ public class FileStorage implements Storage {
                 "[DEBUG] Create project dir: " + JN_DOCPATH + prj.getID());
         File dir = new File(JN_DOCPATH + prj.getID());
         dir.mkdirs();
+        
+        try {
+			Database.getDatabase(prj).write();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			new ExceptionDialog(e);
+		}
     }
 
     /**
@@ -587,7 +595,6 @@ public class FileStorage implements Storage {
      */
     public void storeNodeList(Project prj, NodeColl nodeColl) throws JsonProcessingException,
             IOException {
-
         String fn = getNodeFileName(prj);
 
         // create new object mapper

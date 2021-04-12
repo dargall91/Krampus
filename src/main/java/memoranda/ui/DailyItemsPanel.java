@@ -24,6 +24,7 @@ import javax.swing.border.Border;
 
 import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Database;
 import main.java.memoranda.EventNotificationListener;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.History;
@@ -227,7 +228,7 @@ public class DailyItemsPanel extends JPanel {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
 //            	Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");				
 //            	Util.debug("current project is " + CurrentProject.get().getTitle());
-
+            	
             	currentProjectChanged(p, nl, tl, rl);
             }
             public void projectWasChanged() {
@@ -237,7 +238,7 @@ public class DailyItemsPanel extends JPanel {
             	// cannot save note here, changing to new project
             	currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
         		CurrentNote.set(currentNote,false);
-                editorPanel.setDocument(currentNote);        
+                editorPanel.setDocument(currentNote);       
                 
 //                // DEBUG
 //                if (currentNote != null) {
@@ -384,6 +385,13 @@ public class DailyItemsPanel extends JPanel {
                 addedToHistory = true;
             }
         }*/
+       /* 
+        try {
+			Database.getDatabase(newprj);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
         
         updateIndicators(CurrentDate.get(), tl);
         App.getFrame().setCursor(cur);
@@ -489,5 +497,13 @@ public class DailyItemsPanel extends JPanel {
 
     void alarmB_actionPerformed(ActionEvent e) {
         parentPanel.toursB_actionPerformed(null);
+    }
+    
+    /**
+     * Refreshes the Panels when the project is changed
+     */
+    public void refresh() {
+    	driverPanel.refresh();
+    	busPanel.refresh();
     }
 }

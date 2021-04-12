@@ -223,6 +223,15 @@ public class DriverPanel extends JSplitPane {
 
 		Util.debug("Summary updated.");
 	}
+	
+	/**
+	 * Secondary refresh, since I'm still certain the first one does nothing, but haven't tested it
+	 * Refreshes the UI
+	 */
+	public void refresh() {
+		driverTable.tableChanged();
+		scheduleTable.tableChanged();
+	}
 
 	/**
 	 * Flags this panel as the active panel
