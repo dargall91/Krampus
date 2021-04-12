@@ -35,11 +35,10 @@ public class DriverPanel extends JSplitPane {
 	private DriverScheduleTable scheduleTable;
 	private DailyItemsPanel parentPanel;
 	private DriverColl drivers;
-	private final int OVER_9000 = 9001;
 	private String gotoTask;
 	private boolean isActive;
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private final int LABEL_SIZE = 25;
+	private static final int LABEL_SIZE = 25;
 
 	/**
 	 * Constructor for the DriverPanel
