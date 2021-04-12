@@ -100,8 +100,7 @@ public class BusPanel extends JSplitPane {
 				
 				if (!dlg.isCancelled()) {
 					Bus bus = CurrentProject.getBusColl().newItem();
-					//bus.setName(dlg.getName());
-					//bus.setPhoneNumber(dlg.getPhone());
+					bus.setNumber(dlg.getNumber());
 					
 					try {
 						CurrentProject.getBusColl().add(bus);

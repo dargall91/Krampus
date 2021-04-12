@@ -1108,7 +1108,7 @@ public class TestDataCollections {
         assertNotNull(db);
     }
 
-    /*
+    /**
      * Test that the route contains all original nodes with no losses after optimization
      */
     @Test
@@ -1157,7 +1157,7 @@ public class TestDataCollections {
     }
 
 
-    /**
+     /**
      * Test that the optimization with start selection results in a path at least
      * as short as a non-start selected path.
      */
