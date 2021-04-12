@@ -10,48 +10,37 @@ package main.java.memoranda.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.io.File;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Resource;
-import main.java.memoranda.util.AppList;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
-import main.java.memoranda.util.MimeType;
-import main.java.memoranda.util.MimeTypesList;
-import main.java.memoranda.util.Util;
-
-import java.io.*;
 
 public class RouteMapPanel extends JPanel {
+    private final int BUTTON_HEIGHT = 30;
+    private final int BUTTON_WIDTH = 150;
+
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
-    private JButton newResB = new JButton();
     private RouteMap map = new RouteMap();
-    private JButton removeResB = new JButton();
-    private JButton optRoute = new JButton();
-    private JButton optRouteWithStart = new JButton();
     private JScrollPane scrollPane = new JScrollPane();
+    private RouteTable routeTable = new RouteTable();
+    private JScrollPane rScrollPane = new JScrollPane();
+
+    private JButton newRouteB = new JButton();
+    private JButton removeRouteB = new JButton();
+    private JButton optRouteB = new JButton();
+    private JButton optRouteWithStartB = new JButton();
     private JButton refreshB = new JButton();
+
     private JPopupMenu resPPMenu = new JPopupMenu();
-    private JMenuItem ppRun = new JMenuItem();
     private JMenuItem ppRemoveRes = new JMenuItem();
     private JMenuItem ppNewRes = new JMenuItem();
     private JMenuItem ppRefresh = new JMenuItem();
@@ -76,77 +65,159 @@ public class RouteMapPanel extends JPanel {
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
-
-        newResB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
-        newResB.setEnabled(true);
-        newResB.setMaximumSize(new Dimension(24, 24));
-        newResB.setMinimumSize(new Dimension(24, 24));
-        newResB.setToolTipText(Local.getString("New resource"));
-        newResB.setRequestFocusEnabled(false);
-        newResB.setPreferredSize(new Dimension(24, 24));
-        newResB.setFocusable(false);
-        /*newResB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                newResB_actionPerformed(e);
-            }
-        });*/
-        newResB.setBorderPainted(false);
         map.setMaximumSize(new Dimension(32767, 32767));
+
+        newRouteB.setIcon(
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+        newRouteB.setText("New");
+        newRouteB.setEnabled(true);
+        newRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        newRouteB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        newRouteB.setToolTipText(Local.getString("New route."));
+        newRouteB.setRequestFocusEnabled(false);
+        newRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        newRouteB.setFocusable(false);
+        newRouteB.setBorderPainted(true);
+        newRouteB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //newResB_actionPerformed(e);
+            }
+        });
+
+        removeRouteB.setIcon(
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+        removeRouteB.setText("Remove");
+        removeRouteB.setEnabled(true);
+        removeRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        removeRouteB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        removeRouteB.setToolTipText(Local.getString("Remove route."));
+        removeRouteB.setRequestFocusEnabled(false);
+        removeRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        removeRouteB.setFocusable(false);
+        removeRouteB.setBorderPainted(true);
+        removeRouteB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //newResB_actionPerformed(e);
+            }
+        });
+
+
+        optRouteB.setIcon(
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+        optRouteB.setText("Optimize");
+        optRouteB.setEnabled(true);
+        optRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        optRouteB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        optRouteB.setToolTipText(Local.getString("Optimize route."));
+        optRouteB.setRequestFocusEnabled(false);
+        optRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        optRouteB.setFocusable(false);
+        optRouteB.setBorderPainted(true);
+        optRouteB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //newResB_actionPerformed(e);
+            }
+        });
+
+
+        optRouteWithStartB.setIcon(
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+        optRouteWithStartB.setText("Optimize w/Start");
+        optRouteWithStartB.setEnabled(true);
+        optRouteWithStartB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        optRouteWithStartB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        optRouteWithStartB.setToolTipText(Local.getString("Optimize route with best start."));
+        optRouteWithStartB.setRequestFocusEnabled(false);
+        optRouteWithStartB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        optRouteWithStartB.setFocusable(false);
+        optRouteWithStartB.setBorderPainted(true);
+        optRouteWithStartB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //newResB_actionPerformed(e);
+            }
+        });
+
+        refreshB.setIcon(
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+        refreshB.setText("Refresh");
+        refreshB.setEnabled(true);
+        refreshB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        refreshB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        refreshB.setToolTipText(Local.getString("Refresh map."));
+        refreshB.setRequestFocusEnabled(false);
+        refreshB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        refreshB.setFocusable(false);
+        refreshB.setBorderPainted(true);
+        refreshB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //newResB_actionPerformed(e);
+            }
+        });
+
+        routeTable.setMaximumSize(new Dimension(32767, 32767));
+        routeTable.setRowHeight(24);
+        rScrollPane.getViewport().setBackground(Color.lightGray);
+        rScrollPane.getViewport().add(routeTable, null);
+
+        toolBar.add(newRouteB, null);
+        toolBar.addSeparator();
+        toolBar.add(removeRouteB, null);
+        toolBar.addSeparator();
+        toolBar.add(optRouteB, null);
+        toolBar.addSeparator();
+        toolBar.add(optRouteWithStartB, null);
+        toolBar.addSeparator();
+        toolBar.add(refreshB, null);
+
+        resPPMenu.addSeparator();
+        resPPMenu.add(ppNewRes);
+        resPPMenu.addSeparator();
+        resPPMenu.add(ppRemoveRes);
+        resPPMenu.addSeparator();
+        resPPMenu.add(ppRefresh);
+
+        scrollPane.getViewport().add(map, null);
+
+        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(rScrollPane, BorderLayout.EAST);
+        this.add(toolBar, BorderLayout.NORTH);
+
+
+        //        newResB.setIcon(
+//            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
+//        newResB.setEnabled(true);
+//        newResB.setMaximumSize(new Dimension(24, 24));
+//        newResB.setMinimumSize(new Dimension(24, 24));
+//        newResB.setToolTipText(Local.getString("New resource"));
+//        newResB.setRequestFocusEnabled(false);
+//        newResB.setPreferredSize(new Dimension(24, 24));
+//        newResB.setFocusable(false);
+//        /*newResB.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                newResB_actionPerformed(e);
+//            }
+//        });*/
+//        newResB.setBorderPainted(false);
+
         //map.setRowHeight(24);
-        removeResB.setBorderPainted(false);
-        removeResB.setFocusable(false);
-        /*removeResB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                removeResB_actionPerformed(e);
-            }
-        });*/
-        removeResB.setPreferredSize(new Dimension(24, 24));
-        removeResB.setRequestFocusEnabled(false);
-        removeResB.setToolTipText(Local.getString("Remove resource"));
-        removeResB.setMinimumSize(new Dimension(24, 24));
-        removeResB.setMaximumSize(new Dimension(24, 24));
-        removeResB.setIcon(
-            new ImageIcon(
-                main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
-        removeResB.setEnabled(false);
-        scrollPane.getViewport().setBackground(Color.white);
-        toolBar.addSeparator(new Dimension(8, 24));
-
-        optRoute.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
-        optRoute.setEnabled(true);
-        optRoute.setMaximumSize(new Dimension(24, 24));
-        optRoute.setMinimumSize(new Dimension(24, 24));
-        optRoute.setToolTipText(Local.getString("Optimize route."));
-        optRoute.setRequestFocusEnabled(false);
-        optRoute.setPreferredSize(new Dimension(24, 24));
-        optRoute.setFocusable(false);
-        /*newResB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                newResB_actionPerformed(e);
-            }
-        });*/
-        optRoute.setBorderPainted(false);
-
-        optRouteWithStart.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
-        optRouteWithStart.setEnabled(true);
-        optRouteWithStart.setMaximumSize(new Dimension(24, 24));
-        optRouteWithStart.setMinimumSize(new Dimension(24, 24));
-        optRouteWithStart.setToolTipText(Local.getString("Optimize route with best start."));
-        optRouteWithStart.setRequestFocusEnabled(false);
-        optRouteWithStart.setPreferredSize(new Dimension(24, 24));
-        optRouteWithStart.setFocusable(false);
-        /*newResB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                newResB_actionPerformed(e);
-            }
-        });*/
-        optRouteWithStart.setBorderPainted(false);
-
-        toolBar.addSeparator(new Dimension(8, 24));
-
+//        removeResB.setBorderPainted(false);
+//        removeResB.setFocusable(false);
+//        /*removeResB.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                removeResB_actionPerformed(e);
+//            }
+//        });*/
+//        removeResB.setPreferredSize(new Dimension(24, 24));
+//        removeResB.setRequestFocusEnabled(false);
+//        removeResB.setToolTipText(Local.getString("Remove resource"));
+//        removeResB.setMinimumSize(new Dimension(24, 24));
+//        removeResB.setMaximumSize(new Dimension(24, 24));
+//        removeResB.setIcon(
+//            new ImageIcon(
+//                main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
+//        removeResB.setEnabled(false);
+//        scrollPane.getViewport().setBackground(Color.white);
+//        toolBar.addSeparator(new Dimension(8, 24));
 
         /*PopupListener ppListener = new PopupListener();
         scrollPane.addMouseListener(ppListener);
@@ -160,74 +231,57 @@ public class RouteMapPanel extends JPanel {
                 ppRun.setEnabled(enbl);
             }
         });*/
-        refreshB.setBorderPainted(false);
-        /*refreshB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                refreshB_actionPerformed(e);
-            }
-        });*/
-        refreshB.setFocusable(false);
-        refreshB.setPreferredSize(new Dimension(24, 24));
-        refreshB.setRequestFocusEnabled(false);
-        refreshB.setToolTipText(Local.getString("Refresh"));
-        refreshB.setMinimumSize(new Dimension(24, 24));
-        refreshB.setMaximumSize(new Dimension(24, 24));
-        refreshB.setEnabled(true);
-        refreshB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
-        resPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
-        ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
-        ppRun.setText(Local.getString("Open resource")+"...");
-        /*ppRun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppRun_actionPerformed(e);
-            }
-        });*/
-        ppRun.setEnabled(false);
-
-        ppRemoveRes.setFont(new java.awt.Font("Dialog", 1, 11));
-        ppRemoveRes.setText(Local.getString("Remove resource"));
-        /*ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppRemoveRes_actionPerformed(e);
-            }
-        });*/
-        ppRemoveRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
-        ppRemoveRes.setEnabled(false);
-        ppNewRes.setFont(new java.awt.Font("Dialog", 1, 11));
-        ppNewRes.setText(Local.getString("New resource")+"...");
-        /*ppNewRes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppNewRes_actionPerformed(e);
-            }
-        });*/
-        ppNewRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
-
-        ppRefresh.setFont(new java.awt.Font("Dialog", 1, 11));
-        ppRefresh.setText(Local.getString("Refresh"));
-        /*ppRefresh.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            ppRefresh_actionPerformed(e);
-        }
-        });*/
-        ppRefresh.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
-
-        toolBar.add(newResB, null);
-        toolBar.add(removeResB, null);
-        toolBar.addSeparator();
-        toolBar.add(optRoute, null);
-        toolBar.add(optRouteWithStart, null);
-        toolBar.addSeparator();
-        toolBar.add(refreshB, null);
-        this.add(scrollPane, BorderLayout.CENTER);
-        scrollPane.getViewport().add(map, null);
-        this.add(toolBar, BorderLayout.NORTH);
-        resPPMenu.add(ppRun);
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppNewRes);
-        resPPMenu.add(ppRemoveRes);
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppRefresh);
+//        refreshB.setBorderPainted(false);
+//        /*refreshB.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                refreshB_actionPerformed(e);
+//            }
+//        });*/
+//        refreshB.setFocusable(false);
+//        refreshB.setPreferredSize(new Dimension(24, 24));
+//        refreshB.setRequestFocusEnabled(false);
+//        refreshB.setToolTipText(Local.getString("Refresh"));
+//        refreshB.setMinimumSize(new Dimension(24, 24));
+//        refreshB.setMaximumSize(new Dimension(24, 24));
+//        refreshB.setEnabled(true);
+//        refreshB.setIcon(
+//            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
+//        resPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
+//        ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
+//        ppRun.setText(Local.getString("Open resource")+"...");
+//        /*ppRun.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                ppRun_actionPerformed(e);
+//            }
+//        });*/
+//        ppRun.setEnabled(false);
+//
+//        ppRemoveRes.setFont(new java.awt.Font("Dialog", 1, 11));
+//        ppRemoveRes.setText(Local.getString("Remove resource"));
+//        /*ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                ppRemoveRes_actionPerformed(e);
+//            }
+//        });*/
+//        ppRemoveRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
+//        ppRemoveRes.setEnabled(false);
+//        ppNewRes.setFont(new java.awt.Font("Dialog", 1, 11));
+//        ppNewRes.setText(Local.getString("New resource")+"...");
+//        /*ppNewRes.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                ppNewRes_actionPerformed(e);
+//            }
+//        });*/
+//        ppNewRes.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
+//
+//        ppRefresh.setFont(new java.awt.Font("Dialog", 1, 11));
+//        ppRefresh.setText(Local.getString("Refresh"));
+//        /*ppRefresh.addActionListener(new java.awt.event.ActionListener() {
+//        public void actionPerformed(ActionEvent e) {
+//            ppRefresh_actionPerformed(e);
+//        }
+//        });*/
+//        ppRefresh.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
 
 		// remove resources using the DEL key
        /*map.addKeyListener(new KeyListener() {
@@ -447,13 +501,13 @@ public class RouteMapPanel extends JPanel {
   void ppRefresh_actionPerformed(ActionEvent e) {
      map.tableChanged();
   }*/
-
-  /**
-   * Copy a file to the directory of the current project
-   * @param srcStr The path of the source file.
-   * @param destStr The destination path.
-   * @return The new path of the file.
-   */
+//
+//  /**
+//   * Copy a file to the directory of the current project
+//   * @param srcStr The path of the source file.
+//   * @param destStr The destination path.
+//   * @return The new path of the file.
+//   */
   /*String copyFileToProjectDir(String srcStr) {
 	  
 	  String JN_DOCPATH = Util.getEnvDir();	    

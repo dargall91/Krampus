@@ -100,7 +100,7 @@ public class RouteTable extends JTable {
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Route r = routes.get(rowIndex);
+            Route r = routes.getRoutes().toArray(new Route[routes.size()])[rowIndex];
 
             if (columnIndex == 0) {
                 return r.getID();
@@ -118,7 +118,7 @@ public class RouteTable extends JTable {
          * @param columnIndex the column to fetch
          * @return the name as a string
          */
-        public String getColName(int columnIndex) {
+        public String getColumnName(int columnIndex) {
             return COLUMN_NAMES[columnIndex];
         }
     }
