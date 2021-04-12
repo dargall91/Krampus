@@ -36,7 +36,7 @@ public class NodeMapper {
         setMapSize(new Dimension(MAP_DEFAULT_WIDTH, MAP_DEFAULT_HEIGHT));
     }
 
-    private class Scale {
+    private static class Scale {
         double latScale, lonScale;
 
         Scale(double lonScale, double latScale) {
@@ -79,7 +79,7 @@ public class NodeMapper {
         }
         dim.setSize(dim.getWidth() - 1, dim.getHeight() - 1);
         this.dim = dim;
-        setScale(dim);
+        setScale(this.dim);
     }
 
     /**
