@@ -102,7 +102,7 @@ public class Database {
      *
      * @throws IOException if disk i/o error
      */
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+//    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void write() throws IOException, InterruptedException {
         while (busy > 0) {
             Thread.sleep(100);
