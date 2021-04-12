@@ -37,7 +37,7 @@ public class BusPanel extends JSplitPane {
 	private BusColl buses;
 	private String gotoTask;
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private final int LABEL_SIZE = 25;
+	private static final int LABEL_SIZE = 25;
 
 	/**
 	 * Constructor for the BusPanel
