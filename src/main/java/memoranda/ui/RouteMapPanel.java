@@ -2,15 +2,15 @@
  * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of
  * the Route Map.
  *
- * @autor alexeya, Kevin Dolan
- * @version 2.0
+ * @autor alexeya, Kevin Dolan, Chris Boveda
+ * @version 2021-04-11
  */
 package main.java.memoranda.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,9 +20,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Route;
-import main.java.memoranda.RouteOptimizer;
+import main.java.memoranda.*;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
@@ -43,6 +41,7 @@ public class RouteMapPanel extends JPanel {
     private JButton optRouteB = new JButton();
     private JButton optRouteWithStartB = new JButton();
     private JButton refreshB = new JButton();
+    private JButton debugAddNodesB = new JButton();
 
     private JPopupMenu resPPMenu = new JPopupMenu();
     private JMenuItem ppRemoveRes = new JMenuItem();
@@ -71,6 +70,7 @@ public class RouteMapPanel extends JPanel {
         this.setLayout(borderLayout1);
         map.setMaximumSize(new Dimension(32767, 32767));
 
+        /* New Route Button */
         newRouteB.setIcon(
                 new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         newRouteB.setText("New");
@@ -84,6 +84,7 @@ public class RouteMapPanel extends JPanel {
         newRouteB.setBorderPainted(true);
         newRouteB.addActionListener((e)->newRouteB_actionPerformed(e));
 
+        /* Remove Route Button */
         removeRouteB.setIcon(
                 new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         removeRouteB.setText("Remove");
@@ -97,7 +98,7 @@ public class RouteMapPanel extends JPanel {
         removeRouteB.setBorderPainted(true);
         //removeRouteB.addActionListener((e)->removeRouteB_actionPerformed(e)); //todo
 
-
+        /* Optimize Button */
         optRouteB.setIcon(
                 new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         optRouteB.setText("Optimize");
@@ -111,6 +112,7 @@ public class RouteMapPanel extends JPanel {
         optRouteB.setBorderPainted(true);
         optRouteB.addActionListener((e) -> optRouteB_actionPerformed(e));
 
+        /* Optimize w/ Start Button */
         optRouteWithStartB.setIcon(
                 new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         optRouteWithStartB.setText("Optimize w/Start");
@@ -124,6 +126,7 @@ public class RouteMapPanel extends JPanel {
         optRouteWithStartB.setBorderPainted(true);
         optRouteWithStartB.addActionListener((e) -> optRouteWithStartB_actionPerformed(e));
 
+        /* Refresh Button */
         refreshB.setIcon(
                 new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         refreshB.setText("Refresh");
@@ -140,6 +143,19 @@ public class RouteMapPanel extends JPanel {
             //map.refresh(); //todo
         });
 
+        /* Fancy Debugger Button */
+        debugAddNodesB.setText("[debug] Add Node");
+        debugAddNodesB.setEnabled(true);
+        debugAddNodesB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        debugAddNodesB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        debugAddNodesB.setToolTipText(Local.getString("Adds random nodes to the currently selected route"));
+        debugAddNodesB.setRequestFocusEnabled(false);
+        debugAddNodesB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        debugAddNodesB.setFocusable(false);
+        debugAddNodesB.setBorderPainted(true);
+        debugAddNodesB.addActionListener((e) ->debugAddNodesB_actionPerformed(e));
+
+        /* Route Table */
         routeTable.setMaximumSize(new Dimension(32767, 32767));
         routeTable.setRowHeight(24);
         rScrollPane.getViewport().setBackground(Color.lightGray);
@@ -154,6 +170,8 @@ public class RouteMapPanel extends JPanel {
         toolBar.add(optRouteWithStartB, null);
         toolBar.addSeparator();
         toolBar.add(refreshB, null);
+        toolBar.addSeparator();
+        toolBar.add(debugAddNodesB, null);
 
         resPPMenu.addSeparator();
         resPPMenu.add(ppNewRes);
@@ -163,12 +181,16 @@ public class RouteMapPanel extends JPanel {
         resPPMenu.add(ppRefresh);
 
         scrollPane.getViewport().add(map, null);
-
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(rScrollPane, BorderLayout.EAST);
         this.add(toolBar, BorderLayout.NORTH);
     }
 
+
+    /**
+     * Event handler for the "New Route" button.
+     * @param e action event
+     */
     public void newRouteB_actionPerformed(ActionEvent e) {
         RouteDialog dialog = new RouteDialog(App.getFrame(), "New Route");
         Dimension frmSize = App.getFrame().getSize();
@@ -193,18 +215,59 @@ public class RouteMapPanel extends JPanel {
         }
     }
 
+
+    /**
+     * Event handler for the "Optimize" button
+     * @param e action event
+     */
     public void optRouteB_actionPerformed(ActionEvent e) {
-        Route route = (Route) routeTable.getModel().getValueAt(routeTable.getSelectedRow(), -1);
-        new RouteOptimizer(route).optimize();
+        if(routeTable.getSelectedRow() == -1) {
+            return;
+        }
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        new RouteOptimizer(r).optimize();
         routeTable.refresh();
         //map.refresh();    //todo
     }
 
+
+    /**
+     * Event handler for the "Optimize w/ Start" button
+     * @param e action event
+     */
     public void optRouteWithStartB_actionPerformed(ActionEvent e) {
-        Route route = (Route) routeTable.getModel().getValueAt(routeTable.getSelectedRow(), -1);
-        new RouteOptimizer(route).optimizeWithStart();
+        if(routeTable.getSelectedRow() == -1) {
+            return;
+        }
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        new RouteOptimizer(r).optimizeWithStart();
         routeTable.refresh();
         //map.refresh();    //todo
+    }
+
+
+    /**
+     * Debugging utility while the functionality to select nodes is being developed.
+     */
+    public void debugAddNodesB_actionPerformed(ActionEvent e) {
+        if(routeTable.getSelectedRow() == -1) {
+            return;
+        }
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        Node node = CurrentProject.getNodeColl().newItem();
+        node.setCoords(new Coordinate(
+                new Random().nextDouble() * 90,
+                new Random().nextDouble() * 90));
+        node.setName("DEBUGNODE");
+        r.addNode(node);
+        try {
+            CurrentProject.getNodeColl().add(node);
+            CurrentStorage.get().storeNodeList(CurrentProject.get(), CurrentProject.getNodeColl());
+            routeTable.refresh();
+        } catch (IOException | DuplicateKeyException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     //TODO: Review all of the following for usefulness
