@@ -584,7 +584,11 @@ public class AppFrame extends JFrame {
         this.workPanel.dailyItemsPanel.alarmB.addActionListener(
                 setMenusDisabled);
 
+<<<<<<< HEAD
         this.workPanel.busesB.addActionListener(setMenusDisabled);
+=======
+        this.workPanel.tasksB.addActionListener(setMenusDisabled);
+>>>>>>> be88a8d... Modify event panel to better reflect tours
         this.workPanel.toursB.addActionListener(setMenusDisabled);
         this.workPanel.filesB.addActionListener(setMenusDisabled);
         this.workPanel.driverB.addActionListener(setMenusDisabled);
