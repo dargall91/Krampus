@@ -185,18 +185,22 @@ public class BusTable extends JTable {
                 Local.getString("Number"),
                 Local.getString("ID")};
 
+        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
             return buses.size();
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
             //set the selected bus for use by other methods in addition to displaying information
             Bus bus = buses.getBuses().toArray(new Bus[buses.size()])[row];
@@ -212,6 +216,7 @@ public class BusTable extends JTable {
             return null;
         }
 
+        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {
