@@ -24,6 +24,7 @@ import javax.swing.border.Border;
 
 import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Database;
 import main.java.memoranda.EventNotificationListener;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.History;
@@ -63,9 +64,10 @@ public class DailyItemsPanel extends JPanel {
     JLabel currentDateLabel = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
     //TaskPanel tasksPanel = new TaskPanel(this);
+    private DriverPanel driverPanel = new DriverPanel(this);
     private BusPanel busPanel = new BusPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
-    private DriverPanel driverPanel = new DriverPanel(this);
+    private TourPanel tourPanel = new TourPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
@@ -95,7 +97,7 @@ public class DailyItemsPanel extends JPanel {
     CardLayout cardLayout2 = new CardLayout();
         
     JTabbedPane tasksTabbedPane = new JTabbedPane();
-    JTabbedPane eventsTabbedPane = new JTabbedPane();
+    JTabbedPane toursTabbedPane = new JTabbedPane();
 	JTabbedPane driverTabbedPane = new JTabbedPane();
     Border border2;
 
@@ -204,7 +206,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
         
         editorsPanel.add(driverPanel, "DRIVERS");
-        editorsPanel.add(eventsPanel, "EVENTS");
+        editorsPanel.add(tourPanel, "TOURS");
         //editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(busPanel, "BUSES");
         editorsPanel.add(editorPanel, "NOTES");
@@ -227,7 +229,7 @@ public class DailyItemsPanel extends JPanel {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
 //            	Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");				
 //            	Util.debug("current project is " + CurrentProject.get().getTitle());
-
+            	
             	currentProjectChanged(p, nl, tl, rl);
             }
             public void projectWasChanged() {
@@ -237,7 +239,7 @@ public class DailyItemsPanel extends JPanel {
             	// cannot save note here, changing to new project
             	currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
         		CurrentNote.set(currentNote,false);
-                editorPanel.setDocument(currentNote);        
+                editorPanel.setDocument(currentNote);       
                 
 //                // DEBUG
 //                if (currentNote != null) {
@@ -299,7 +301,7 @@ public class DailyItemsPanel extends JPanel {
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
-        mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
+        mainTabsPanel.add(toursTabbedPane, "TOURSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(driverTabbedPane, "DRIVERSTAB");
@@ -384,6 +386,13 @@ public class DailyItemsPanel extends JPanel {
                 addedToHistory = true;
             }
         }*/
+       /* 
+        try {
+			Database.getDatabase(newprj);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
         
         updateIndicators(CurrentDate.get(), tl);
         App.getFrame().setCursor(cur);
@@ -483,11 +492,29 @@ public class DailyItemsPanel extends JPanel {
 	public String getCurrentPanel() {
 		return CurrentPanel;
 	}
+	
+	/**
+	 * Gets the DriverScheduleTable used to display a Driver's schedule
+	 * 
+	 * @return The DriverScheduleTable
+	 */
+	public DriverScheduleTable getDriverScheduleTable() {
+		return driverPanel.getDriverScheduleTable();
+	}
+	
     void taskB_actionPerformed(ActionEvent e) {
         parentPanel.busB_actionPerformed(null);
     }
 
     void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.eventsB_actionPerformed(null);
+        parentPanel.toursB_actionPerformed(null);
+    }
+    
+    /**
+     * Refreshes the Panels when the project is changed
+     */
+    public void refresh() {
+    	driverPanel.refresh();
+    	busPanel.refresh();
     }
 }

@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.Coordinate;
+import main.java.memoranda.Database;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.Node;
@@ -23,6 +24,7 @@ import main.java.memoranda.ProjectManager;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 import main.java.memoranda.RouteLoader;
+import main.java.memoranda.RouteOptimizer;
 import main.java.memoranda.Tour;
 import main.java.memoranda.TourColl;
 import main.java.memoranda.date.CalendarDate;
@@ -54,6 +56,8 @@ public class TestDataCollections {
     // constants used for consistent testing
     private static final int NODE1 = 1;
     private static final int NODE2 = 2;
+    private static final int NODE3 = 3;
+    private static final int NODE4 = 4;
 
     private static final int DRIVER1 = 1;
     private static final int DRIVER2 = 2;
@@ -294,18 +298,19 @@ public class TestDataCollections {
      * @throws DuplicateKeyException if duplicate key is added to collection
      */
     BusColl createBusColl() throws DuplicateKeyException {
-        busColl = new BusColl();
+        BusColl bc = new BusColl();
 
-        Bus b1 = busColl.newItem();
+        Bus b1 = bc.newItem();
         b1.setNumber(BUS1);
-        Bus b2 = busColl.newItem();
+        Bus b2 = bc.newItem();
         b2.setNumber(BUS2);
 
-        busColl.add(b1);
-        busColl.add(b2);
+        bc.add(b1);
+        bc.add(b2);
 
-        System.out.println("In createBusColl: Bus list contains " + busColl.get(BUS1) + ", " + busColl.get(BUS2));
+        System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
 
+        busColl=bc;
         return busColl;
     }
 
@@ -839,7 +844,7 @@ public class TestDataCollections {
 
         System.out.println("After adding two entries, list contains " + nodeColl.size() + " elements.");
 
-        stg.storeNodeList(nodeColl, prj);
+        stg.storeNodeList(prj, nodeColl);
 
         System.out.println("Load node list");
         NodeColl loadedNodeColl = stg.openNodeList(prj);
@@ -1093,4 +1098,209 @@ public class TestDataCollections {
         assertEquals(new Point(0, 0), nm.getScaled(n1));
     }
 
+
+    /**
+     * test getting a new database
+     */
+    @Test
+    void testDatabaseExists() throws InterruptedException {
+        Database db = Database.getDatabase(stg, prj);
+        assertNotNull(db);
+    }
+
+    /**
+     * Test that the route contains all original nodes with no losses after optimization
+     */
+    @Test
+    void testRouteOptimizerForDataIntegrity() {
+        Route r = routeColl.get(ROUTE1);
+        LinkedList<Node> nodes = (LinkedList<Node>) r.getRoute().clone();
+        int size = nodes.size();
+        new RouteOptimizer(r).optimize();
+        assertEquals(size, r.getRoute().size());
+        for (Node n : nodes) {
+            assertTrue(r.getRoute().contains(n));
+        }
+    }
+
+
+    /**
+     * Test that the route contains all original nodes with no losses after optimization with
+     * start selection.
+     */
+    @Test
+    void testRouteOptimizeWithStartForDataIntegrity() {
+        Route r = routeColl.get(ROUTE1);
+        LinkedList<Node> nodes = (LinkedList<Node>) r.getRoute().clone();
+        int size = nodes.size();
+        new RouteOptimizer(r).optimizeWithStart();
+        assertEquals(size, r.getRoute().size());
+        for (Node n : nodes) {
+            assertTrue(r.getRoute().contains(n));
+        }
+    }
+
+
+    /**
+     * Test that the optimization results in a shorter length route
+     */
+    @Test
+    void testRouteOptimizerSuccess() {
+        Route r = routeColl.get(ROUTE1);
+        Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
+        routeColl.get(ROUTE1).addNode(n3);
+        Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
+        r.addNode(n4);
+        double originalDistance = r.length();
+        new RouteOptimizer(r).optimize();
+        assertTrue(r.length() <= originalDistance);
+    }
+
+
+     /**
+     * Test that the optimization with start selection results in a path at least
+     * as short as a non-start selected path.
+     */
+    @Test
+    void testRouteOptimizerWithStartSuccess() {
+        Route r = routeColl.get(ROUTE1);
+        Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
+        routeColl.get(ROUTE1).addNode(n3);
+        Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
+        r.addNode(n4);
+        new RouteOptimizer(r).optimize();
+        double optimizedDistance = r.length();
+        new RouteOptimizer(r).optimizeWithStart();
+        assertTrue(r.length() <= optimizedDistance);
+    }
+
+
+    /**
+     * Test that the optimization results in a deterministic output for a given set
+     */
+    @Test
+    void testRouteOptimizerSpecificOutcome() {
+        Route r = routeColl.get(ROUTE1);
+
+        r.getRoute().get(0).setCoords(new Coordinate (0.0, 0.0));
+        Node n1 = r.getRoute().get(0);
+        r.getRoute().get(1).setCoords(new Coordinate (40.0, 0.0));
+        Node n2 = r.getRoute().get(1);
+
+        Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
+        r.addNode(n3);
+        Node n4 = new Node(NODE4, "node4", 10.0, 0.0);
+        r.addNode(n4);
+
+        new RouteOptimizer(r).optimize();
+
+        // Expected order: n1, n4, n3, n2
+        assertEquals(n1, r.getRoute().get(0)); //start unchanged
+        assertEquals(n4, r.getRoute().get(1));
+        assertEquals(n3, r.getRoute().get(2));
+        assertEquals(n2, r.getRoute().get(3));
+    }
+
+
+    /**
+     * Test that the optimization with start selection results in a deterministic
+     * output for a given set
+     */
+    @Test
+    void testRouteOptimizerWithStartSpecificOutcome() {
+        Route r = routeColl.get(ROUTE1);
+
+        r.getRoute().get(0).setCoords(new Coordinate (10.0, 0.0));
+        Node n1 = r.getRoute().get(0);
+        r.getRoute().get(1).setCoords(new Coordinate (0.0, 0.0));
+        Node n2 = r.getRoute().get(1);
+
+        Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
+        r.addNode(n3);
+
+        new RouteOptimizer(r).optimizeWithStart();
+
+        // Expected order WITHOUT start: n1, n2, n3 (length 30)
+        // Expected order WITH start: n3, n1, n2 (length 20)
+        assertEquals(n3, r.getRoute().get(0)); //start changed
+        assertEquals(n1, r.getRoute().get(1));
+        assertEquals(n2, r.getRoute().get(2));
+    }
+
+
+    /**
+     * Test that the route contains all original nodes with no losses after changing the start
+     */
+    @Test
+    void testSetStartForIntegrity() {
+        LinkedList<Node> nodes = (LinkedList<Node>) routeColl.get(ROUTE1).getRoute().clone();
+        int size = nodes.size();
+        routeColl.get(ROUTE1).setStart(routeColl.get(ROUTE1).getRoute().get(1));
+        assertEquals(size, routeColl.get(ROUTE1).getRoute().size());
+        for (Node n : nodes) {
+            assertTrue(routeColl.get(ROUTE1).getRoute().contains(n));
+        }
+    }
+
+
+    /**
+     * Test that the route starts with the correct node after changing the start
+     */
+    @Test
+    void testSetStartSuccess() {
+        Node n = routeColl.get(ROUTE1).getRoute().get(1);
+        routeColl.get(ROUTE1).setStart(routeColl.get(ROUTE1).getRoute().get(1));
+        assertEquals(n, routeColl.get(ROUTE1).getRoute().get(0));
+    }
+
+
+    /**
+     * Test that a node must be in the route to be set as the start
+     */
+    @Test
+    void testStartFail() {
+        Node n = new Node(NODE3, "node3", 20.0, 0.0);
+        assertFalse(routeColl.get(ROUTE1).setStart(n));
+    }
+
+    /** test writing/reading database
+     *
+     * @throws IOException if file I/O error occurs
+     */
+    @Test
+    void testDatabaseLoad() throws IOException, InterruptedException {
+
+        System.out.println("Before all test methods");
+        Project prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);
+        FileStorage stg = new FileStorage();
+        stg.createProjectStorage(prj);
+
+        Database db = Database.getDatabase(stg, prj);
+        db.write();
+        Thread.sleep(1000);
+        for (int i = 0; i < 1000; i++) {
+
+            Runnable runnable1= () -> {
+                try {
+                    db.write();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+            //Runnable runnable2 = () -> {
+            //    try {
+            //        db.load();
+            //    } catch (InterruptedException e) {
+            //        e.printStackTrace();
+            //    }
+            //};
+            Thread thread1 = new Thread(runnable1);
+            //Thread thread2 = new Thread(runnable2);
+            thread1.start();
+            //thread2.start();
+
+        }
+    }
 }

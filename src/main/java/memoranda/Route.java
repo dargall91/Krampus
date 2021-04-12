@@ -10,8 +10,8 @@ import java.util.List;
  * Route object representing a route in the MTB scheduling system.
  * Routes contain an ordered list of Nodes
  *
- * @author Brian Pape
- * @version 2021-04-01
+ * @author Brian Pape, Chris Boveda
+ * @version 2021-04-10
  */
 public class Route extends IndexedObject {
     private String name;
@@ -27,6 +27,7 @@ public class Route extends IndexedObject {
         super(id);
         route = new LinkedList<>();
     }
+
 
     /**
      * constructor for json deserialization.
@@ -63,6 +64,7 @@ public class Route extends IndexedObject {
             addNode(n);
         }
     }
+
 
     /**
      * Add a new node to the end of this route.
@@ -102,6 +104,7 @@ public class Route extends IndexedObject {
         return len;
     }
 
+
     /**
      * returns the amount of time in hours required to traverse this route based upon the given
      * speed in km/h.
@@ -113,6 +116,32 @@ public class Route extends IndexedObject {
         return length() / speed;
     }
 
+
+    /**
+     * Sets the given node as the start of the route. May be used in route generation interface.
+     *
+     * @param n the node to set as the new start
+     * @return  false if the route did not contain the node
+     */
+    public boolean setStart(Node n) {
+        if (route.removeFirstOccurrence(n)) {
+            route.addFirst(n);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Sets the route to the given route.
+     *
+     * @param newRoute  the new route to set
+     */
+    public void setRoute(LinkedList<Node> newRoute) {
+        this.route = newRoute;
+    }
+
+
     /**
      * standard getter for name.
      *
@@ -121,6 +150,17 @@ public class Route extends IndexedObject {
     public String getName() {
         return name;
     }
+
+
+    /**
+     * Standard setter for name
+     *
+     * @param name new name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     /**
      * returns an ordered list of the nodes in the route.
@@ -131,6 +171,7 @@ public class Route extends IndexedObject {
     public LinkedList<Node> getRoute() {
         return route;
     }
+
 
     /**
      * Returns an ordered list of only the IDs of the nodes in this route for json serialization.
@@ -145,6 +186,7 @@ public class Route extends IndexedObject {
         }
         return li;
     }
+
 
     /**
      * standard toString().

@@ -35,11 +35,10 @@ public class DriverPanel extends JSplitPane {
 	private DriverScheduleTable scheduleTable;
 	private DailyItemsPanel parentPanel;
 	private DriverColl drivers;
-	private final int OVER_9000 = 9001;
 	private String gotoTask;
 	private boolean isActive;
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private final int LABEL_SIZE = 25;
+	private static final int LABEL_SIZE = 25;
 
 	/**
 	 * Constructor for the DriverPanel
@@ -223,6 +222,15 @@ public class DriverPanel extends JSplitPane {
 
 		Util.debug("Summary updated.");
 	}
+	
+	/**
+	 * Secondary refresh, since I'm still certain the first one does nothing, but haven't tested it
+	 * Refreshes the UI
+	 */
+	public void refresh() {
+		driverTable.tableChanged();
+		scheduleTable.tableChanged();
+	}
 
 	/**
 	 * Flags this panel as the active panel
@@ -231,5 +239,14 @@ public class DriverPanel extends JSplitPane {
 	 */
 	public void setActive(boolean isa) {
 		isActive = isa;
+	}
+	
+	/**
+	 * Gets the DriverScheduleTable used to display a Driver's schedule
+	 * 
+	 * @return The DriverScheduleTable
+	 */
+	public DriverScheduleTable getDriverScheduleTable() {
+		return scheduleTable;
 	}
 }

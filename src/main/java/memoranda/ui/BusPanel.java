@@ -37,7 +37,7 @@ public class BusPanel extends JSplitPane {
 	private BusColl buses;
 	private String gotoTask;
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private final int LABEL_SIZE = 25;
+	private static final int LABEL_SIZE = 25;
 
 	/**
 	 * Constructor for the BusPanel
@@ -71,7 +71,7 @@ public class BusPanel extends JSplitPane {
 	}
 
 	private JPanel getBusPanel() {
-		busTable = new BusTable();
+		busTable = new BusTable(scheduleTable, parentPanel.getDriverScheduleTable());
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -100,8 +100,7 @@ public class BusPanel extends JSplitPane {
 				
 				if (!dlg.isCancelled()) {
 					Bus bus = CurrentProject.getBusColl().newItem();
-					//bus.setName(dlg.getName());
-					//bus.setPhoneNumber(dlg.getPhone());
+					bus.setNumber(dlg.getNumber());
 					
 					try {
 						CurrentProject.getBusColl().add(bus);
@@ -131,14 +130,14 @@ public class BusPanel extends JSplitPane {
 
 	private JPanel getSchedulePanel() {
 		if (buses.size() >= 1) {
-			scheduleTable = new BusScheduleTable(busTable.getBus());
+			scheduleTable = new BusScheduleTable(busTable.getBus(), parentPanel.getDriverScheduleTable());
 		}
 		
 		else {
-			scheduleTable = new BusScheduleTable();
+			scheduleTable = new BusScheduleTable(parentPanel.getDriverScheduleTable());
 		}
 		
-		busTable.setScheduleTable(scheduleTable);
+		busTable.setBusScheduleTable(scheduleTable);
 		
 		JButton schedule = new JButton("Schedule Tour");
 		schedule.setAlignmentX(JButton.LEFT_ALIGNMENT);
@@ -218,5 +217,14 @@ public class BusPanel extends JSplitPane {
 		});
 
 		Util.debug("Summary updated.");
+	}
+	
+	/**
+	 * Secondary refresh, since I'm still certain the first one does nothing, but haven't tested it
+	 * Refreshes the UI
+	 */
+	public void refresh() {
+		busTable.tableChanged();
+		scheduleTable.tableChanged();
 	}
 }
