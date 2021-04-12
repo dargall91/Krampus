@@ -41,7 +41,7 @@ public class BusScheduleTable extends JTable {
     private TourColl tourColl;
     private BusColl busColl;
     private TableRowSorter<TableModel> sorter;
-    private static final int HEIGHT = 24;
+    private final int HEIGHT = 24;
     private DriverScheduleTable driverTable;
 
     /**
@@ -152,9 +152,8 @@ public class BusScheduleTable extends JTable {
     }
 
     /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
+     * Defines how to render a cell
      */
-    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
@@ -182,17 +181,14 @@ public class BusScheduleTable extends JTable {
                 //Local.getString("Date"),
                 Local.getString("Time")};
 
-        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
-        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
-        @Override
         public int getRowCount() {
         	if (tours == null) {
         		return 0;
@@ -201,7 +197,6 @@ public class BusScheduleTable extends JTable {
             return tours.size();
         }
 
-        @Override
         public Object getValueAt(int row, int col) {
         	Tour tour = bus.getTours().toArray(new Tour[tours.size()])[row];
 
@@ -220,7 +215,6 @@ public class BusScheduleTable extends JTable {
             return null;
         }
 
-        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {

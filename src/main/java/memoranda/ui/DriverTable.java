@@ -40,8 +40,8 @@ import java.util.LinkedList;
 public class DriverTable extends JTable {
     private DriverColl drivers;
     private TableRowSorter<TableModel> sorter;
-    private static final int HEIGHT = 24;
-    private static final int ID_COLUMN = 1;
+    private final int HEIGHT = 24;
+    private final int ID_COLUMN = 1;
     private DriverScheduleTable scheduleTable;
 
     /**
@@ -152,9 +152,8 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
+     * Defines how to render a cell
      */
-    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
@@ -184,22 +183,18 @@ public class DriverTable extends JTable {
                 Local.getString("ID"),
                 Local.getString("Phone Number")};
 
-        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
-        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
-        @Override
         public int getRowCount() {
             return drivers.size();
         }
-        
-        @Override
+
         public Object getValueAt(int row, int col) {
             //set the selected driver for use by other methods in addition to displaying information
             Driver driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
@@ -219,7 +214,6 @@ public class DriverTable extends JTable {
             return null;
         }
 
-        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {

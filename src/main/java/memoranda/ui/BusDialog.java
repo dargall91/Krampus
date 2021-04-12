@@ -33,8 +33,8 @@ public class BusDialog extends JDialog {
 	private final Dimension BUTTON_SIZE = new Dimension(100, 25);
 	private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
 	private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-	private static final int FIELD_WIDTH = 5;
-	private static final int NO_NUMBER = -1;
+	private final int FIELD_WIDTH = 5;
+	private final int NO_NUMBER = -1;
 
 	/**
 	 * Creates a JDialog window that allows the user to add a new Bus to the system
