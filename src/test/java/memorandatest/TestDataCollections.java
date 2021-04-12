@@ -1108,8 +1108,7 @@ public class TestDataCollections {
         assertNotNull(db);
     }
 
-
-    /**
+    /*
      * Test that the route contains all original nodes with no losses after optimization
      */
     @Test

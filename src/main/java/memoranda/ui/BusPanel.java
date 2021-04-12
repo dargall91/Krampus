@@ -219,4 +219,13 @@ public class BusPanel extends JSplitPane {
 
 		Util.debug("Summary updated.");
 	}
+	
+	/**
+	 * Secondary refresh, since I'm still certain the first one does nothing, but haven't tested it
+	 * Refreshes the UI
+	 */
+	public void refresh() {
+		busTable.tableChanged();
+		scheduleTable.tableChanged();
+	}
 }

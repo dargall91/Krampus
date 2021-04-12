@@ -79,7 +79,7 @@ public class AppFrame extends JFrame {
     JLabel statusBar = new JLabel();
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
-    ProjectsPanel projectsPanel = new ProjectsPanel();
+    
     boolean prPanelExpanded = false;
 
     JMenu jMenuEdit = new JMenu();
@@ -87,6 +87,7 @@ public class AppFrame extends JFrame {
     JMenu jMenuInsert = new JMenu();
 
     public WorkPanel workPanel = new WorkPanel();
+    ProjectsPanel projectsPanel = new ProjectsPanel(workPanel.getDailyItemsPanel());
     HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
 
     static Vector exitListeners = new Vector();
