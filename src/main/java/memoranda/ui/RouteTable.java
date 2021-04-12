@@ -112,7 +112,7 @@ public class RouteTable extends JTable {
             } else if (columnIndex == 1) {
                 return r.getName();
             } else if (columnIndex == 2) {
-                return r.getRoute().getFirst().getName();
+                return (r.getRoute().size() == 0) ? null : r.getRoute().getFirst().getName();
             } else if (columnIndex == 3) {
                 return r.length();
             } else {
