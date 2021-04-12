@@ -27,6 +27,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+/**
+ * Dialog box for the creation of a new Route.
+ *
+ * @author Chris Boveda
+ * @version 2021-04-11
+ */
 public class RouteDialog extends JDialog {
     private JLabel header = new JLabel();
     private JTextField nameField = new JTextField();
@@ -43,6 +49,12 @@ public class RouteDialog extends JDialog {
     private int error;
     private RouteColl routes;
 
+
+    /**
+     * Ctor for RouteDialog
+     * @param frame The parent frame
+     * @param title Title of the dialog box
+     */
     public RouteDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -54,7 +66,12 @@ public class RouteDialog extends JDialog {
         }
     }
 
-    private int jbInit() throws Exception {
+
+    /**
+     * Initializes the dialog box
+     * @return 0 if successful
+     */
+    private int jbInit() {
         routes = CurrentProject.getRouteColl();
 
         this.setResizable(false);
@@ -114,6 +131,7 @@ public class RouteDialog extends JDialog {
         return 0;
     }
 
+
     /**
      * OK button pressed
      *
@@ -129,6 +147,7 @@ public class RouteDialog extends JDialog {
         }
     }
 
+
     /**
      * Cancel button pressed
      *
@@ -139,6 +158,7 @@ public class RouteDialog extends JDialog {
         this.dispose();
     }
 
+
     /**
      * Return if complete or not
      *
@@ -148,10 +168,20 @@ public class RouteDialog extends JDialog {
         return complete;
     }
 
+
+    /**
+     * Returns the error code
+     * @return error int
+     */
     public int getError() {
         return error;
     }
 
+
+    /**
+     * Returns the nameField text
+     * @return string name
+     */
     public String getName() {
         return nameField.getText();
     }
