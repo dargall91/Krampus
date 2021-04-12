@@ -80,7 +80,7 @@ public class Database {
      */
     public static Database getDatabase(Storage stg, Project prj) throws InterruptedException {
         if (!exists(prj)) {
-            Database newdb = new Database(prj);
+            Database newdb = new Database(stg, prj);
             databases.put(prj.getID(), newdb);
         }
         return databases.get(prj.getID());
@@ -102,16 +102,17 @@ public class Database {
      *
      * @throws IOException if disk i/o error
      */
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void write() throws IOException, InterruptedException {
         while (busy > 0) {
             Thread.sleep(100);
         }
         busy++;
-        CurrentStorage.get().storeNodeList(prj, nodeColl);
-        CurrentStorage.get().storeBusList(prj, busColl);
-        CurrentStorage.get().storeRouteList(prj, routeColl);
-        CurrentStorage.get().storeDriverList(prj, driverColl);
-        CurrentStorage.get().storeTourList(prj, tourColl);
+        stg.storeNodeList(prj, nodeColl);
+        stg.storeBusList(prj, busColl);
+        stg.storeRouteList(prj, routeColl);
+        stg.storeDriverList(prj, driverColl);
+        stg.storeTourList(prj, tourColl);
         busy--;
     }
 
@@ -125,11 +126,11 @@ public class Database {
             Thread.sleep(100);
         }
         try {
-            nodeColl = CurrentStorage.get().openNodeList(prj);
-            busColl = CurrentStorage.get().openBusList(prj);
-            routeColl = CurrentStorage.get().openRouteList(prj, nodeColl);
-            tourColl = CurrentStorage.get().openTourList(prj, routeColl, busColl);
-            driverColl = CurrentStorage.get().openDriverList(prj, tourColl);
+            nodeColl = stg.openNodeList(prj);
+            busColl = stg.openBusList(prj);
+            routeColl = stg.openRouteList(prj, nodeColl);
+            tourColl = stg.openTourList(prj, routeColl, busColl);
+            driverColl = stg.openDriverList(prj, tourColl);
         } catch (IOException | DuplicateKeyException e) {
             initialize();
         }

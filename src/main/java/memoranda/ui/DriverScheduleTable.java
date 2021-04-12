@@ -153,7 +153,14 @@ public class DriverScheduleTable extends JTable {
     /**
      * Defines how to render a cell
      */
-    public TableCellRenderer getCellRenderer(int row, int column) {
+
+	/**
+	 *
+	 * @param row
+	 * @param column
+	 * @return
+	 */
+	public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
                     JTable table,
