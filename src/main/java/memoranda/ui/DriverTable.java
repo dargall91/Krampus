@@ -183,18 +183,22 @@ public class DriverTable extends JTable {
                 Local.getString("ID"),
                 Local.getString("Phone Number")};
 
+        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
             return drivers.size();
         }
-
+        
+        @Override
         public Object getValueAt(int row, int col) {
             //set the selected driver for use by other methods in addition to displaying information
             Driver driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
@@ -214,6 +218,7 @@ public class DriverTable extends JTable {
             return null;
         }
 
+        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {

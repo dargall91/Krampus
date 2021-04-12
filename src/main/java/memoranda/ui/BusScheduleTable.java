@@ -181,14 +181,17 @@ public class BusScheduleTable extends JTable {
                 //Local.getString("Date"),
                 Local.getString("Time")};
 
+        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
         	if (tours == null) {
         		return 0;
@@ -197,6 +200,7 @@ public class BusScheduleTable extends JTable {
             return tours.size();
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
         	Tour tour = bus.getTours().toArray(new Tour[tours.size()])[row];
 
@@ -215,6 +219,7 @@ public class BusScheduleTable extends JTable {
             return null;
         }
 
+        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {

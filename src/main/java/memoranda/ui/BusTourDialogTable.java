@@ -92,6 +92,9 @@ public class BusTourDialogTable extends JTable {
 		}
     }
 
+    /**
+     * Repaints the table to reflect any changes to the data
+     */
     public void tableChanged() {
         init();
         initColumnsWidth();
@@ -128,18 +131,22 @@ public class BusTourDialogTable extends JTable {
                 //Local.getString("Date"),
                 Local.getString("Time")};
 
+        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
             return tourArray.size();
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
         	if (col == 0) {
             	return tourArray.get(row).getName();
@@ -156,6 +163,7 @@ public class BusTourDialogTable extends JTable {
             return null;
         }
 
+        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {
