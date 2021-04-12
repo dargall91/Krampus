@@ -47,16 +47,18 @@ I would also advise you to already fill out the Contributions section (End of sp
 |---|---|---|---|---|---|
 | 31MAR21 | -John | Sprint1 retrospective and Sprint2 planning | n/a | n/a | via Slack/Zoom, no blockers |
 | 04APR21 | Brian, Derek, John | Discussing progress, check TravisCI, check Taiga | On track | All builds are good | Slack/zoom, no blockers |
+| 07APR21 | All | Slack check-in | On track | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
+| 09APR21 | Brian, Derek | Discussing progress, check TravisCI, check Taiga | Catch-up required | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
 
 ### Meeting Summary:
 
-| Name | Meeting Attended This Sprint | Project Total |
-|---|---|---|
-|Brian Pape| 2| 9|
-|Chris Boveda| 1| 8|
-|Derek Argall| 2| 9|
-|John Thurstonson| 1| 8|
-|Kevin Dolan| 1| 8|
+| Name | Meeting Attended This Sprint | Sprint 1 | Project Total |
+|---|---|---|---|
+|Brian Pape| 5| 8| 13|
+|Chris Boveda| 3| 8| 11|
+|Derek Argall| 5| 8| 13|
+|John Thurstonson| 3| 7| 10|
+|Kevin Dolan| 2| 8| 10|
 
 
 ## 3: After the Sprint
@@ -87,11 +89,11 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
-> 
+> Yes, all User Stories were completed and we implemented all the functionality requirements.
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> 
+> Yes, we completed all the user stories
 
 **If not, what went wrong?**
 
@@ -99,19 +101,19 @@ Answer as a team!
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> 
+> No, there were a few days were no stories or tasks were completed.
 
 **Did you deliver business value?**
 
-> 
+> Yes, basics of the Bus Scheduling system were implemented and working.
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> 
+> Work more consistently, communicate better with the team when a problem arrives
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> 
+> Our team feels good about our progress so far and we're confident we can improve the system in the next Sprint.  
 
 ### Contributions:
 

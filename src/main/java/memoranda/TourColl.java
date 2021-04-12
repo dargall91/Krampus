@@ -1,8 +1,10 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Collection;
 import java.util.Iterator;
+
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
@@ -29,8 +31,10 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
      */
     public TourColl(Collection<Tour> c) throws DuplicateKeyException {
         this();
-        for (Tour n : c) {
-            add(n);
+        if (c != null) {
+            for (Tour n : c) {
+                add(n);
+            }
         }
     }
 
@@ -53,8 +57,10 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
     public TourColl(RouteColl routeColl, BusColl busColl, Collection<TourLoader> c) throws DuplicateKeyException {
         this();
 //        System.out.println("in TourColl constructor. routecoll="+routeColl+", tourloader coll="+c);
-        for (TourLoader tl : c) {
-            add(new Tour(routeColl, busColl, tl));
+        if (c != null) {
+            for (TourLoader tl : c) {
+                add(new Tour(routeColl, busColl, tl));
+            }
         }
     }
 

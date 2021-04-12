@@ -30,8 +30,10 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
      */
     public RouteColl(Collection<Route> c) throws DuplicateKeyException {
         this();
-        for (Route n : c) {
-            add(n);
+        if (c != null) {
+            for (Route n : c) {
+                add(n);
+            }
         }
     }
 
@@ -46,8 +48,10 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
      */
     public RouteColl(NodeColl nodeColl, Collection<RouteLoader> c) throws DuplicateKeyException {
         this();
-        for (RouteLoader rl : c) {
-            add(new Route(nodeColl, rl));
+        if (c != null) {
+            for (RouteLoader rl : c) {
+                add(new Route(nodeColl, rl));
+            }
         }
     }
 

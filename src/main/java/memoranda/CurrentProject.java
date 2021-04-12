@@ -40,6 +40,7 @@ public class CurrentProject {
     private static RouteColl _routes = null;
     private static BusColl _buses = null;
     private static NodeColl _nodes = null;
+    private static Database db;
 
         
     static {
@@ -65,12 +66,13 @@ public class CurrentProject {
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
         try {
-        	_nodes = CurrentStorage.get().openNodeList(_project);
-        	_buses = CurrentStorage.get().openBusList(_project);
-        	_routes = CurrentStorage.get().openRouteList(_project, _nodes);
-        	_tours = CurrentStorage.get().openTourList(_project, _routes, _buses);
-			_drivers = CurrentStorage.get().openDriverList(_project, _tours);
-		} catch (IOException | DuplicateKeyException e) {
+        	db = Database.getDatabase(_project);
+        	_nodes = db.getNodeColl();
+        	_buses = db.getBusColl();
+        	_routes = db.getRouteColl();
+        	_tours = db.getTourColl();
+        	_drivers = db.getDriverColl();
+		} catch (InterruptedException e) {
 			new ExceptionDialog(e);
 		}
         AppFrame.addExitListener(new ActionListener() {
@@ -145,6 +147,12 @@ public class CurrentProject {
 
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
+        try {
+			db = Database.getDatabase(project);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
@@ -154,12 +162,12 @@ public class CurrentProject {
         RouteColl newRouteColl = null;
         BusColl newBusColl = null;
         try {
-        	newNodeColl = CurrentStorage.get().openNodeList(project);
-        	newRouteColl = CurrentStorage.get().openRouteList(project, newNodeColl);
-        	newBusColl = CurrentStorage.get().openBusList(project);
-        	newTourColl = CurrentStorage.get().openTourList(project, newRouteColl, newBusColl);
-			newDriverColl = CurrentStorage.get().openDriverList(project, newTourColl);
-		} catch (IOException | DuplicateKeyException e) {
+        	newNodeColl = db.getNodeColl();
+        	newRouteColl = db.getRouteColl();
+        	newBusColl = db.getBusColl();
+        	newTourColl = db.getTourColl();
+			newDriverColl = db.getDriverColl();
+		} catch (Exception e) {
 			new ExceptionDialog(e);
 		}
         //TODO: Potentially modify this method for additional collections
@@ -206,12 +214,8 @@ public class CurrentProject {
         storage.storeTaskList(_tasklist, _project); 
         storage.storeResourcesList(_resources, _project);
         try {
-			storage.storeNodeList(_nodes, _project);
-			storage.storeRouteList(_project, _routes);
-			storage.storeBusList(_project, _buses);
-			storage.storeTourList(_project, _tours);
-			storage.storeDriverList(_project, _drivers);
-		} catch (IOException e) {
+        	db.write();
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
