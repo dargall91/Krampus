@@ -153,6 +153,16 @@ public class Route extends IndexedObject {
 
 
     /**
+     * Standard setter for name
+     *
+     * @param name new name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    /**
      * returns an ordered list of the nodes in the route.
      *
      * @return list of nodes in the route
