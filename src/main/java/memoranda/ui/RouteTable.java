@@ -40,7 +40,7 @@ public class RouteTable extends JTable {
     /**
      * Refreshes the table
      */
-    public void referesh() {
+    public void refresh() {
         initTable();
     }
 

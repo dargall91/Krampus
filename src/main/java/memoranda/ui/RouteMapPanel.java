@@ -7,11 +7,10 @@
  */
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +20,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Route;
+import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 public class RouteMapPanel extends JPanel {
@@ -80,7 +83,7 @@ public class RouteMapPanel extends JPanel {
         newRouteB.setBorderPainted(true);
         newRouteB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //newResB_actionPerformed(e);
+                newRouteB_actionPerformed(e);
             }
         });
 
@@ -181,6 +184,8 @@ public class RouteMapPanel extends JPanel {
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(rScrollPane, BorderLayout.EAST);
         this.add(toolBar, BorderLayout.NORTH);
+
+
 
 
         //        newResB.setIcon(
@@ -293,6 +298,30 @@ public class RouteMapPanel extends JPanel {
             public void	keyReleased(KeyEvent e){}
             public void keyTyped(KeyEvent e){}
         });	*/
+    }
+
+    public void newRouteB_actionPerformed(ActionEvent e) {
+        RouteDialog dialog = new RouteDialog(App.getFrame(), "New Route");
+        Dimension frmSize = App.getFrame().getSize();
+        Point loc = App.getFrame().getLocation();
+
+        dialog.setLocation(
+                (frmSize.width - dialog.getSize().width) / 2 + loc.x,
+                (frmSize.height - dialog.getSize().height) / 2 + loc.y);
+        dialog.setVisible(dialog.getError() != 1);
+
+        if (!dialog.isComplete()) {
+            Route route = CurrentProject.getRouteColl().newItem();
+            route.setName(dialog.getName());
+
+            try {
+                CurrentProject.getRouteColl().add(route);
+                CurrentStorage.get().storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                routeTable.refresh();
+            } catch (DuplicateKeyException | IOException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 
         /*void newResB_actionPerformed(ActionEvent e) {
