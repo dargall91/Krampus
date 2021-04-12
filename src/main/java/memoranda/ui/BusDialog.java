@@ -145,6 +145,7 @@ public class BusDialog extends JDialog {
 	private void posButton_actionPerformed(ActionEvent e) {
 		if (getNumber() <= NO_NUMBER) {
 			errorPanel.setVisible(true);
+			numberField.setEditable(true);
 			pack();
 			validate();
 		}

@@ -241,4 +241,13 @@ public class DriverPanel extends JSplitPane {
 	public void setActive(boolean isa) {
 		isActive = isa;
 	}
+	
+	/**
+	 * Gets the DriverScheduleTable used to display a Driver's schedule
+	 * 
+	 * @return The DriverScheduleTable
+	 */
+	public DriverScheduleTable getDriverScheduleTable() {
+		return scheduleTable;
+	}
 }
