@@ -19,6 +19,7 @@ import javax.swing.table.TableCellRenderer;
 public class RouteTable extends JTable {
     private RouteColl routes;
 
+
     /**
      * Default CTor for RouteTable
      */
@@ -33,9 +34,9 @@ public class RouteTable extends JTable {
         routes = CurrentProject.getRouteColl();
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
-        clearSelection();
         updateUI();
     }
+
 
     /**
      * Refreshes the table
@@ -43,6 +44,7 @@ public class RouteTable extends JTable {
     public void refresh() {
         initTable();
     }
+
 
     /**
      * Setup Cells for Table
@@ -64,6 +66,7 @@ public class RouteTable extends JTable {
         };
     }
 
+
     /**
      * Route Table Builder
      *
@@ -71,7 +74,7 @@ public class RouteTable extends JTable {
      * @version 2021-04-11
      */
     private class RouteTableModel extends AbstractTableModel {
-        private final String[] COLUMN_NAMES = {"Route ID", "Name", "Length"};
+        private final String[] COLUMN_NAMES = {"Route ID", "Name", "Start", "Length"};
 
 
         /**
@@ -83,14 +86,16 @@ public class RouteTable extends JTable {
             return (routes != null) ? routes.size() : 1;
         }
 
+
         /**
          * Returns the column count of the table
          * @return int col count
          */
         @Override
         public int getColumnCount() {
-            return 3;
+            return 4;
         }
+
 
         /**
          * Returns object located in a cell index
@@ -107,11 +112,14 @@ public class RouteTable extends JTable {
             } else if (columnIndex == 1) {
                 return r.getName();
             } else if (columnIndex == 2) {
+                return r.getRoute().getFirst().getName();
+            } else if (columnIndex == 3) {
                 return r.length();
             } else {
                 return r;
             }
         }
+
 
         /**
          * Returns the name of the specific column
