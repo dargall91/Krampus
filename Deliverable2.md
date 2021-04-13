@@ -258,7 +258,7 @@ Answer as a team!
 - [x] User Stories that were not completed, were left in the Sprint and a copy created
 - [x] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Brian Pape|
+  - [x] Brian Pape|
   - [x] Chris Boveda
   - [ ] Derek Argall
   - [ ] John Thurstonson
