@@ -148,26 +148,28 @@ Answer as a team!
 #### Chris Boveda:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - ...
+  - [Completion of US90 (Pathfinder)](https://github.com/amehlhase316/Krampus/commit/b9868a308492531ce450c3a144e859d0b760e90b)
+  - [Progress on US90 (Pathfinder)](https://github.com/amehlhase316/Krampus/commit/92717973b46acc8996aca316332dcba3d512fe8b)
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+  - [Tests for the shortpath algorithm and helper](https://github.com/amehlhase316/Krampus/commit/24cdd73c5dce824ccb49ddb643b24dee08dd00e0)
+  - [Tests for the optimized shortpath algorithm](https://github.com/amehlhase316/Krampus/commit/4a4da37f5b74f2bf1abbb81ac3c3e2493b78e768)
 
   **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+  - [Code Review 1](https://github.com/amehlhase316/Krampus/pull/88)
+  - [Code Review 2](https://github.com/amehlhase316/Krampus/pull/82)
+  - [Code Review 3](https://github.com/amehlhase316/Krampus/pull/81)
 
   **How did you contribute to Static Analysis -- Sprint 3:**
 
-    - link1
-    - link2
+    -
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+    - Our group worked together and each member contributed equally to development of our quality policy.
+
 
 #### Derek Argall:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -247,18 +249,18 @@ Answer as a team!
 
   
 ## 4: Checklist for you to see if you are done
-- [] Filled out the complete form from above, all fields are filled and written in full sentences
+- [x] Filled out the complete form from above, all fields are filled and written in full sentences
 - [x] Read the kickoff again to make sure you have all the details
-- [] User Stories that were not completed, were left in the Sprint and a copy created
-- [] Your Quality Policies are accurate and up to date
-- [] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [] Brian Pape|
-  - [] Chris Boveda
-  - [] Derek Argall
-  - [] John Thurstonson
-  - [] Kevin Dolan
+- [x] User Stories that were not completed, were left in the Sprint and a copy created
+- [x] Your Quality Policies are accurate and up to date
+- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [ ] Brian Pape|
+  - [x] Chris Boveda
+  - [ ] Derek Argall
+  - [ ] John Thurstonson
+  - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [] All User Stories have acceptance tests
-  - [] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [] You know how to proceed
+  - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
+  - [x] All User Stories have acceptance tests
+  - [x] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [x] You know how to proceed
