@@ -79,15 +79,15 @@ public class AppFrame extends JFrame {
     JLabel statusBar = new JLabel();
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
-    
+    public WorkPanel workPanel = new WorkPanel();
+    ProjectsPanel projectsPanel = new ProjectsPanel(workPanel.dailyItemsPanel);
     boolean prPanelExpanded = false;
 
     JMenu jMenuEdit = new JMenu();
     JMenu jMenuFormat = new JMenu();
     JMenu jMenuInsert = new JMenu();
 
-    public WorkPanel workPanel = new WorkPanel();
-    ProjectsPanel projectsPanel = new ProjectsPanel(workPanel.getDailyItemsPanel());
+    
     HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
 
     static Vector exitListeners = new Vector();
@@ -585,7 +585,7 @@ public class AppFrame extends JFrame {
                 setMenusDisabled);
 
         this.workPanel.busesB.addActionListener(setMenusDisabled);
-        this.workPanel.toursB.addActionListener(setMenusDisabled);
+        //this.workPanel.eventsB.addActionListener(setMenusDisabled);
         this.workPanel.filesB.addActionListener(setMenusDisabled);
         this.workPanel.driverB.addActionListener(setMenusDisabled);
 

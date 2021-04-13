@@ -40,15 +40,18 @@ import java.util.LinkedList;
 public class BusTable extends JTable {
     private BusColl buses;
     private TableRowSorter<TableModel> sorter;
-    private final int HEIGHT = 24;
-    private final int ID_COLUMN = 1;
-    private BusScheduleTable scheduleTable;
+    private static final int HEIGHT = 24;
+    private static final int ID_COLUMN = 1;
+    private BusScheduleTable busSchedule;
+    private DriverScheduleTable driverTable;
 
     /**
      * Constructor for a BusTable
      */
-    public BusTable() {
+    public BusTable(BusScheduleTable busSchedule, DriverScheduleTable driverTable) {
         super();
+        //this.busSchedule = busSchedule;
+        this.driverTable = driverTable;
         init();   
     }
 
@@ -81,8 +84,8 @@ public class BusTable extends JTable {
     	
     	addMouseListener(new MouseAdapter() {
     		public void mouseClicked(MouseEvent e) {
-    			scheduleTable.setBus(getBus());
-    			scheduleTable.tableChanged();
+    			busSchedule.setBus(getBus());
+    			busSchedule.tableChanged();
     		}
     		
     		public void mousePressed(MouseEvent e) {
@@ -152,8 +155,9 @@ public class BusTable extends JTable {
     }
 
     /**
-     * Defines how to render a cell
+     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
      */
+    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
@@ -182,18 +186,22 @@ public class BusTable extends JTable {
                 Local.getString("Number"),
                 Local.getString("ID")};
 
+        @Override
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
             return buses.size();
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
             //set the selected bus for use by other methods in addition to displaying information
             Bus bus = buses.getBuses().toArray(new Bus[buses.size()])[row];
@@ -209,6 +217,7 @@ public class BusTable extends JTable {
             return null;
         }
 
+        @Override
         public Class getColumnClass(int col) {
         	for (int i = 0; i < getRowCount(); i++) {
         		Object obj = getValueAt(i, col); {
@@ -258,6 +267,13 @@ public class BusTable extends JTable {
     		
     		//remove bus from all scheduled tours
 			for (Tour t:bus.getTours()) {
+				//A driver cannot be scheduled for a tour without a bus. Check if the tour has a driver, then unschedule
+				//the tour from the driver if there is
+				if (t.getDriver() != null) {
+					t.getDriver().delTour(t);
+	    			driverTable.tableChanged();
+				}
+				
 				bus.delTour(t);
 			}
     		
@@ -269,14 +285,14 @@ public class BusTable extends JTable {
 				tableChanged();
 				
 				if (buses.size() == 0) {
-					scheduleTable.setBus(null);
+					busSchedule.setBus(null);
 				}
 				
 				else {
-					scheduleTable.setBus(getBus());
+					busSchedule.setBus(getBus());
 				}
 				
-				scheduleTable.tableChanged();
+				busSchedule.tableChanged();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -296,10 +312,11 @@ public class BusTable extends JTable {
     
     /**
      * Sets the BusScheduleTable to be updated when a user selects a bus in this table
+     * The BusScheduleTable MUST be set for else errors will occur
      * 
-     * @param scheduleTable The BusScheduleTable
+     * @param busSchedule The BusScheduleTable
      */
-    public void setScheduleTable(BusScheduleTable scheduleTable) {
-        this.scheduleTable = scheduleTable;
+    public void setBusScheduleTable(BusScheduleTable busSchedule) {
+        this.busSchedule = busSchedule;
     }
 }
