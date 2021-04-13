@@ -120,29 +120,33 @@ Answer as a team!
 > In this section I want you to point me to your main contributions (each of you individually). Some of the topcs are not needed for the first deliverables (you should know which things you should have done in this Sprint, if you don't then you have probably missed something):
 
 #### Brian Pape:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+- [US8-Task106: Add NodeMapper class to scale nodes for plotting](https://github.com/amehlhase316/Krampus/commit/34f122ed5449362c5b74039d541075cf6f4a32ba)
+- [US37-Task107: Add Bus/Tour interaction and tour length functions](https://github.com/amehlhase316/Krampus/commit/301fe2db74db912c602de79b5a3ec813e0693b36)
+- [US82-Task109: database singleton class](https://github.com/amehlhase316/Krampus/pull/82/files)
+- [US37/US82: Add Bus and tour functionality](https://github.com/amehlhase316/Krampus/commit/b3f74ed4307f774f91a46772a24da950830b7360)
+- [US82-Task87: Driver serialization](https://github.com/amehlhase316/Krampus/commit/38586b6bf0ec95bc80f1afefe0751e84c2ccc9a5)
+
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+- [NodeMapper unit tests](https://github.com/amehlhase316/Krampus/pull/78/commits/d58645c3c8c049261c16f14ed6db1f13ca1ce0c7)
+- [Tour/driver relations](https://github.com/amehlhase316/Krampus/pull/78/commits/a19fbe0b3052489642dbdfab9ffedc1f98cb52d5)
+- [Bus/Tour](https://github.com/amehlhase316/Krampus/pull/78/commits/c07b6e46fe445bcf7dfa45b4d5126ea8d546ba95)
+
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+- [Standard approval using team QP checklist on code requiring no changes](https://github.com/amehlhase316/Krampus/pull/84#partial-pull-merging)
+- [Code review with Change request](https://github.com/amehlhase316/Krampus/pull/64#partial-pull-merging)
+
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**What was your main contribution to the Quality Policy documentation?:**
 
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis -- Sprint 3:**
-
-    - link1
-    - link2
-
-  **What was your main contribution to the Quality Policy documentation?:**
-
-    - ...
+ - Our team worked collaboratively as a group to develop our Quality Policy documentation and each team member contributed to its development.
 
 
 #### Chris Boveda:
