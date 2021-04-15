@@ -44,7 +44,7 @@ public class RouteStop {
      */
     public void drawStop(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        Ellipse2D.Double circle = new Ellipse2D.Double(x, y, RADIUS, RADIUS);
+        Ellipse2D.Double circle = new Ellipse2D.Double(x - RADIUS, y - RADIUS, RADIUS*2, RADIUS*2);
         int xAxis = (int) x;
         int yaxis = (int) y;
 
