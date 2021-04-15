@@ -34,6 +34,8 @@
 
 **Developer Checklist**
 
+- [ ] No spotbugs SA errors in newly written code
+- [ ] No significant checkstyle errors in newly written code
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -49,7 +51,8 @@
 
 **Reviewer Checklist**
 - [ ] Code passes all TravisCI tests
-- [ ] No spotbugs SA errors in 
+- [ ] No spotbugs SA errors in newly written code
+- [ ] No significant checkstyle errors in newly written code
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
