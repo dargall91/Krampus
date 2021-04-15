@@ -6,7 +6,7 @@
 > Bus Scheduling (#4)
 
 **Sprint Number:**
-> 2
+> 3
 
 **Scrum Master**:
 > Derek Argall
@@ -45,22 +45,17 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 | Date  | Attendees  | Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
-| 31MAR21 | -John | Sprint1 retrospective and Sprint2 planning | n/a | n/a | via Slack/Zoom, no blockers |
-| 02APR21  | All  | Sprint2 status updates | Some tasks completed, but US yet  | n/a | via Slack,  no blockers |
-| 04APR21 | Brian, Derek, John | Discussing progress, check TravisCI, check Taiga | On track | All builds are good | Slack/zoom, no blockers |
-| 07APR21 | All | Slack check-in | On track | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
-| 09APR21 | Brian, Derek | Discussing progress, check TravisCI, check Taiga | Catch-up required | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
-| 11APR21 | All (-John in Slack) | End of Sprint Meeting | Will be completed tonight | All builds are good | via Slack/Zoom, no blockers |
+| 14APR21 | All | Sprint2 retrospective and Sprint3 planning | n/a | n/a | via Slack/Zoom, no blockers |
 
 ### Meeting Summary:
 
-| Name | Meeting Attended This Sprint | Sprint 1 | Project Total |
+| Name | Meeting Attended This Sprint | Sprint 2 | Sprint 1 | Project Total |
 |---|---|---|---|
-|Brian Pape| 5| 8| 13|
-|Chris Boveda| 3| 8| 11|
-|Derek Argall| 5| 8| 13|
-|John Thurstonson| 3| 7| 10|
-|Kevin Dolan| 5| 8| 10|
+|Brian Pape| 1 | 5| 8| 13|
+|Chris Boveda| 1 | 3| 8| 11|
+|Derek Argall| 1 |5| 8| 13|
+|John Thurstonson| 1 |3| 7| 10|
+|Kevin Dolan| 1 |2| 8| 10|
 
 
 ## 3: After the Sprint
@@ -70,19 +65,19 @@ Answer as a team!
 
 **Screen Cast link**:
 
-> TBD
+>
 
 **What do you think is the value you created this Sprint?**
 
-> The system performs all of the basic functions outlined in Sprint2 - this entails displaying all required data except the actual computed short-path route.
+>
 
 **Do you think you worked enough and that you did what was expected of you?**
 
-> We accomplished all of the USs for Sprint 2, but aim to improve the consistency of work for the next Sprint.  Our burndown chart on Taiga demonstrates this.
+>
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
-> We completed implementation of the primary bus scheduling system UI and back-end components.  The changes are visible and tangible, which will allow the customer to provide us with feedback on the implementation.
+>
 
 
 ### Sprint Retrospective
@@ -91,15 +86,15 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
-> Yes, all User Stories were completed, and we implemented all the functionality requirements.
+> Yes, all User Stories were completed, and we implemented all the functionality requirements. (Except Routes shows static data?)
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> Yes, we completed all the user stories as is evidenced by the Taiga Sprint 2 board.
+> Yes, we completed all the user stories.
 
 **If not, what went wrong?**
 
-> N/A
+>
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
@@ -107,11 +102,11 @@ Answer as a team!
 
 **Did you deliver business value?**
 
-> Yes, basics of the Bus Scheduling system were implemented and working. This implementation provides the business value presented to the customer during Sprint 2 planning.
+> Yes, basics of the Bus Scheduling system were implemented and working.
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> Work more consistently and communicate better with the team when a problem arises.
+> Work more consistently, communicate better with the team when a problem arrives
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
@@ -170,7 +165,7 @@ Answer as a team!
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- -
+    -
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -180,71 +175,19 @@ Answer as a team!
 #### Derek Argall:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- - [Completion of Drivers Tab](https://github.com/amehlhase316/Krampus/commit/953316fe9e433d8cae1e23d2e48e6bd54825bd6d)
- - [Completion of Buses Tab](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
- - [Changing projects reloads Bus and Driver data for the new project](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+    - [Completion of Drivers Tab](https://github.com/amehlhase316/Krampus/commit/953316fe9e433d8cae1e23d2e48e6bd54825bd6d)
+    - [Completion of Buses Tab](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+    - [Changing projects reloads Bus and Driver data for the new project](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+    - link1
+    - link2
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
-
-**How did you contribute to Static Analysis -- Sprint 3:**
-
- - link1
- - link2
-
-**What was your main contribution to the Quality Policy documentation?:**
-
- - ...
-
-#### John Thurstonson:
-**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
-
- - [Implement user ability to add, remove and edit Tours](https://github.com/amehlhase316/Krampus/commit/ed940ab2bc20d7fd43ee63a8bcb9258c7db5e5ea)   
- - [Create Tour Dialog](https://github.com/amehlhase316/Krampus/commit/ac470d296e587df47ed822bc65ac3ee58ffa2fd2)   
-[Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
-
-**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
-
- - N/A
- - 
-
-**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
-
- - [Code Review](https://github.com/amehlhase316/Krampus/pull/86)
- - 
-
-**How did you contribute to Static Analysis -- Sprint 3:**
-
- - link1
- - link2
-
-**What was your main contribution to the Quality Policy documentation?:**
-
- - Our team worked together to produce our quality policy.
-
-#### Kevin Dolan:
-**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
-
-<<<<<<< HEAD
-- [Implement the graphical structure for the route map](https://github.com/amehlhase316/Krampus/commit/0de17586822637dd0a62ee8d482a6d3cdb4736f2)
-- [Refactor the RouteMap into two classes](https://github.com/amehlhase316/Krampus/commit/369422719a5ef073dd110b4bc14c45a5a2c2285c)
-- [Fix bugs in RouteMap and Stops](https://github.com/amehlhase316/Krampus/commit/cc3e1ea8a6bb765e359a40a7c23980ff4bfcdb59)
-
-**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
-
-- [Unit Tests for RouteMap](https://github.com/amehlhase316/Krampus/commit/f261f77874a8220d4ffd017bf71983c0e18c7e0d)
-
-**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
-
-- [Code Review 1](https://github.com/amehlhase316/Krampus/pull/88)
-- [Code Review 2](https://github.com/amehlhase316/Krampus/pull/89)
+    - link1
+    - link2
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -253,19 +196,72 @@ Answer as a team!
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - The group worked collectively in a zoom meeting to establish our quality policy.
+    - ...
+
+#### John Thurstonson:
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - [Implement user ability to add, remove and edit Tours](https://github.com/amehlhase316/Krampus/commit/ed940ab2bc20d7fd43ee63a8bcb9258c7db5e5ea)   
+    - [Create Tour Dialog](https://github.com/amehlhase316/Krampus/commit/ac470d296e587df47ed822bc65ac3ee58ffa2fd2)   
+	- [Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
+
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+    - N/A
+    - 
+
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+    - [Code Review](https://github.com/amehlhase316/Krampus/pull/86)
+    - 
+
+**How did you contribute to Static Analysis -- Sprint 3:**
+
+    - link1
+    - link2
+
+**What was your main contribution to the Quality Policy documentation?:**
+
+    - Our team worked together to produce our quality policy.
+
+#### Kevin Dolan:
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - link1
+    - link2
+
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+    - link1
+    - link2
+
+**How did you contribute to Static Analysis -- Sprint 3:**
+
+    - link1
+    - link2
+
+**What was your main contribution to the Quality Policy documentation?:**
+
+    - ...
+
+
 
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
 - [x] Read the kickoff again to make sure you have all the details
 - [x] User Stories that were not completed, were left in the Sprint and a copy created
 - [x] Your Quality Policies are accurate and up to date
-- [x] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [x] Brian Pape|
   - [x] Chris Boveda
-  - [x] Derek Argall
+  - [ ] Derek Argall
   - [x] John Thurstonson
-  - [x] Kevin Dolan
+  - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [x] All User Stories have acceptance tests
