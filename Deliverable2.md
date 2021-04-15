@@ -2,28 +2,28 @@
 
 ## 1: Basic Information (needed before you start with your Sprint -- Sprint Planning)
 
-**Topic you chose:** 
+**Topic you chose:**
 > Bus Scheduling (#4)
 
-**Sprint Number:** 
+**Sprint Number:**
 > 2
 
-**Scrum Master**: 
+**Scrum Master**:
 > Derek Argall
 
-**Git Master**: 
+**Git Master**:
 > Brian Pape
 
 ### Sprint Planning (For Sprint 1-3)
-Document your Sprint Planning here. Also check the kickoff document for more details on what needs to be done. This is just the documentation. 
+Document your Sprint Planning here. Also check the kickoff document for more details on what needs to be done. This is just the documentation.
 
-**Sprint Goal:** 
+**Sprint Goal:**
 > Our overall goal for this sprint is to complete the functionality requirements of the Bus Scheduling system, including the route planning algorithm, and to have basic displays available for each of the modules.
 
 **How many User Stories did you add to the Product Backlog:**
 > We added 2 stories to the product backlog, and had one story rollover from sprint 1.
 
-**How many User Stories did you add to this Sprint:** 
+**How many User Stories did you add to this Sprint:**
 > We added 7 stories to the sprint 2 backlog for a total of 37 points.
 
 **Why did you add these US, why do you think you can get them done in the next Sprint?**
@@ -37,18 +37,20 @@ Document your Sprint Planning here. Also check the kickoff document for more det
 
 
 ## 2: During the Sprint
-> Fill out the Meeting minutes during your Sprint and keep track of things. Update your Quality policies when needed, as explained in the lectures and in the Quality Policy documents on Canvas. 
+> Fill out the Meeting minutes during your Sprint and keep track of things. Update your Quality policies when needed, as explained in the lectures and in the Quality Policy documents on Canvas.
 I would also advise you to already fill out the Contributions section (End of sprint) as you go, to create less work at the end.
 
 ### Meeting minutes of your Daily Scrums (3 per week, should not take longer than 10 minutes):
-> Add as many rows as needed and fill out the table. (Burndown starts with Sprint 2 and Travis CI starts with Sprint 3, not needed before that). 
+> Add as many rows as needed and fill out the table. (Burndown starts with Sprint 2 and Travis CI starts with Sprint 3, not needed before that).
 
-| Date  | Attendees  |Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
+| Date  | Attendees  | Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 31MAR21 | -John | Sprint1 retrospective and Sprint2 planning | n/a | n/a | via Slack/Zoom, no blockers |
+| 02APR21  | All  | Sprint2 status updates | Some tasks completed, but US yet  | n/a | via Slack,  no blockers |
 | 04APR21 | Brian, Derek, John | Discussing progress, check TravisCI, check Taiga | On track | All builds are good | Slack/zoom, no blockers |
 | 07APR21 | All | Slack check-in | On track | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
 | 09APR21 | Brian, Derek | Discussing progress, check TravisCI, check Taiga | Catch-up required | All builds are good | Slack/zoom, Personal and vaccination issues for some team members |
+| 11APR21 | All (-John in Slack) | End of Sprint Meeting | Will be completed tonight | All builds are good | via Slack/Zoom, no blockers |
 
 ### Meeting Summary:
 
@@ -66,21 +68,21 @@ I would also advise you to already fill out the Contributions section (End of sp
 ### Sprint Review
 Answer as a team!
 
-**Screen Cast link**: 
+**Screen Cast link**:
 
-> 
+>
 
 **What do you think is the value you created this Sprint?**
 
-> 
+>
 
 **Do you think you worked enough and that you did what was expected of you?**
 
-> 
+>
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
-> 
+>
 
 
 ### Sprint Retrospective
@@ -89,15 +91,15 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
-> Yes, all User Stories were completed and we implemented all the functionality requirements.
+> Yes, all User Stories were completed, and we implemented all the functionality requirements. (Except Routes shows static data?)
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> Yes, we completed all the user stories
+> Yes, we completed all the user stories.
 
 **If not, what went wrong?**
 
-> 
+>
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
@@ -113,139 +115,140 @@ Answer as a team!
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> Our team feels good about our progress so far and we're confident we can improve the system in the next Sprint.  
+> Our team feels good about our progress so far and we're confident we can improve the system in the next Sprint.
 
 ### Contributions:
 
 > In this section I want you to point me to your main contributions (each of you individually). Some of the topcs are not needed for the first deliverables (you should know which things you should have done in this Sprint, if you don't then you have probably missed something):
 
 #### Brian Pape:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
     - link1
     - link2
 
-  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **How did you contribute to Static Analysis -- Sprint 3:**
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
 
-  **What was your main contribution to the Quality Policy documentation?:**
+**What was your main contribution to the Quality Policy documentation?:**
 
     - ...
 
 
 #### Chris Boveda:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
     - ...
 
-  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **How did you contribute to Static Analysis -- Sprint 3:**
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
 
-  **What was your main contribution to the Quality Policy documentation?:**
+**What was your main contribution to the Quality Policy documentation?:**
 
     - ...
 
 #### Derek Argall:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+    - [Completion of Drivers Tab](https://github.com/amehlhase316/Krampus/commit/953316fe9e433d8cae1e23d2e48e6bd54825bd6d)
+    - [Completion of Buses Tab](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+    - [Changing projects reloads Bus and Driver data for the new project](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
 
-  **How did you contribute to Static Analysis -- Sprint 3:**
-
-    - link1
-    - link2
-
-  **What was your main contribution to the Quality Policy documentation?:**
+**What was your main contribution to the Quality Policy documentation?:**
 
     - ...
 
 #### John Thurstonson:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
     - link1
     - link2
 
-  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **How did you contribute to Static Analysis -- Sprint 3:**
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
 
-  **What was your main contribution to the Quality Policy documentation?:**
+**What was your main contribution to the Quality Policy documentation?:**
 
     - ...
 
 #### Kevin Dolan:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
     - link1
     - link2
 
-   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
     - link1
     - link2
 
-  **How did you contribute to Static Analysis -- Sprint 3:**
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
- 
- **What was your main contribution to the Quality Policy documentation?:**
+
+**What was your main contribution to the Quality Policy documentation?:**
 
     - ...
 
 
-  
+
 ## 4: Checklist for you to see if you are done
 - [] Filled out the complete form from above, all fields are filled and written in full sentences
 - [x] Read the kickoff again to make sure you have all the details
