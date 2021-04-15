@@ -1,9 +1,3 @@
-/**
- * RouteStop creates stops and connections for RouteMap.
- *
- * @author Kevin Dolan
- * @version 1.0
- */
 package main.java.memoranda.ui;
 
 import java.awt.*;
@@ -13,13 +7,14 @@ import java.awt.geom.Point2D;
 import java.lang.String;
 
 /**
- * Constructor for RouteStop.
+ * RouteStop creates stops and connections for RouteMap.
+ *
+ * @author Kevin Dolan
+ * @version 1.0
  */
 public class RouteStop {
-    /**
-     * RouteStop creates the graphical representation of bus stops.
-     */
-    protected static final double RADIUS = 10;
+
+    static final double RADIUS = 10;
     private final double x;
     private final double y;
     private final Point2D busStop;
@@ -44,7 +39,7 @@ public class RouteStop {
      */
     public void drawStop(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        Ellipse2D.Double circle = new Ellipse2D.Double(x - RADIUS, y - RADIUS, RADIUS*2, RADIUS*2);
+        Ellipse2D.Double circle = new Ellipse2D.Double(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
         int xAxis = (int) x;
         int yaxis = (int) y;
 
