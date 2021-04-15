@@ -60,7 +60,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 |Chris Boveda| 3| 8| 11|
 |Derek Argall| 5| 8| 13|
 |John Thurstonson| 3| 7| 10|
-|Kevin Dolan| 2| 8| 10|
+|Kevin Dolan| 5| 8| 10|
 
 
 ## 3: After the Sprint
@@ -186,13 +186,12 @@ Answer as a team!
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - N/A (worked on UI components only)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - [Review #1](https://github.com/amehlhase316/Krampus/pull/81)
+ - [Review #2](https://github.com/amehlhase316/Krampus/pull/83)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -201,14 +200,14 @@ Answer as a team!
 
 **What was your main contribution to the Quality Policy documentation?:**
 
- - ...
+ - I contributed alongside the whole team to create the Quality Policy.
 
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
  - [Implement user ability to add, remove and edit Tours](https://github.com/amehlhase316/Krampus/commit/ed940ab2bc20d7fd43ee63a8bcb9258c7db5e5ea)   
  - [Create Tour Dialog](https://github.com/amehlhase316/Krampus/commit/ac470d296e587df47ed822bc65ac3ee58ffa2fd2)   
-[Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
+ - [Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -232,29 +231,27 @@ Answer as a team!
 #### Kevin Dolan:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- - link1
- - link2
+- [Implement the graphical structure for the route map](https://github.com/amehlhase316/Krampus/commit/0de17586822637dd0a62ee8d482a6d3cdb4736f2)
+- [Refactor the RouteMap into two classes](https://github.com/amehlhase316/Krampus/commit/369422719a5ef073dd110b4bc14c45a5a2c2285c)
+- [Fix bugs in RouteMap and Stops](https://github.com/amehlhase316/Krampus/commit/cc3e1ea8a6bb765e359a40a7c23980ff4bfcdb59)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+- [Unit Tests for RouteMap](https://github.com/amehlhase316/Krampus/commit/f261f77874a8220d4ffd017bf71983c0e18c7e0d)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+- [Code Review 1](https://github.com/amehlhase316/Krampus/pull/88)
+- [Code Review 2](https://github.com/amehlhase316/Krampus/pull/89)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+    - link1
+    - link2
 
 **What was your main contribution to the Quality Policy documentation?:**
 
- - ...
-
-
+    - The group worked collectively in a zoom meeting to establish our quality policy.
 
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
