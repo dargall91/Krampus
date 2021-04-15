@@ -49,6 +49,7 @@
 
 **Reviewer Checklist**
 - [ ] Code passes all TravisCI tests
+- [ ] No spotbugs SA errors in 
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -62,8 +63,9 @@
   - [ ] Constants and enums are in CAPS
 - [ ] All complex statements, including single line statements, must use explicit brackets {}
 
-**Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
-  > Your Static Analysis policy   
+**Static Analysis**  (start Sprint 3)
+ > PRs shall contain no spotbugs errors in newly written code.  PRs shall contain minimal checkstyle errors in newly written code. Code review shall include SA checks before PRs are approved into Dev or master. SA with spotbugs and checkstyle is already set up and configured to run with each TravisCI build.
 
 **Continuous Integration**  (start Sprint 3)
-  > Your Continuous Integration policy
+ > We have already configured TravisCI to run with each commit to the Krampus repository.  Successful CI build is required for approval of any PR into Dev or master (as was our policy in Sprint 2).
+
