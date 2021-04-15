@@ -83,10 +83,11 @@ public class NotesList extends JList {
     }
 
     public void update(NoteList nl) {
-        if (_type == ALL)
+        if (_type == ALL) {
             notes = (Vector) nl.getAllNotes();
-        else
+        } else {
             notes = (Vector) nl.getMarkedNotes();
+        }
 
 //        Util.debug("No. of notes in noteList " + notes.size());
         //NotesVectorSorter.sort(notes);
@@ -152,11 +153,13 @@ public class NotesList extends JList {
                 //Note currentNote = CurrentProject.getNoteList().getActiveNote();
                 Note currentNote = CurrentNote.get();
                 if (currentNote != null) {
-                    if (getNote(index).getId().equals(currentNote.getId()))
+                    if (getNote(index).getId().equals(currentNote.getId())) {
                         label.setFont(label.getFont().deriveFont(Font.BOLD));
+                    }
                 }
-                if (getNote(index).isMarked())
+                if (getNote(index).isMarked()) {
                     label.setIcon(bookmarkIcon);
+                }
                 //setIcon();
        /*if (isSelected) {
              setBackground(list.getSelectionBackground());

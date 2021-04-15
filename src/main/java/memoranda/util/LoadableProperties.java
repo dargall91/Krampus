@@ -72,8 +72,9 @@ public class LoadableProperties extends Hashtable {
     }
 
     private boolean isValid(String str) {
-        if (str == null)
+        if (str == null) {
             return false;
+        }
         if (str.length() > 0) {
             if (str.startsWith("#") || str.startsWith("!")) {
                 return false;

@@ -59,18 +59,21 @@ public class JNCalendar extends JTable {
         ListSelectionListener lsl = new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 //Ignore extra messages.
-                if (e.getValueIsAdjusting())
+                if (e.getValueIsAdjusting()) {
                     return;
-                if (ignoreChange)
+                }
+                if (ignoreChange) {
                     return;
+                }
                 int row = getSelRow();
                 int col = getSelCol();
                 Object val = getModel().getValueAt(row, col);
                 if (val != null) {
                     if (val
                             .toString()
-                            .equals(new Integer(_date.getDay()).toString()))
+                            .equals(new Integer(_date.getDay()).toString())) {
                         return;
+                    }
                     _date =
                             new CalendarDate(
                                     new Integer(val.toString()).intValue(),
@@ -137,14 +140,15 @@ public class JNCalendar extends JTable {
          * CalendarDate(new Integer(d.toString()).intValue(), _date.getMonth(),
          * _date.getYear()));
          */
-        if (d != null)
+        if (d != null) {
             renderer.setDate(
                     new CalendarDate(
                             new Integer(d.toString()).intValue(),
                             _date.getMonth(),
                             _date.getYear()));
-        else
+        } else {
             renderer.setDate(null);
+        }
         return renderer;
     }
 
@@ -176,14 +180,16 @@ public class JNCalendar extends JTable {
         if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
             cal.setFirstDayOfWeek(Calendar.MONDAY);
             d = 2;
-        } else
+        } else {
             cal.setFirstDayOfWeek(Calendar.SUNDAY);
+        }
 
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.getTime();
         firstDay = cal.get(Calendar.DAY_OF_WEEK) - d;
-        if (firstDay == -1)
+        if (firstDay == -1) {
             firstDay = 6;
+        }
         daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
@@ -203,10 +209,11 @@ public class JNCalendar extends JTable {
         public Object getValueAt(int row, int col) {
             //int pos = (row * 7 + col) - firstDay + 1;
             int pos = (row * 7 + (col + 1)) - firstDay;
-            if ((pos > 0) && (pos <= daysInMonth))
+            if ((pos > 0) && (pos <= daysInMonth)) {
                 return new Integer(pos);
-            else
+            } else {
                 return null;
+            }
 
         }
 

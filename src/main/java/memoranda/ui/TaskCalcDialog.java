@@ -76,11 +76,11 @@ public class TaskCalcDialog extends JDialog {
         gbc.insets = new Insets(2, 0, 0, 10);
         gbc.anchor = GridBagConstraints.WEST;
         compactDatesChB.setText(Local.getString("Compact task dates based on sub task dates"));
-//		compactDatesChB.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				enSystrayChB_actionPerformed(e);
-//			}
-//		});
+//        compactDatesChB.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                enSystrayChB_actionPerformed(e);
+//            }
+//        });
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 10;
@@ -101,11 +101,11 @@ public class TaskCalcDialog extends JDialog {
         gbc.insets = new Insets(2, 0, 0, 10);
         gbc.anchor = GridBagConstraints.WEST;
         generalPanel.add(calcCompletionChB, gbc);
-//		calcCompletionChB.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				enSplashChB_actionPerformed(e);
-//			}
-//		});
+//        calcCompletionChB.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                enSplashChB_actionPerformed(e);
+//            }
+//        });
         // Build TopPanel
         topPanel.add(generalPanel, BorderLayout.CENTER);
 

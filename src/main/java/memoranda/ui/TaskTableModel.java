@@ -76,8 +76,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      * int)
      */
     public Object getValueAt(Object node, int column) {
-        if (node instanceof Project)
+        if (node instanceof Project) {
             return null;
+        }
         Task t = (Task) node;
         switch (column) {
             case 0:
@@ -87,10 +88,11 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             case 2:
                 return t.getStartDate().getDate();
             case 3:
-                if (t.getEndDate() == null)
+                if (t.getEndDate() == null) {
                     return null;
-                else
+                } else {
                     return t.getEndDate().getDate();
+                }
             case 4:
                 return getPriorityString(t.getPriority());
             case 5:
@@ -149,25 +151,35 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         if (parent instanceof Project) {
             if (activeOnly()) {
                 return CurrentProject.getTaskList().getActiveSubTasks(null, CurrentDate.get()).size();
-            } else return CurrentProject.getTaskList().getTopLevelTasks().size();
+            } else {
+                return CurrentProject.getTaskList().getTopLevelTasks().size();
+            }
         }
         Task t = (Task) parent;
-        if (activeOnly()) return CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get()).size();
-        else return t.getSubTasks().size();
+        if (activeOnly()) {
+            return CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get()).size();
+        } else {
+            return t.getSubTasks().size();
+        }
     }
 
     /**
      * @see javax.swing.tree.TreeModel#getChild(java.lang.Object, int)
      */
     public Object getChild(Object parent, int index) {
-        if (parent instanceof Project)
-            if (activeOnly())
+        if (parent instanceof Project) {
+            if (activeOnly()) {
                 return CurrentProject.getTaskList().getActiveSubTasks(null, CurrentDate.get()).toArray()[index];
-            else return CurrentProject.getTaskList().getTopLevelTasks().toArray()[index];
+            } else {
+                return CurrentProject.getTaskList().getTopLevelTasks().toArray()[index];
+            }
+        }
         Task t = (Task) parent;
-        if (activeOnly())
+        if (activeOnly()) {
             return CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get()).toArray()[index];
-        else return t.getSubTasks().toArray()[index];
+        } else {
+            return t.getSubTasks().toArray()[index];
+        }
     }
 
     /**
@@ -213,7 +225,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 
     public static boolean check_activeOnly() {
         Object o = Context.get("SHOW_ACTIVE_TASKS_ONLY");
-        if (o == null) return false;
+        if (o == null) {
+            return false;
+        }
         return o.toString().equals("true");
     }
 
@@ -222,7 +236,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     public boolean isCellEditable(Object node, int column) {
-        if (column == 6) return true;
+        if (column == 6) {
+            return true;
+        }
         return super.isCellEditable(node, column);
     }
 

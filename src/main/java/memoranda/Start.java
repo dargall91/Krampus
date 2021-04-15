@@ -61,8 +61,9 @@ public class Start {
         //System.out.println(EventsScheduler.isEventScheduled());
         if ((args.length == 0) || (!args[0].equals("-m"))) {
             app = new App(true);
-        } else
+        } else {
             app = new App(false);
+        }
     }
 }
 
@@ -81,7 +82,7 @@ class SLThread extends Thread {
             System.err.println("Port:" + Start.DEFAULT_PORT);
             e.printStackTrace();
             new ExceptionDialog(e, "Cannot create a socket connection on localhost:" + Start.DEFAULT_PORT,
-                "Make sure that other software does not use the port " + Start.DEFAULT_PORT + " and examine your security settings.");
+                    "Make sure that other software does not use the port " + Start.DEFAULT_PORT + " and examine your security settings.");
         }
     }
 }

@@ -665,7 +665,9 @@ public class AltHTMLWriter extends AbstractWriter {
      */
     void writeAdditionalComments() throws IOException {
         Object comments = getDocument().getProperty(HTMLDocument.AdditionalComments);
-        if (comments == null) return;
+        if (comments == null) {
+            return;
+        }
         if (comments instanceof Vector) {
             Vector v = (Vector) comments;
             for (int counter = 0, maxCounter = v.size(); counter < maxCounter; counter++) {
@@ -673,8 +675,9 @@ public class AltHTMLWriter extends AbstractWriter {
             }
         }
         //[alex] I've add the following 'else' for single comments:
-        else
+        else {
             writeComment(comments.toString());
+        }
         // end add
     }
 
@@ -1057,8 +1060,9 @@ public class AltHTMLWriter extends AbstractWriter {
                         } catch (Exception ex) {
                             fweight = -1;
                         }
-                        if ((weightValue.toLowerCase().equals("bold")) || (fweight > 400))
+                        if ((weightValue.toLowerCase().equals("bold")) || (fweight > 400)) {
                             to.addAttribute(HTML.Tag.B, SimpleAttributeSet.EMPTY);
+                        }
                     }
                 } else if (key == CSS.Attribute.FONT_STYLE) {
                     String s = from.getAttribute(key).toString();

@@ -88,7 +88,9 @@ public class NoteListImpl implements NoteList {
                     for (int ni = 0; ni < ns.size(); ni++) {
                         NoteElement ne = (NoteElement) ns.get(ni);
                         Note n = new NoteImpl(ne.getElement(), _project);
-                        if (n.isMarked()) v.add(n);
+                        if (n.isMarked()) {
+                            v.add(n);
+                        }
                     }
                 }
             }
@@ -135,8 +137,9 @@ public class NoteListImpl implements NoteList {
 
     public Note getNoteForDate(CalendarDate date) {
         Day d = getDay(date);
-        if (d == null)
+        if (d == null) {
             return null;
+        }
         Vector ns = d.getNotes();
         if (ns.size() > 0) {
             NoteElement n = (NoteElement) ns.get(0);
@@ -149,14 +152,17 @@ public class NoteListImpl implements NoteList {
 
     public Note createNoteForDate(CalendarDate date) {
         Year y = getYear(date.getYear());
-        if (y == null)
+        if (y == null) {
             y = createYear(date.getYear());
+        }
         Month m = y.getMonth(date.getMonth());
-        if (m == null)
+        if (m == null) {
             m = y.createMonth(date.getMonth());
+        }
         Day d = m.getDay(date.getDay());
-        if (d == null)
+        if (d == null) {
             d = m.createDay(date.getDay());
+        }
         NoteElement ne = d.createNote(Util.generateId());
         return new NoteImpl(ne.getElement(), _project);
     }
@@ -172,14 +178,18 @@ public class NoteListImpl implements NoteList {
 */
     public void removeNote(CalendarDate date, String id) {
         Day d = getDay(date);
-        if (d == null) return;
+        if (d == null) {
+            return;
+        }
         Vector ns = d.getNotes();
         for (int i = 0; i < ns.size(); i++) {
             NoteElement n = (NoteElement) ns.get(i);
             Element ne = n.getElement();
-            if (ne.getAttribute("refid").getValue().equals(id)) d.getElement().removeChild(n.getElement());
+            if (ne.getAttribute("refid").getValue().equals(id)) {
+                d.getElement().removeChild(n.getElement());
+            }
         }
-//		CurrentNote.set(null);
+//        CurrentNote.set(null);
     }
 
     public Note getActiveNote() {
@@ -191,9 +201,11 @@ public class NoteListImpl implements NoteList {
     private Year getYear(int y) {
         Elements yrs = _root.getChildElements("year");
         String yy = new Integer(y).toString();
-        for (int i = 0; i < yrs.size(); i++)
-            if (yrs.get(i).getAttribute("year").getValue().equals(yy))
+        for (int i = 0; i < yrs.size(); i++) {
+            if (yrs.get(i).getAttribute("year").getValue().equals(yy)) {
                 return new Year(yrs.get(i));
+            }
+        }
         //return createYear(y);
         return null;
     }
@@ -216,11 +228,13 @@ public class NoteListImpl implements NoteList {
     */
     private Day getDay(CalendarDate date) {
         Year y = getYear(date.getYear());
-        if (y == null)
+        if (y == null) {
             return null;
+        }
         Month m = y.getMonth(date.getMonth());
-        if (m == null)
+        if (m == null) {
             return null;
+        }
         return m.getDay(date.getDay());
     }
 
@@ -238,9 +252,11 @@ public class NoteListImpl implements NoteList {
         public Month getMonth(int m) {
             Elements ms = yearElement.getChildElements("month");
             String mm = new Integer(m).toString();
-            for (int i = 0; i < ms.size(); i++)
-                if (ms.get(i).getAttribute("month").getValue().equals(mm))
+            for (int i = 0; i < ms.size(); i++) {
+                if (ms.get(i).getAttribute("month").getValue().equals(mm)) {
                     return new Month(ms.get(i));
+                }
+            }
             //return createMonth(m);
             return null;
         }
@@ -255,8 +271,9 @@ public class NoteListImpl implements NoteList {
         public Vector getMonths() {
             Vector v = new Vector();
             Elements ms = yearElement.getChildElements("month");
-            for (int i = 0; i < ms.size(); i++)
+            for (int i = 0; i < ms.size(); i++) {
                 v.add(new Month(ms.get(i)));
+            }
             return v;
         }
 
@@ -278,13 +295,16 @@ public class NoteListImpl implements NoteList {
         }
 
         public Day getDay(int d) {
-            if (mElement == null)
+            if (mElement == null) {
                 return null;
+            }
             Elements ds = mElement.getChildElements("day");
             String dd = new Integer(d).toString();
-            for (int i = 0; i < ds.size(); i++)
-                if (ds.get(i).getAttribute("day").getValue().equals(dd))
+            for (int i = 0; i < ds.size(); i++) {
+                if (ds.get(i).getAttribute("day").getValue().equals(dd)) {
                     return new Day(ds.get(i));
+                }
+            }
             //return createDay(d);
             return null;
         }
@@ -306,12 +326,14 @@ public class NoteListImpl implements NoteList {
         }
 
         public Vector getDays() {
-            if (mElement == null)
+            if (mElement == null) {
                 return null;
+            }
             Vector v = new Vector();
             Elements ds = mElement.getChildElements("day");
-            for (int i = 0; i < ds.size(); i++)
+            for (int i = 0; i < ds.size(); i++) {
                 v.add(new Day(ds.get(i)));
+            }
             return v;
         }
 
@@ -355,20 +377,23 @@ public class NoteListImpl implements NoteList {
         }*/
 
         public NoteElement getNote(String d) {
-            if (dEl == null)
+            if (dEl == null) {
                 return null;
+            }
             Elements ne = dEl.getChildElements("note");
 
-            for (int i = 0; i < ne.size(); i++)
-                if (ne.get(i).getAttribute("refid").getValue().equals(d))
+            for (int i = 0; i < ne.size(); i++) {
+                if (ne.get(i).getAttribute("refid").getValue().equals(d)) {
                     return new NoteElement(ne.get(i));
+                }
+            }
             //return createDay(d);
             return null;
         }
 
         public NoteElement createNote(String d) {
             Element el = new Element("note");
-//			el.addAttribute(new Attribute("refid", d));
+//            el.addAttribute(new Attribute("refid", d));
 /*            el.addAttribute(new Attribute("day", new Integer(d).toString()));
                         el.addAttribute(
                 new Attribute(
@@ -383,12 +408,14 @@ public class NoteListImpl implements NoteList {
         }
 
         public Vector getNotes() {
-            if (dEl == null)
+            if (dEl == null) {
                 return null;
+            }
             Vector v = new Vector();
             Elements ds = dEl.getChildElements("note");
-            for (int i = 0; i < ds.size(); i++)
+            for (int i = 0; i < ds.size(); i++) {
                 v.add(new NoteElement(ds.get(i)));
+            }
             return v;
         }
 

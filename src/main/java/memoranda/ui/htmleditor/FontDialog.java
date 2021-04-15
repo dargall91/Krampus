@@ -80,8 +80,9 @@ public class FontDialog extends JDialog {
         fonts.add("serif");
         fonts.add("sans-serif");
         fonts.add("monospaced");
-        for (int i = 0; i < envfonts.length; i++)
+        for (int i = 0; i < envfonts.length; i++) {
             fonts.add(envfonts[i]);
+        }
         fontFamilyCB = new JComboBox(fonts);
 
         headerPanel.setBackground(Color.WHITE);
@@ -213,11 +214,14 @@ public class FontDialog extends JDialog {
         int size = 16;
         String face;
         Font font = sample.getFont();
-        if (fontSizeCB.getSelectedIndex() > 0)
+        if (fontSizeCB.getSelectedIndex() > 0) {
             size = sizes[fontSizeCB.getSelectedIndex() - 1];
-        if (fontFamilyCB.getSelectedIndex() > 0)
+        }
+        if (fontFamilyCB.getSelectedIndex() > 0) {
             face = (String) fontFamilyCB.getSelectedItem();
-        else face = font.getName();
+        } else {
+            face = font.getName();
+        }
         sample.setFont(new Font(face, Font.PLAIN, size));
     }
 
@@ -251,7 +255,9 @@ public class FontDialog extends JDialog {
         UIManager.put("ColorChooser.rgbBlueText", Local.getString("Blue"));
         Color c = JColorChooser.showDialog(this, Local.getString("Font color"),
                 Util.decodeColor(colorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         colorField.setText(Util.encodeColor(c));
         Util.setColorField(colorField);
         sample.setForeground(c);

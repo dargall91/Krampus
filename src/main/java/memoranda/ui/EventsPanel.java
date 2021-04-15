@@ -215,8 +215,9 @@ public class EventsPanel extends JPanel {
         eventsTable.addKeyListener(new KeyListener() {
             public void keyPressed(KeyEvent e) {
                 if (eventsTable.getSelectedRows().length > 0
-                        && e.getKeyCode() == KeyEvent.VK_DELETE)
+                        && e.getKeyCode() == KeyEvent.VK_DELETE) {
                     ppRemoveEvent_actionPerformed(null);
+                }
             }
 
             public void keyReleased(KeyEvent e) {
@@ -254,7 +255,9 @@ public class EventsPanel extends JPanel {
                 int d = ev.getPeriod() - 1;
                 if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
                     d--;
-                    if (d < 0) d = 6;
+                    if (d < 0) {
+                        d = 6;
+                    }
                 }
                 dlg.weekdaysCB.setSelectedIndex(d);
             } else if (rep == EventsManager.REPEAT_MONTHLY) {
@@ -281,8 +284,9 @@ public class EventsPanel extends JPanel {
         Point loc = App.getFrame().getLocation();
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
         dlg.setVisible(true);
-        if (dlg.CANCELLED)
+        if (dlg.CANCELLED) {
             return;
+        }
         EventsManager.removeEvent(ev);
 
         Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
@@ -297,9 +301,9 @@ public class EventsPanel extends JPanel {
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
         String text = dlg.textField.getText();
-        if (dlg.noRepeatRB.isSelected())
+        if (dlg.noRepeatRB.isSelected()) {
             EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
-        else {
+        } else {
             updateEvents(dlg, hh, mm, text);
         }
         saveEvents();
@@ -328,8 +332,9 @@ public class EventsPanel extends JPanel {
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
         dlg.setEventDate(startDate);
         dlg.setVisible(true);
-        if (dlg.CANCELLED)
+        if (dlg.CANCELLED) {
             return;
+        }
         Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
         //by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
         calendar.setTime(((Date) dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
@@ -345,9 +350,9 @@ public class EventsPanel extends JPanel {
 
         CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 
-        if (dlg.noRepeatRB.isSelected())
+        if (dlg.noRepeatRB.isSelected()) {
             EventsManager.createEvent(eventCalendarDate, hh, mm, text);
-        else {
+        } else {
             updateEvents(dlg, hh, mm, text);
         }
         saveEvents();
@@ -366,8 +371,9 @@ public class EventsPanel extends JPanel {
         int period;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         CalendarDate ed = null;
-        if (dlg.enableEndDateCB.isSelected())
+        if (dlg.enableEndDateCB.isSelected()) {
             ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
+        }
         if (dlg.dailyRepeatRB.isSelected()) {
             rtype = EventsManager.REPEAT_DAILY;
             period = ((Integer) dlg.daySpin.getModel().getValue()).intValue();
@@ -375,13 +381,18 @@ public class EventsPanel extends JPanel {
             rtype = EventsManager.REPEAT_WEEKLY;
             period = dlg.weekdaysCB.getSelectedIndex() + 1;
             if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
-                if (period == 7) period = 1;
-                else period++;
+                if (period == 7) {
+                    period = 1;
+                } else {
+                    period++;
+                }
             }
         } else if (dlg.yearlyRepeatRB.isSelected()) {
             rtype = EventsManager.REPEAT_YEARLY;
             period = sd.getCalendar().get(Calendar.DAY_OF_YEAR);
-            if ((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) period--;
+            if ((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) {
+                period--;
+            }
         } else {
             rtype = EventsManager.REPEAT_MONTHLY;
             period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
@@ -393,10 +404,10 @@ public class EventsPanel extends JPanel {
         String msg;
         main.java.memoranda.Event ev;
 
-        if (eventsTable.getSelectedRows().length > 1)
+        if (eventsTable.getSelectedRows().length > 1) {
             msg = Local.getString("Remove") + " " + eventsTable.getSelectedRows().length
                     + " " + Local.getString("events") + "\n" + Local.getString("Are you sure?");
-        else {
+        } else {
             ev = (main.java.memoranda.Event) eventsTable.getModel().getValueAt(
                     eventsTable.getSelectedRow(),
                     EventsTable.EVENT);
@@ -410,7 +421,9 @@ public class EventsPanel extends JPanel {
                         msg,
                         Local.getString("Remove event"),
                         JOptionPane.YES_NO_OPTION);
-        if (n != JOptionPane.YES_OPTION) return;
+        if (n != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         for (int i = 0; i < eventsTable.getSelectedRows().length; i++) {
             ev = (main.java.memoranda.Event) eventsTable.getModel().getValueAt(
@@ -430,8 +443,9 @@ public class EventsPanel extends JPanel {
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            if ((e.getClickCount() == 2) && (eventsTable.getSelectedRow() > -1))
+            if ((e.getClickCount() == 2) && (eventsTable.getSelectedRow() > -1)) {
                 editEventB_actionPerformed(null);
+            }
         }
 
         public void mousePressed(MouseEvent e) {

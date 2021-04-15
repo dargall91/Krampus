@@ -203,7 +203,9 @@ public class NotesControlPanel extends JPanel {
     }
 
     void tabbedPane_stateChanged(ChangeEvent e) {
-        if (notesList != null) notesList.clearSelection();
+        if (notesList != null) {
+            notesList.clearSelection();
+        }
         switch (tabbedPane.getSelectedIndex()) {
             case 0:
                 notesList = notesListPanel.notesList;
@@ -223,8 +225,9 @@ public class NotesControlPanel extends JPanel {
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2)
+            if (e.getClickCount() == 2) {
                 setActiveNote();
+            }
         }
 
         public void mousePressed(MouseEvent e) {
@@ -268,7 +271,7 @@ public class NotesControlPanel extends JPanel {
 
     void ppClearNote_actionPerformed(ActionEvent e) {
         String msg;
-        if (notesList.getSelectedIndices().length > 1)
+        if (notesList.getSelectedIndices().length > 1) {
             msg =
                     Local.getString(Local.getString("Clear"))
                             + " "
@@ -277,13 +280,14 @@ public class NotesControlPanel extends JPanel {
                             + Local.getString("notes")
                             + "\n"
                             + Local.getString("Are you sure?");
-        else
+        } else {
             msg =
                     Local.getString("Clear note")
                             + "\n'"
                             + ((Note) notesList.getNote(notesList.getSelectedIndex())).getDate().getFullDateString()
                             + "'\n"
                             + Local.getString("Are you sure?");
+        }
 
         int n =
                 JOptionPane.showConfirmDialog(
@@ -291,8 +295,9 @@ public class NotesControlPanel extends JPanel {
                         msg,
                         Local.getString("Clear note"),
                         JOptionPane.YES_NO_OPTION);
-        if (n != JOptionPane.YES_OPTION)
+        if (n != JOptionPane.YES_OPTION) {
             return;
+        }
 
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
@@ -309,8 +314,8 @@ public class NotesControlPanel extends JPanel {
         notesListPanel.notesList.update();
         notesList.updateUI();
         notesList.clearSelection();
-//		notesList.requestFocus();*/
-//		((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();
+//        notesList.requestFocus();*/
+//        ((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();
     }
 
     void ppOpenNote_actionPerformed(ActionEvent e) {

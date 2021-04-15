@@ -81,18 +81,19 @@ public class BusDialog extends JDialog {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE
-                        || e.getKeyCode() == KeyEvent.VK_DELETE))
+                        || e.getKeyCode() == KeyEvent.VK_DELETE)) {
                     numberField.setEditable(true);
-
-                else
+                } else {
                     numberField.setEditable(false);
+                }
             }
 
             //If the bus number is multiple digits and the first digit is 0, drop the the 0
             @Override
             public void keyReleased(KeyEvent e) {
-                if (numberField.getText().length() > 1 && numberField.getText().charAt(0) == '0')
+                if (numberField.getText().length() > 1 && numberField.getText().charAt(0) == '0') {
                     numberField.setText(numberField.getText().substring(1));
+                }
             }
         });
 

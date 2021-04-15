@@ -1,7 +1,7 @@
 package main.java.memoranda.ui.treetable;
 
 /*
- * @(#)JTreeTable.java	1.2 98/10/27
+ * @(#)JTreeTable.java    1.2 98/10/27
  *
  * Copyright 1997, 1998 by Sun Microsystems, Inc.,
  * 901 San Antonio Road, Palo Alto, California, 94303, U.S.A.
@@ -97,7 +97,7 @@ public class JTreeTable extends JTable {
         // Use the tree's default foreground and background colors in the
         // table.
         LookAndFeel.installColorsAndFont(this, "Tree.background",
-            "Tree.foreground", "Tree.font");
+                "Tree.foreground", "Tree.font");
     }
 
     /*
@@ -109,7 +109,7 @@ public class JTreeTable extends JTable {
      */
     public int getEditingRow() {
         return (getColumnClass(editingColumn) == TreeTableModel.class) ? -1
-            : editingRow;
+                : editingRow;
     }
 
     /**
@@ -133,7 +133,7 @@ public class JTreeTable extends JTable {
      * A TreeCellRenderer that displays a JTree.
      */
     public class TreeTableCellRenderer extends JTree implements
-        TableCellRenderer {
+            TableCellRenderer {
         /**
          * Last table/tree row asked to renderer.
          */
@@ -164,9 +164,9 @@ public class JTreeTable extends JTable {
                 // null.
                 // dtcr.setBorderSelectionColor(null);
                 dtcr.setTextSelectionColor(UIManager
-                    .getColor("Table.selectionForeground"));
+                        .getColor("Table.selectionForeground"));
                 dtcr.setBackgroundSelectionColor(UIManager
-                    .getColor("Table.selectionBackground"));
+                        .getColor("Table.selectionBackground"));
                 ((DefaultTreeCellRenderer) this.getCellRenderer()).setLeafIcon(null);
                 ((DefaultTreeCellRenderer) this.getCellRenderer()).setOpenIcon(null);
                 ((DefaultTreeCellRenderer) this.getCellRenderer()).setClosedIcon(null);
@@ -181,7 +181,7 @@ public class JTreeTable extends JTable {
             if (rowHeight > 0) {
                 super.setRowHeight(rowHeight);
                 if (JTreeTable.this != null
-                    && JTreeTable.this.getRowHeight() != rowHeight) {
+                        && JTreeTable.this.getRowHeight() != rowHeight) {
                     JTreeTable.this.setRowHeight(getRowHeight());
                 }
             }
@@ -209,10 +209,11 @@ public class JTreeTable extends JTable {
         public Component getTableCellRendererComponent(JTable table,
                                                        Object value, boolean isSelected, boolean hasFocus, int row,
                                                        int column) {
-            if (isSelected)
+            if (isSelected) {
                 setBackground(table.getSelectionBackground());
-            else
+            } else {
                 setBackground(table.getBackground());
+            }
             if (value instanceof Task) {
 
             }
@@ -225,7 +226,7 @@ public class JTreeTable extends JTable {
      * TreeTableCellEditor implementation. Component returned is the JTree.
      */
     public class TreeTableCellEditor extends AbstractCellEditor implements
-        TableCellEditor {
+            TableCellEditor {
         public Component getTableCellEditorComponent(JTable table,
                                                      Object value, boolean isSelected, int r, int c) {
             return tree;
@@ -256,9 +257,9 @@ public class JTreeTable extends JTable {
                     if (getColumnClass(counter) == TreeTableModel.class) {
                         MouseEvent me = (MouseEvent) e;
                         MouseEvent newME = new MouseEvent(tree, me.getID(), me
-                            .getWhen(), me.getModifiers(), me.getX()
-                            - getCellRect(0, counter, true).x, me.getY(),
-                            me.getClickCount(), me.isPopupTrigger());
+                                .getWhen(), me.getModifiers(), me.getX()
+                                - getCellRect(0, counter, true).x, me.getY(),
+                                me.getClickCount(), me.isPopupTrigger());
                         tree.dispatchEvent(newME);
                         break;
                     }
@@ -283,7 +284,7 @@ public class JTreeTable extends JTable {
         public ListToTreeSelectionModelWrapper() {
             super();
             getListSelectionModel().addListSelectionListener(
-                createListSelectionListener());
+                    createListSelectionListener());
         }
 
         /**

@@ -279,8 +279,9 @@ public class AddResourceDialog extends JDialog {
         /*java.io.File lastSel = (java.io.File) Context.get("LAST_SELECTED_RESOURCE_FILE");
         if (lastSel != null)
             chooser.setCurrentDirectory(lastSel);*/
-        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
             return;
+        }
         /*try {
             Context.put("LAST_SELECTED_RESOURCE_FILE", chooser.getSelectedFile());
         }

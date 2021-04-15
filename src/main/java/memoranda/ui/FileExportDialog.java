@@ -174,10 +174,12 @@ public class FileExportDialog extends javax.swing.JDialog {
         chooser.setDialogTitle(Local.getString("Select file"));
         chooser.setAcceptAllFileFilterUsed(true);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        if (templF.getText().length() > 0)
+        if (templF.getText().length() > 0) {
             chooser.setCurrentDirectory(new java.io.File(templF.getText()));
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        }
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             templF.setText(chooser.getSelectedFile().getPath());
+        }
     }
 
     private javax.swing.JButton cancelB;

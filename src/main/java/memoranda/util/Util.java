@@ -36,23 +36,24 @@ public class Util {
 
     public static String generateId() {
         long seed1 = System.currentTimeMillis();
-        while (seed1 == seed)
+        while (seed1 == seed) {
             seed1 = System.currentTimeMillis(); // Make sure we'll don't get the same seed twice
+        }
         seed = seed1;
         Random r = new Random(seed);
         return Integer.toString(r.nextInt(), 16) +
-            "-" + Integer.toString(r.nextInt(65535), 16) +
-            "-" + Integer.toString(r.nextInt(65535), 16) +
-            "-" + Integer.toString(r.nextInt(65535), 16);
+                "-" + Integer.toString(r.nextInt(65535), 16) +
+                "-" + Integer.toString(r.nextInt(65535), 16) +
+                "-" + Integer.toString(r.nextInt(65535), 16);
 
     }
 
     public static String getDateStamp(Calendar cal) {
         return cal.get(Calendar.DAY_OF_MONTH)
-            + "/"
-            + (cal.get(Calendar.MONTH))
-            + "/"
-            + new Integer(cal.get(Calendar.YEAR)).toString();
+                + "/"
+                + (cal.get(Calendar.MONTH))
+                + "/"
+                + new Integer(cal.get(Calendar.YEAR)).toString();
 
     }
 
@@ -85,10 +86,12 @@ public class Util {
         // Changed static building of getEnvDir
         // Now system-related path-separator is used
         String p = System.getProperty("user.home") + File.separator
-            + ".jnotes2" + File.separator;
-        if (new File(p).isDirectory()) return p;
+                + ".jnotes2" + File.separator;
+        if (new File(p).isDirectory()) {
+            return p;
+        }
         return System.getProperty("user.home") + File.separator
-            + ".memoranda" + File.separator;
+                + ".memoranda" + File.separator;
     }
 
     public static String getCDATA(String s) {
@@ -96,8 +99,9 @@ public class Util {
     }
 
     public static void runBrowser(String url) {
-        if (!checkBrowser())
+        if (!checkBrowser()) {
             return;
+        }
         String commandLine = MimeTypesList.getAppList().getBrowserExec() + " " + url;
         System.out.println("Run: " + commandLine);
         try {
@@ -105,17 +109,19 @@ public class Util {
             Runtime.getRuntime().exec(commandLine);
         } catch (Exception ex) {
             new ExceptionDialog(ex, "Failed to run an external web-browser application with commandline<br><code>"
-                + commandLine + "</code>", "Check the application path and command line parameters " +
-                "(File-&gt;Preferences-&gt;Resource types).");
+                    + commandLine + "</code>", "Check the application path and command line parameters " +
+                    "(File-&gt;Preferences-&gt;Resource types).");
         }
     }
 
     public static boolean checkBrowser() {
         AppList appList = MimeTypesList.getAppList();
         String bpath = appList.getBrowserExec();
-        if (bpath != null)
-            if (new File(bpath).isFile())
+        if (bpath != null) {
+            if (new File(bpath).isFile()) {
                 return true;
+            }
+        }
         JFileChooser chooser = new JFileChooser();
         chooser.setFileHidingEnabled(false);
         chooser.setDialogTitle(Local.getString("Select the web-browser executable"));
@@ -124,8 +130,9 @@ public class Util {
         /*java.io.File lastSel = (java.io.File) Context.get("LAST_SELECTED_RESOURCE_FILE");
         if (lastSel != null)
             chooser.setCurrentDirectory(lastSel);*/
-        if (chooser.showOpenDialog(App.getFrame()) != JFileChooser.APPROVE_OPTION)
+        if (chooser.showOpenDialog(App.getFrame()) != JFileChooser.APPROVE_OPTION) {
             return false;
+        }
         appList.setBrowserExec(chooser.getSelectedFile().getPath());
         CurrentStorage.get().storeMimeTypesList();
         return true;
@@ -152,8 +159,9 @@ public class Util {
         AppFrame.addExitListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                for (Iterator i = tempFiles.iterator(); i.hasNext(); )
+                for (Iterator i = tempFiles.iterator(); i.hasNext(); ) {
                     ((File) i.next()).delete();
+                }
             }
         });
     }

@@ -227,15 +227,15 @@ public class DailyItemsPanel extends JPanel {
 
         CurrentProject.addProjectListener(new ProjectListener() {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
-//            	Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");				
-//            	Util.debug("current project is " + CurrentProject.get().getTitle());
+//                Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");                
+//                Util.debug("current project is " + CurrentProject.get().getTitle());
 
                 currentProjectChanged(p, nl, tl, rl);
             }
 
             public void projectWasChanged() {
-//            	Util.debug("DailyItemsPanel Project Listener: Project has been changed!");            	
-//            	Util.debug("current project is " + CurrentProject.get().getTitle());
+//                Util.debug("DailyItemsPanel Project Listener: Project has been changed!");                
+//                Util.debug("current project is " + CurrentProject.get().getTitle());
 
                 // cannot save note here, changing to new project
                 currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
@@ -244,7 +244,7 @@ public class DailyItemsPanel extends JPanel {
 
 //                // DEBUG
 //                if (currentNote != null) {
-//                    Util.debug("currentNote has been set to " + currentNote.getTitle());        	
+//                    Util.debug("currentNote has been set to " + currentNote.getTitle());            
 //                }
 //                else {
 //                    Util.debug("currentNote has been set to null");
@@ -261,8 +261,9 @@ public class DailyItemsPanel extends JPanel {
 
         calendar.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (calendarIgnoreChange)
+                if (calendarIgnoreChange) {
                     return;
+                }
                 dateChangedByCalendar = true;
                 CurrentDate.set(calendar.get());
                 dateChangedByCalendar = false;
@@ -351,7 +352,7 @@ public class DailyItemsPanel extends JPanel {
     }
 
     void currentNoteChanged(Note note, boolean toSaveCurrentNote) {
-//		Util.debug("currentNoteChanged");
+//        Util.debug("currentNoteChanged");
 
         if (editorPanel.isDocumentChanged()) {
             if (toSaveCurrentNote) {
@@ -366,14 +367,16 @@ public class DailyItemsPanel extends JPanel {
     }
 
     void currentProjectChanged(Project newprj, NoteList nl, TaskList tl, ResourcesList rl) {
-//		Util.debug("currentProjectChanged");
+//        Util.debug("currentProjectChanged");
 
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
-        if (!changedByHistory)
+        if (!changedByHistory) {
             History.add(new HistoryItem(CurrentDate.get(), newprj));
-        if (editorPanel.isDocumentChanged())
+        }
+        if (editorPanel.isDocumentChanged()) {
             saveNote();
+        }
         /*if ((currentNote != null) && !changedByHistory && !addedToHistory)
                     History.add(new HistoryItem(currentNote));*/
         CurrentProject.save();        
@@ -387,11 +390,11 @@ public class DailyItemsPanel extends JPanel {
         }*/
        /* 
         try {
-			Database.getDatabase(newprj);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+            Database.getDatabase(newprj);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
 
         updateIndicators(CurrentDate.get(), tl);
         App.getFrame().setCursor(cur);
@@ -405,8 +408,9 @@ public class DailyItemsPanel extends JPanel {
     }
 
     public void saveNote() {
-        if (currentNote == null)
+        if (currentNote == null) {
             currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
+        }
         currentNote.setTitle(editorPanel.titleField.getText());
         currentNote.setId(Util.generateId());
         CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
@@ -433,8 +437,9 @@ public class DailyItemsPanel extends JPanel {
     public void updateIndicators(CalendarDate date, TaskList tl) {
         indicatorsPanel.removeAll();
         if (date.equals(CalendarDate.today())) {
-            if (tl.getActiveSubTasks(null, date).size() > 0)
+            if (tl.getActiveSubTasks(null, date).size() > 0) {
                 indicatorsPanel.add(taskB, null);
+            }
             if (EventsScheduler.isEventScheduled()) {
                 /*String evlist = "";
                 for (Iterator it = EventsScheduler.getScheduledEvents().iterator(); it.hasNext();) {
@@ -479,8 +484,9 @@ public class DailyItemsPanel extends JPanel {
         //TODO: (Derek) Found where DriverPanel.refresh is called (I missed it the first time because all changes
         //were made via the Refactor function). But does it actually do anything relevant to the new 
         //bus scheduling system? It does not appear so, but will be tested sometime after US7 is completed
-        if (isAg)
+        if (isAg) {
             driverPanel.refresh(CurrentDate.get());
+        }
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
         calendar.jnCalendar.updateUI();

@@ -73,10 +73,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
                 tree, value, selected,
                 expanded, leaf, row,
                 hasFocus);
-        if (value instanceof Project)
+        if (value instanceof Project) {
             return empty_panel;
-        if (!(value instanceof Task))
+        }
+        if (!(value instanceof Task)) {
             return empty_panel;
+        }
         Task t = (Task) value;
         setText(t.getText());
         setToolTipText(t.getDescription());
@@ -164,10 +166,11 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
 
     // some convenience methods
     private void applySelectionStyle(boolean selected, JComponent c) {
-        if (selected)
+        if (selected) {
             c.setBackground(table.getSelectionBackground());
-        else
+        } else {
             c.setBackground(table.getBackground());
+        }
     }
 
     private void applyFocus(boolean hasFocus, JComponent c) {
@@ -183,10 +186,11 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
 
     private void applyFont(Task t, JComponent c) {
         if ((t.getStatus(CurrentDate.get()) == Task.ACTIVE)
-                || (t.getStatus(CurrentDate.get()) == Task.DEADLINE))
+                || (t.getStatus(CurrentDate.get()) == Task.DEADLINE)) {
             c.setFont(c.getFont().deriveFont(Font.BOLD));
-        else
+        } else {
             c.setFont(c.getFont().deriveFont(Font.PLAIN));
+        }
     }
 
     /**

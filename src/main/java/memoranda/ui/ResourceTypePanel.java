@@ -155,13 +155,15 @@ public class ResourceTypePanel extends JPanel {
                 new ImageIcon(
                         main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes/default.png")));
         dlg.setVisible(true);
-        if (dlg.CANCELLED)
+        if (dlg.CANCELLED) {
             return;
+        }
         String typeId = Util.generateId();
         MimeType mt = MimeTypesList.addMimeType(typeId);
         String[] exts = dlg.extField.getText().trim().split(" ");
-        for (int i = 0; i < exts.length; i++)
+        for (int i = 0; i < exts.length; i++) {
             mt.addExtension(exts[i]);
+        }
         mt.setLabel(dlg.descField.getText());
         AppList appList = MimeTypesList.getAppList();
         if (dlg.appPanel.applicationField.getText().length() > 0) {
@@ -174,8 +176,9 @@ public class ResourceTypePanel extends JPanel {
                     dlg.appPanel.argumentsField.getText());
             mt.setApp(appId);
         }
-        if (dlg.iconPath.length() > 0)
+        if (dlg.iconPath.length() > 0) {
             mt.setIconPath(dlg.iconPath);
+        }
         CurrentStorage.get().storeMimeTypesList();
         this.initTypesList();
         typesList.setSelectedValue(mt, true);
@@ -193,8 +196,9 @@ public class ResourceTypePanel extends JPanel {
                                 + Local.getString("Are you sure?"),
                         Local.getString("Delete resource type"),
                         JOptionPane.YES_NO_OPTION);
-        if (n != JOptionPane.YES_OPTION)
+        if (n != JOptionPane.YES_OPTION) {
             return;
+        }
         MimeTypesList.removeMimeType(mt.getMimeTypeId());
         CurrentStorage.get().storeMimeTypesList();
         this.initTypesList();
@@ -210,8 +214,9 @@ public class ResourceTypePanel extends JPanel {
         MimeType mt = (MimeType) typesList.getSelectedValue();
         String[] exts = mt.getExtensions();
         String extss = "";
-        for (int i = 0; i < exts.length; i++)
+        for (int i = 0; i < exts.length; i++) {
             extss += exts[i] + " ";
+        }
         dlg.extField.setText(extss);
         dlg.descField.setText(mt.getLabel());
         dlg.iconLabel.setIcon(mt.getIcon());
@@ -220,14 +225,16 @@ public class ResourceTypePanel extends JPanel {
                 appList.getFindPath(mt.getAppId()) + "/" + appList.getExec(mt.getAppId()));
         dlg.appPanel.argumentsField.setText(appList.getCommandLinePattern(mt.getAppId()));
         dlg.setVisible(true);
-        if (dlg.CANCELLED)
+        if (dlg.CANCELLED) {
             return;
+        }
         String typeId = mt.getMimeTypeId();
         MimeTypesList.removeMimeType(typeId);
         mt = MimeTypesList.addMimeType(typeId);
         exts = dlg.extField.getText().trim().split(" ");
-        for (int i = 0; i < exts.length; i++)
+        for (int i = 0; i < exts.length; i++) {
             mt.addExtension(exts[i]);
+        }
         mt.setLabel(dlg.descField.getText());
         if (dlg.appPanel.applicationField.getText().length() > 0) {
             File f = new File(dlg.appPanel.applicationField.getText());
@@ -239,8 +246,9 @@ public class ResourceTypePanel extends JPanel {
                     dlg.appPanel.argumentsField.getText());
             mt.setApp(appId);
         }
-        if (dlg.iconPath.length() > 0)
+        if (dlg.iconPath.length() > 0) {
             mt.setIconPath(dlg.iconPath);
+        }
         CurrentStorage.get().storeMimeTypesList();
         this.initTypesList();
         typesList.setSelectedValue(mt, true);
@@ -266,8 +274,9 @@ public class ResourceTypePanel extends JPanel {
             String extstr = "";
             for (int j = 0; j < exts.length; j++) {
                 extstr += "*." + exts[j];
-                if (j != exts.length - 1)
+                if (j != exts.length - 1) {
                     extstr += ", ";
+                }
             }
 
             setOpaque(true);

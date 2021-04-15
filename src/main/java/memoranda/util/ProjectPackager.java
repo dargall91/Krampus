@@ -56,8 +56,9 @@ public class ProjectPackager {
             PackDirectory(prDir.getPath(), prDir, zip);
             zip.putNextEntry(new ZipEntry("__PROJECT_INFO__"));
             String prInfo = prj.getID() + "\n" + prj.getTitle() + "\n" + prj.getStartDate().toString() + "\n";
-            if (prj.getEndDate() != null)
+            if (prj.getEndDate() != null) {
                 prInfo += prj.getEndDate().toString();
+            }
             zip.write(prInfo.getBytes("UTF-8"));
             zip.closeEntry();
 
@@ -79,11 +80,11 @@ public class ProjectPackager {
             in.close();
             if (ProjectManager.getProject(pId) != null) {
                 int n =
-                    JOptionPane.showConfirmDialog(
-                        App.getFrame(),
-                        Local.getString("This project is already exists and will be replaced.\nContinue?"),
-                        Local.getString("Project is already exists"),
-                        JOptionPane.YES_NO_OPTION);
+                        JOptionPane.showConfirmDialog(
+                                App.getFrame(),
+                                Local.getString("This project is already exists and will be replaced.\nContinue?"),
+                                Local.getString("Project is already exists"),
+                                JOptionPane.YES_NO_OPTION);
                 if (n != JOptionPane.YES_OPTION) {
                     zip.close();
                     return;
@@ -91,8 +92,9 @@ public class ProjectPackager {
                 ProjectManager.removeProject(pId);
             }
             Project prj = ProjectManager.createProject(pId, pTitle, new CalendarDate(pStartD), null);
-            if (pEndD != null)
+            if (pEndD != null) {
                 prj.setEndDate(new CalendarDate(pEndD));
+            }
             //File prDir = new File(JN_DOCPATH + prj.getID());
             Enumeration files;
             for (files = zip.entries(); files.hasMoreElements(); ) {
@@ -110,8 +112,9 @@ public class ProjectPackager {
                     byte[] buffer = new byte[1024];
                     int len;
 
-                    while ((len = inp.read(buffer)) >= 0)
+                    while ((len = inp.read(buffer)) >= 0) {
                         out.write(buffer, 0, len);
+                    }
 
                     inp.close();
                     out.close();
@@ -133,7 +136,7 @@ public class ProjectPackager {
     public static void PackDirectory(String startingDirectory,
                                      File theDirectory,
                                      ZipOutputStream theZIPStream)
-        throws java.io.IOException {
+            throws java.io.IOException {
         File[] theFiles = theDirectory.listFiles();
         File stDirectory = new File(startingDirectory);
         System.out.println("Path=" + stDirectory.getPath() + ";length=" + stDirectory.getPath().length() + "==>" + theFiles[0]);

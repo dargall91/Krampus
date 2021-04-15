@@ -1,6 +1,6 @@
 package main.java.memoranda.ui.treetable;
 /*
- * @(#)TreeTableModelAdapter.java	1.2 98/10/27
+ * @(#)TreeTableModelAdapter.java    1.2 98/10/27
  *
  * Copyright 1997, 1998 by Sun Microsystems, Inc.,
  * 901 San Antonio Road, Palo Alto, California, 94303, U.S.A.

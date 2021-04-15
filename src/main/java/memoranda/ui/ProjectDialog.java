@@ -124,7 +124,9 @@ public class ProjectDialog extends JDialog {
         //---------------------------------------------------
         startDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                if (ignoreStartChanged) return;
+                if (ignoreStartChanged) {
+                    return;
+                }
                 ignoreStartChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 if (endDate.isEnabled()) {
@@ -183,7 +185,9 @@ public class ProjectDialog extends JDialog {
         //---------------------------------------------------
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                if (ignoreEndChanged) return;
+                if (ignoreEndChanged) {
+                    return;
+                }
                 ignoreEndChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 Date ed = (Date) endDate.getModel().getValue();
@@ -264,15 +268,17 @@ public class ProjectDialog extends JDialog {
 
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ignoreStartChanged)
+                if (ignoreStartChanged) {
                     return;
+                }
                 startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
             }
         });
         endCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ignoreEndChanged)
+                if (ignoreEndChanged) {
                     return;
+                }
                 endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
             }
         });
@@ -293,7 +299,9 @@ public class ProjectDialog extends JDialog {
         if (endDateChB.isSelected()) {
             endDateChB.setForeground(Color.BLACK);
             endDate.getModel().setValue(startDate.getModel().getValue());
-        } else endDateChB.setForeground(Color.GRAY);
+        } else {
+            endDateChB.setForeground(Color.GRAY);
+        }
     }
 
     void sdButton_actionPerformed(ActionEvent e) {
@@ -324,13 +332,15 @@ public class ProjectDialog extends JDialog {
         Point loc = App.getFrame().getLocation();
         dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
         dlg.setVisible(true);
-        if (dlg.CANCELLED)
+        if (dlg.CANCELLED) {
             return;
+        }
         String title = dlg.prTitleField.getText();
         CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         CalendarDate endD = null;
-        if (dlg.endDateChB.isSelected())
+        if (dlg.endDateChB.isSelected()) {
             endD = new CalendarDate((Date) dlg.endDate.getModel().getValue());
+        }
         Project prj = ProjectManager.createProject(title, startD, endD);
         /*if (dlg.freezeChB.isSelected())
             prj.freeze();*/

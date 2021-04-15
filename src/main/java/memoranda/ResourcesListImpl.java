@@ -47,8 +47,9 @@ public class ResourcesListImpl implements ResourcesList {
     public Vector getAllResources() {
         Vector v = new Vector();
         Elements rs = _root.getChildElements("resource");
-        for (int i = 0; i < rs.size(); i++)
+        for (int i = 0; i < rs.size(); i++) {
             v.add(new Resource(rs.get(i).getAttribute("path").getValue(), rs.get(i).getAttribute("isInetShortcut") != null, rs.get(i).getAttribute("isProjectFile") != null));
+        }
         return v;
     }
 
@@ -57,9 +58,11 @@ public class ResourcesListImpl implements ResourcesList {
      */
     public Resource getResource(String path) {
         Elements rs = _root.getChildElements("resource");
-        for (int i = 0; i < rs.size(); i++)
-            if (rs.get(i).getAttribute("path").getValue().equals(path))
+        for (int i = 0; i < rs.size(); i++) {
+            if (rs.get(i).getAttribute("path").getValue().equals(path)) {
                 return new Resource(rs.get(i).getAttribute("path").getValue(), rs.get(i).getAttribute("isInetShortcut") != null, rs.get(i).getAttribute("isProjectFile") != null);
+            }
+        }
         return null;
     }
 
@@ -81,10 +84,12 @@ public class ResourcesListImpl implements ResourcesList {
         Element el = new Element("resource");
         el.addAttribute(new Attribute("id", Util.generateId()));
         el.addAttribute(new Attribute("path", path));
-        if (isInternetShortcut)
+        if (isInternetShortcut) {
             el.addAttribute(new Attribute("isInetShortcut", "true"));
-        if (isProjectFile)
+        }
+        if (isProjectFile) {
             el.addAttribute(new Attribute("isProjectFile", "true"));
+        }
         _root.appendChild(el);
     }
 
@@ -97,7 +102,7 @@ public class ResourcesListImpl implements ResourcesList {
      */
     public void removeResource(String path) {
         Elements rs = _root.getChildElements("resource");
-        for (int i = 0; i < rs.size(); i++)
+        for (int i = 0; i < rs.size(); i++) {
             if (rs.get(i).getAttribute("path").getValue().equals(path)) {
                 if (getResource(path).isProjectFile()) {
                     File f = new File(path);
@@ -106,6 +111,7 @@ public class ResourcesListImpl implements ResourcesList {
                 }
                 _root.removeChild(rs.get(i));
             }
+        }
     }
 
 
