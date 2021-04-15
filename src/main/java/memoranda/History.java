@@ -141,7 +141,7 @@ public class History {
 
         public HistoryBackAction() {
             super(Local.getString("History back"),
-                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/hist_back.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/hist_back.png")));
             putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, KeyEvent.ALT_MASK));
             setEnabled(false);
         }
@@ -164,8 +164,8 @@ public class History {
                 sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT);
                 Date date = ((HistoryItem) prev).getDate().getDate();
                 putValue(
-                        Action.SHORT_DESCRIPTION,
-                        Local.getString("Back to") + " " + sdf.format(date));
+                    Action.SHORT_DESCRIPTION,
+                    Local.getString("Back to") + " " + sdf.format(date));
 
 //                putValue(Action.SHORT_DESCRIPTION, Local.getString("Back to") + " " + ((HistoryItem) prev).getDate().toString());
             } else {
@@ -179,7 +179,7 @@ public class History {
 
         public HistoryForwardAction() {
             super(Local.getString("History forward"),
-                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/hist_forward.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/hist_forward.png")));
             putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.ALT_MASK));
             setEnabled(false);
         }
@@ -203,9 +203,9 @@ public class History {
                 Date date = ((HistoryItem) next).getDate().getDate();
 
                 putValue(
-                        Action.SHORT_DESCRIPTION,
-                        // Local.getString("Forward to") + " " + ((HistoryItem) next).getDate().toString());
-                        Local.getString("Forward to") + " " + sdf.format(date));
+                    Action.SHORT_DESCRIPTION,
+                    // Local.getString("Forward to") + " " + ((HistoryItem) next).getDate().toString());
+                    Local.getString("Forward to") + " " + sdf.format(date));
             } else {
                 setEnabled(false);
                 putValue(Action.SHORT_DESCRIPTION, Local.getString("Forward"));

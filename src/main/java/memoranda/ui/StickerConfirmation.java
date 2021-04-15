@@ -52,11 +52,11 @@ public class StickerConfirmation extends JDialog {
 
     void jbInit() throws Exception {
         border1 =
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createEtchedBorder(
-                                Color.white,
-                                new Color(156, 156, 158)),
-                        BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createEtchedBorder(
+                    Color.white,
+                    new Color(156, 156, 158)),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5));
         border2 = BorderFactory.createEmptyBorder(5, 0, 5, 0);
         panel1.setLayout(borderLayout1);
         this.getContentPane().setLayout(borderLayout2);
@@ -89,7 +89,7 @@ public class StickerConfirmation extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Sticker"));
         header.setIcon(new ImageIcon(DriverDialog.class.getResource(
-                "/ui/icons/sticker48.png")));
+            "/ui/icons/sticker48.png")));
 
 
         jLabel1.setText(Local.getString("DELETE THIS STICKER?"));

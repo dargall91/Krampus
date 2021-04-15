@@ -63,14 +63,14 @@ public class App {
         try {
             if (Configuration.get("LOOK_AND_FEEL").equals("system"))
                 UIManager.setLookAndFeel(
-                        UIManager.getSystemLookAndFeelClassName());
+                    UIManager.getSystemLookAndFeelClassName());
             else if (Configuration.get("LOOK_AND_FEEL").equals("default"))
                 UIManager.setLookAndFeel(
-                        UIManager.getCrossPlatformLookAndFeelClassName());
+                    UIManager.getCrossPlatformLookAndFeelClassName());
             else if (
-                    Configuration.get("LOOK_AND_FEEL").toString().length() > 0)
+                Configuration.get("LOOK_AND_FEEL").toString().length() > 0)
                 UIManager.setLookAndFeel(
-                        Configuration.get("LOOK_AND_FEEL").toString());
+                    Configuration.get("LOOK_AND_FEEL").toString());
 
         } catch (Exception e) {
             new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
@@ -115,9 +115,9 @@ public class App {
         /* Used to maximize the screen if the JVM Version if 1.4 or higher */
         /* --------------------------------------------------------------- */
         double JVMVer =
-                Double
-                        .valueOf(System.getProperty("java.version").substring(0, 3))
-                        .doubleValue();
+            Double
+                .valueOf(System.getProperty("java.version").substring(0, 3))
+                .doubleValue();
 
         frame.pack();
         if (JVMVer >= 1.4) {
@@ -155,7 +155,7 @@ public class App {
         splash.setUndecorated(true);
         splash.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
         ImageIcon spl =
-                new ImageIcon(App.class.getResource("/ui/new_splash600x450.png"));
+            new ImageIcon(App.class.getResource("/ui/new_splash600x450.png"));
         JLabel l = new JLabel();
         l.setSize(600, 450);
         l.setIcon(spl);
@@ -163,8 +163,8 @@ public class App {
         splash.setSize(600, 450);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         splash.setLocation(
-                (screenSize.width - 600) / 2,
-                (screenSize.height - 450) / 2);
+            (screenSize.width - 600) / 2,
+            (screenSize.height - 450) / 2);
         splash.setUndecorated(true);
         splash.setVisible(true);
     }

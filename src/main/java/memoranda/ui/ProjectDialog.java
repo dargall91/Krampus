@@ -78,7 +78,7 @@ public class ProjectDialog extends JDialog {
         header.setText(Local.getString("Project"));
         //header.setHorizontalAlignment(SwingConstants.CENTER);
         header.setIcon(new ImageIcon(main.java.memoranda.ui.ProjectDialog.class.getResource(
-                "/ui/icons/project48.png")));
+            "/ui/icons/project48.png")));
         topPanel.add(header);
 
         centerPanel.setBorder(new EtchedBorder());
@@ -120,7 +120,7 @@ public class ProjectDialog extends JDialog {
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT);
         startDate.setEditor(new JSpinner.DateEditor(startDate,
-                sdf.toPattern()));
+            sdf.toPattern()));
         //---------------------------------------------------
         startDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -179,7 +179,7 @@ public class ProjectDialog extends JDialog {
         //Added by (jcscoobyrs) on 17-Nov-2003 at 14:24:43 PM
         //---------------------------------------------------
         endDate.setEditor(new JSpinner.DateEditor(endDate,
-                sdf.toPattern()));
+            sdf.toPattern()));
         //---------------------------------------------------
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -300,7 +300,7 @@ public class ProjectDialog extends JDialog {
         //startCalFrame.setLocation(sdButton.getLocation());
         startCalFrame.setLocation(0, 0);
         startCalFrame.setSize((this.getContentPane().getWidth() / 2),
-                this.getContentPane().getHeight());
+            this.getContentPane().getHeight());
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.setTitle(Local.getString("Start date"));
         startCalFrame.show();
@@ -309,7 +309,7 @@ public class ProjectDialog extends JDialog {
     void edButton_actionPerformed(ActionEvent e) {
         endCalFrame.setLocation((this.getContentPane().getWidth() / 2), 0);
         endCalFrame.setSize((this.getContentPane().getWidth() / 2),
-                this.getContentPane().getHeight());
+            this.getContentPane().getHeight());
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.setTitle(Local.getString("End date"));
         endCalFrame.show();

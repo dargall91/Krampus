@@ -66,7 +66,7 @@ public class Tour extends IndexedObject {
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour)
-            throws IndexOutOfBoundsException, DuplicateKeyException {
+        throws IndexOutOfBoundsException, DuplicateKeyException {
         this(newTour.getID());
 
         System.out.println("In Tour: newTour=" + newTour);
@@ -101,7 +101,7 @@ public class Tour extends IndexedObject {
             Route r = routeColl.get(newTour.getRouteID());
             if (r == null) {
                 throw new IndexOutOfBoundsException("Route index " + newTour.getRouteID()
-                        + " not found");
+                    + " not found");
             } else {
                 route = r;
             }
@@ -253,7 +253,7 @@ public class Tour extends IndexedObject {
             this.driver = null;
         } else {
             throw new UnsupportedOperationException("Cannot unilaterally remove driver. " +
-                    "Call driver.delTour()");
+                "Call driver.delTour()");
         }
 
     }
@@ -303,7 +303,7 @@ public class Tour extends IndexedObject {
             this.bus = null;
         } else {
             throw new UnsupportedOperationException("Cannot unilaterally remove bus. " +
-                    "Call bus.delTour()");
+                "Call bus.delTour()");
         }
     }
 

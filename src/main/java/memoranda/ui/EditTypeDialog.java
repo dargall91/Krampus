@@ -116,7 +116,7 @@ public class EditTypeDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Resource type"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.EditTypeDialog.class.getResource(
-                "/ui/icons/resource48.png")));
+            "/ui/icons/resource48.png")));
         jPanel1.setLayout(borderLayout1);
         dialogTitlePanel.setBackground(Color.WHITE);
         dialogTitlePanel.setLayout(flowLayout7);
@@ -239,7 +239,7 @@ public class EditTypeDialog extends JDialog {
         //chooser.setAcceptAllFileFilterUsed(true);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setCurrentDirectory(
-                new File(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes").getPath()));
+            new File(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes").getPath()));
         /*if (System.getProperty("os.name").startsWith("Win")) {
             chooser.setFileFilter(new AllFilesFilter(AllFilesFilter.ICO));
             chooser.setCurrentDirectory(new File("C:\\Program Files"));

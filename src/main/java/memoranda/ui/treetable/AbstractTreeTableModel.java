@@ -84,7 +84,7 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
                 // Lazily create the event:
                 if (e == null)
                     e = new TreeModelEvent(source, path,
-                            childIndices, children);
+                        childIndices, children);
                 ((TreeModelListener) listeners[i + 1]).treeNodesChanged(e);
             }
         }
@@ -110,7 +110,7 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
                 // Lazily create the event:
                 if (e == null)
                     e = new TreeModelEvent(source, path,
-                            childIndices, children);
+                        childIndices, children);
                 ((TreeModelListener) listeners[i + 1]).treeNodesInserted(e);
             }
         }
@@ -136,7 +136,7 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
                 // Lazily create the event:
                 if (e == null)
                     e = new TreeModelEvent(source, path,
-                            childIndices, children);
+                        childIndices, children);
                 ((TreeModelListener) listeners[i + 1]).treeNodesRemoved(e);
             }
         }
@@ -162,7 +162,7 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
                 // Lazily create the event:
                 if (e == null)
                     e = new TreeModelEvent(source, path,
-                            childIndices, children);
+                        childIndices, children);
                 ((TreeModelListener) listeners[i + 1]).treeStructureChanged(e);
             }
         }

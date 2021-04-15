@@ -35,16 +35,16 @@ import nu.xom.Element;
 public class AgendaGenerator {
 
     static String HEADER =
-            "<html><head><title></title>\n"
-                    + "<style>\n"
-                    + "    body, td {font: 12pt sans-serif}\n"
-                    + "    h1 {font:20pt sans-serif; background-color:#E0E0E0; margin-top:0}\n"
-                    + "    h2 {font:16pt sans-serif; margin-bottom:0}\n"
-                    + "    li {margin-bottom:5px}\n"
-                    + " a {color:black; text-decoration:none}\n"
-                    + "</style></head>\n"
-                    + "<body><table width=\"100%\" height=\"100%\" border=\"0\" cellpadding=\"4\" cellspacing=\"4\">\n"
-                    + "<tr>\n";
+        "<html><head><title></title>\n"
+            + "<style>\n"
+            + "    body, td {font: 12pt sans-serif}\n"
+            + "    h1 {font:20pt sans-serif; background-color:#E0E0E0; margin-top:0}\n"
+            + "    h2 {font:16pt sans-serif; margin-bottom:0}\n"
+            + "    li {margin-bottom:5px}\n"
+            + " a {color:black; text-decoration:none}\n"
+            + "</style></head>\n"
+            + "<body><table width=\"100%\" height=\"100%\" border=\"0\" cellpadding=\"4\" cellspacing=\"4\">\n"
+            + "<tr>\n";
     static String FOOTER = "</td></tr></table></body></html>";
 
     static String generateTasksInfo(Project p, CalendarDate date, Collection expandedTasks) {
@@ -162,17 +162,17 @@ public class AgendaGenerator {
         }
 
         s += "<a name=\"" + t.getID() + "\"><li><p>" + subTaskOperation + "<a href=\"memoranda:tasks#"
-                + p.getID()
-                + "\"><b>"
-                + t.getText()
-                + "</b></a> : "
-                + progress
-                + "</p>"
-                + "<p>"
-                + Local.getString("Priority")
-                + ": "
-                + getPriorityString(t.getPriority())
-                + "</p>";
+            + p.getID()
+            + "\"><b>"
+            + t.getText()
+            + "</b></a> : "
+            + progress
+            + "</p>"
+            + "<p>"
+            + Local.getString("Priority")
+            + ": "
+            + getPriorityString(t.getPriority())
+            + "</p>";
 		/*<<<<<<< AgendaGenerator.java
 		if (!(t.getStartDate().getDate()).after(t.getEndDate().getDate())) {
 		    if (t.getEndDate().equals(date))
@@ -199,13 +199,13 @@ public class AgendaGenerator {
 =======*/
         if (t.getEndDate().equals(date))
             s += "<p><font color=\"#FF9900\"><b>"
-                    + Local.getString("Should be done today")
-                    + ".</b></font></p>";
+                + Local.getString("Should be done today")
+                + ".</b></font></p>";
         else {
             Calendar endDateCal = t.getEndDate().getCalendar();
             Calendar dateCal = date.getCalendar();
             int numOfDays = (endDateCal.get(Calendar.YEAR) * 365 + endDateCal.get(Calendar.DAY_OF_YEAR)) -
-                    (dateCal.get(Calendar.YEAR) * 365 + dateCal.get(Calendar.DAY_OF_YEAR));
+                (dateCal.get(Calendar.YEAR) * 365 + dateCal.get(Calendar.DAY_OF_YEAR));
             String days = "";
             if (numOfDays > 0) {
                 if (numOfDays > 1) {
@@ -214,21 +214,21 @@ public class AgendaGenerator {
                     days = Local.getString("tomorrow");
                 }
                 s += "<p>"
-                        + Local.getString("Deadline")
-                        + ": <i>"
-                        + t.getEndDate().getMediumDateString()
-                        + "</i> (" + days + ")</p>";
+                    + Local.getString("Deadline")
+                    + ": <i>"
+                    + t.getEndDate().getMediumDateString()
+                    + "</i> (" + days + ")</p>";
             } else if ((numOfDays < 0) && (numOfDays > -10000)) {
                 String overdueDays = String.valueOf(-1 * numOfDays);
                 s += "<p><font color=\"#FF9900\"><b>"
-                        + overdueDays + " "
-                        + Local.getString("days overdue")
-                        + ".</b></font></p>";
+                    + overdueDays + " "
+                    + Local.getString("days overdue")
+                    + ".</b></font></p>";
             } else {
                 // tasks that have no deadline
                 s += "<p>"
-                        + Local.getString("No Deadline")
-                        + "</p>";
+                    + Local.getString("No Deadline")
+                    + "</p>";
             }
         }
         //>>>>>>> 1.4
@@ -266,24 +266,24 @@ public class AgendaGenerator {
 
     static String generateProjectInfo(Project p, CalendarDate date, Collection expandedTasks) {
         String s = "<h2><a href=\"memoranda:project#"
-                + p.getID()
-                + "\">"
-                + p.getTitle()
-                + "</a></h2>\n"
-                + "<table border=\"0\" width=\"100%\" cellpadding=\"2\" bgcolor=\"#EFEFEF\"><tr><td>"
-                + Local.getString("Start date") + ": <i>" + p.getStartDate().getMediumDateString() + "</i>\n";
+            + p.getID()
+            + "\">"
+            + p.getTitle()
+            + "</a></h2>\n"
+            + "<table border=\"0\" width=\"100%\" cellpadding=\"2\" bgcolor=\"#EFEFEF\"><tr><td>"
+            + Local.getString("Start date") + ": <i>" + p.getStartDate().getMediumDateString() + "</i>\n";
         if (p.getEndDate() != null)
             s += "<br>" + Local.getString("End date") + ": <i>" + p.getEndDate().getMediumDateString()
-                    + "</i>\n";
+                + "</i>\n";
         return s + generateTasksInfo(p, date, expandedTasks);
     }
 
     static String generateAllProjectsInfo(CalendarDate date, Collection expandedTasks) {
         String s =
-                "<td width=\"66%\" valign=\"top\">"
-                        + "<h1>"
-                        + Local.getString("Projects and tasks")
-                        + "</h1>\n";
+            "<td width=\"66%\" valign=\"top\">"
+                + "<h1>"
+                + Local.getString("Projects and tasks")
+                + "</h1>\n";
         s += generateProjectInfo(CurrentProject.get(), date, expandedTasks);
         for (Iterator i = ProjectManager.getActiveProjects().iterator();
              i.hasNext();
@@ -297,53 +297,53 @@ public class AgendaGenerator {
 
     static String generateEventsInfo(CalendarDate date) {
         String s =
-                "<td width=\"34%\" valign=\"top\">"
-                        + "<a href=\"memoranda:events\"><h1>"
-                        + Local.getString("Events")
-                        + "</h1></a>\n"
-                        + "<table width=\"100%\" valign=\"top\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#FFFFF6\">\n";
+            "<td width=\"34%\" valign=\"top\">"
+                + "<a href=\"memoranda:events\"><h1>"
+                + Local.getString("Events")
+                + "</h1></a>\n"
+                + "<table width=\"100%\" valign=\"top\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#FFFFF6\">\n";
         Vector v = (Vector) EventsManager.getEventsForDate(date);
         int n = 0;
         for (Iterator i = v.iterator(); i.hasNext(); ) {
             Event e = (Event) i.next();
             String txt = e.getText();
             String iurl =
-                    main.java.memoranda.ui
-                            .AppFrame
-                            .class
-                            .getResource("/ui/agenda/spacer.gif")
-                            .toExternalForm();
+                main.java.memoranda.ui
+                    .AppFrame
+                    .class
+                    .getResource("/ui/agenda/spacer.gif")
+                    .toExternalForm();
             if (date.equals(CalendarDate.today())) {
                 if (e.getTime().after(new Date()))
                     txt = "<b>" + txt + "</b>";
                 if ((EventsScheduler.isEventScheduled())
-                        && (EventsScheduler
-                        .getFirstScheduledEvent()
-                        .getTime()
-                        .equals(e.getTime()))) {
+                    && (EventsScheduler
+                    .getFirstScheduledEvent()
+                    .getTime()
+                    .equals(e.getTime()))) {
                     iurl =
-                            main.java.memoranda.ui
-                                    .AppFrame
-                                    .class
-                                    .getResource("/ui/agenda/arrow.gif")
-                                    .toExternalForm();
+                        main.java.memoranda.ui
+                            .AppFrame
+                            .class
+                            .getResource("/ui/agenda/arrow.gif")
+                            .toExternalForm();
                 }
             }
             String icon =
-                    "<img align=\"right\" width=\"16\" height=\"16\" src=\""
-                            + iurl
-                            + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"\">";
+                "<img align=\"right\" width=\"16\" height=\"16\" src=\""
+                    + iurl
+                    + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"\">";
 
             s += "<tr>\n<td>"
-                    + icon
-                    + "</td>"
-                    + "<td nowrap class=\"eventtime\">"
-                    + e.getTimeString()
-                    + "</td>"
-                    + "<td width=\"100%\" class=\"eventtext\">&nbsp;&nbsp;"
-                    + txt
-                    + "</td>\n"
-                    + "</tr>";
+                + icon
+                + "</td>"
+                + "<td nowrap class=\"eventtime\">"
+                + e.getTimeString()
+                + "</td>"
+                + "<td width=\"100%\" class=\"eventtext\">&nbsp;&nbsp;"
+                + txt
+                + "</td>\n"
+                + "</tr>";
 
         }
         return s + "</table>";
@@ -351,32 +351,32 @@ public class AgendaGenerator {
 
     static String generateStickers(CalendarDate date) {
         String iurl =
-                main.java.memoranda.ui
-                        .AppFrame
-                        .class
-                        .getResource("/ui/agenda/addsticker.gif")
-                        .toExternalForm();
+            main.java.memoranda.ui
+                .AppFrame
+                .class
+                .getResource("/ui/agenda/addsticker.gif")
+                .toExternalForm();
         String iurl2 =
-                main.java.memoranda.ui
-                        .AppFrame
-                        .class
-                        .getResource("/ui/agenda/removesticker.gif")
-                        .toExternalForm();
+            main.java.memoranda.ui
+                .AppFrame
+                .class
+                .getResource("/ui/agenda/removesticker.gif")
+                .toExternalForm();
         String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>" + Local.getString("Import stickers") + "</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>" + Local.getString("Export stickers in txt") + "</b></a><td><a href=\"memoranda:exportstickersh\"><b>" + Local.getString("Export stickers in html") + "</b></a></td></tr></table>"
-                + "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""
-                + iurl
-                + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
-                + Local.getString("Add sticker") + "</b></a></td></tr></table>";
+            + "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""
+            + iurl
+            + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
+            + Local.getString("Add sticker") + "</b></a></td></tr></table>";
         PriorityQueue pQ = sortStickers();
         while (!pQ.Vacia()) {
             Element el = pQ.extraer();
             String id = el.getAttributeValue("id");
             String txt = el.getValue();
             s += "\n<table border=\"0\" cellpadding=\"0\" width=\"100%\"><table width=\"100%\"><tr bgcolor=\"#E0E0E0\"><td><a href=\"memoranda:editsticker#" + id + "\">" + Local.getString("EDIT") + "</a></td><td width=\"70%\"><a href=\"memoranda:expandsticker#" + id + "\">" + Local.getString("OPEN IN A NEW WINDOW") + "</></td><td align=\"right\">" +
-                    "&nbsp;" + // without this removesticker link takes klicks from whole cell
-                    "<a href=\"memoranda:removesticker#" + id + "\"><img align=\"left\" width=\"14\" height=\"14\" src=\""
-                    + iurl2
-                    + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"Remove sticker\"></a></td></table></tr><tr><td>" + txt + "</td></tr></table>";
+                "&nbsp;" + // without this removesticker link takes klicks from whole cell
+                "<a href=\"memoranda:removesticker#" + id + "\"><img align=\"left\" width=\"14\" height=\"14\" src=\""
+                + iurl2
+                + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"Remove sticker\"></a></td></table></tr><tr><td>" + txt + "</td></tr></table>";
         }
         s += "<hr>";
         return s;
@@ -400,7 +400,7 @@ public class AgendaGenerator {
         int first = txt.indexOf(">");
         int last = txt.lastIndexOf("<");
         ret = txt.substring(0, first + 1) + "<a href=\"memoranda:expandsticker#" + id + "\">" + txt.substring(first + 1, last)
-                + "</a>" + txt.substring(last);
+            + "</a>" + txt.substring(last);
         return ret;
     }
 

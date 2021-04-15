@@ -43,9 +43,9 @@ public class HTMLFileImport {
             return;
         }
         text = Pattern.compile("<body(.*?)>", java.util.regex.Pattern.DOTALL + java.util.regex.Pattern.CASE_INSENSITIVE)
-                .split(text)[1];
+            .split(text)[1];
         text = Pattern.compile("</body>", java.util.regex.Pattern.DOTALL + java.util.regex.Pattern.CASE_INSENSITIVE)
-                .split(text)[0];
+            .split(text)[0];
         //text = text.substring(p1, p2);
 
         editor.insertHTML(text, editor.editor.getCaretPosition());

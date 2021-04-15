@@ -96,9 +96,9 @@ public class DriverPanel extends JSplitPane {
                 Point loc = App.getFrame().getLocation();
 
                 dlg.setLocation(
-                        (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-                        (frmSize.height - dlg.getSize().height) / 2
-                                + loc.y);
+                    (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                    (frmSize.height - dlg.getSize().height) / 2
+                        + loc.y);
                 dlg.setVisible(true);
 
                 if (!dlg.isCancelled()) {
@@ -148,16 +148,16 @@ public class DriverPanel extends JSplitPane {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (scheduleTable.getDriver() == null) {
                     JOptionPane.showMessageDialog(null, "Cannot Schedule Tour: No Driver Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
-                            "/ui/icons/error.png")));
+                        "/ui/icons/error.png")));
                 } else {
                     DriverTourDialog dlg = new DriverTourDialog(App.getFrame(), scheduleTable.getDriver().getName());
                     Dimension frmSize = App.getFrame().getSize();
                     Point loc = App.getFrame().getLocation();
 
                     dlg.setLocation(
-                            (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-                            (frmSize.height - dlg.getSize().height) / 2
-                                    + loc.y);
+                        (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                        (frmSize.height - dlg.getSize().height) / 2
+                            + loc.y);
                     dlg.setVisible(true);
 
                     if (!dlg.isCancelled() && dlg.getTour() != null) {

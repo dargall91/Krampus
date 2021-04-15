@@ -68,14 +68,14 @@ public class JNCalendar extends JTable {
                 Object val = getModel().getValueAt(row, col);
                 if (val != null) {
                     if (val
-                            .toString()
-                            .equals(new Integer(_date.getDay()).toString()))
+                        .toString()
+                        .equals(new Integer(_date.getDay()).toString()))
                         return;
                     _date =
-                            new CalendarDate(
-                                    new Integer(val.toString()).intValue(),
-                                    _date.getMonth(),
-                                    _date.getYear());
+                        new CalendarDate(
+                            new Integer(val.toString()).intValue(),
+                            _date.getMonth(),
+                            _date.getYear());
                     notifyListeners();
                 } else {
                     //getSelectionModel().clearSelection();
@@ -126,7 +126,7 @@ public class JNCalendar extends JTable {
     private void notifyListeners() {
         for (int i = 0; i < selectionListeners.size(); i++) {
             ((ActionListener) selectionListeners.get(i)).actionPerformed(
-                    new ActionEvent(this, 0, "Calendar event"));
+                new ActionEvent(this, 0, "Calendar event"));
         }
     }
 
@@ -139,10 +139,10 @@ public class JNCalendar extends JTable {
          */
         if (d != null)
             renderer.setDate(
-                    new CalendarDate(
-                            new Integer(d.toString()).intValue(),
-                            _date.getMonth(),
-                            _date.getYear()));
+                new CalendarDate(
+                    new Integer(d.toString()).intValue(),
+                    _date.getMonth(),
+                    _date.getYear()));
         else
             renderer.setDate(null);
         return renderer;

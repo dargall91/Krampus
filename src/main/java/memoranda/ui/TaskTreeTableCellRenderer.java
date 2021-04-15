@@ -27,25 +27,25 @@ import main.java.memoranda.date.CurrentDate;
  */
 public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer, TableCellRenderer {
     static ImageIcon PR_HIGHEST_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/pr_highest.png"));
+        .getResource("/ui/icons/pr_highest.png"));
     static ImageIcon PR_HIGH_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/pr_high.png"));
+        .getResource("/ui/icons/pr_high.png"));
     static ImageIcon PR_NORMAL_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/pr_normal.png"));
+        .getResource("/ui/icons/pr_normal.png"));
     static ImageIcon PR_LOW_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/pr_low.png"));
+        .getResource("/ui/icons/pr_low.png"));
     static ImageIcon PR_LOWEST_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/pr_lowest.png"));
+        .getResource("/ui/icons/pr_lowest.png"));
     static ImageIcon TASK_ACTIVE_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/task_active.png"));
+        .getResource("/ui/icons/task_active.png"));
     static ImageIcon TASK_SCHEDULED_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/task_scheduled.png"));
+        .getResource("/ui/icons/task_scheduled.png"));
     static ImageIcon TASK_DEADLINE_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/task_deadline.png"));
+        .getResource("/ui/icons/task_deadline.png"));
     static ImageIcon TASK_FAILED_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/task_failed.png"));
+        .getResource("/ui/icons/task_failed.png"));
     static ImageIcon TASK_COMPLETED_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
-            .getResource("/ui/icons/task_completed.png"));
+        .getResource("/ui/icons/task_completed.png"));
     // reusable cellrenderers
     JLabel label = new JLabel();
     //JLabel tree_label = new JLabel();
@@ -70,9 +70,9 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         // if root then just return some component
         // it is not shown anyway
         super.getTreeCellRendererComponent(
-                tree, value, selected,
-                expanded, leaf, row,
-                hasFocus);
+            tree, value, selected,
+            expanded, leaf, row,
+            hasFocus);
         if (value instanceof Project)
             return empty_panel;
         if (!(value instanceof Task))
@@ -173,7 +173,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     private void applyFocus(boolean hasFocus, JComponent c) {
         if (hasFocus) {
             c.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, table.getSelectionBackground()
-                    .darker()));
+                .darker()));
         } else {
             if (c.getBorder() != null) {
                 c.setBorder(null);
@@ -183,7 +183,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
 
     private void applyFont(Task t, JComponent c) {
         if ((t.getStatus(CurrentDate.get()) == Task.ACTIVE)
-                || (t.getStatus(CurrentDate.get()) == Task.DEADLINE))
+            || (t.getStatus(CurrentDate.get()) == Task.DEADLINE))
             c.setFont(c.getFont().deriveFont(Font.BOLD));
         else
             c.setFont(c.getFont().deriveFont(Font.PLAIN));

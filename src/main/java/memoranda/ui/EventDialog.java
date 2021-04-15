@@ -101,7 +101,7 @@ public class EventDialog extends JDialog implements WindowListener {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Event"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
-                "/ui/icons/event48.png")));
+            "/ui/icons/event48.png")));
         headerPanel.add(header);
 
         // Build eventPanel
@@ -142,7 +142,7 @@ public class EventDialog extends JDialog implements WindowListener {
 
         // Build RepeatPanel
         repeatBorder = new TitledBorder(BorderFactory.createLineBorder(
-                Color.gray, 1), Local.getString("Repeat"));
+            Color.gray, 1), Local.getString("Repeat"));
         repeatPanel.setBorder(repeatBorder);
         noRepeatRB.setMaximumSize(new Dimension(80, 35));
         noRepeatRB.setSelected(true);
@@ -219,7 +219,7 @@ public class EventDialog extends JDialog implements WindowListener {
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT);
         startDate.setEditor(new JSpinner.DateEditor(startDate,
-                sdf.toPattern()));
+            sdf.toPattern()));
         //---------------------------------------------------
         gbc = new GridBagConstraints();
         gbc.gridx = 5;
@@ -233,7 +233,7 @@ public class EventDialog extends JDialog implements WindowListener {
             }
         });
         setStartDateB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
         setStartDateB.setText("");
         setStartDateB.setPreferredSize(new Dimension(24, 24));
 
@@ -318,7 +318,7 @@ public class EventDialog extends JDialog implements WindowListener {
         setEndDateB.setPreferredSize(new Dimension(24, 24));
         setEndDateB.setText("");
         setEndDateB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
         setEndDateB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setEndDateB_actionPerformed(e);
@@ -452,7 +452,7 @@ public class EventDialog extends JDialog implements WindowListener {
         enableEndDateCB.setEnabled(true);
         workingDaysOnlyCB.setEnabled(true);
         startDate.getModel().setValue(
-                startCalFrame.cal.get().getCalendar().getTime());
+            startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void monthlyRepeatRB_actionPerformed(ActionEvent e) {
@@ -464,7 +464,7 @@ public class EventDialog extends JDialog implements WindowListener {
         enableEndDateCB.setEnabled(true);
         workingDaysOnlyCB.setEnabled(true);
         startDate.getModel().setValue(
-                startCalFrame.cal.get().getCalendar().getTime());
+            startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void dailyRepeatRB_actionPerformed(ActionEvent e) {
@@ -476,7 +476,7 @@ public class EventDialog extends JDialog implements WindowListener {
         enableEndDateCB.setEnabled(true);
         workingDaysOnlyCB.setEnabled(true);
         startDate.getModel().setValue(
-                startCalFrame.cal.get().getCalendar().getTime());
+            startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void weeklyRepeatRB_actionPerformed(ActionEvent e) {
@@ -487,7 +487,7 @@ public class EventDialog extends JDialog implements WindowListener {
         lblSince.setEnabled(true);
         enableEndDateCB.setEnabled(true);
         startDate.getModel().setValue(
-                startCalFrame.cal.get().getCalendar().getTime());
+            startCalFrame.cal.get().getCalendar().getTime());
     }
 
     public void noRepeatRB_actionPerformed(ActionEvent e) {

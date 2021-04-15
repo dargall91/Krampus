@@ -83,7 +83,7 @@ public class RouteMap extends JPanel {
         for (int i = 0; i < stops.size(); i++) {
             if (i < stops.size() - 1) {
                 stops.get(i).drawConnection(g, stops.get(i).getBusStop(),
-                        stops.get(i + 1).getBusStop());
+                    stops.get(i + 1).getBusStop());
             }
         }
         for (RouteStop s : stops) {

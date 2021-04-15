@@ -34,15 +34,15 @@ import java.util.Hashtable;
  * JAVADOC:
  * <h1>TaskTableModel</h1>
  *
- * @version $Id: TaskTableModel.java,v 1.7 2005/12/01 08:12:26 alexeya Exp $
  * @author $Author: alexeya $
+ * @version $Id: TaskTableModel.java,v 1.7 2005/12/01 08:12:26 alexeya Exp $
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
     String[] columnNames = {"", Local.getString("To-do"),
-            Local.getString("Start date"), Local.getString("End date"),
-            Local.getString("Priority"), Local.getString("Status"),
-            "% " + Local.getString("done")};
+        Local.getString("Start date"), Local.getString("End date"),
+        Local.getString("Priority"), Local.getString("Status"),
+        "% " + Local.getString("done")};
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -73,7 +73,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 
     /**
      * @see main.java.memoranda.ui.treetable.TreeTableModel#getValueAt(java.lang.Object,
-     *      int)
+     * int)
      */
     public Object getValueAt(Object node, int column) {
         if (node instanceof Project)
@@ -197,9 +197,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 
     public void fireTreeStructureChanged() {
         fireTreeStructureChanged(this,
-                new Object[]{getRoot()},
-                new int[0],
-                new Object[0]
+            new Object[]{getRoot()},
+            new int[0],
+            new Object[0]
         );
     }
 

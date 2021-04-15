@@ -125,7 +125,7 @@ public class HTMLFileExport {
         templ = templ.replaceAll("@NOW@", now);
         if ((charset != null) && (charset.length() > 0))
             templ = templ.replaceAll("@METACHARSET@", "<meta http-equiv=\"Content-Type\" content=\"text/html; charset="
-                    + charset + "\" >");
+                + charset + "\" >");
         if (xhtml)
             templ = convertToXHTML(templ);
         return templ;
@@ -144,11 +144,11 @@ public class HTMLFileExport {
         }
         text = sw.toString();
         text = Pattern
-                .compile("<body(.*?)>", java.util.regex.Pattern.DOTALL
-                        + java.util.regex.Pattern.CASE_INSENSITIVE).split(text)[1];
+            .compile("<body(.*?)>", java.util.regex.Pattern.DOTALL
+                + java.util.regex.Pattern.CASE_INSENSITIVE).split(text)[1];
         text = Pattern
-                .compile("</body>", java.util.regex.Pattern.DOTALL
-                        + java.util.regex.Pattern.CASE_INSENSITIVE).split(text)[0];
+            .compile("</body>", java.util.regex.Pattern.DOTALL
+                + java.util.regex.Pattern.CASE_INSENSITIVE).split(text)[0];
         return text;
     }
 

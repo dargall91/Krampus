@@ -46,9 +46,9 @@ public class TableDialog extends JDialog {
     JLabel lblHeight = new JLabel();
     public JTextField widthField = new JTextField();
     String[] aligns = {"", Local.getString("left"), Local.getString("center"),
-            Local.getString("right")};
+        Local.getString("right")};
     String[] valigns = {"", Local.getString("top"), Local.getString("center"),
-            Local.getString("bottom")};
+        Local.getString("bottom")};
     JLabel lblPadding = new JLabel();
     JLabel lblSpacing = new JLabel();
     JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -91,13 +91,13 @@ public class TableDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Table"));
         header.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/tablebig.png")));
+            main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
+                "/htmleditor/icons/tablebig.png")));
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
         areaPanel.setBorder(BorderFactory.createEtchedBorder(Color.white,
-                new Color(142, 142, 142)));
+            new Color(142, 142, 142)));
         lblColumns.setText(Local.getString("Columns"));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -208,8 +208,8 @@ public class TableDialog extends JDialog {
             }
         });
         bgColorB.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/color.png")));
+            main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
+                "/htmleditor/icons/color.png")));
         bgColorB.setPreferredSize(new Dimension(25, 25));
         gbc.gridx = 5;
         gbc.gridy = 3;
@@ -285,19 +285,19 @@ public class TableDialog extends JDialog {
     void bgColorB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put(
-                "ColorChooser.swatchesNameText",
-                Local.getString("Swatches"));
+            "ColorChooser.swatchesNameText",
+            Local.getString("Swatches"));
         UIManager.put("ColorChooser.hsbNameText", Local.getString("HSB"));
         UIManager.put("ColorChooser.rgbNameText", Local.getString("RGB"));
         UIManager.put(
-                "ColorChooser.swatchesRecentText",
-                Local.getString("Recent:"));
+            "ColorChooser.swatchesRecentText",
+            Local.getString("Recent:"));
         UIManager.put("ColorChooser.previewText", Local.getString("Preview"));
         UIManager.put(
-                "ColorChooser.sampleText",
-                Local.getString("Sample Text")
-                        + " "
-                        + Local.getString("Sample Text"));
+            "ColorChooser.sampleText",
+            Local.getString("Sample Text")
+                + " "
+                + Local.getString("Sample Text"));
         UIManager.put("ColorChooser.okText", Local.getString("OK"));
         UIManager.put("ColorChooser.cancelText", Local.getString("Cancel"));
         UIManager.put("ColorChooser.resetText", Local.getString("Reset"));
@@ -314,15 +314,15 @@ public class TableDialog extends JDialog {
         Color initColor = Util.decodeColor(bgcolorField.getText());
 
         Color c =
-                JColorChooser.showDialog(
-                        this,
-                        Local.getString("Table background color"),
-                        initColor);
+            JColorChooser.showDialog(
+                this,
+                Local.getString("Table background color"),
+                initColor);
         if (c == null)
             return;
 
         bgcolorField.setText(
-                "#" + Integer.toHexString(c.getRGB()).substring(2).toUpperCase());
+            "#" + Integer.toHexString(c.getRGB()).substring(2).toUpperCase());
         Util.setBgcolorField(bgcolorField);
     }
 

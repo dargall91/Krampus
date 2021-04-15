@@ -64,7 +64,7 @@ public class NodeMapper {
      */
     private void setScale(Dimension dim) {
         scale = new Scale(dim.getWidth() / origin.lonDelta(outlier),
-                dim.getHeight() / origin.latDelta(outlier));
+            dim.getHeight() / origin.latDelta(outlier));
     }
 
     /**
@@ -120,7 +120,7 @@ public class NodeMapper {
      */
     private boolean inRange(Coordinate coord) {
         if ((coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon())
-                && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat())) {
+            && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat())) {
             return true;
         }
         return false;

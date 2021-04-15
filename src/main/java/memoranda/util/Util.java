@@ -41,18 +41,18 @@ public class Util {
         seed = seed1;
         Random r = new Random(seed);
         return Integer.toString(r.nextInt(), 16) +
-                "-" + Integer.toString(r.nextInt(65535), 16) +
-                "-" + Integer.toString(r.nextInt(65535), 16) +
-                "-" + Integer.toString(r.nextInt(65535), 16);
+            "-" + Integer.toString(r.nextInt(65535), 16) +
+            "-" + Integer.toString(r.nextInt(65535), 16) +
+            "-" + Integer.toString(r.nextInt(65535), 16);
 
     }
 
     public static String getDateStamp(Calendar cal) {
         return cal.get(Calendar.DAY_OF_MONTH)
-                + "/"
-                + (cal.get(Calendar.MONTH))
-                + "/"
-                + new Integer(cal.get(Calendar.YEAR)).toString();
+            + "/"
+            + (cal.get(Calendar.MONTH))
+            + "/"
+            + new Integer(cal.get(Calendar.YEAR)).toString();
 
     }
 
@@ -85,10 +85,10 @@ public class Util {
         // Changed static building of getEnvDir
         // Now system-related path-separator is used
         String p = System.getProperty("user.home") + File.separator
-                + ".jnotes2" + File.separator;
+            + ".jnotes2" + File.separator;
         if (new File(p).isDirectory()) return p;
         return System.getProperty("user.home") + File.separator
-                + ".memoranda" + File.separator;
+            + ".memoranda" + File.separator;
     }
 
     public static String getCDATA(String s) {
@@ -105,8 +105,8 @@ public class Util {
             Runtime.getRuntime().exec(commandLine);
         } catch (Exception ex) {
             new ExceptionDialog(ex, "Failed to run an external web-browser application with commandline<br><code>"
-                    + commandLine + "</code>", "Check the application path and command line parameters " +
-                    "(File-&gt;Preferences-&gt;Resource types).");
+                + commandLine + "</code>", "Check the application path and command line parameters " +
+                "(File-&gt;Preferences-&gt;Resource types).");
         }
     }
 

@@ -23,13 +23,13 @@ public class Local {
     static {
         if (!Configuration.get("DISABLE_L10N").equals("yes")) {
             String fn = "messages_"
-                    + currentLocale.getLanguage()
-                    + ".properties";
+                + currentLocale.getLanguage()
+                + ".properties";
             if (Configuration.get("LOCALES_DIR") != "") {
                 System.out.print("Look " + fn + " at: " + Configuration.get("LOCALES_DIR") + " ");
                 try {
                     messages.load(new FileInputStream(
-                            Configuration.get("LOCALES_DIR") + File.separator + fn));
+                        Configuration.get("LOCALES_DIR") + File.separator + fn));
                     System.out.println(" - found");
                 } catch (IOException ex) {
                     // Do nothing ...
@@ -40,8 +40,8 @@ public class Local {
             if (messages.size() == 0) {
                 try {
                     messages.load(
-                            Local.class.getResourceAsStream(
-                                    "localmessages/" + fn));
+                        Local.class.getResourceAsStream(
+                            "localmessages/" + fn));
                 } catch (Exception e) {
                     // Do nothing ...
                 }
@@ -58,14 +58,14 @@ public class Local {
         System.out.println("Default locale: " + currentLocale.getDisplayName());
         if (messages != null) {
             System.out.println(
-                    "Use local messages: messages_"
-                            + currentLocale.getLanguage()
-                            + ".properties");
+                "Use local messages: messages_"
+                    + currentLocale.getLanguage()
+                    + ".properties");
         } else {
             System.out.println(
-                    "* DEBUG: Locales are disabled or not found: messages_"
-                            + currentLocale.getLanguage()
-                            + ".properties");
+                "* DEBUG: Locales are disabled or not found: messages_"
+                    + currentLocale.getLanguage()
+                    + ".properties");
         }
         /**********************/
     }
@@ -79,22 +79,22 @@ public class Local {
     }
 
     static String monthnames[] =
-            {
-                    "Jan",
-                    "Feb",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December"};
+        {
+            "Jan",
+            "Feb",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"};
 
     static String weekdaynames[] =
-            {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
     public static String getString(String key) {
         if ((messages == null) || (disabled)) {
@@ -122,14 +122,14 @@ public class Local {
 
         if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon"))
             localnames =
-                    new String[]{
-                            "Mon",
-                            "Tue",
-                            "Wed",
-                            "Thu",
-                            "Fri",
-                            "Sat",
-                            "Sun"};
+                new String[]{
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"};
 
         for (int i = 0; i < 7; i++) {
             localwdnames[i] = getString(localnames[i]);
@@ -181,7 +181,7 @@ public class Local {
 
     public static String getTimeString(Date d) {
         DateFormat dateFormat =
-                DateFormat.getTimeInstance(DateFormat.SHORT, currentLocale);
+            DateFormat.getTimeInstance(DateFormat.SHORT, currentLocale);
         return dateFormat.format(d);
     }
 

@@ -79,11 +79,11 @@ public class ProjectPackager {
             in.close();
             if (ProjectManager.getProject(pId) != null) {
                 int n =
-                        JOptionPane.showConfirmDialog(
-                                App.getFrame(),
-                                Local.getString("This project is already exists and will be replaced.\nContinue?"),
-                                Local.getString("Project is already exists"),
-                                JOptionPane.YES_NO_OPTION);
+                    JOptionPane.showConfirmDialog(
+                        App.getFrame(),
+                        Local.getString("This project is already exists and will be replaced.\nContinue?"),
+                        Local.getString("Project is already exists"),
+                        JOptionPane.YES_NO_OPTION);
                 if (n != JOptionPane.YES_OPTION) {
                     zip.close();
                     return;
@@ -133,7 +133,7 @@ public class ProjectPackager {
     public static void PackDirectory(String startingDirectory,
                                      File theDirectory,
                                      ZipOutputStream theZIPStream)
-            throws java.io.IOException {
+        throws java.io.IOException {
         File[] theFiles = theDirectory.listFiles();
         File stDirectory = new File(startingDirectory);
         System.out.println("Path=" + stDirectory.getPath() + ";length=" + stDirectory.getPath().length() + "==>" + theFiles[0]);

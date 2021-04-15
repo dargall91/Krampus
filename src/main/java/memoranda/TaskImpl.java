@@ -316,7 +316,7 @@ public class TaskImpl implements Task, Comparable {
         Calendar endDateCal = getEndDate().getCalendar();
         Calendar dateCal = d.getCalendar();
         int numOfDays = (endDateCal.get(Calendar.YEAR) * 365 + endDateCal.get(Calendar.DAY_OF_YEAR)) -
-                (dateCal.get(Calendar.YEAR) * 365 + dateCal.get(Calendar.DAY_OF_YEAR));
+            (dateCal.get(Calendar.YEAR) * 365 + dateCal.get(Calendar.DAY_OF_YEAR));
         if (numOfDays < 0) return -1; //Something wrong ?
         return (100 - getProgress()) / (numOfDays + 1) * (getPriority() + 1);
     }

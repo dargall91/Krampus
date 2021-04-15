@@ -72,9 +72,9 @@ import main.java.memoranda.util.*;
  *
  * <p>Article about <a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">treetables</a>.</p>
  *
- * @see    main.java.memoranda.ui.TaskTreeTableCellRenderer
- * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
  * @author $Author: alexeya $
+ * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
+ * @see main.java.memoranda.ui.TaskTreeTableCellRenderer
  */
 public class TaskTable extends JTable {
 
@@ -211,7 +211,7 @@ public class TaskTable extends JTable {
         // Use the tree's default foreground and background colors in the
         // table.
         LookAndFeel.installColorsAndFont(this, "Tree.background",
-                "Tree.foreground", "Tree.font");
+            "Tree.foreground", "Tree.font");
     }
 
     /*
@@ -223,7 +223,7 @@ public class TaskTable extends JTable {
      */
     public int getEditingRow() {
         return (getColumnClass(editingColumn) == TreeTableModel.class) ? -1
-                : editingRow;
+            : editingRow;
     }
 
     /**
@@ -247,8 +247,10 @@ public class TaskTable extends JTable {
      * A TreeCellRenderer that displays a JTree.
      */
     public class TreeTableCellRenderer extends JTree implements // {{{
-            TableCellRenderer {
-        /** Last table/tree row asked to renderer. */
+        TableCellRenderer {
+        /**
+         * Last table/tree row asked to renderer.
+         */
         protected int visibleRow;
 
         public TreeTableCellRenderer(TreeModel model) {
@@ -274,9 +276,9 @@ public class TaskTable extends JTable {
 
                 dtcr.setBorderSelectionColor(null);
                 dtcr.setTextSelectionColor(UIManager
-                        .getColor("Table.selectionForeground"));
+                    .getColor("Table.selectionForeground"));
                 dtcr.setBackgroundSelectionColor(UIManager
-                        .getColor("Table.selectionBackground"));
+                    .getColor("Table.selectionBackground"));
             }
         }
 
@@ -288,7 +290,7 @@ public class TaskTable extends JTable {
             if (rowHeight > 0) {
                 super.setRowHeight(rowHeight);
                 if (TaskTable.this != null
-                        && TaskTable.this.getRowHeight() != rowHeight) {
+                    && TaskTable.this.getRowHeight() != rowHeight) {
                     TaskTable.this.setRowHeight(getRowHeight());
                 }
             }
@@ -329,7 +331,7 @@ public class TaskTable extends JTable {
      * TreeTableCellEditor implementation. Component returned is the JTree.
      */
     public class TreeTableCellEditor extends AbstractCellEditor implements //{{{
-            TableCellEditor {
+        TableCellEditor {
         public Component getTableCellEditorComponent(JTable table,
                                                      Object value, boolean isSelected, int r, int c) {
             return tree;
@@ -360,9 +362,9 @@ public class TaskTable extends JTable {
                     if (getColumnClass(counter) == TreeTableModel.class) {
                         MouseEvent me = (MouseEvent) e;
                         MouseEvent newME = new MouseEvent(tree, me.getID(), me
-                                .getWhen(), me.getModifiers(), me.getX()
-                                - getCellRect(0, counter, true).x, me.getY(),
-                                me.getClickCount(), me.isPopupTrigger());
+                            .getWhen(), me.getModifiers(), me.getX()
+                            - getCellRect(0, counter, true).x, me.getY(),
+                            me.getClickCount(), me.isPopupTrigger());
                         tree.dispatchEvent(newME);
                         break;
                     }
@@ -379,14 +381,16 @@ public class TaskTable extends JTable {
      * DefaultTreeSelectionModel.
      */
     public class ListToTreeSelectionModelWrapper extends // {{{
-            DefaultTreeSelectionModel {
-        /** Set to true when we are updating the ListSelectionModel. */
+        DefaultTreeSelectionModel {
+        /**
+         * Set to true when we are updating the ListSelectionModel.
+         */
         protected boolean updatingListSelectionModel;
 
         public ListToTreeSelectionModelWrapper() {
             super();
             getListSelectionModel().addListSelectionListener(
-                    createListSelectionListener());
+                createListSelectionListener());
         }
 
         /**

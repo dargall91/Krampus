@@ -50,11 +50,11 @@ public class StickerExpand extends JDialog {
 
     void jbInit() throws Exception {
         border1 =
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createEtchedBorder(
-                                Color.white,
-                                new Color(156, 156, 158)),
-                        BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createEtchedBorder(
+                    Color.white,
+                    new Color(156, 156, 158)),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5));
         border2 = BorderFactory.createEmptyBorder(5, 0, 5, 0);
         panel1.setLayout(borderLayout1);
         this.getContentPane().setLayout(borderLayout2);

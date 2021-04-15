@@ -93,9 +93,9 @@ public class BusPanel extends JSplitPane {
                 Point loc = App.getFrame().getLocation();
 
                 dlg.setLocation(
-                        (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-                        (frmSize.height - dlg.getSize().height) / 2
-                                + loc.y);
+                    (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                    (frmSize.height - dlg.getSize().height) / 2
+                        + loc.y);
                 dlg.setVisible(true);
 
                 if (!dlg.isCancelled()) {
@@ -144,16 +144,16 @@ public class BusPanel extends JSplitPane {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (scheduleTable.getBus() == null) {
                     JOptionPane.showMessageDialog(null, "Cannot Schedule Tour: No Bus Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
-                            "/ui/icons/error.png")));
+                        "/ui/icons/error.png")));
                 } else {
                     BusTourDialog dlg = new BusTourDialog(App.getFrame(), scheduleTable.getBus().getNumber());
                     Dimension frmSize = App.getFrame().getSize();
                     Point loc = App.getFrame().getLocation();
 
                     dlg.setLocation(
-                            (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-                            (frmSize.height - dlg.getSize().height) / 2
-                                    + loc.y);
+                        (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                        (frmSize.height - dlg.getSize().height) / 2
+                            + loc.y);
                     dlg.setVisible(true);
 
                     if (!dlg.isCancelled() && dlg.getTour() != null) {

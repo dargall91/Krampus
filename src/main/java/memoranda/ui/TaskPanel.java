@@ -100,7 +100,7 @@ public class TaskPanel extends JPanel {
         historyForwardB.setText("");
 
         newTaskB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new.png")));
         newTaskB.setEnabled(true);
         newTaskB.setMaximumSize(new Dimension(24, 24));
         newTaskB.setMinimumSize(new Dimension(24, 24));
@@ -116,7 +116,7 @@ public class TaskPanel extends JPanel {
         newTaskB.setBorderPainted(false);
 
         subTaskB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new_sub.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_new_sub.png")));
         subTaskB.setEnabled(true);
         subTaskB.setMaximumSize(new Dimension(24, 24));
         subTaskB.setMinimumSize(new Dimension(24, 24));
@@ -145,7 +145,7 @@ public class TaskPanel extends JPanel {
         editTaskB.setMaximumSize(new Dimension(24, 24));
 //        editTaskB.setEnabled(true);
         editTaskB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_edit.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_edit.png")));
 
         removeTaskB.setBorderPainted(false);
         removeTaskB.setFocusable(false);
@@ -160,7 +160,7 @@ public class TaskPanel extends JPanel {
         removeTaskB.setMinimumSize(new Dimension(24, 24));
         removeTaskB.setMaximumSize(new Dimension(24, 24));
         removeTaskB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_remove.png")));
 
         completeTaskB.setBorderPainted(false);
         completeTaskB.setFocusable(false);
@@ -175,7 +175,7 @@ public class TaskPanel extends JPanel {
         completeTaskB.setMinimumSize(new Dimension(24, 24));
         completeTaskB.setMaximumSize(new Dimension(24, 24));
         completeTaskB.setIcon(
-                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_complete.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/todo_complete.png")));
 
         // added by rawsushi
 //		showActiveOnly.setBorderPainted(false);
@@ -201,16 +201,16 @@ public class TaskPanel extends JPanel {
 
         ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", 1, 11));
         ppShowActiveOnlyChB.setText(
-                Local.getString("Show Active only"));
+            Local.getString("Show Active only"));
         ppShowActiveOnlyChB
-                .addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        toggleShowActiveOnly_actionPerformed(e);
-                    }
-                });
+            .addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    toggleShowActiveOnly_actionPerformed(e);
+                }
+            });
         boolean isShao =
-                (Context.get("SHOW_ACTIVE_TASKS_ONLY") != null)
-                        && (Context.get("SHOW_ACTIVE_TASKS_ONLY").equals("true"));
+            (Context.get("SHOW_ACTIVE_TASKS_ONLY") != null)
+                && (Context.get("SHOW_ACTIVE_TASKS_ONLY").equals("true"));
         ppShowActiveOnlyChB.setSelected(isShao);
         toggleShowActiveOnly_actionPerformed(null);
 
@@ -341,7 +341,7 @@ public class TaskPanel extends JPanel {
         CurrentProject.addProjectListener(new ProjectListener() {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
                 newTaskB.setEnabled(
-                        CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
+                    CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
             }
 
             public void projectWasChanged() {
@@ -420,7 +420,7 @@ public class TaskPanel extends JPanel {
         taskTable.addKeyListener(new KeyListener() {
             public void keyPressed(KeyEvent e) {
                 if (taskTable.getSelectedRows().length > 0
-                        && e.getKeyCode() == KeyEvent.VK_DELETE)
+                    && e.getKeyCode() == KeyEvent.VK_DELETE)
                     ppRemoveTask_actionPerformed(null);
 
                 else if (e.getKeyCode() == KeyEvent.VK_INSERT) {
@@ -430,7 +430,7 @@ public class TaskPanel extends JPanel {
                         ppNewTask_actionPerformed(null);
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_SPACE
-                        && taskTable.getSelectedRows().length > 0) {
+                    && taskTable.getSelectedRows().length > 0) {
                     ppCompleteTask_actionPerformed(null);
                 }
             }
@@ -446,8 +446,8 @@ public class TaskPanel extends JPanel {
 
     void editTaskB_actionPerformed(ActionEvent e) {
         Task t =
-                CurrentProject.getTaskList().getTask(
-                        taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
+            CurrentProject.getTaskList().getTask(
+                taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("Edit task"));
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -643,7 +643,7 @@ public class TaskPanel extends JPanel {
 
         if (taskTable.getSelectedRows().length > 1)
             msg = Local.getString("Remove") + " " + taskTable.getSelectedRows().length + " " + Local.getString("tasks") + "?"
-                    + "\n" + Local.getString("Are you sure?");
+                + "\n" + Local.getString("Are you sure?");
         else {
             Task t = CurrentProject.getTaskList().getTask(thisTaskId);
             // check if there are subtasks
@@ -654,18 +654,18 @@ public class TaskPanel extends JPanel {
             }
         }
         int n =
-                JOptionPane.showConfirmDialog(
-                        App.getFrame(),
-                        msg,
-                        Local.getString("Remove task"),
-                        JOptionPane.YES_NO_OPTION);
+            JOptionPane.showConfirmDialog(
+                App.getFrame(),
+                msg,
+                Local.getString("Remove task"),
+                JOptionPane.YES_NO_OPTION);
         if (n != JOptionPane.YES_OPTION)
             return;
         Vector toremove = new Vector();
         for (int i = 0; i < taskTable.getSelectedRows().length; i++) {
             Task t =
-                    CurrentProject.getTaskList().getTask(
-                            taskTable.getModel().getValueAt(taskTable.getSelectedRows()[i], TaskTable.TASK_ID).toString());
+                CurrentProject.getTaskList().getTask(
+                    taskTable.getModel().getValueAt(taskTable.getSelectedRows()[i], TaskTable.TASK_ID).toString());
             if (t != null)
                 toremove.add(t);
         }
@@ -684,8 +684,8 @@ public class TaskPanel extends JPanel {
         Vector tocomplete = new Vector();
         for (int i = 0; i < taskTable.getSelectedRows().length; i++) {
             Task t =
-                    CurrentProject.getTaskList().getTask(
-                            taskTable.getModel().getValueAt(taskTable.getSelectedRows()[i], TaskTable.TASK_ID).toString());
+                CurrentProject.getTaskList().getTask(
+                    taskTable.getModel().getValueAt(taskTable.getSelectedRows()[i], TaskTable.TASK_ID).toString());
             if (t != null)
                 tocomplete.add(t);
         }
@@ -702,8 +702,8 @@ public class TaskPanel extends JPanel {
     // toggle "show active only"
     void toggleShowActiveOnly_actionPerformed(ActionEvent e) {
         Context.put(
-                "SHOW_ACTIVE_TASKS_ONLY",
-                new Boolean(ppShowActiveOnlyChB.isSelected()));
+            "SHOW_ACTIVE_TASKS_ONLY",
+            new Boolean(ppShowActiveOnlyChB.isSelected()));
         taskTable.tableChanged();
     }
 
