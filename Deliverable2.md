@@ -58,7 +58,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 |Chris Boveda| 3| 8| 11|
 |Derek Argall| 5| 8| 13|
 |John Thurstonson| 3| 7| 10|
-|Kevin Dolan| 2| 8| 10|
+|Kevin Dolan| 5| 8| 10|
 
 
 ## 3: After the Sprint
@@ -176,29 +176,7 @@ Answer as a team!
 
 
 #### Derek Argall:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
-
-  **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis -- Sprint 3:**
-
-    - link1
-    - link2
-
-  **What was your main contribution to the Quality Policy documentation?:**
-
-    - ...
 
 #### John Thurstonson:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -227,29 +205,29 @@ Answer as a team!
     - Our team worked together to produce our quality policy.
 
 #### Kevin Dolan:
-  **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+**Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
+
+- [Implement the graphical structure for the route map](https://github.com/amehlhase316/Krampus/commit/0de17586822637dd0a62ee8d482a6d3cdb4736f2)
+- [Refactor the RouteMap into two classes](https://github.com/amehlhase316/Krampus/commit/369422719a5ef073dd110b4bc14c45a5a2c2285c)
+- [Fix bugs in RouteMap and Stops](https://github.com/amehlhase316/Krampus/commit/cc3e1ea8a6bb765e359a40a7c23980ff4bfcdb59)
+
+**GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+
+- [Unit Tests for RouteMap](https://github.com/amehlhase316/Krampus/commit/f261f77874a8220d4ffd017bf71983c0e18c7e0d)
+
+**GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
+
+- [Code Review 1](https://github.com/amehlhase316/Krampus/pull/88)
+- [Code Review 2](https://github.com/amehlhase316/Krampus/pull/89)
+
+**How did you contribute to Static Analysis -- Sprint 3:**
 
     - link1
     - link2
 
-   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
+**What was your main contribution to the Quality Policy documentation?:**
 
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis -- Sprint 3:**
-
-    - link1
-    - link2
- 
- **What was your main contribution to the Quality Policy documentation?:**
-
-    - ...
+    - The group worked collectively in a zoom meeting to establish our quality policy.
 
 
   
@@ -263,7 +241,7 @@ Answer as a team!
   - [x] Chris Boveda
   - [ ] Derek Argall
   - [x] John Thurstonson
-  - [ ] Kevin Dolan
+  - [x] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [x] All User Stories have acceptance tests
