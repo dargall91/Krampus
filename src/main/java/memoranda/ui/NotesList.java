@@ -30,7 +30,7 @@ import main.java.memoranda.util.Configuration;
 /*$Id: NotesList.java,v 1.9 2005/05/05 16:19:16 ivanrise Exp $*/
 public class NotesList extends JList {
 
-    public static final int EMPTY = 0;    
+    public static final int EMPTY = 0;
     public static final int ALL = 1;
     public static final int BOOKMARKS = 2;
 
@@ -41,9 +41,9 @@ public class NotesList extends JList {
 
     public NotesList(int type) {
         super();
-		if(Configuration.get("NOTES_SORT_ORDER").toString().equalsIgnoreCase("true")) {
-			sortOrderDesc = true;
-		}
+        if (Configuration.get("NOTES_SORT_ORDER").toString().equalsIgnoreCase("true")) {
+            sortOrderDesc = true;
+        }
         _type = type;
         this.setFont(new java.awt.Font("Dialog", 0, 11));
         this.setModel(new NotesListModel());
@@ -52,7 +52,7 @@ public class NotesList extends JList {
                 updateUI();
             }
         });
-		
+
         CurrentNote.addNoteListener(new NoteListener() {
             public void noteChange(Note n, boolean toSaveCurrentNote) {
                 updateUI();
@@ -62,6 +62,7 @@ public class NotesList extends JList {
         CurrentProject.addProjectListener(new ProjectListener() {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
             }
+
             public void projectWasChanged() {
                 update();
             }
@@ -76,10 +77,9 @@ public class NotesList extends JList {
     public void update() {
         if (_type != EMPTY) {
             update(CurrentProject.getNoteList());
-		}
-        else {
-			update(new Vector());
-		}
+        } else {
+            update(new Vector());
+        }
     }
 
     public void update(NoteList nl) {
@@ -87,44 +87,44 @@ public class NotesList extends JList {
             notes = (Vector) nl.getAllNotes();
         else
             notes = (Vector) nl.getMarkedNotes();
-        
+
 //        Util.debug("No. of notes in noteList " + notes.size());
         //NotesVectorSorter.sort(notes);
-		Collections.sort(notes);
-		if (sortOrderDesc) {
-			Collections.reverse(notes);		    
-		}
+        Collections.sort(notes);
+        if (sortOrderDesc) {
+            Collections.reverse(notes);
+        }
         updateUI();
     }
 
     public void update(Vector ns) {
         notes = ns;
         // NotesVectorSorter.sort(notes);
-		Collections.sort(notes);
-		if (sortOrderDesc) {
-			Collections.reverse(notes);		    
-		}		
+        Collections.sort(notes);
+        if (sortOrderDesc) {
+            Collections.reverse(notes);
+        }
         updateUI();
     }
 
-    public Note getNote(int index){
+    public Note getNote(int index) {
         return (Note) notes.get(index);
     }
-    
+
     void invertSortOrder() {
         sortOrderDesc = !sortOrderDesc;
     }
 
 
     /*$Id: NotesList.java,v 1.9 2005/05/05 16:19:16 ivanrise Exp $*/
-public class NotesListModel extends AbstractListModel {
+    public class NotesListModel extends AbstractListModel {
 
         public NotesListModel() {
             update();
         }
 
         public Object getElementAt(int i) {
-            Note note = (Note)notes.get(i);
+            Note note = (Note) notes.get(i);
             return note.getDate().getShortDateString() + " " + note.getTitle();
         }
 
@@ -137,27 +137,27 @@ public class NotesListModel extends AbstractListModel {
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
 
     public ListCellRenderer getCellRenderer() {
-        return new DefaultListCellRenderer()  {
+        return new DefaultListCellRenderer() {
 
-     public Component getListCellRendererComponent(
-       JList list,
-       Object value,            // value to display
-       int index,               // cell index
-       boolean isSelected,      // is the cell selected
-       boolean cellHasFocus)    // the list and the cell have the focus
-     {
-         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-         String s = value.toString();
-         label.setText(s);
-         //Note currentNote = CurrentProject.getNoteList().getActiveNote();
-		 Note currentNote = CurrentNote.get();
-         if (currentNote != null) {
-            if (getNote(index).getId().equals(currentNote.getId()))
-                label.setFont(label.getFont().deriveFont(Font.BOLD));
-         }
-         if (getNote(index).isMarked())
-            label.setIcon(bookmarkIcon);
-         //setIcon();
+            public Component getListCellRendererComponent(
+                    JList list,
+                    Object value,            // value to display
+                    int index,               // cell index
+                    boolean isSelected,      // is the cell selected
+                    boolean cellHasFocus)    // the list and the cell have the focus
+            {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                String s = value.toString();
+                label.setText(s);
+                //Note currentNote = CurrentProject.getNoteList().getActiveNote();
+                Note currentNote = CurrentNote.get();
+                if (currentNote != null) {
+                    if (getNote(index).getId().equals(currentNote.getId()))
+                        label.setFont(label.getFont().deriveFont(Font.BOLD));
+                }
+                if (getNote(index).isMarked())
+                    label.setIcon(bookmarkIcon);
+                //setIcon();
        /*if (isSelected) {
              setBackground(list.getSelectionBackground());
            setForeground(list.getSelectionForeground());
@@ -169,12 +169,12 @@ public class NotesListModel extends AbstractListModel {
        setEnabled(list.isEnabled());
        setFont(list.getFont());
          setOpaque(true);*/
-         label.setToolTipText(s);
-         return label;
-     }
-    };
+                label.setToolTipText(s);
+                return label;
+            }
+        };
 
- }
+    }
 
 
 }

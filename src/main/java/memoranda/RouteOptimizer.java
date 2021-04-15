@@ -27,7 +27,7 @@ public class RouteOptimizer {
         LinkedList<Node> newRoute = new LinkedList<>();
 
         newRoute.add(routeCopy.removeFirst());
-        while(!routeCopy.isEmpty()) {
+        while (!routeCopy.isEmpty()) {
             double thisDistance, minDistance = Double.MAX_VALUE;
             int minDistIndex = 0;
             for (Node n : routeCopy) {

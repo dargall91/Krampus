@@ -1,8 +1,10 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collection;
 import java.util.HashMap;
+
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
@@ -74,7 +76,7 @@ public abstract class DataCollection<T extends IndexedObject> implements Iterabl
                 max = i;
             }
         }
-        maxID=max;
+        maxID = max;
         return max;
     }
 

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * DriverTourDialogTable is a JTable that displays unscheduled tours to be scheduled to a driver.
  * This table is intended to be used in the DriverTourDialog component
- * 
+ *
  * @author Derek Argall
  * @version 04/05/2020
  */
@@ -36,60 +36,60 @@ public class DriverTourDialogTable extends JTable {
      * Constructor to the DriverTourDialogTable
      */
     public DriverTourDialogTable() {
-		super();
+        super();
         init();
-	}
+    }
 
-	private void init() {
+    private void init() {
         TourColl tours = CurrentProject.getTourColl();
-        
+
         tourArray = new ArrayList<Tour>();
-        
+
         for (int i = 0; i < tours.size(); i++) {
-        	Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
-        	
-        	//only display tours with a bus scheduled that do not have a driver
-    		if (tour.getDriver() == null && tour.getBus() != null) {
-    			tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
-    		}
-    	}
-    	
-    	setRowHeight(HEIGHT);
+            Tour tour = tours.getTours().toArray(new Tour[tours.size()])[i];
+
+            //only display tours with a bus scheduled that do not have a driver
+            if (tour.getDriver() == null && tour.getBus() != null) {
+                tourArray.add(tours.getTours().toArray(new Tour[tours.size()])[i]);
+            }
+        }
+
+        setRowHeight(HEIGHT);
         setShowGrid(false);
-        
+
         ScheduleTableModel model = new ScheduleTableModel();
         setModel(model);
-        
+
         sorter = new TableRowSorter<>(model);
         setRowSorter(sorter);
-        
+
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+
         setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
-        
+
         initColumnsWidth();
     }
 
     private void initColumnsWidth() {
-    	for (int i = 0; i < getColumnCount(); i++) {
-		    TableColumn tableColumn = getColumnModel().getColumn(i);
-		    int preferredWidth = tableColumn.getMinWidth();
-		    int maxWidth = tableColumn.getMaxWidth();
-		
-		    for (int j = 0; j < getRowCount(); j++) {
-		        TableCellRenderer cellRenderer = getCellRenderer(j, i);
-		        Component comp = prepareRenderer(cellRenderer, j, i);
-		        int width = comp.getPreferredSize().width + getIntercellSpacing().width;
-		        preferredWidth = Math.max(preferredWidth, width);
-		
-		        if (preferredWidth >= maxWidth) {
-		            preferredWidth = maxWidth;
-		            break;
-		        }
-		    }
-		
-		    tableColumn.setMinWidth(preferredWidth);
-		}
+        for (int i = 0; i < getColumnCount(); i++) {
+            TableColumn tableColumn = getColumnModel().getColumn(i);
+            int preferredWidth = tableColumn.getMinWidth();
+            int maxWidth = tableColumn.getMaxWidth();
+
+            for (int j = 0; j < getRowCount(); j++) {
+                TableCellRenderer cellRenderer = getCellRenderer(j, i);
+                Component comp = prepareRenderer(cellRenderer, j, i);
+                int width = comp.getPreferredSize().width + getIntercellSpacing().width;
+                preferredWidth = Math.max(preferredWidth, width);
+
+                if (preferredWidth >= maxWidth) {
+                    preferredWidth = maxWidth;
+                    break;
+                }
+            }
+
+            tableColumn.setMinWidth(preferredWidth);
+        }
     }
 
     /**
@@ -114,12 +114,12 @@ public class DriverTourDialogTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-            	JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
                 }
-                
+
                 return comp;
             }
         };
@@ -150,20 +150,20 @@ public class DriverTourDialogTable extends JTable {
 
         @Override
         public Object getValueAt(int row, int col) {
-        	if (col == 0) {
-            	return tourArray.get(row).getName();
+            if (col == 0) {
+                return tourArray.get(row).getName();
             }
-            
+
             if (col == 1) {
-            	return tourArray.get(row).getID();
+                return tourArray.get(row).getID();
             }
-            
+
             if (col == 2) {
-            	return tourArray.get(row).getBusID();
+                return tourArray.get(row).getBusID();
             }
-            
+
             if (col == 3) {
-            	return tourArray.get(row).getTime();
+                return tourArray.get(row).getTime();
             }
             
             /*if (col == 4) {
@@ -175,28 +175,29 @@ public class DriverTourDialogTable extends JTable {
 
         @Override
         public Class getColumnClass(int col) {
-        	for (int i = 0; i < getRowCount(); i++) {
-        		Object obj = getValueAt(i, col); {
-        			if (obj != null) {
-        				return obj.getClass();
-        			}
-        		}
-        	}
+            for (int i = 0; i < getRowCount(); i++) {
+                Object obj = getValueAt(i, col);
+                {
+                    if (obj != null) {
+                        return obj.getClass();
+                    }
+                }
+            }
 
-        	//default to String
+            //default to String
             return String.class;
         }
     }
-    
+
     /**
      * Gets the currently selected tour
-     * 
+     *
      * @return the Tour
      */
     public Tour getTour() {
-    	if (getSelectionModel().isSelectionEmpty() ) {
-    		return null;
-    	}
-    	return tourArray.get(getSelectedRow());
+        if (getSelectionModel().isSelectionEmpty()) {
+            return null;
+        }
+        return tourArray.get(getSelectedRow());
     }
 }

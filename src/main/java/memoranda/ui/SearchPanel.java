@@ -56,11 +56,11 @@ public class SearchPanel extends JPanel {
     public SearchPanel() {
         try {
             jbInit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(ex);
         }
     }
+
     void jbInit() throws Exception {
         border1 = BorderFactory.createEmptyBorder(2, 2, 2, 2);
 
@@ -117,7 +117,9 @@ public class SearchPanel extends JPanel {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
                 notesList.update(new Vector());
             }
-            public void projectWasChanged() {}
+
+            public void projectWasChanged() {
+            }
         });
         //notesList.update(new Vector());
 
@@ -135,8 +137,8 @@ public class SearchPanel extends JPanel {
     void searchField_caretUpdate(CaretEvent e) {
         searchB.setEnabled(searchField.getText().length() > 0);
     }
-    
-    
+
+
     void doSearch() {
         Pattern pattern;
         //this.add(progressBar, BorderLayout.SOUTH);
@@ -150,8 +152,7 @@ public class SearchPanel extends JPanel {
             _find = "[\\s\\p{Punct}]" + _find + "[\\s\\p{Punct}]";
         try {
             pattern = Pattern.compile(_find, flags);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(ex, "Error in regular expression", "Check the regular expression syntax");
             return;
         }
@@ -171,8 +172,7 @@ public class SearchPanel extends JPanel {
                 Matcher matcher = pattern.matcher(txt);
                 if (matcher.find())
                     found.add(note);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }

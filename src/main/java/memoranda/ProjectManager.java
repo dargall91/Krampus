@@ -28,9 +28,9 @@ public class ProjectManager {
 
     public static Document _doc = null;
     static Element _root = null;
-    
+
     static {
-    	init();
+        init();
     }
 
     public static void init() {
@@ -41,8 +41,7 @@ public class ProjectManager {
 //            _root.appendChild(new Comment("This is JNotes 2 data file. Do not modify."));
             _doc = new Document(_root);
             createProject("__default", Local.getString("Default project"), CalendarDate.today(), null);
-        }
-        else
+        } else
             _root = _doc.getRootElement();
     }
 
@@ -66,14 +65,13 @@ public class ProjectManager {
     }
 
     public static int getAllProjectsNumber() {
-		int i;
+        int i;
         try {
-			i = ((Elements)_root.getChildElements("project")).size();
-		}
-		catch (NullPointerException e) {
-			i = 1;
-		}
-		return i;
+            i = ((Elements) _root.getChildElements("project")).size();
+        } catch (NullPointerException e) {
+            i = 1;
+        }
+        return i;
     }
 
     public static Vector getActiveProjects() {
@@ -86,7 +84,7 @@ public class ProjectManager {
         }
         return v;
     }
-		
+
     public static int getActiveProjectsNumber() {
         Elements prjs = _root.getChildElements("project");
         int count = 0;
@@ -113,7 +111,7 @@ public class ProjectManager {
     public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate) {
         return createProject(Util.generateId(), title, startDate, endDate);
     }
-    
+
     public static void removeProject(String id) {
         Project prj = getProject(id);
         if (prj == null)

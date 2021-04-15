@@ -10,13 +10,13 @@ import java.util.HashMap;
 
 /**
  * Database control multi-singleton (per project) class.
- *
+ * <p>
  * Use:
  * Database db=Database.getDatabase(storage,project) when MTB opens to read persisted serialized data.
  * After making changes, commit them to disk with db.write().
  * All parts of the program will get the same collection instances because Database acts as a
  * multi-singleton class - it will return one Database per (storage, project) tuple.
- *
+ * <p>
  * This code is mildly thread-safe and will try to eliminate race conditions on read/write, but
  * cannot compensate for filesystem-level race conditions under hundreds of simultaneous reads/
  * writes.  Concurrent writes are safe.
@@ -89,7 +89,6 @@ public class Database {
 
     /**
      * @param prj check to see if database exists for this project.
-     *
      * @return whether db exists for this project
      */
     public static boolean exists(Project prj) {
