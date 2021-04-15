@@ -57,7 +57,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Name | Meeting Attended This Sprint | Sprint 1 | Project Total |
 |---|---|---|---|
 |Brian Pape| 5| 8| 13|
-|Chris Boveda| 3| 8| 11|
+|Chris Boveda| 5| 8| 11|
 |Derek Argall| 5| 8| 13|
 |John Thurstonson| 5| 7| 12|
 |Kevin Dolan| 5| 8| 13|
@@ -70,7 +70,7 @@ Answer as a team!
 
 **Screen Cast link**:
 
-> TBD
+> [Sprint 2 Screencast](https://youtu.be/QNGc5ZGfb70)
 
 **What do you think is the value you created this Sprint?**
 
