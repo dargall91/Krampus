@@ -59,7 +59,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 |Brian Pape| 5| 8| 13|
 |Chris Boveda| 3| 8| 11|
 |Derek Argall| 5| 8| 13|
-|John Thurstonson| 3| 7| 10|
+|John Thurstonson| 5| 7| 15|
 |Kevin Dolan| 5| 8| 13|
 
 
@@ -143,8 +143,7 @@ Answer as a team!
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
-    - link1
-    - link2
+-
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -174,8 +173,7 @@ Answer as a team!
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - Our group worked together and each member contributed equally to development of our quality policy.
-
+- Our group worked together and each member contributed equally to development of our quality policy.
 
 #### Derek Argall:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
