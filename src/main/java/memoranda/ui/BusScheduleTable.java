@@ -41,7 +41,7 @@ public class BusScheduleTable extends JTable {
     private TourColl tourColl;
     private BusColl busColl;
     private TableRowSorter<TableModel> sorter;
-    private final int HEIGHT = 24;
+    private static final int HEIGHT = 24;
     private DriverScheduleTable driverTable;
 
     /**
@@ -152,8 +152,9 @@ public class BusScheduleTable extends JTable {
     }
 
     /**
-     * Defines how to render a cell
+     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
      */
+    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(

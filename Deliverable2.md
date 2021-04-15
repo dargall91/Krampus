@@ -124,18 +124,22 @@ Answer as a team!
 #### Brian Pape:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+- [US8-Task106: Add NodeMapper class to scale nodes for plotting](https://github.com/amehlhase316/Krampus/commit/34f122ed5449362c5b74039d541075cf6f4a32ba)
+- [US37-Task107: Add Bus/Tour interaction and tour length functions](https://github.com/amehlhase316/Krampus/commit/301fe2db74db912c602de79b5a3ec813e0693b36)
+- [US82-Task109: database singleton class](https://github.com/amehlhase316/Krampus/pull/82/files)
+- [US37/US82: Add Bus and tour functionality](https://github.com/amehlhase316/Krampus/commit/b3f74ed4307f774f91a46772a24da950830b7360)
+- [US82-Task87: Driver serialization](https://github.com/amehlhase316/Krampus/commit/38586b6bf0ec95bc80f1afefe0751e84c2ccc9a5)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+- [NodeMapper unit tests](https://github.com/amehlhase316/Krampus/pull/78/commits/d58645c3c8c049261c16f14ed6db1f13ca1ce0c7)
+- [Tour/driver relations](https://github.com/amehlhase316/Krampus/pull/78/commits/a19fbe0b3052489642dbdfab9ffedc1f98cb52d5)
+- [Bus/Tour](https://github.com/amehlhase316/Krampus/pull/78/commits/c07b6e46fe445bcf7dfa45b4d5126ea8d546ba95)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+- [Standard approval using team QP checklist on code requiring no changes](https://github.com/amehlhase316/Krampus/pull/84#partial-pull-merging)
+- [Code review with Change request](https://github.com/amehlhase316/Krampus/pull/64#partial-pull-merging)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -144,32 +148,34 @@ Answer as a team!
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+ - Our team worked collaboratively as a group to develop our Quality Policy documentation and each team member contributed to its development.
 
 
 #### Chris Boveda:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - ...
+  - [Completion of US90 (Pathfinder)](https://github.com/amehlhase316/Krampus/commit/b9868a308492531ce450c3a144e859d0b760e90b)
+  - [Progress on US90 (Pathfinder)](https://github.com/amehlhase316/Krampus/commit/92717973b46acc8996aca316332dcba3d512fe8b)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+  - [Tests for the shortpath algorithm and helper](https://github.com/amehlhase316/Krampus/commit/24cdd73c5dce824ccb49ddb643b24dee08dd00e0)
+  - [Tests for the optimized shortpath algorithm](https://github.com/amehlhase316/Krampus/commit/4a4da37f5b74f2bf1abbb81ac3c3e2493b78e768)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+  - [Code Review 1](https://github.com/amehlhase316/Krampus/pull/88)
+  - [Code Review 2](https://github.com/amehlhase316/Krampus/pull/82)
+  - [Code Review 3](https://github.com/amehlhase316/Krampus/pull/81)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
-    - link1
-    - link2
+    -
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+    - Our group worked together and each member contributed equally to development of our quality policy.
+
 
 #### Derek Argall:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -200,18 +206,19 @@ Answer as a team!
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - [Implement user ability to add, remove and edit Tours](https://github.com/amehlhase316/Krampus/commit/ed940ab2bc20d7fd43ee63a8bcb9258c7db5e5ea)   
+    - [Create Tour Dialog](https://github.com/amehlhase316/Krampus/commit/ac470d296e587df47ed822bc65ac3ee58ffa2fd2)   
+	- [Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+    - N/A
+    - 
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+    - [Code Review](https://github.com/amehlhase316/Krampus/pull/86)
+    - 
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -220,7 +227,7 @@ Answer as a team!
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+    - Our team worked together to produce our quality policy.
 
 #### Kevin Dolan:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -250,18 +257,18 @@ Answer as a team!
 
 
 ## 4: Checklist for you to see if you are done
-- [] Filled out the complete form from above, all fields are filled and written in full sentences
+- [x] Filled out the complete form from above, all fields are filled and written in full sentences
 - [x] Read the kickoff again to make sure you have all the details
-- [] User Stories that were not completed, were left in the Sprint and a copy created
-- [] Your Quality Policies are accurate and up to date
-- [] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [] Brian Pape|
-  - [] Chris Boveda
-  - [] Derek Argall
-  - [] John Thurstonson
-  - [] Kevin Dolan
+- [x] User Stories that were not completed, were left in the Sprint and a copy created
+- [x] Your Quality Policies are accurate and up to date
+- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [x] Brian Pape|
+  - [x] Chris Boveda
+  - [ ] Derek Argall
+  - [x] John Thurstonson
+  - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [] All User Stories have acceptance tests
-  - [] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [] You know how to proceed
+  - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
+  - [x] All User Stories have acceptance tests
+  - [x] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [x] You know how to proceed

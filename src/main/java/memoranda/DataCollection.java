@@ -74,6 +74,7 @@ public abstract class DataCollection<T extends IndexedObject> implements Iterabl
                 max = i;
             }
         }
+        maxID=max;
         return max;
     }
 

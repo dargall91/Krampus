@@ -40,8 +40,8 @@ import java.util.LinkedList;
 public class DriverTable extends JTable {
     private DriverColl drivers;
     private TableRowSorter<TableModel> sorter;
-    private final int HEIGHT = 24;
-    private final int ID_COLUMN = 1;
+    private static final int HEIGHT = 24;
+    private static final int ID_COLUMN = 1;
     private DriverScheduleTable scheduleTable;
 
     /**
@@ -152,8 +152,9 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * Defines how to render a cell
+     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
      */
+    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
