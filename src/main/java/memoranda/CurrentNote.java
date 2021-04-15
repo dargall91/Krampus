@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public class CurrentNote {
 
-	private static Note currentNote = null;
+    private static Note currentNote = null;
     private static Vector noteListeners = new Vector();
 
     public static Note get() {
@@ -32,7 +32,7 @@ public class CurrentNote {
 
     private static void noteChanged(Note note, boolean toSaveCurrentNote) {
         for (int i = 0; i < noteListeners.size(); i++) {
-            ((NoteListener)noteListeners.get(i)).noteChange(note,toSaveCurrentNote);
-		}
+            ((NoteListener) noteListeners.get(i)).noteChange(note, toSaveCurrentNote);
+        }
     }
 }

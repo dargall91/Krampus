@@ -6,22 +6,22 @@ import main.java.memoranda.util.Local;
 
 public class ImportSticker {
 
-String name;        
-        
-        public ImportSticker(String x) {
-                name = x;
-        }
+    String name;
 
-        public boolean import_file(){
+    public ImportSticker(String x) {
+        name = x;
+    }
+
+    public boolean import_file() {
                 /*
                  We are working on this =)
                   
                   
                   */
-                
-                JOptionPane.showMessageDialog(null,Local.getString("The feature is under construction."));
-                return true;
-        }
-        
-        
+
+        JOptionPane.showMessageDialog(null, Local.getString("The feature is under construction."));
+        return true;
+    }
+
+
 }

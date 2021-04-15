@@ -31,11 +31,11 @@ public class RouteMap extends JPanel {
         nodes = new NodeColl();
         stops = new ArrayList<>();
 
-        RouteStop s1 = new RouteStop(1, createPoint(100,100));
-        RouteStop s2 = new RouteStop(2, createPoint(200,110));
-        RouteStop s3 = new RouteStop(3, createPoint(300,250));
-        RouteStop s4 = new RouteStop(4, createPoint(400,10));
-        RouteStop s5 = new RouteStop(5, createPoint(500,700));
+        RouteStop s1 = new RouteStop(1, createPoint(100, 100));
+        RouteStop s2 = new RouteStop(2, createPoint(200, 110));
+        RouteStop s3 = new RouteStop(3, createPoint(300, 250));
+        RouteStop s4 = new RouteStop(4, createPoint(400, 10));
+        RouteStop s5 = new RouteStop(5, createPoint(500, 700));
 
         addStop(stops, s1.getBusStop());
         addStop(stops, s2.getBusStop());
@@ -43,12 +43,13 @@ public class RouteMap extends JPanel {
         addStop(stops, s4.getBusStop());
         addStop(stops, s5.getBusStop());
 
-        setPreferredSize( new Dimension(1000, 1000) );
-        setBackground( Color.WHITE );
+        setPreferredSize(new Dimension(1000, 1000));
+        setBackground(Color.WHITE);
     }
 
     /**
      * Getter for stops list.
+     *
      * @return
      */
     public List<RouteStop> getStops() {
@@ -57,6 +58,7 @@ public class RouteMap extends JPanel {
 
     /**
      * Getter for id.
+     *
      * @return
      */
     public int getId() {
@@ -65,6 +67,7 @@ public class RouteMap extends JPanel {
 
     /**
      * Setter for ID.
+     *
      * @param id
      */
     public void setId(int id) {
@@ -75,10 +78,10 @@ public class RouteMap extends JPanel {
     /**
      * paintComponent draws the graphics to JPanal.
      */
-    public void paintComponent ( Graphics g ) {
-        super.paintComponent( g );
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         for (int i = 0; i < stops.size(); i++) {
-            if (i < stops.size() - 1){
+            if (i < stops.size() - 1) {
                 stops.get(i).drawConnection(g, stops.get(i).getBusStop(),
                         stops.get(i + 1).getBusStop());
             }
@@ -98,7 +101,7 @@ public class RouteMap extends JPanel {
     public void populateStops(NodeColl nodeCollection) {
         NodeMapper mapper = new NodeMapper(nodeCollection);
 
-        while(nodeCollection.iterator().hasNext()){
+        while (nodeCollection.iterator().hasNext()) {
             for (Node n : nodeCollection) {
                 addStop(stops, mapper.getScaled(n));
             }
@@ -152,7 +155,7 @@ public class RouteMap extends JPanel {
      * @param lon
      * @return
      */
-    public Node createNode(double lat, double lon){
+    public Node createNode(double lat, double lon) {
         Node n = new Node(1);
         n.setName("1");
         Coordinate c = new Coordinate(lat, lon);

@@ -23,7 +23,7 @@ public class RouteTable extends JTable {
     /**
      * Default CTor for RouteTable
      */
-    public RouteTable () {
+    public RouteTable() {
         super();
         setModel(new RouteTableModel());
         initTable();
@@ -79,6 +79,7 @@ public class RouteTable extends JTable {
 
         /**
          * Returns the row count of the table.
+         *
          * @return int row count
          */
         @Override
@@ -89,6 +90,7 @@ public class RouteTable extends JTable {
 
         /**
          * Returns the column count of the table
+         *
          * @return int col count
          */
         @Override
@@ -99,9 +101,10 @@ public class RouteTable extends JTable {
 
         /**
          * Returns object located in a cell index
-         * @param rowIndex  row index of the object
-         * @param columnIndex   col index of the object
-         * @return  the object located in that cell
+         *
+         * @param rowIndex    row index of the object
+         * @param columnIndex col index of the object
+         * @return the object located in that cell
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -123,6 +126,7 @@ public class RouteTable extends JTable {
 
         /**
          * Returns the name of the specific column
+         *
          * @param columnIndex the column to fetch
          * @return the name as a string
          */

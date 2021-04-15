@@ -54,9 +54,8 @@ public class RouteMapPanel extends JPanel {
     public RouteMapPanel() {
         try {
             jbInit();
-        }
-        catch (Exception ex) {
-           new ExceptionDialog(ex);
+        } catch (Exception ex) {
+            new ExceptionDialog(ex);
         }
     }
 
@@ -82,7 +81,7 @@ public class RouteMapPanel extends JPanel {
         newRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         newRouteB.setFocusable(false);
         newRouteB.setBorderPainted(true);
-        newRouteB.addActionListener((e)->newRouteB_actionPerformed(e));
+        newRouteB.addActionListener((e) -> newRouteB_actionPerformed(e));
 
         /* Remove Route Button */
         removeRouteB.setIcon(
@@ -138,7 +137,7 @@ public class RouteMapPanel extends JPanel {
         refreshB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         refreshB.setFocusable(false);
         refreshB.setBorderPainted(true);
-        refreshB.addActionListener((e)->{
+        refreshB.addActionListener((e) -> {
             routeTable.refresh();
             //map.refresh(); //todo
         });
@@ -153,7 +152,7 @@ public class RouteMapPanel extends JPanel {
         debugAddNodesB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         debugAddNodesB.setFocusable(false);
         debugAddNodesB.setBorderPainted(true);
-        debugAddNodesB.addActionListener((e) ->debugAddNodesB_actionPerformed(e));
+        debugAddNodesB.addActionListener((e) -> debugAddNodesB_actionPerformed(e));
 
         /* Route Table */
         routeTable.setMaximumSize(new Dimension(32767, 32767));
@@ -189,6 +188,7 @@ public class RouteMapPanel extends JPanel {
 
     /**
      * Event handler for the "New Route" button.
+     *
      * @param e action event
      */
     public void newRouteB_actionPerformed(ActionEvent e) {
@@ -218,10 +218,11 @@ public class RouteMapPanel extends JPanel {
 
     /**
      * Event handler for the "Optimize" button
+     *
      * @param e action event
      */
     public void optRouteB_actionPerformed(ActionEvent e) {
-        if(routeTable.getSelectedRow() == -1) {
+        if (routeTable.getSelectedRow() == -1) {
             return;
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
@@ -233,10 +234,11 @@ public class RouteMapPanel extends JPanel {
 
     /**
      * Event handler for the "Optimize w/ Start" button
+     *
      * @param e action event
      */
     public void optRouteWithStartB_actionPerformed(ActionEvent e) {
-        if(routeTable.getSelectedRow() == -1) {
+        if (routeTable.getSelectedRow() == -1) {
             return;
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
@@ -250,7 +252,7 @@ public class RouteMapPanel extends JPanel {
      * Debugging utility while the functionality to select nodes is being developed.
      */
     public void debugAddNodesB_actionPerformed(ActionEvent e) {
-        if(routeTable.getSelectedRow() == -1) {
+        if (routeTable.getSelectedRow() == -1) {
             return;
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];

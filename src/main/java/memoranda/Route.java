@@ -3,6 +3,7 @@ package main.java.memoranda;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -120,7 +121,7 @@ public class Route extends IndexedObject {
      * Sets the given node as the start of the route. May be used in route generation interface.
      *
      * @param n the node to set as the new start
-     * @return  false if the route did not contain the node
+     * @return false if the route did not contain the node
      */
     public boolean setStart(Node n) {
         if (route.removeFirstOccurrence(n)) {
@@ -134,7 +135,7 @@ public class Route extends IndexedObject {
     /**
      * Sets the route to the given route.
      *
-     * @param newRoute  the new route to set
+     * @param newRoute the new route to set
      */
     public void setRoute(LinkedList<Node> newRoute) {
         this.route = newRoute;

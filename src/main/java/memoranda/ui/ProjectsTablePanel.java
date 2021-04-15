@@ -27,14 +27,14 @@ public class ProjectsTablePanel extends JPanel {
             if (((String) getModel().getValueAt(row, PROJECT_ID)).equals(CurrentProject.get().getID())) {
                 return new javax.swing.table.DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(
-                        JTable table,
-                        Object value,
-                        boolean isSelected,
-                        boolean hasFocus,
-                        int row,
-                        int column) {
+                            JTable table,
+                            Object value,
+                            boolean isSelected,
+                            boolean hasFocus,
+                            int row,
+                            int column) {
                         Component comp =
-                            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                         comp.setFont(new java.awt.Font("Dialog", 1, 11));
                         if (((row % 2) > 0) && (!isSelected))
                             comp.setBackground(new Color(230, 240, 255));
@@ -45,14 +45,14 @@ public class ProjectsTablePanel extends JPanel {
             if ((row % 2) > 0) {
                 return new javax.swing.table.DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(
-                        JTable table,
-                        Object value,
-                        boolean isSelected,
-                        boolean hasFocus,
-                        int row,
-                        int column) {
+                            JTable table,
+                            Object value,
+                            boolean isSelected,
+                            boolean hasFocus,
+                            int row,
+                            int column) {
                         Component comp =
-                            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                         if (isSelected)
                             return comp;
                         comp.setBackground(new Color(230, 240, 255));
@@ -67,18 +67,18 @@ public class ProjectsTablePanel extends JPanel {
     boolean activeOnly = false;
 
     public void updateUI() {
-		if(projectsTable!=null) projectsTable.updateUI();
-		super.updateUI();
+        if (projectsTable != null) projectsTable.updateUI();
+        super.updateUI();
     }
 
     public ProjectsTablePanel() {
         try {
             jbInit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(ex);
         }
     }
+
     void jbInit() throws Exception {
         projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
         projectsTable.setFont(new java.awt.Font("Dialog", 0, 11));
@@ -102,10 +102,9 @@ public class ProjectsTablePanel extends JPanel {
             TableColumn column = projectsTable.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(32767);
-            }
-            else {
+            } else {
                 column.setMinWidth(80);
-                column.setPreferredWidth(80);                
+                column.setPreferredWidth(80);
             }
         }
     }
@@ -130,12 +129,12 @@ public class ProjectsTablePanel extends JPanel {
     class PrjTableModel extends AbstractTableModel {
 
         String[] columnNames =
-            {
-                Local.getString("Project title"),
-                Local.getString("Start date"),
-                Local.getString("End date"),
-                //Local.getString("Execution"),
-                Local.getString("Status")};
+                {
+                        Local.getString("Project title"),
+                        Local.getString("Start date"),
+                        Local.getString("End date"),
+                        //Local.getString("Execution"),
+                        Local.getString("Status")};
 
         PrjTableModel() {
             super();
@@ -146,29 +145,29 @@ public class ProjectsTablePanel extends JPanel {
         }
 
         public Object getValueAt(int row, int col) {
-			if(row==-1) return "";
-			Project pr;
-			if (activeOnly)
-				pr = (Project) ProjectManager.getActiveProjects().get(row);
-			else
-				pr = (Project) ProjectManager.getAllProjects().get(row);
+            if (row == -1) return "";
+            Project pr;
+            if (activeOnly)
+                pr = (Project) ProjectManager.getActiveProjects().get(row);
+            else
+                pr = (Project) ProjectManager.getAllProjects().get(row);
             switch (col) {
-                case 0 :
+                case 0:
                     return pr.getTitle();
-                case 1 :
+                case 1:
                     return pr.getStartDate().getShortDateString();
-                case 2 :
+                case 2:
                     CalendarDate d = pr.getEndDate();
                     if (d == null)
                         return "-";
                     else
                         return d.getShortDateString();
-                //case 3 :   return pr.getProgress() + "%";
-                case 3 :
+                    //case 3 :   return pr.getProgress() + "%";
+                case 3:
                     return getStatusString(pr.getStatus());
-                case 100 :
+                case 100:
                     return pr.getID();
-                case 101 :
+                case 101:
                     return pr;
             }
             return "";
@@ -187,15 +186,15 @@ public class ProjectsTablePanel extends JPanel {
 
     String getStatusString(int status) {
         switch (status) {
-            case Project.ACTIVE :
+            case Project.ACTIVE:
                 return Local.getString("Active");
-            case Project.COMPLETED :
+            case Project.COMPLETED:
                 return Local.getString("Completed");
-            case Project.FAILED :
+            case Project.FAILED:
                 return Local.getString("Failed");
-            case Project.FROZEN :
+            case Project.FROZEN:
                 return Local.getString("Frozen");
-            case Project.SCHEDULED :
+            case Project.SCHEDULED:
                 return Local.getString("Scheduled");
         }
         return "";

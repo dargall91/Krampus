@@ -47,19 +47,18 @@ public class NotesControlPanel extends JPanel {
     JPanel buttonsPanel = new JPanel();
     JMenuItem ppAddBkmrk = new JMenuItem();
     JMenuItem ppClearNote = new JMenuItem();
-//    JMenuItem ppInvertSort = new JMenuItem();
-	JCheckBoxMenuItem ppInvertSort = new JCheckBoxMenuItem();
+    //    JMenuItem ppInvertSort = new JMenuItem();
+    JCheckBoxMenuItem ppInvertSort = new JCheckBoxMenuItem();
     JPopupMenu notesPPMenu = new JPopupMenu();
     JMenuItem ppOpenNote = new JMenuItem();
     JMenuItem ppRemoveBkmrk = new JMenuItem();
 
-	
+
     public NotesControlPanel() {
         try {
             jbInit();
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(ex);
         }
     }
@@ -91,7 +90,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppOpenB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/nopen.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/nopen.png")));
         buttonsPanel.setMinimumSize(new Dimension(70, 22));
         buttonsPanel.setOpaque(false);
         //buttonsPanel.setPreferredSize(new Dimension(80, 22));
@@ -105,7 +104,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppAddBkmrk.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addbookmark.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addbookmark.png")));
         ppClearNote.setFont(new java.awt.Font("Dialog", 1, 11));
         ppClearNote.setText(Local.getString("Clear note"));
         ppClearNote.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +113,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppClearNote.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editdelete.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editdelete.png")));
         ppClearNote.setEnabled(false);
         notesPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
         ppOpenNote.setFont(new java.awt.Font("Dialog", 1, 11));
@@ -134,10 +133,10 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppInvertSort.setEnabled(true);
-		boolean descSort =
-			(Configuration.get("NOTES_SORT_ORDER").equals("true"));
-		ppInvertSort.setSelected(descSort);
-		
+        boolean descSort =
+                (Configuration.get("NOTES_SORT_ORDER").equals("true"));
+        ppInvertSort.setSelected(descSort);
+
         ppRemoveBkmrk.setFont(new java.awt.Font("Dialog", 1, 11));
         ppRemoveBkmrk.setText(Local.getString("Remove bookmark"));
         ppRemoveBkmrk.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +145,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppRemoveBkmrk.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removebookmark.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removebookmark.png")));
         ppRemoveBkmrk.setEnabled(false);
         tabbedPane.add(notesListPanel, Local.getString("Notes"));
         tabbedPane.add(bookmarksListPanel, Local.getString("Bookmarks"));
@@ -154,7 +153,7 @@ public class NotesControlPanel extends JPanel {
         this.add(toolBar, BorderLayout.NORTH);
         buttonsPanel.add(ppOpenB, null);
         toolBar.add(buttonsPanel, null);
-        toolBar.addSeparator();        
+        toolBar.addSeparator();
         this.add(tabbedPane, BorderLayout.CENTER);
 
         PopupListener lst = new PopupListener();
@@ -163,7 +162,7 @@ public class NotesControlPanel extends JPanel {
         searchPanel.notesList.addMouseListener(lst);
         ListSelectionListener lsl = new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-		ppSetEnabled();
+                ppSetEnabled();
             }
         };
         notesListPanel.notesList.getSelectionModel().addListSelectionListener(lsl);
@@ -172,26 +171,30 @@ public class NotesControlPanel extends JPanel {
         notesList = notesListPanel.notesList;
         notesPPMenu.add(ppOpenNote);
         notesPPMenu.add(ppInvertSort);
-        notesPPMenu.addSeparator();        
+        notesPPMenu.addSeparator();
         notesPPMenu.add(ppAddBkmrk);
         notesPPMenu.add(ppRemoveBkmrk);
         notesPPMenu.addSeparator();
         notesPPMenu.add(ppClearNote);
 
-		// remove notes using the DEL key
-		KeyListener delNotes = new KeyListener() {
-			public void keyPressed(KeyEvent e){
-				if(e.getKeyCode()==KeyEvent.VK_DELETE) {
-					ppClearNote_actionPerformed(null);
-				}
-			}
-			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
-		};
-		
-		notesListPanel.notesList.addKeyListener(delNotes);
-		bookmarksListPanel.notesList.addKeyListener(delNotes);
-		searchPanel.notesList.addKeyListener(delNotes);
+        // remove notes using the DEL key
+        KeyListener delNotes = new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                    ppClearNote_actionPerformed(null);
+                }
+            }
+
+            public void keyReleased(KeyEvent e) {
+            }
+
+            public void keyTyped(KeyEvent e) {
+            }
+        };
+
+        notesListPanel.notesList.addKeyListener(delNotes);
+        bookmarksListPanel.notesList.addKeyListener(delNotes);
+        searchPanel.notesList.addKeyListener(delNotes);
     }
 
     public void refresh() {
@@ -200,21 +203,21 @@ public class NotesControlPanel extends JPanel {
     }
 
     void tabbedPane_stateChanged(ChangeEvent e) {
-	if(notesList!=null) notesList.clearSelection();
+        if (notesList != null) notesList.clearSelection();
         switch (tabbedPane.getSelectedIndex()) {
-            case 0 :
+            case 0:
                 notesList = notesListPanel.notesList;
                 break;
-            case 1 :
+            case 1:
                 notesList = bookmarksListPanel.notesList;
                 break;
-            case 2 :
+            case 2:
                 notesList = searchPanel.notesList;
                 break;
         }
 
-	ppAddBkmrk.setEnabled(false);
-	ppRemoveBkmrk.setEnabled(false);
+        ppAddBkmrk.setEnabled(false);
+        ppRemoveBkmrk.setEnabled(false);
     }
 
     class PopupListener extends MouseAdapter {
@@ -225,32 +228,32 @@ public class NotesControlPanel extends JPanel {
         }
 
         public void mousePressed(MouseEvent e) {
-             maybeShowPopup(e);
-         }
-        
-         public void mouseReleased(MouseEvent e) {
-             maybeShowPopup(e);
-         }
-        
-         private void maybeShowPopup(MouseEvent e) {
-             if (e.isPopupTrigger()) {
-                 notesPPMenu.show(e.getComponent(), e.getX(), e.getY());
-             }
-         }
+            maybeShowPopup(e);
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            maybeShowPopup(e);
+        }
+
+        private void maybeShowPopup(MouseEvent e) {
+            if (e.isPopupTrigger()) {
+                notesPPMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
     }
 
     void setActiveNote() {
         Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
         CurrentDate.set(note.getDate());
-		CurrentNote.set(note,true);
+        CurrentNote.set(note, true);
     }
-   
+
 
     void ppOpenB_actionPerformed(ActionEvent e) {
         notesPPMenu.show(
-            toolBar,
-            (int) ppOpenB.getLocation().getX(),
-            (int) ppOpenB.getLocation().getY() + 24);
+                toolBar,
+                (int) ppOpenB.getLocation().getX(),
+                (int) ppOpenB.getLocation().getY() + 24);
     }
 
     void ppAddBkmrk_actionPerformed(ActionEvent e) {
@@ -260,64 +263,65 @@ public class NotesControlPanel extends JPanel {
         }
         notesList.updateUI();
         bookmarksListPanel.notesList.update();
-	ppSetEnabled();
+        ppSetEnabled();
     }
 
     void ppClearNote_actionPerformed(ActionEvent e) {
         String msg;
         if (notesList.getSelectedIndices().length > 1)
             msg =
-                Local.getString(Local.getString("Clear"))
-                    + " "
-                    + notesList.getSelectedIndices().length
-                    + " "
-                    + Local.getString("notes")
-                    + "\n"
-                    + Local.getString("Are you sure?");
+                    Local.getString(Local.getString("Clear"))
+                            + " "
+                            + notesList.getSelectedIndices().length
+                            + " "
+                            + Local.getString("notes")
+                            + "\n"
+                            + Local.getString("Are you sure?");
         else
             msg =
-                Local.getString("Clear note")
-                    + "\n'"
-                    + ((Note) notesList.getNote(notesList.getSelectedIndex())).getDate().getFullDateString()
-                    + "'\n"
-                    + Local.getString("Are you sure?");
+                    Local.getString("Clear note")
+                            + "\n'"
+                            + ((Note) notesList.getNote(notesList.getSelectedIndex())).getDate().getFullDateString()
+                            + "'\n"
+                            + Local.getString("Are you sure?");
 
         int n =
-            JOptionPane.showConfirmDialog(
-                App.getFrame(),
-                msg,
-                Local.getString("Clear note"),
-                JOptionPane.YES_NO_OPTION);
+                JOptionPane.showConfirmDialog(
+                        App.getFrame(),
+                        msg,
+                        Local.getString("Clear note"),
+                        JOptionPane.YES_NO_OPTION);
         if (n != JOptionPane.YES_OPTION)
             return;
 
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
-			if(CurrentProject.getNoteList().getActiveNote() != null && note.getDate().equals(CurrentProject.getNoteList().getActiveNote().getDate())){ 
-				/*Debug*/ System.out.println("[DEBUG] Current note removed");
-				CurrentNote.set(null,true);
-			}
-			CurrentProject.getNoteList().removeNote(note.getDate(), note.getId());
-			CurrentStorage.get().removeNote(note);
+            if (CurrentProject.getNoteList().getActiveNote() != null && note.getDate().equals(CurrentProject.getNoteList().getActiveNote().getDate())) {
+                /*Debug*/
+                System.out.println("[DEBUG] Current note removed");
+                CurrentNote.set(null, true);
+            }
+            CurrentProject.getNoteList().removeNote(note.getDate(), note.getId());
+            CurrentStorage.get().removeNote(note);
         }
         bookmarksListPanel.notesList.update();
-		searchPanel.notesList.update();
-		notesListPanel.notesList.update();
+        searchPanel.notesList.update();
+        notesListPanel.notesList.update();
         notesList.updateUI();
-		notesList.clearSelection();
+        notesList.clearSelection();
 //		notesList.requestFocus();*/
 //		((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();
     }
-	
+
     void ppOpenNote_actionPerformed(ActionEvent e) {
         setActiveNote();
     }
 
     void ppInvertSort_actionPerformed(ActionEvent e) {
-		Configuration.put(
-			"NOTES_SORT_ORDER",
-			new Boolean(ppInvertSort.isSelected()));
-		Configuration.saveConfig();
+        Configuration.put(
+                "NOTES_SORT_ORDER",
+                new Boolean(ppInvertSort.isSelected()));
+        Configuration.saveConfig();
         notesList.invertSortOrder();
         notesList.update();
     }
@@ -328,20 +332,20 @@ public class NotesControlPanel extends JPanel {
             note.setMark(false);
         }
         bookmarksListPanel.notesList.update();
-	ppSetEnabled();
+        ppSetEnabled();
         notesList.updateUI();
-	notesList.clearSelection();
-	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();	
+        notesList.clearSelection();
+        ((AppFrame) App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();
     }
 
     void ppSetEnabled() {
-    boolean enbl = (notesList.getModel().getSize() > 0) && (notesList.getSelectedIndex() > -1);
+        boolean enbl = (notesList.getModel().getSize() > 0) && (notesList.getSelectedIndex() > -1);
 
-    ppRemoveBkmrk.setEnabled(enbl && (((Note) notesList.getNote(notesList.getSelectedIndex())).isMarked())
-    				|| notesList.getSelectedIndices().length > 1);
-    ppAddBkmrk.setEnabled(enbl && !(((Note) notesList.getNote(notesList.getSelectedIndex())).isMarked())
-    				|| notesList.getSelectedIndices().length > 1);
-    ppOpenNote.setEnabled(enbl);
-    ppClearNote.setEnabled(enbl);
+        ppRemoveBkmrk.setEnabled(enbl && (((Note) notesList.getNote(notesList.getSelectedIndex())).isMarked())
+                || notesList.getSelectedIndices().length > 1);
+        ppAddBkmrk.setEnabled(enbl && !(((Note) notesList.getNote(notesList.getSelectedIndex())).isMarked())
+                || notesList.getSelectedIndices().length > 1);
+        ppOpenNote.setEnabled(enbl);
+        ppClearNote.setEnabled(enbl);
     }
 }

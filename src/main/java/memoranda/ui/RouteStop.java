@@ -15,7 +15,7 @@ import java.lang.String;
 /**
  * Constructor for RouteStop.
  */
-public class RouteStop{
+public class RouteStop {
     /**
      * RouteStop creates the graphical representation of bus stops.
      */
@@ -27,6 +27,7 @@ public class RouteStop{
 
     /**
      * Constructor for RouteStop.
+     *
      * @param point the coordinate
      */
     public RouteStop(int id, Point2D point) {
@@ -38,6 +39,7 @@ public class RouteStop{
 
     /**
      * Draws the stop on the map.
+     *
      * @param g
      */
     public void drawStop(Graphics g) {
@@ -58,7 +60,7 @@ public class RouteStop{
      * @param p1
      * @param p2
      */
-    public void drawConnection(Graphics g, Point2D p1, Point2D p2){
+    public void drawConnection(Graphics g, Point2D p1, Point2D p2) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.draw(new Line2D.Double(p1, p2));
         //Set the style of the line
@@ -66,6 +68,7 @@ public class RouteStop{
 
     /**
      * Getter for x.
+     *
      * @return
      */
     public double getX() {
@@ -74,6 +77,7 @@ public class RouteStop{
 
     /**
      * Getter for y.
+     *
      * @return
      */
     public double getY() {
@@ -82,6 +86,7 @@ public class RouteStop{
 
     /**
      * Getter for BusStop.
+     *
      * @return
      */
     public Point2D getBusStop() {
@@ -90,6 +95,7 @@ public class RouteStop{
 
     /**
      * Getter for id.
+     *
      * @return
      */
     public int getId() {
