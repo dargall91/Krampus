@@ -27,10 +27,10 @@ public class Coordinate {
     public Coordinate(Double lat, Double lon) {
         if (lat < LAT_MIN || lat > LAT_MAX) {
             throw new IllegalArgumentException("Latitude must be between " + LAT_MIN + " and "
-                + LAT_MAX + " decimal degrees, inclusive.");
+                    + LAT_MAX + " decimal degrees, inclusive.");
         } else if (lon < LON_MIN || lon > LON_MAX) {
             throw new IllegalArgumentException("Longitude must be between " + LON_MIN + " and "
-                + LON_MAX + " decimal degrees, inclusive.");
+                    + LON_MAX + " decimal degrees, inclusive.");
         }
         this.lat = lat;
         this.lon = lon;
@@ -76,11 +76,11 @@ public class Coordinate {
         double r = 6371;
 
         return 2 * r * Math.asin(
-            Math.sqrt(
-                Math.pow(Math.sin((lat2 - lat1) / 2), 2)
-                    + Math.cos(lat1) * Math.cos(lat2) *
-                    Math.pow(Math.sin((lon2 - lon1) / 2), 2)
-            )
+                Math.sqrt(
+                        Math.pow(Math.sin((lat2 - lat1) / 2), 2)
+                                + Math.cos(lat1) * Math.cos(lat2) *
+                                Math.pow(Math.sin((lon2 - lon1) / 2), 2)
+                )
         );
     }
 

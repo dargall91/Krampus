@@ -27,9 +27,9 @@ public class DefaultEventNotifier implements EventNotificationListener {
      */
     public void eventIsOccured(Event ev) {
         new EventNotificationDialog(
-            "Memoranda event",
-            ev.getTimeString(),
-            ev.getText());
+                "Memoranda event",
+                ev.getTimeString(),
+                ev.getText());
     }
 
     /**

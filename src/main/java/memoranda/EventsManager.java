@@ -113,10 +113,10 @@ public class EventsManager {
     }
 
     public static Event createEvent(
-        CalendarDate date,
-        int hh,
-        int mm,
-        String text) {
+            CalendarDate date,
+            int hh,
+            int mm,
+            String text) {
         Element el = new Element("event");
         el.addAttribute(new Attribute("id", Util.generateId()));
         el.addAttribute(new Attribute("hour", String.valueOf(hh)));
@@ -130,14 +130,14 @@ public class EventsManager {
     }
 
     public static Event createRepeatableEvent(
-        int type,
-        CalendarDate startDate,
-        CalendarDate endDate,
-        int period,
-        int hh,
-        int mm,
-        String text,
-        boolean workDays) {
+            int type,
+            CalendarDate startDate,
+            CalendarDate endDate,
+            int period,
+            int hh,
+            int mm,
+            String text,
+            boolean workDays) {
         Element el = new Element("event");
         Element rep = _root.getFirstChildElement("repeatable");
         if (rep == null) {
@@ -179,7 +179,7 @@ public class EventsManager {
             // --- ivanrise
             // ignore this event if it's a 'only working days' event and today is weekend.
             if (ev.getWorkingDays() && (date.getCalendar().get(Calendar.DAY_OF_WEEK) == 1 ||
-                date.getCalendar().get(Calendar.DAY_OF_WEEK) == 7)) continue;
+                    date.getCalendar().get(Calendar.DAY_OF_WEEK) == 7)) continue;
             // ---
             /*
              * /if ( ((date.after(ev.getStartDate())) &&
@@ -192,24 +192,24 @@ public class EventsManager {
                 if (ev.getRepeat() == REPEAT_DAILY) {
                     int n = date.getCalendar().get(Calendar.DAY_OF_YEAR);
                     int ns =
-                        ev.getStartDate().getCalendar().get(
-                            Calendar.DAY_OF_YEAR);
+                            ev.getStartDate().getCalendar().get(
+                                    Calendar.DAY_OF_YEAR);
                     //System.out.println((n - ns) % ev.getPeriod());
                     if ((n - ns) % ev.getPeriod() == 0)
                         v.add(ev);
                 } else if (ev.getRepeat() == REPEAT_WEEKLY) {
                     if (date.getCalendar().get(Calendar.DAY_OF_WEEK)
-                        == ev.getPeriod())
+                            == ev.getPeriod())
                         v.add(ev);
                 } else if (ev.getRepeat() == REPEAT_MONTHLY) {
                     if (date.getCalendar().get(Calendar.DAY_OF_MONTH)
-                        == ev.getPeriod())
+                            == ev.getPeriod())
                         v.add(ev);
                 } else if (ev.getRepeat() == REPEAT_YEARLY) {
                     int period = ev.getPeriod();
                     //System.out.println(date.getCalendar().get(Calendar.DAY_OF_YEAR));
                     if ((date.getYear() % 4) == 0
-                        && date.getCalendar().get(Calendar.DAY_OF_YEAR) > 60)
+                            && date.getCalendar().get(Calendar.DAY_OF_YEAR) > 60)
                         period++;
 
                     if (date.getCalendar().get(Calendar.DAY_OF_YEAR) == period)
@@ -232,9 +232,9 @@ public class EventsManager {
         for (int i = 0; i < els.size(); i++) {
             Element el = els.get(i);
             if ((new Integer(el.getAttribute("hour").getValue()).intValue()
-                == hh)
-                && (new Integer(el.getAttribute("min").getValue()).intValue()
-                == mm))
+                    == hh)
+                    && (new Integer(el.getAttribute("min").getValue()).intValue()
+                    == mm))
                 return new EventImpl(el);
         }
         return null;
@@ -300,7 +300,7 @@ public class EventsManager {
 
         public int getValue() {
             return new Integer(yearElement.getAttribute("year").getValue())
-                .intValue();
+                    .intValue();
         }
 
         public Month getMonth(int m) {
@@ -343,7 +343,7 @@ public class EventsManager {
 
         public int getValue() {
             return new Integer(mElement.getAttribute("month").getValue())
-                .intValue();
+                    .intValue();
         }
 
         public Day getDay(int d) {
@@ -362,17 +362,17 @@ public class EventsManager {
             Element el = new Element("day");
             el.addAttribute(new Attribute("day", new Integer(d).toString()));
             el.addAttribute(
-                new Attribute(
-                    "date",
-                    new CalendarDate(
-                        d,
-                        getValue(),
-                        new Integer(
-                            ((Element) mElement.getParent())
-                                .getAttribute("year")
-                                .getValue())
-                            .intValue())
-                        .toString()));
+                    new Attribute(
+                            "date",
+                            new CalendarDate(
+                                    d,
+                                    getValue(),
+                                    new Integer(
+                                            ((Element) mElement.getParent())
+                                                    .getAttribute("year")
+                                                    .getValue())
+                                            .intValue())
+                                    .toString()));
 
             mElement.appendChild(el);
             return new Day(el);
