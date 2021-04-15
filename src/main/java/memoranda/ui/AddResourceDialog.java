@@ -69,7 +69,7 @@ public class AddResourceDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("New resource"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.AddResourceDialog.class.getResource(
-            "/ui/icons/resource48.png")));
+                "/ui/icons/resource48.png")));
         dialogTitlePanel.add(header);
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
 
@@ -248,27 +248,27 @@ public class AddResourceDialog extends JDialog {
     void browseB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText",
-            Local.getString("Look in:"));
+                Local.getString("Look in:"));
         UIManager.put("FileChooser.upFolderToolTipText",
-            Local.getString("Up One Level"));
+                Local.getString("Up One Level"));
         UIManager.put("FileChooser.newFolderToolTipText",
-            Local.getString("Create New Folder"));
+                Local.getString("Create New Folder"));
         UIManager.put("FileChooser.listViewButtonToolTipText",
-            Local.getString("List"));
+                Local.getString("List"));
         UIManager.put("FileChooser.detailsViewButtonToolTipText",
-            Local.getString("Details"));
+                Local.getString("Details"));
         UIManager.put("FileChooser.fileNameLabelText",
-            Local.getString("File Name:"));
+                Local.getString("File Name:"));
         UIManager.put("FileChooser.filesOfTypeLabelText",
-            Local.getString("Files of Type:"));
+                Local.getString("Files of Type:"));
         UIManager.put("FileChooser.openButtonText",
-            Local.getString("Open"));
+                Local.getString("Open"));
         UIManager.put("FileChooser.openButtonToolTipText",
-            Local.getString("Open selected file"));
+                Local.getString("Open selected file"));
         UIManager.put("FileChooser.cancelButtonText",
-            Local.getString("Cancel"));
+                Local.getString("Cancel"));
         UIManager.put("FileChooser.cancelButtonToolTipText",
-            Local.getString("Cancel"));
+                Local.getString("Cancel"));
 
         JFileChooser chooser = new JFileChooser();
         chooser.setFileHidingEnabled(false);
@@ -311,8 +311,8 @@ public class AddResourceDialog extends JDialog {
 
     void checkOkEnabled() {
         okB.setEnabled(
-            (localFileRB.isSelected() && pathField.getText().length() > 0) ||
-                (inetShortcutRB.isSelected() && urlField.getText().length() > 0)
+                (localFileRB.isSelected() && pathField.getText().length() > 0) ||
+                        (inetShortcutRB.isSelected() && urlField.getText().length() > 0)
         );
     }
 

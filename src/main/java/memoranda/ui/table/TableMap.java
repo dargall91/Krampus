@@ -20,7 +20,7 @@ import javax.swing.table.TableModel;
 
 /*$Id: TableMap.java,v 1.3 2004/01/30 12:17:42 alexeya Exp $*/
 public class TableMap extends AbstractTableModel
-    implements TableModelListener {
+        implements TableModelListener {
     protected TableModel model;
 
     public TableModel getModel() {

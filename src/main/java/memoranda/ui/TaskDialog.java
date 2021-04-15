@@ -71,8 +71,8 @@ public class TaskDialog extends JDialog {
     CalendarFrame startCalFrame = new CalendarFrame();
     CalendarFrame endCalFrame = new CalendarFrame();
     String[] priority = {Local.getString("Lowest"), Local.getString("Low"),
-        Local.getString("Normal"), Local.getString("High"),
-        Local.getString("Highest")};
+            Local.getString("Normal"), Local.getString("High"),
+            Local.getString("Highest")};
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
     JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -123,9 +123,9 @@ public class TaskDialog extends JDialog {
         this.setSize(new Dimension(430, 300));
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         border2 = BorderFactory.createEtchedBorder(Color.white,
-            new Color(142, 142, 142));
+                new Color(142, 142, 142));
         border3 = new TitledBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0),
-            Local.getString("To Do"), TitledBorder.LEFT, TitledBorder.BELOW_TOP);
+                Local.getString("To Do"), TitledBorder.LEFT, TitledBorder.BELOW_TOP);
         border4 = BorderFactory.createEmptyBorder(0, 5, 0, 5);
 //        border5 = BorderFactory.createEmptyBorder();
 //        border6 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,
@@ -133,7 +133,7 @@ public class TaskDialog extends JDialog {
 //            new Color(124, 124, 124));
 //        border7 = BorderFactory.createLineBorder(Color.white, 2);
         border8 = BorderFactory.createEtchedBorder(Color.white,
-            new Color(178, 178, 178));
+                new Color(178, 178, 178));
         cancelB.setMaximumSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
@@ -175,7 +175,7 @@ public class TaskDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("To do"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.TaskDialog.class.getResource(
-            "/ui/icons/task48.png")));
+                "/ui/icons/task48.png")));
 
         GridBagLayout gbLayout = (GridBagLayout) jPanel8.getLayout();
         jPanel8.setBorder(border3);
@@ -255,7 +255,7 @@ public class TaskDialog extends JDialog {
         setStartDateB.setPreferredSize(new Dimension(24, 24));
         setStartDateB.setText("");
         setStartDateB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
         setStartDateB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setStartDateB_actionPerformed(e);
@@ -302,7 +302,7 @@ public class TaskDialog extends JDialog {
         setEndDateB.setPreferredSize(new Dimension(24, 24));
         setEndDateB.setText("");
         setEndDateB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
         setEndDateB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setEndDateB_actionPerformed(e);
@@ -311,7 +311,7 @@ public class TaskDialog extends JDialog {
 
         setNotifB.setText(Local.getString("Set notification"));
         setNotifB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/notify.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/notify.png")));
         setNotifB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //setNotifB_actionPerformed(e);

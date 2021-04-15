@@ -94,12 +94,12 @@ public class ResourcesTable extends JTable {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(
-                JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
+                    JTable table,
+                    Object value,
+                    boolean isSelected,
+                    boolean hasFocus,
+                    int row,
+                    int column) {
                 JLabel comp;
 
                 comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -119,10 +119,10 @@ public class ResourcesTable extends JTable {
     class ResourcesTableModel extends AbstractTableModel {
 
         String[] columnNames = {
-            Local.getString("Name"),
-            Local.getString("Type"),
-            Local.getString("Date modified"),
-            Local.getString("Path")};
+                Local.getString("Name"),
+                Local.getString("Type"),
+                Local.getString("Date modified"),
+                Local.getString("Path")};
 
         public String getColumnName(int i) {
             return columnNames[i];

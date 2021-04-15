@@ -58,13 +58,13 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Exit"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
-            "/ui/icons/exit.png")));
+                "/ui/icons/exit.png")));
         headerPanel.add(header);
 
         // Build mainPanel
         JLabel confirm = new JLabel();
         confirm.setText("<HTML>" + Local.getString("This action will cause Memoranda to exit") +
-            "<p>" + Local.getString("Do you want to continue?"));
+                "<p>" + Local.getString("Do you want to continue?"));
 
         donotaskCB.setText(Local.getString("do not ask again"));
         donotaskCB.setHorizontalAlignment(SwingConstants.CENTER);

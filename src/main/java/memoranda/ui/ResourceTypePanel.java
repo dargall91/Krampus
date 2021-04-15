@@ -152,8 +152,8 @@ public class ResourceTypePanel extends JPanel {
         dlg.descField.setText(ext);
         dlg.appPanel.argumentsField.setText("$1");
         dlg.iconLabel.setIcon(
-            new ImageIcon(
-                main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes/default.png")));
+                new ImageIcon(
+                        main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes/default.png")));
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
@@ -168,10 +168,10 @@ public class ResourceTypePanel extends JPanel {
             File f = new File(dlg.appPanel.applicationField.getText());
             String appId = Util.generateId();
             appList.addApp(
-                appId,
-                f.getParent().replace('\\', '/'),
-                f.getName().replace('\\', '/'),
-                dlg.appPanel.argumentsField.getText());
+                    appId,
+                    f.getParent().replace('\\', '/'),
+                    f.getName().replace('\\', '/'),
+                    dlg.appPanel.argumentsField.getText());
             mt.setApp(appId);
         }
         if (dlg.iconPath.length() > 0)
@@ -184,15 +184,15 @@ public class ResourceTypePanel extends JPanel {
     void deleteB_actionPerformed(ActionEvent e) {
         MimeType mt = (MimeType) typesList.getSelectedValue();
         int n =
-            JOptionPane.showConfirmDialog(
-                App.getFrame(),
-                Local.getString("Delete resource type")
-                    + "\n'"
-                    + mt.getLabel()
-                    + "'\n"
-                    + Local.getString("Are you sure?"),
-                Local.getString("Delete resource type"),
-                JOptionPane.YES_NO_OPTION);
+                JOptionPane.showConfirmDialog(
+                        App.getFrame(),
+                        Local.getString("Delete resource type")
+                                + "\n'"
+                                + mt.getLabel()
+                                + "'\n"
+                                + Local.getString("Are you sure?"),
+                        Local.getString("Delete resource type"),
+                        JOptionPane.YES_NO_OPTION);
         if (n != JOptionPane.YES_OPTION)
             return;
         MimeTypesList.removeMimeType(mt.getMimeTypeId());
@@ -217,7 +217,7 @@ public class ResourceTypePanel extends JPanel {
         dlg.iconLabel.setIcon(mt.getIcon());
         AppList appList = MimeTypesList.getAppList();
         dlg.appPanel.applicationField.setText(
-            appList.getFindPath(mt.getAppId()) + "/" + appList.getExec(mt.getAppId()));
+                appList.getFindPath(mt.getAppId()) + "/" + appList.getExec(mt.getAppId()));
         dlg.appPanel.argumentsField.setText(appList.getCommandLinePattern(mt.getAppId()));
         dlg.setVisible(true);
         if (dlg.CANCELLED)
@@ -233,10 +233,10 @@ public class ResourceTypePanel extends JPanel {
             File f = new File(dlg.appPanel.applicationField.getText());
             String appId = Util.generateId();
             appList.addApp(
-                appId,
-                f.getParent().replace('\\', '/'),
-                f.getName().replace('\\', '/'),
-                dlg.appPanel.argumentsField.getText());
+                    appId,
+                    f.getParent().replace('\\', '/'),
+                    f.getName().replace('\\', '/'),
+                    dlg.appPanel.argumentsField.getText());
             mt.setApp(appId);
         }
         if (dlg.iconPath.length() > 0)
@@ -255,11 +255,11 @@ public class ResourceTypePanel extends JPanel {
         }
 
         public Component getListCellRendererComponent(
-            JList list,
-            Object value,
-            int index,
-            boolean isSelected,
-            boolean cellHasFocus) {
+                JList list,
+                Object value,
+                int index,
+                boolean isSelected,
+                boolean cellHasFocus) {
 
             MimeType mt = (MimeType) value;
             String[] exts = mt.getExtensions();

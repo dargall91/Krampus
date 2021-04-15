@@ -32,23 +32,23 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     String url = App.WEBSITE_URL;
     String developersHead = Local.getString("Developers") + ":";
     String[] developers = {
-        "Alex Alishevskikh (alexeya@users.sourceforge.net)",
-        "Patrick Bielen (bielen@stafa.nl)",
-        "Ryan Ho (rawsushi@users.sourceforge.net)",
-        "Ivan Ribas (ivanrise@users.sourceforge.net)",
-        "Jyrki Velhonoja (velhonoja@kapsi.fi>)",
-        "Jeremy Whitlock (jwhitlock@starprecision.com)"
+            "Alex Alishevskikh (alexeya@users.sourceforge.net)",
+            "Patrick Bielen (bielen@stafa.nl)",
+            "Ryan Ho (rawsushi@users.sourceforge.net)",
+            "Ivan Ribas (ivanrise@users.sourceforge.net)",
+            "Jyrki Velhonoja (velhonoja@kapsi.fi>)",
+            "Jeremy Whitlock (jwhitlock@starprecision.com)"
     };
     String othersHead = Local.getString("Other contributors") + ":";
     String[] others = {
-        "Thomas Chuffart (informatique@pierrelouiscarlier.fr)",
-        "Willy Dobe (wdobe@gmx.de)",
-        "Yunjie Liu (liu-610@163.com)",
-        "Kenneth J. Pouncey (kjpou@pt.lu)",
-        "Michael Radtke (mradtke@abigale.de)",
-        "Carel-J Rischmuller (carel-j.rischmuller@epiuse.com)",
-        "Milena Vitali-Charewicz (milo22370@yahoo.com)",
-        "Toru Watanabe (t-wata@cablenet.ne.jp)"
+            "Thomas Chuffart (informatique@pierrelouiscarlier.fr)",
+            "Willy Dobe (wdobe@gmx.de)",
+            "Yunjie Liu (liu-610@163.com)",
+            "Kenneth J. Pouncey (kjpou@pt.lu)",
+            "Michael Radtke (mradtke@abigale.de)",
+            "Carel-J Rischmuller (carel-j.rischmuller@epiuse.com)",
+            "Milena Vitali-Charewicz (milo22370@yahoo.com)",
+            "Toru Watanabe (t-wata@cablenet.ne.jp)"
     };
 
     JLayeredPane layeredPane;

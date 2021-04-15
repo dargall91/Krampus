@@ -27,14 +27,14 @@ public class ProjectsTablePanel extends JPanel {
             if (((String) getModel().getValueAt(row, PROJECT_ID)).equals(CurrentProject.get().getID())) {
                 return new javax.swing.table.DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(
-                        JTable table,
-                        Object value,
-                        boolean isSelected,
-                        boolean hasFocus,
-                        int row,
-                        int column) {
+                            JTable table,
+                            Object value,
+                            boolean isSelected,
+                            boolean hasFocus,
+                            int row,
+                            int column) {
                         Component comp =
-                            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                         comp.setFont(new java.awt.Font("Dialog", 1, 11));
                         if (((row % 2) > 0) && (!isSelected))
                             comp.setBackground(new Color(230, 240, 255));
@@ -45,14 +45,14 @@ public class ProjectsTablePanel extends JPanel {
             if ((row % 2) > 0) {
                 return new javax.swing.table.DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(
-                        JTable table,
-                        Object value,
-                        boolean isSelected,
-                        boolean hasFocus,
-                        int row,
-                        int column) {
+                            JTable table,
+                            Object value,
+                            boolean isSelected,
+                            boolean hasFocus,
+                            int row,
+                            int column) {
                         Component comp =
-                            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                         if (isSelected)
                             return comp;
                         comp.setBackground(new Color(230, 240, 255));
@@ -129,12 +129,12 @@ public class ProjectsTablePanel extends JPanel {
     class PrjTableModel extends AbstractTableModel {
 
         String[] columnNames =
-            {
-                Local.getString("Project title"),
-                Local.getString("Start date"),
-                Local.getString("End date"),
-                //Local.getString("Execution"),
-                Local.getString("Status")};
+                {
+                        Local.getString("Project title"),
+                        Local.getString("Start date"),
+                        Local.getString("End date"),
+                        //Local.getString("Execution"),
+                        Local.getString("Status")};
 
         PrjTableModel() {
             super();

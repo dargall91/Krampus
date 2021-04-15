@@ -49,7 +49,7 @@ public class LinkDialog extends JDialog {
     JButton okB = new JButton();
     JButton cancelB = new JButton();
     String[] aligns = {"", Local.getString("left"),
-        Local.getString("center"), Local.getString("right")};
+            Local.getString("center"), Local.getString("right")};
     public boolean CANCELLED = false;
 
     public LinkDialog(Frame frame) {
@@ -73,8 +73,8 @@ public class LinkDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Insert hyperlink"));
         header.setIcon(new ImageIcon(
-            main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                "/htmleditor/icons/linkbig.png")));
+                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
+                        "/htmleditor/icons/linkbig.png")));
         topPanel.setBackground(Color.WHITE);
         //topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.add(header);
@@ -145,7 +145,7 @@ public class LinkDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         areaPanel.add(chkNewWin, gbc);
         areaPanel.setBorder(BorderFactory.createEtchedBorder(Color.white,
-            new Color(142, 142, 142)));
+                new Color(142, 142, 142)));
         this.getContentPane().add(areaPanel, BorderLayout.CENTER);
 
         okB.setMaximumSize(new Dimension(100, 26));

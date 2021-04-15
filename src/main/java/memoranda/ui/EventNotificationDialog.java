@@ -47,7 +47,7 @@ public class EventNotificationDialog extends JFrame {
         }
         timeLabel.setText(time);
         timeLabel.setIcon(new ImageIcon(main.java.memoranda.ui.TaskDialog.class.getResource(
-            "/ui/icons/event48.png")));
+                "/ui/icons/event48.png")));
         textLabel.setText(text);
         this.setSize(300, 200);
         this.setLocationRelativeTo(null);
@@ -115,17 +115,17 @@ public class EventNotificationDialog extends JFrame {
         URL url;
         if (Configuration.get("NOTIFY_SOUND").equals("DEFAULT"))
             url =
-                EventNotificationDialog.class.getResource(
-                    "/ui/beep.wav");
+                    EventNotificationDialog.class.getResource(
+                            "/ui/beep.wav");
         else
             try {
                 url =
-                    new File(Configuration.get("NOTIFY_SOUND").toString())
-                        .toURL();
+                        new File(Configuration.get("NOTIFY_SOUND").toString())
+                                .toURL();
             } catch (Exception ex) {
                 url =
-                    EventNotificationDialog.class.getResource(
-                        "/ui/beep.wav");
+                        EventNotificationDialog.class.getResource(
+                                "/ui/beep.wav");
             }
         try {
             AudioClip clip = Applet.newAudioClip(url);

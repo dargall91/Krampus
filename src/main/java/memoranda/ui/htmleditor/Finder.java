@@ -32,12 +32,12 @@ public class Finder extends Thread {
      * Constructor for Finder.
      */
     public Finder(
-        HTMLEditor theEditor,
-        String find,
-        boolean wholeWord,
-        boolean matchCase,
-        boolean regexp,
-        String replace) {
+            HTMLEditor theEditor,
+            String find,
+            boolean wholeWord,
+            boolean matchCase,
+            boolean regexp,
+            String replace) {
         super();
         editor = theEditor;
         dispText = find;
@@ -89,8 +89,8 @@ public class Finder extends Thread {
                     Dimension frmSize = editor.getParent().getSize();
                     Point loc = editor.getLocationOnScreen();
                     dlg.setLocation(
-                        (frmSize.width - dlgSize.width) / 2 + loc.x,
-                        (frmSize.height - dlgSize.height) / 2 + loc.y);
+                            (frmSize.width - dlgSize.width) / 2 + loc.x,
+                            (frmSize.height - dlgSize.height) / 2 + loc.y);
                     dlg.setModal(true);
                     dlg.setVisible(true);
                     int op = dlg.option;

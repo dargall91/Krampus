@@ -52,7 +52,7 @@ public class ResourceTypeDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Resource type"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.ResourceTypeDialog.class.getResource(
-            "/ui/icons/resource48.png")));
+                "/ui/icons/resource48.png")));
         dialogTitlePanel.add(header);
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
 

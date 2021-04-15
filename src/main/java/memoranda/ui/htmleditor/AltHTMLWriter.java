@@ -909,7 +909,7 @@ public class AltHTMLWriter extends AbstractWriter {
                     String name = (String) styles.nextElement();
                     // Don't write out the default style.
                     if (!StyleContext.DEFAULT_STYLE.equals(name)
-                        && writeStyle(name, sheet.getStyle(name), outputStyle)) {
+                            && writeStyle(name, sheet.getStyle(name), outputStyle)) {
                         outputStyle = true;
                     }
                 }
@@ -1042,8 +1042,8 @@ public class AltHTMLWriter extends AbstractWriter {
             Object key = keys.nextElement();
             if (key instanceof CSS.Attribute) {
                 if ((key == CSS.Attribute.FONT_FAMILY)
-                    || (key == CSS.Attribute.FONT_SIZE)
-                    || (key == CSS.Attribute.COLOR)) {
+                        || (key == CSS.Attribute.FONT_SIZE)
+                        || (key == CSS.Attribute.COLOR)) {
 
                     createFontAttribute((CSS.Attribute) key, from, to);
                 } else if (key == CSS.Attribute.FONT_WEIGHT) {

@@ -81,7 +81,7 @@ public class BusDialog extends JDialog {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE
-                    || e.getKeyCode() == KeyEvent.VK_DELETE))
+                        || e.getKeyCode() == KeyEvent.VK_DELETE))
                     numberField.setEditable(true);
 
                 else

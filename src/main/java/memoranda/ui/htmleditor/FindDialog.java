@@ -70,9 +70,9 @@ public class FindDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Find & replace"));
         header.setIcon(
-            new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                    "/htmleditor/icons/findbig.png")));
+                new ImageIcon(
+                        main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
+                                "/htmleditor/icons/findbig.png")));
         headerPanel.setBackground(Color.WHITE);
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
@@ -138,7 +138,7 @@ public class FindDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         areaPanel.add(txtReplace, gbc);
         areaPanel.setBorder(BorderFactory.createEtchedBorder(
-            Color.white, new Color(142, 142, 142)));
+                Color.white, new Color(142, 142, 142)));
         this.getContentPane().add(areaPanel, BorderLayout.CENTER);
 
         // Initialize buttons

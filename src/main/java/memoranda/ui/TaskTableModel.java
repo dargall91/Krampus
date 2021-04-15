@@ -40,9 +40,9 @@ import java.util.Hashtable;
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
     String[] columnNames = {"", Local.getString("To-do"),
-        Local.getString("Start date"), Local.getString("End date"),
-        Local.getString("Priority"), Local.getString("Status"),
-        "% " + Local.getString("done")};
+            Local.getString("Start date"), Local.getString("End date"),
+            Local.getString("Priority"), Local.getString("Status"),
+            "% " + Local.getString("done")};
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -197,9 +197,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 
     public void fireTreeStructureChanged() {
         fireTreeStructureChanged(this,
-            new Object[]{getRoot()},
-            new int[0],
-            new Object[0]
+                new Object[]{getRoot()},
+                new int[0],
+                new Object[0]
         );
     }
 

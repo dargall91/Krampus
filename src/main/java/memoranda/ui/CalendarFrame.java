@@ -33,7 +33,7 @@ public class CalendarFrame extends JInternalFrame {
         //this.setPreferredSize(new Dimension(200, 200));
         this.setToolTipText("");
         cal.setPreferredSize(new Dimension(this.getContentPane().getWidth(),
-            this.getContentPane().getHeight()));
+                this.getContentPane().getHeight()));
         this.getContentPane().add(cal, BorderLayout.CENTER);
     }
 }

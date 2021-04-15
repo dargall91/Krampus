@@ -108,12 +108,12 @@ public class BusTourDialogTable extends JTable {
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
-                JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
+                    JTable table,
+                    Object value,
+                    boolean isSelected,
+                    boolean hasFocus,
+                    int row,
+                    int column) {
                 JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
@@ -127,10 +127,10 @@ public class BusTourDialogTable extends JTable {
 
     private class ScheduleTableModel extends AbstractTableModel {
         private String[] columnNames = {
-            Local.getString("Name"),
-            Local.getString("Tour ID"),
-            //Local.getString("Date"),
-            Local.getString("Time")};
+                Local.getString("Name"),
+                Local.getString("Tour ID"),
+                //Local.getString("Date"),
+                Local.getString("Time")};
 
         @Override
         public String getColumnName(int i) {

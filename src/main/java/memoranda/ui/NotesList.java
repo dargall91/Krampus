@@ -140,11 +140,11 @@ public class NotesList extends JList {
         return new DefaultListCellRenderer() {
 
             public Component getListCellRendererComponent(
-                JList list,
-                Object value,            // value to display
-                int index,               // cell index
-                boolean isSelected,      // is the cell selected
-                boolean cellHasFocus)    // the list and the cell have the focus
+                    JList list,
+                    Object value,            // value to display
+                    int index,               // cell index
+                    boolean isSelected,      // is the cell selected
+                    boolean cellHasFocus)    // the list and the cell have the focus
             {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 String s = value.toString();

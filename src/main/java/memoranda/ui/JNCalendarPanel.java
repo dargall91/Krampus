@@ -76,31 +76,31 @@ public class JNCalendarPanel extends JPanel {
     }
 
     public Action dayBackAction =
-        new AbstractAction(
-            "Go one day back",
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/back16.png"))) {
-            public void actionPerformed(ActionEvent e) {
-                dayBackB_actionPerformed(e);
-            }
-        };
+            new AbstractAction(
+                    "Go one day back",
+                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/back16.png"))) {
+                public void actionPerformed(ActionEvent e) {
+                    dayBackB_actionPerformed(e);
+                }
+            };
 
     public Action dayForwardAction =
-        new AbstractAction(
-            "Go one day forward",
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/forward16.png"))) {
-            public void actionPerformed(ActionEvent e) {
-                dayForwardB_actionPerformed(e);
-            }
-        };
+            new AbstractAction(
+                    "Go one day forward",
+                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/forward16.png"))) {
+                public void actionPerformed(ActionEvent e) {
+                    dayForwardB_actionPerformed(e);
+                }
+            };
 
     public Action todayAction =
-        new AbstractAction(
-            "Go to today",
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/today16.png"))) {
-            public void actionPerformed(ActionEvent e) {
-                todayB_actionPerformed(e);
-            }
-        };
+            new AbstractAction(
+                    "Go to today",
+                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/today16.png"))) {
+                public void actionPerformed(ActionEvent e) {
+                    todayB_actionPerformed(e);
+                }
+            };
 
     void jbInit() throws Exception {
         //dayBackAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, KeyEvent.ALT_MASK));

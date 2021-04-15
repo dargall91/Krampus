@@ -68,13 +68,13 @@ public class ElementDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Object properties"));
         header.setIcon(new ImageIcon(
-            main.java.memoranda.ui.htmleditor.ElementDialog.class.getResource(
-                "/htmleditor/icons/textbig.png")));
+                main.java.memoranda.ui.htmleditor.ElementDialog.class.getResource(
+                        "/htmleditor/icons/textbig.png")));
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
         areaPanel.setBorder(BorderFactory.createEtchedBorder(Color.white,
-            new Color(142, 142, 142)));
+                new Color(142, 142, 142)));
         lblID.setText(Local.getString("ID"));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;

@@ -90,7 +90,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppOpenB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/nopen.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/nopen.png")));
         buttonsPanel.setMinimumSize(new Dimension(70, 22));
         buttonsPanel.setOpaque(false);
         //buttonsPanel.setPreferredSize(new Dimension(80, 22));
@@ -104,7 +104,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppAddBkmrk.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addbookmark.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addbookmark.png")));
         ppClearNote.setFont(new java.awt.Font("Dialog", 1, 11));
         ppClearNote.setText(Local.getString("Clear note"));
         ppClearNote.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +113,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppClearNote.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editdelete.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/editdelete.png")));
         ppClearNote.setEnabled(false);
         notesPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
         ppOpenNote.setFont(new java.awt.Font("Dialog", 1, 11));
@@ -134,7 +134,7 @@ public class NotesControlPanel extends JPanel {
         });
         ppInvertSort.setEnabled(true);
         boolean descSort =
-            (Configuration.get("NOTES_SORT_ORDER").equals("true"));
+                (Configuration.get("NOTES_SORT_ORDER").equals("true"));
         ppInvertSort.setSelected(descSort);
 
         ppRemoveBkmrk.setFont(new java.awt.Font("Dialog", 1, 11));
@@ -145,7 +145,7 @@ public class NotesControlPanel extends JPanel {
             }
         });
         ppRemoveBkmrk.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removebookmark.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removebookmark.png")));
         ppRemoveBkmrk.setEnabled(false);
         tabbedPane.add(notesListPanel, Local.getString("Notes"));
         tabbedPane.add(bookmarksListPanel, Local.getString("Bookmarks"));
@@ -251,9 +251,9 @@ public class NotesControlPanel extends JPanel {
 
     void ppOpenB_actionPerformed(ActionEvent e) {
         notesPPMenu.show(
-            toolBar,
-            (int) ppOpenB.getLocation().getX(),
-            (int) ppOpenB.getLocation().getY() + 24);
+                toolBar,
+                (int) ppOpenB.getLocation().getX(),
+                (int) ppOpenB.getLocation().getY() + 24);
     }
 
     void ppAddBkmrk_actionPerformed(ActionEvent e) {
@@ -270,27 +270,27 @@ public class NotesControlPanel extends JPanel {
         String msg;
         if (notesList.getSelectedIndices().length > 1)
             msg =
-                Local.getString(Local.getString("Clear"))
-                    + " "
-                    + notesList.getSelectedIndices().length
-                    + " "
-                    + Local.getString("notes")
-                    + "\n"
-                    + Local.getString("Are you sure?");
+                    Local.getString(Local.getString("Clear"))
+                            + " "
+                            + notesList.getSelectedIndices().length
+                            + " "
+                            + Local.getString("notes")
+                            + "\n"
+                            + Local.getString("Are you sure?");
         else
             msg =
-                Local.getString("Clear note")
-                    + "\n'"
-                    + ((Note) notesList.getNote(notesList.getSelectedIndex())).getDate().getFullDateString()
-                    + "'\n"
-                    + Local.getString("Are you sure?");
+                    Local.getString("Clear note")
+                            + "\n'"
+                            + ((Note) notesList.getNote(notesList.getSelectedIndex())).getDate().getFullDateString()
+                            + "'\n"
+                            + Local.getString("Are you sure?");
 
         int n =
-            JOptionPane.showConfirmDialog(
-                App.getFrame(),
-                msg,
-                Local.getString("Clear note"),
-                JOptionPane.YES_NO_OPTION);
+                JOptionPane.showConfirmDialog(
+                        App.getFrame(),
+                        msg,
+                        Local.getString("Clear note"),
+                        JOptionPane.YES_NO_OPTION);
         if (n != JOptionPane.YES_OPTION)
             return;
 
@@ -319,8 +319,8 @@ public class NotesControlPanel extends JPanel {
 
     void ppInvertSort_actionPerformed(ActionEvent e) {
         Configuration.put(
-            "NOTES_SORT_ORDER",
-            new Boolean(ppInvertSort.isSelected()));
+                "NOTES_SORT_ORDER",
+                new Boolean(ppInvertSort.isSelected()));
         Configuration.saveConfig();
         notesList.invertSortOrder();
         notesList.update();
@@ -342,9 +342,9 @@ public class NotesControlPanel extends JPanel {
         boolean enbl = (notesList.getModel().getSize() > 0) && (notesList.getSelectedIndex() > -1);
 
         ppRemoveBkmrk.setEnabled(enbl && (((Note) notesList.getNote(notesList.getSelectedIndex())).isMarked())
-            || notesList.getSelectedIndices().length > 1);
+                || notesList.getSelectedIndices().length > 1);
         ppAddBkmrk.setEnabled(enbl && !(((Note) notesList.getNote(notesList.getSelectedIndex())).isMarked())
-            || notesList.getSelectedIndices().length > 1);
+                || notesList.getSelectedIndices().length > 1);
         ppOpenNote.setEnabled(enbl);
         ppClearNote.setEnabled(enbl);
     }

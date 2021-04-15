@@ -71,7 +71,7 @@ public class RouteMapPanel extends JPanel {
 
         /* New Route Button */
         newRouteB.setIcon(
-            new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         newRouteB.setText("New");
         newRouteB.setEnabled(true);
         newRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -85,7 +85,7 @@ public class RouteMapPanel extends JPanel {
 
         /* Remove Route Button */
         removeRouteB.setIcon(
-            new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         removeRouteB.setText("Remove");
         removeRouteB.setEnabled(false);
         removeRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -99,7 +99,7 @@ public class RouteMapPanel extends JPanel {
 
         /* Optimize Button */
         optRouteB.setIcon(
-            new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         optRouteB.setText("Optimize");
         optRouteB.setEnabled(true);
         optRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -113,7 +113,7 @@ public class RouteMapPanel extends JPanel {
 
         /* Optimize w/ Start Button */
         optRouteWithStartB.setIcon(
-            new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         optRouteWithStartB.setText("Optimize w/Start");
         optRouteWithStartB.setEnabled(true);
         optRouteWithStartB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -127,7 +127,7 @@ public class RouteMapPanel extends JPanel {
 
         /* Refresh Button */
         refreshB.setIcon(
-            new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
+                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         refreshB.setText("Refresh");
         refreshB.setEnabled(true);
         refreshB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -197,8 +197,8 @@ public class RouteMapPanel extends JPanel {
         Point loc = App.getFrame().getLocation();
 
         dialog.setLocation(
-            (frmSize.width - dialog.getSize().width) / 2 + loc.x,
-            (frmSize.height - dialog.getSize().height) / 2 + loc.y);
+                (frmSize.width - dialog.getSize().width) / 2 + loc.x,
+                (frmSize.height - dialog.getSize().height) / 2 + loc.y);
         dialog.setVisible(dialog.getError() != 1);
 
         if (!dialog.isComplete()) {
@@ -258,8 +258,8 @@ public class RouteMapPanel extends JPanel {
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         Node node = CurrentProject.getNodeColl().newItem();
         node.setCoords(new Coordinate(
-            new Random().nextDouble() * 90,
-            new Random().nextDouble() * 90));
+                new Random().nextDouble() * 90,
+                new Random().nextDouble() * 90));
         node.setName("DEBUGNODE");
         r.addNode(node);
         try {

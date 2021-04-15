@@ -161,12 +161,12 @@ public class BusTable extends JTable {
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
-                JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
+                    JTable table,
+                    Object value,
+                    boolean isSelected,
+                    boolean hasFocus,
+                    int row,
+                    int column) {
                 JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
@@ -183,8 +183,8 @@ public class BusTable extends JTable {
      */
     private class BusTableModel extends AbstractTableModel {
         private String[] columnNames = {
-            Local.getString("Number"),
-            Local.getString("ID")};
+                Local.getString("Number"),
+                Local.getString("ID")};
 
         @Override
         public String getColumnName(int i) {
@@ -242,9 +242,9 @@ public class BusTable extends JTable {
         Point loc = App.getFrame().getLocation();
 
         dlg.setLocation(
-            (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-            (frmSize.height - dlg.getSize().height) / 2
-                + loc.y);
+                (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                (frmSize.height - dlg.getSize().height) / 2
+                        + loc.y);
         dlg.setVisible(true);
 
         if (!dlg.isCancelled()) {

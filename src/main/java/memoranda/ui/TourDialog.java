@@ -356,7 +356,7 @@ public class TourDialog extends JDialog {
      */
     public void setTime(LocalTime time) {
         Instant inst = time.atDate(LocalDate.now()).
-            atZone(ZoneId.systemDefault()).toInstant();
+                atZone(ZoneId.systemDefault()).toInstant();
         Date dateTime = Date.from(inst);
         timeSpin.setValue(dateTime);
     }

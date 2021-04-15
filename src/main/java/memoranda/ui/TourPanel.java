@@ -182,9 +182,9 @@ public class TourPanel extends JPanel {
         Point loc = App.getFrame().getLocation();
 
         dlg.setLocation(
-            (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-            (frmSize.height - dlg.getSize().height) / 2
-                + loc.y);
+                (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                (frmSize.height - dlg.getSize().height) / 2
+                        + loc.y);
         if (dlg.getError() == 1) {
             dlg.setVisible(false);
         } else {
@@ -224,9 +224,9 @@ public class TourPanel extends JPanel {
         Point loc = App.getFrame().getLocation();
 
         dlg.setLocation(
-            (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-            (frmSize.height - dlg.getSize().height) / 2
-                + loc.y);
+                (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                (frmSize.height - dlg.getSize().height) / 2
+                        + loc.y);
         dlg.setVisible(true);
 
         if (!dlg.isCancelled()) {
@@ -255,7 +255,7 @@ public class TourPanel extends JPanel {
         Driver driver;
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
         int result = JOptionPane.showConfirmDialog(null, "Delete " + tour.getName() +
-            "?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+                "?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
 
@@ -264,8 +264,8 @@ public class TourPanel extends JPanel {
             if (Objects.nonNull(tour.getDriver())) {
                 driver = tour.getDriver();
                 int result2 = JOptionPane.showConfirmDialog(null, "Must Remove " + tour.getName() +
-                        " From " + driver.getName() + " Schedule First "
-                    , "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+                                " From " + driver.getName() + " Schedule First "
+                        , "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
                 if (result2 == JOptionPane.OK_OPTION) {
                     parentPanel.selectPanel("DriverPanel");
                     return;

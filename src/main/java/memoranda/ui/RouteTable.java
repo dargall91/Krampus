@@ -52,12 +52,12 @@ public class RouteTable extends JTable {
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
-                JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
+                    JTable table,
+                    Object value,
+                    boolean isSelected,
+                    boolean hasFocus,
+                    int row,
+                    int column) {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 comp.setForeground(java.awt.Color.gray);
