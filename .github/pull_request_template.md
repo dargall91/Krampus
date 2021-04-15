@@ -7,6 +7,8 @@ Notes by PR submitter:
 ---
 Developer checklist:
 - [ ] This is a documentation update and following code review standards do not apply
+- [ ] No spotbugs SA errors in newly written code
+- [ ] No significant checkstyle errors in newly written code
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -27,6 +29,8 @@ Developer comments:
 Reviewer 1 checklist:
 - [ ] This is a documentation update and following code review standards do not apply
 - [ ] Code passes all TravisCI tests
+- [ ] No spotbugs SA errors in newly written code
+- [ ] No significant checkstyle errors in newly written code
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story
@@ -47,6 +51,8 @@ Reviewer 1 comments:
 Reviewer 2 checklist:
 - [ ] This is a documentation update and following code review standards do not apply
 - [ ] Code passes all TravisCI tests
+- [ ] No spotbugs SA errors in newly written code
+- [ ] No significant checkstyle errors in newly written code
 - [ ] Commit name follows naming guidelines described in QualityPolicy
 - [ ] Unit tests are in separate commits and named correctly per QualityPolicy
 - [ ] Code for completed stories meets all acceptance criteria for the user story

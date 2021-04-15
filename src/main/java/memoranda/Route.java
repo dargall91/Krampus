@@ -50,7 +50,6 @@ public class Route extends IndexedObject {
                 route.add(n);
             }
         }
-        this.name = name;
     }
 
 
