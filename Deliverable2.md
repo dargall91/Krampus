@@ -60,7 +60,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 |Chris Boveda| 3| 8| 11|
 |Derek Argall| 5| 8| 13|
 |John Thurstonson| 3| 7| 10|
-|Kevin Dolan| 5| 8| 10|
+|Kevin Dolan| 5| 8| 13|
 
 
 ## 3: After the Sprint
@@ -246,12 +246,11 @@ Answer as a team!
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
-    - link1
-    - link2
+- N/A (SPRINT 3)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - The group worked collectively in a zoom meeting to establish our quality policy.
+- The group worked collectively in a zoom meeting to establish our quality policy.
 
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
