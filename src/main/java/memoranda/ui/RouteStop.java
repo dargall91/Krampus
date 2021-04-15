@@ -19,7 +19,7 @@ public class RouteStop {
     /**
      * RouteStop creates the graphical representation of bus stops.
      */
-    protected final double RADIUS = 10;
+    protected static final double RADIUS = 10;
     private final double x;
     private final double y;
     private final Point2D busStop;
