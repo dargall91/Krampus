@@ -186,13 +186,12 @@ Answer as a team!
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - N/A (worked on UI components only)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - [Review #1](https://github.com/amehlhase316/Krampus/pull/81)
+ - [Review #2](https://github.com/amehlhase316/Krampus/pull/83)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -201,7 +200,7 @@ Answer as a team!
 
 **What was your main contribution to the Quality Policy documentation?:**
 
- - ...
+ - I contributed alongside the whole team to create the Quality Policy.
 
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -263,7 +262,11 @@ Answer as a team!
 - [x] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [x] Brian Pape|
   - [x] Chris Boveda
+<<<<<<< HEAD
+  - [X] Derek Argall
+=======
   - [x] Derek Argall
+>>>>>>> a6233b90583d1d872c3b935a159843850322bece
   - [x] John Thurstonson
   - [x] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
