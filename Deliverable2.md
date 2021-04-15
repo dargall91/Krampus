@@ -207,7 +207,7 @@ Answer as a team!
 
  - [Implement user ability to add, remove and edit Tours](https://github.com/amehlhase316/Krampus/commit/ed940ab2bc20d7fd43ee63a8bcb9258c7db5e5ea)   
  - [Create Tour Dialog](https://github.com/amehlhase316/Krampus/commit/ac470d296e587df47ed822bc65ac3ee58ffa2fd2)   
-[Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
+ - [Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
@@ -231,7 +231,6 @@ Answer as a team!
 #### Kevin Dolan:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-<<<<<<< HEAD
 - [Implement the graphical structure for the route map](https://github.com/amehlhase316/Krampus/commit/0de17586822637dd0a62ee8d482a6d3cdb4736f2)
 - [Refactor the RouteMap into two classes](https://github.com/amehlhase316/Krampus/commit/369422719a5ef073dd110b4bc14c45a5a2c2285c)
 - [Fix bugs in RouteMap and Stops](https://github.com/amehlhase316/Krampus/commit/cc3e1ea8a6bb765e359a40a7c23980ff4bfcdb59)
