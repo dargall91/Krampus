@@ -203,18 +203,19 @@ Answer as a team!
 #### John Thurstonson:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
-    - link1
-    - link2
+    - [Implement user ability to add, remove and edit Tours](https://github.com/amehlhase316/Krampus/commit/ed940ab2bc20d7fd43ee63a8bcb9258c7db5e5ea)   
+    - [Create Tour Dialog](https://github.com/amehlhase316/Krampus/commit/ac470d296e587df47ed822bc65ac3ee58ffa2fd2)   
+	- [Create Tour Panel](https://github.com/amehlhase316/Krampus/commit/be88a8de14df67b7713599c45f08841578cd4411)
 
   **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+    - N/A
+    - 
 
   **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+    - [Code Review](https://github.com/amehlhase316/Krampus/pull/86)
+    - 
 
   **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -223,7 +224,7 @@ Answer as a team!
 
   **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+    - Our team worked together to produce our quality policy.
 
 #### Kevin Dolan:
   **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -261,7 +262,7 @@ Answer as a team!
   - [x] Brian Pape|
   - [x] Chris Boveda
   - [ ] Derek Argall
-  - [ ] John Thurstonson
+  - [x] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
