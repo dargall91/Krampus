@@ -186,13 +186,12 @@ Answer as a team!
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+    - N/A (worked on UI components only)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
-    - link1
-    - link2
+ - [Review #1](https://github.com/amehlhase316/Krampus/pull/81)
+ - [Review #2](https://github.com/amehlhase316/Krampus/pull/83)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
@@ -264,7 +263,7 @@ Answer as a team!
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [x] Brian Pape|
   - [x] Chris Boveda
-  - [ ] Derek Argall
+  - [X] Derek Argall
   - [x] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
