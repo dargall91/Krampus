@@ -143,13 +143,16 @@ public class SearchPanel extends JPanel {
         Pattern pattern;
         //this.add(progressBar, BorderLayout.SOUTH);
         int flags = Pattern.DOTALL;
-        if (!caseSensCB.isSelected())
+        if (!caseSensCB.isSelected()) {
             flags = flags + Pattern.CASE_INSENSITIVE + Pattern.UNICODE_CASE;
+        }
         String _find = searchField.getText();
-        if (!regexpCB.isSelected())
+        if (!regexpCB.isSelected()) {
             _find = "\\Q" + _find + "\\E";
-        if (wholeWCB.isSelected())
+        }
+        if (wholeWCB.isSelected()) {
             _find = "[\\s\\p{Punct}]" + _find + "[\\s\\p{Punct}]";
+        }
         try {
             pattern = Pattern.compile(_find, flags);
         } catch (Exception ex) {
@@ -170,8 +173,9 @@ public class SearchPanel extends JPanel {
             try {
                 String txt = doc.getText(0, doc.getLength());
                 Matcher matcher = pattern.matcher(txt);
-                if (matcher.find())
+                if (matcher.find()) {
                     found.add(note);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

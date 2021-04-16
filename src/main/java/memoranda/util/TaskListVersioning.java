@@ -90,8 +90,8 @@ public class TaskListVersioning {
             for (int j = 0; j < tasks.size(); j++) {
                 Element task = tasks.get(j);
 
-//	Decided not to change the date format after all but I'm leaving this code here 
-//	in case we need it later. Ryan
+//    Decided not to change the date format after all but I'm leaving this code here 
+//    in case we need it later. Ryan
 //                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //
 //                Attribute startDateAttr = task.getAttribute("startDate");

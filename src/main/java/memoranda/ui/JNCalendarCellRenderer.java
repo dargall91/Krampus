@@ -84,29 +84,27 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         }
 
         // set background color
-        if (currentPanel == null)
+        if (currentPanel == null) {
             label.setBackground(Color.WHITE);
-
-        else if (currentPanel.equals("TASKS") && (t != null) &&
-                (d.inPeriod(t.getStartDate(), t.getEndDate())))
+        } else if (currentPanel.equals("TASKS") && (t != null) &&
+                (d.inPeriod(t.getStartDate(), t.getEndDate()))) {
             label.setBackground(new Color(230, 255, 230));
-
-        else if (currentPanel.equals("NOTES") &&
-                CurrentProject.getNoteList().getNoteForDate(d) != null)
+        } else if (currentPanel.equals("NOTES") &&
+                CurrentProject.getNoteList().getNoteForDate(d) != null) {
             label.setBackground(new Color(255, 245, 200));
-
-        else if (currentPanel.equals("EVENTS") &&
-                (!(EventsManager.getEventsForDate(d).isEmpty())))
+        } else if (currentPanel.equals("EVENTS") &&
+                (!(EventsManager.getEventsForDate(d).isEmpty()))) {
             label.setBackground(new Color(255, 230, 230));
-
-        else if (!isSelected)
+        } else if (!isSelected) {
             label.setBackground(Color.WHITE);
+        }
 
         // always display NREvents
-        if (EventsManager.isNREventsForDate(d))
+        if (EventsManager.isNREventsForDate(d)) {
             label.setIcon(evIcon);
-        else
+        } else {
             label.setIcon(null);
+        }
 
         return label;
     }

@@ -54,7 +54,9 @@ public class NoteImpl implements Note, Comparable {
      */
     public String getTitle() {
         Attribute ta = _el.getAttribute("title");
-        if (ta == null) return "";
+        if (ta == null) {
+            return "";
+        }
         return _el.getAttribute("title").getValue();
     }
 
@@ -63,9 +65,11 @@ public class NoteImpl implements Note, Comparable {
      */
     public void setTitle(String s) {
         Attribute ta = _el.getAttribute("title");
-        if (ta == null) _el.addAttribute(new Attribute("title", s));
-        else
+        if (ta == null) {
+            _el.addAttribute(new Attribute("title", s));
+        } else {
             ta.setValue(s);
+        }
     }
 
     /**
@@ -74,7 +78,9 @@ public class NoteImpl implements Note, Comparable {
 
     public String getId() {
         Attribute id = _el.getAttribute("refid");
-        if (id == null) return "";
+        if (id == null) {
+            return "";
+        }
         return _el.getAttribute("refid").getValue();
     }
 
@@ -84,7 +90,9 @@ public class NoteImpl implements Note, Comparable {
 
     public void setId(String s) {
         Attribute id = _el.getAttribute("refid");
-        if (id == null) _el.addAttribute(new Attribute("refid", s));
+        if (id == null) {
+            _el.addAttribute(new Attribute("refid", s));
+        }
     }
 
     /**
@@ -100,11 +108,13 @@ public class NoteImpl implements Note, Comparable {
     public void setMark(boolean mark) {
         Attribute ma = _el.getAttribute("bookmark");
         if (ma == null) {
-            if (mark)
+            if (mark) {
                 _el.addAttribute(new Attribute("bookmark", "yes"));
+            }
             return;
-        } else if (!mark)
+        } else if (!mark) {
             _el.removeAttribute(ma);
+        }
     }
 
     /*
@@ -112,12 +122,13 @@ public class NoteImpl implements Note, Comparable {
      */
     public int compareTo(Object o) {
         Note note = (Note) o;
-        if (getDate().getDate().getTime() > note.getDate().getDate().getTime())
+        if (getDate().getDate().getTime() > note.getDate().getDate().getTime()) {
             return 1;
-        else if (getDate().getDate().getTime() < note.getDate().getDate().getTime())
+        } else if (getDate().getDate().getTime() < note.getDate().getDate().getTime()) {
             return -1;
-        else
+        } else {
             return 0;
+        }
     }
 
 }

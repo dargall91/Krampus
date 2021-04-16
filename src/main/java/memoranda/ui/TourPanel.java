@@ -321,8 +321,9 @@ public class TourPanel extends JPanel {
          * Double click for edit
          */
         public void mouseClicked(MouseEvent e) {
-            if ((e.getClickCount() == 2) && (tourTable.getSelectedRow() > -1))
+            if ((e.getClickCount() == 2) && (tourTable.getSelectedRow() > -1)) {
                 editTourB_actionPerformed(null);
+            }
         }
 
         /**

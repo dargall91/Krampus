@@ -180,8 +180,9 @@ public class FileStorage implements Storage {
     public javax.swing.text.Document openNote(Note note) {
 
         HTMLDocument doc = (HTMLDocument) editorKit.createDefaultDocument();
-        if (note == null)
+        if (note == null) {
             return doc;
+        }
         /*
                 String filename = JN_DOCPATH + note.getProject().getID() + File.separator;
                 CalendarDate d = note.getDate();
@@ -192,7 +193,7 @@ public class FileStorage implements Storage {
             /*DEBUG*/
 
 //            Util.debug("Open note: " + filename);
-//        	Util.debug("Note Title: " + note.getTitle());
+//            Util.debug("Note Title: " + note.getTitle());
             doc.setBase(new URL(getNoteURL(note)));
             editorKit.read(
                     new InputStreamReader(new FileInputStream(filename), "UTF-8"),
@@ -280,8 +281,9 @@ public class FileStorage implements Storage {
 
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
-        for (int i = 0; i < files.length; i++)
+        for (int i = 0; i < files.length; i++) {
             files[i].delete();
+        }
         f.delete();
     }
 
@@ -512,14 +514,14 @@ public class FileStorage implements Storage {
     // Required output format from @amehlhase
 
     {"nodes":[
-	{"id": "1", "lat":"33.304682", "lon": "-111.680727"},
-	{"id": "2",  "lat": "33.303659", "lon": "-111.680792"},
-	{"id": "3", "lat": "33.302548", "lon": "-111.675674"},
-	{"id": "4", "lat": "33.303597", "lon": "-111.673625"},
-	{"id": "5", "lat": "33.304628", "lon": "-111.675663"},
-	{"id": "6", "lat": "33.303175", "lon": "-111.678185"},
-	{"id": "7", "lat": "33.305103", "lon": "-111.677734"},
-	{"id": "8", "lat": "33.306529", "lon": "-111.680695"}
+    {"id": "1", "lat":"33.304682", "lon": "-111.680727"},
+    {"id": "2",  "lat": "33.303659", "lon": "-111.680792"},
+    {"id": "3", "lat": "33.302548", "lon": "-111.675674"},
+    {"id": "4", "lat": "33.303597", "lon": "-111.673625"},
+    {"id": "5", "lat": "33.304628", "lon": "-111.675663"},
+    {"id": "6", "lat": "33.303175", "lon": "-111.678185"},
+    {"id": "7", "lat": "33.305103", "lon": "-111.677734"},
+    {"id": "8", "lat": "33.306529", "lon": "-111.680695"}
    ]}
      */
 

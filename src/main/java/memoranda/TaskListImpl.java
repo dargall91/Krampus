@@ -82,8 +82,9 @@ public class TaskListImpl implements TaskList {
             return getAllRootTasks();
         } else {
             Element task = getTaskElement(taskId);
-            if (task == null)
+            if (task == null) {
                 return new Vector();
+            }
             Elements subTasks = task.getChildElements("task");
             return convertToTaskObjects(subTasks);
         }
@@ -151,7 +152,9 @@ public class TaskListImpl implements TaskList {
 
     public boolean hasSubTasks(String id) {
         Element task = getTaskElement(id);
-        if (task == null) return false;
+        if (task == null) {
+            return false;
+        }
         if (task.getChildElements("task").size() > 0) {
             return true;
         } else {
@@ -305,7 +308,7 @@ public class TaskListImpl implements TaskList {
      */
     private Element getTaskElement(String id) {
                
-		/*Nodes nodes = XQueryUtil.xquery(_doc, "//task[@id='" + id + "']");
+        /*Nodes nodes = XQueryUtil.xquery(_doc, "//task[@id='" + id + "']");
         if (nodes.size() > 0) {
             Element el = (Element) nodes.get(0);
             return el;            
@@ -361,28 +364,28 @@ public class TaskListImpl implements TaskList {
      */
 
 //    public void adjustParentTasks(Task t) {
-//    	if ((t.getParent() == null) || (t.getParent().equals(""))){
-//    		return;
-//    	}
-//    	else {
-//    		Task p = getTask(t.getParent());
-//    		
-//    		long totalEffort = calculateTotalEffortFromSubTasks(p);
-//    		
-//    		if(totalEffort > p.getEffort()) {
-//    			p.setEffort(totalEffort);
-//    		}
-//    		if(t.getStartDate().before(p.getStartDate())) {
-//    			p.setStartDate(t.getStartDate());
-//    		}
-//    		if(t.getEndDate().after(p.getEndDate())) {
-//    			p.setEndDate(t.getEndDate());
-//    		}
-//    		
-//        	if (!((p.getParent() == null) || (p.getParent().equals("")))){
-//        		// still has parent, go up the tree
-//        		adjustParentTasks(p);
-//        	}    		
-//    	}
+//        if ((t.getParent() == null) || (t.getParent().equals(""))){
+//            return;
+//        }
+//        else {
+//            Task p = getTask(t.getParent());
+//            
+//            long totalEffort = calculateTotalEffortFromSubTasks(p);
+//            
+//            if(totalEffort > p.getEffort()) {
+//                p.setEffort(totalEffort);
+//            }
+//            if(t.getStartDate().before(p.getStartDate())) {
+//                p.setStartDate(t.getStartDate());
+//            }
+//            if(t.getEndDate().after(p.getEndDate())) {
+//                p.setEndDate(t.getEndDate());
+//            }
+//            
+//            if (!((p.getParent() == null) || (p.getParent().equals("")))){
+//                // still has parent, go up the tree
+//                adjustParentTasks(p);
+//            }            
+//        }
 //    }
 }

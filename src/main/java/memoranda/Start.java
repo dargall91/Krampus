@@ -61,8 +61,9 @@ public class Start {
         //System.out.println(EventsScheduler.isEventScheduled());
         if ((args.length == 0) || (!args[0].equals("-m"))) {
             app = new App(true);
-        } else
+        } else {
             app = new App(false);
+        }
     }
 }
 

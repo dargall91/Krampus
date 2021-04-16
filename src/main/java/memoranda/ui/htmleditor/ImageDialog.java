@@ -317,9 +317,10 @@ public class ImageDialog extends JDialog implements WindowListener {
     //java.io.File selectedFile = null;
     public void updatePreview() {
         try {
-            if (new java.net.URL(fileField.getText()).getPath() != "")
+            if (new java.net.URL(fileField.getText()).getPath() != "") {
                 header.setIcon(getPreviewIcon(new java.io.File(
                         new java.net.URL(fileField.getText()).getPath())));
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -385,8 +386,9 @@ public class ImageDialog extends JDialog implements WindowListener {
         chooser.setPreferredSize(new Dimension(550, 375));
         java.io.File lastSel = (java.io.File) Context.get(
                 "LAST_SELECTED_IMG_FILE");
-        if (lastSel != null)
+        if (lastSel != null) {
             chooser.setCurrentDirectory(lastSel);
+        }
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 fileField.setText(chooser.getSelectedFile().toURL().toString());

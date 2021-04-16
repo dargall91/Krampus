@@ -44,10 +44,11 @@ public class ProjectExporter {
         _titlesAsHeaders = titlesAsHeaders;
         _copyImages = copyImages;
         _navigation = navigation;
-        if (f.isDirectory())
+        if (f.isDirectory()) {
             output = new File(f.getPath() + "/index.html");
-        else
+        } else {
             output = f;
+        }
         NoteList nl = CurrentStorage.get().openNoteList(prj);
         Vector notes = (Vector) nl.getAllNotes();
         //NotesVectorSorter.sort(notes);
@@ -66,11 +67,12 @@ public class ProjectExporter {
         try {
             if (charset != null) {
                 fw = new OutputStreamWriter(new FileOutputStream(output),
-                        charset);
+                    charset);
                 charsetString = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset="
-                        + charset + "\" />";
-            } else
+                    + charset + "\" />";
+            } else {
                 fw = new FileWriter(output);
+            }
         } catch (Exception ex) {
             new ExceptionDialog(ex, "Failed to write to " + output, "");
             return;
@@ -99,10 +101,11 @@ public class ProjectExporter {
             String link = "";
             CalendarDate d = note.getDate();
             String id = note.getId();
-            if (!_chunked)
+            if (!_chunked) {
                 link = "#" + id;
-            else
+            } else {
                 link = id + ".html";
+            }
             write(w, "<li><a href=\"" + link + "\">"
                     + note.getDate().getMediumDateString() + " "
                     + note.getTitle() + "</a></li>\n");
@@ -124,8 +127,9 @@ public class ProjectExporter {
             new ExceptionDialog(ex);
         }
         text = sw.toString();
-        if (_xhtml)
+        if (_xhtml) {
             text = HTMLFileExport.convertToXHTML(text);
+        }
         text = Pattern
                 .compile("<body(.*?)>", java.util.regex.Pattern.DOTALL
                         + java.util.regex.Pattern.CASE_INSENSITIVE).split(text)[1];
@@ -141,35 +145,36 @@ public class ProjectExporter {
          */
         text = "<div class=\"note\">" + text + "</div>";
 
-        if (_titlesAsHeaders)
+        if (_titlesAsHeaders) {
             text = "\n\n<div class=\"date\">"
-                    + note.getDate().getFullDateString()
-                    + ":</div>\n<h1 class=\"title\">" + note.getTitle()
-                    + "</h1>\n" + text;
+                + note.getDate().getFullDateString()
+                + ":</div>\n<h1 class=\"title\">" + note.getTitle()
+                + "</h1>\n" + text;
+        }
         return text;
     }
 
     private static String generateNav(Note prev, Note next) {
         String s = "<hr></hr><div class=\"navigation\"><table border=\"0\" width=\"100%\" cellpadding=\"2\"><tr><td width=\"33%\">";
-        if (prev != null)
+        if (prev != null) {
             s += "<div class=\"navitem\"><a href=\"" + prev.getId() + ".html\">"
-                    + Local.getString("Previous") + "</a><br></br>"
-                    + prev.getDate().getMediumDateString() + " "
-                    + prev.getTitle() + "</div>";
-
-        else
+                + Local.getString("Previous") + "</a><br></br>"
+                + prev.getDate().getMediumDateString() + " "
+                + prev.getTitle() + "</div>";
+        } else {
             s += "&nbsp;";
+        }
         s += "</td><td width=\"34%\" align=\"center\"><a href=\""
                 + output.getName()
                 + "\">Up</a></td><td width=\"33%\" align=\"right\">";
-        if (next != null)
+        if (next != null) {
             s += "<div class=\"navitem\"><a href=\"" + next.getId() + ".html\">"
-                    + Local.getString("Next") + "</a><br></br>"
-                    + next.getDate().getMediumDateString() + " "
-                    + next.getTitle() + "</div>";
-
-        else
+                + Local.getString("Next") + "</a><br></br>"
+                + next.getDate().getMediumDateString() + " "
+                + next.getTitle() + "</div>";
+        } else {
             s += "&nbsp;";
+        }
         s += "</td></tr></table></div>\n";
         return s;
     }
@@ -181,24 +186,27 @@ public class ProjectExporter {
             CalendarDate d = note.getDate();
             if (_chunked) {
                 File f = new File(output.getParentFile().getPath() + "/"
-                        + note.getId()
-                        + ".html");
+                    + note.getId()
+                    + ".html");
                 Writer fw = null;
                 try {
-                    if (_charset != null)
+                    if (_charset != null) {
                         fw = new OutputStreamWriter(new FileOutputStream(f),
-                                _charset);
-                    else
+                            _charset);
+                    } else {
                         fw = new FileWriter(f);
+                    }
                     String s = "<html>\n<head>\n" + charsetString + "<title>" + note.getTitle()
-                            + "</title>\n</head>\n<body>\n" + getNoteHTML(note);
+                        + "</title>\n</head>\n<body>\n" + getNoteHTML(note);
                     if (_navigation) {
                         Note nprev = null;
-                        if (i > 0)
+                        if (i > 0) {
                             nprev = (Note) n[i - 1];
+                        }
                         Note nnext = null;
-                        if (i < n.length - 1)
+                        if (i < n.length - 1) {
                             nnext = (Note) n[i + 1];
+                        }
                         s += generateNav(nprev, nnext);
                     }
                     s += "\n</body>\n</html>";
@@ -208,8 +216,9 @@ public class ProjectExporter {
                 } catch (Exception ex) {
                     new ExceptionDialog(ex, "Failed to write to " + output, "");
                 }
-            } else
+            } else {
                 write(w, "<a name=\"" + note.getId() + "\">" + getNoteHTML(note) + "</a>\n");
+            }
         }
     }
 

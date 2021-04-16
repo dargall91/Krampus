@@ -72,10 +72,11 @@ public class HTMLFileExport {
             //------------------------------------------------------
             //End appendage
 
-            if (charset != null)
+            if (charset != null) {
                 fw = new OutputStreamWriter(new FileOutputStream(f), charset);
-            else
+            } else {
                 fw = new FileWriter(f);
+            }
             fw.write(applyTemplate());
             fw.flush();
             fw.close();
@@ -100,12 +101,14 @@ public class HTMLFileExport {
             } catch (Exception ex) {
                 new ExceptionDialog(ex, "Cannot read template file from " + templF, null);
             }
-            if (text.length() > 0)
+            if (text.length() > 0) {
                 return text;
+            }
         }
         String t = (String) Configuration.get("DEFAULT_EXPORT_TEMPLATE");
-        if ((t != null) && (t.length() > 0))
+        if ((t != null) && (t.length() > 0)) {
             return t;
+        }
         return "<html>\n<head>\n@METACHARSET@\n<title>@TITLE@ - @PROJECT@</title>\n</head>\n<body>\n@CONTENT@\n</body>\n</html>";
     }
 
@@ -123,11 +126,13 @@ public class HTMLFileExport {
         templ = templ.replaceAll("@PROJECT@", project);
         templ = templ.replaceAll("@DATE@", date);
         templ = templ.replaceAll("@NOW@", now);
-        if ((charset != null) && (charset.length() > 0))
+        if ((charset != null) && (charset.length() > 0)) {
             templ = templ.replaceAll("@METACHARSET@", "<meta http-equiv=\"Content-Type\" content=\"text/html; charset="
                     + charset + "\" >");
-        if (xhtml)
+        }
+        if (xhtml) {
             templ = convertToXHTML(templ);
+        }
         return templ;
     }
 

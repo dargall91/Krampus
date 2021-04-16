@@ -134,7 +134,9 @@ public class TourTable extends JTable {
                 return tour.getRoute().getName();
             } else if (col == 3) {
                 return tour.getBus();
-            } else return tour;
+            } else {
+                return tour;
+            }
         }
 
         /**

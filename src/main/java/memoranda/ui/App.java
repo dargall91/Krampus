@@ -28,7 +28,7 @@ public class App {
     private JFrame splash = null;
 
     /*========================================================================*/
-	/* Note: Please DO NOT edit the version/build info manually!
+    /* Note: Please DO NOT edit the version/build info manually!
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
@@ -45,42 +45,48 @@ public class App {
         if (frame.isVisible()) {
             frame.toFront();
             frame.requestFocus();
-        } else
+        } else {
             init();
+        }
     }
 
     public App(boolean fullmode) {
         super();
-        if (fullmode)
+        if (fullmode) {
             fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
+        }
         /* DEBUG */
-        if (!fullmode)
+        if (!fullmode) {
             System.out.println("Minimized mode");
-        if (!Configuration.get("SHOW_SPLASH").equals("no"))
+        }
+        if (!Configuration.get("SHOW_SPLASH").equals("no")) {
             showSplash();
+        }
         System.out.println(VERSION_INFO);
         System.out.println(Configuration.get("LOOK_AND_FEEL"));
         try {
-            if (Configuration.get("LOOK_AND_FEEL").equals("system"))
+            if (Configuration.get("LOOK_AND_FEEL").equals("system")) {
                 UIManager.setLookAndFeel(
                         UIManager.getSystemLookAndFeelClassName());
-            else if (Configuration.get("LOOK_AND_FEEL").equals("default"))
+            } else if (Configuration.get("LOOK_AND_FEEL").equals("default")) {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
-            else if (
-                    Configuration.get("LOOK_AND_FEEL").toString().length() > 0)
+            } else if (
+                    Configuration.get("LOOK_AND_FEEL").toString().length() > 0) {
                 UIManager.setLookAndFeel(
                         Configuration.get("LOOK_AND_FEEL").toString());
+            }
 
         } catch (Exception e) {
             new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
         }
         if (Configuration.get("FIRST_DAY_OF_WEEK").equals("")) {
             String fdow;
-            if (Calendar.getInstance().getFirstDayOfWeek() == 2)
+            if (Calendar.getInstance().getFirstDayOfWeek() == 2) {
                 fdow = "mon";
-            else
+            } else {
                 fdow = "sun";
+            }
             Configuration.put("FIRST_DAY_OF_WEEK", fdow);
             Configuration.saveConfig();
             /* DEBUG */
@@ -92,8 +98,9 @@ public class App {
         if (fullmode) {
             init();
         }
-        if (!Configuration.get("SHOW_SPLASH").equals("no"))
+        if (!Configuration.get("SHOW_SPLASH").equals("no")) {
             splash.dispose();
+        }
     }
 
     void init() {
@@ -136,14 +143,16 @@ public class App {
     }
 
     public static void closeWindow() {
-        if (frame == null)
+        if (frame == null) {
             return;
+        }
         frame.setExtendedState(JFrame.ICONIFIED);
     }
 
     public static void openWindow() {
-        if (frame == null)
+        if (frame == null) {
             return;
+        }
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 

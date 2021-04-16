@@ -72,9 +72,9 @@ import main.java.memoranda.util.*;
  *
  * <p>Article about <a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">treetables</a>.</p>
  *
- * @see    main.java.memoranda.ui.TaskTreeTableCellRenderer
- * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
  * @author $Author: alexeya $
+ * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
+ * @see main.java.memoranda.ui.TaskTreeTableCellRenderer
  */
 public class TaskTable extends JTable {
 
@@ -248,7 +248,9 @@ public class TaskTable extends JTable {
      */
     public class TreeTableCellRenderer extends JTree implements // {{{
             TableCellRenderer {
-        /** Last table/tree row asked to renderer. */
+        /**
+         * Last table/tree row asked to renderer.
+         */
         protected int visibleRow;
 
         public TreeTableCellRenderer(TreeModel model) {
@@ -316,10 +318,11 @@ public class TaskTable extends JTable {
         public Component getTableCellRendererComponent(JTable table,
                                                        Object value, boolean isSelected, boolean hasFocus, int row,
                                                        int column) {
-            if (isSelected)
+            if (isSelected) {
                 setBackground(table.getSelectionBackground());
-            else
+            } else {
                 setBackground(table.getBackground());
+            }
             visibleRow = row;
             return this;
         }
@@ -380,7 +383,9 @@ public class TaskTable extends JTable {
      */
     public class ListToTreeSelectionModelWrapper extends // {{{
             DefaultTreeSelectionModel {
-        /** Set to true when we are updating the ListSelectionModel. */
+        /**
+         * Set to true when we are updating the ListSelectionModel.
+         */
         protected boolean updatingListSelectionModel;
 
         public ListToTreeSelectionModelWrapper() {

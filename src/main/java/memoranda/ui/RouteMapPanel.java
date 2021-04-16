@@ -294,11 +294,11 @@ public class RouteMapPanel extends JPanel {
 //                return;
 //            // if file if projectFile, than copy the file and change url.
 //            if (dlg.projectFileCB.isSelected()) {
-//            	fpath = copyFileToProjectDir(fpath);
-//            	CurrentProject.getResourcesList().addResource(fpath, false, true);
+//                fpath = copyFileToProjectDir(fpath);
+//                CurrentProject.getResourcesList().addResource(fpath, false, true);
 //            }
 //            else
-//            	CurrentProject.getResourcesList().addResource(fpath);
+//                CurrentProject.getResourcesList().addResource(fpath);
 //
 //            map.tableChanged();
 //        }
@@ -334,7 +334,7 @@ public class RouteMapPanel extends JPanel {
 //        if (n != JOptionPane.YES_OPTION)
 //            return;
 //        for (int i = 0; i < toRemove.length; i++) {
-//        		CurrentProject.getResourcesList().removeResource(
+//                CurrentProject.getResourcesList().removeResource(
 //                        ((Resource) map.getModel().getValueAt(toRemove[i], ResourcesTable._RESOURCE)).getPath());
 //        }
 //        map.tableChanged();
@@ -423,7 +423,7 @@ public class RouteMapPanel extends JPanel {
 //        catch (Exception ex) {
 //            new ExceptionDialog(ex, "Failed to run an external application <br><code>"
 //                    +command[0]+"</code>", "Check the application path and command line parameters for this resource type " +
-//                    		"(File-&gt;Preferences-&gt;Resource types).");
+//                            "(File-&gt;Preferences-&gt;Resource types).");
 //        }
 //    }
 //
@@ -489,25 +489,25 @@ public class RouteMapPanel extends JPanel {
 //   */
 //  String copyFileToProjectDir(String srcStr) {
 //
-//	  String JN_DOCPATH = Util.getEnvDir();
+//      String JN_DOCPATH = Util.getEnvDir();
 //
-//	  String baseName;
-//	  int i = srcStr.lastIndexOf( File.separator );
-//		if ( i != -1 ) {
-//			baseName = srcStr.substring(i+1);
-//		} else
-//			baseName = srcStr;
+//      String baseName;
+//      int i = srcStr.lastIndexOf( File.separator );
+//        if ( i != -1 ) {
+//            baseName = srcStr.substring(i+1);
+//        } else
+//            baseName = srcStr;
 //
-//	  String destStr = JN_DOCPATH + CurrentProject.get().getID()
-//	  				   + File.separator + "_projectFiles" + File.separator + baseName;
+//      String destStr = JN_DOCPATH + CurrentProject.get().getID()
+//                         + File.separator + "_projectFiles" + File.separator + baseName;
 //
-//	  File f = new File(JN_DOCPATH + CurrentProject.get().getID() + File.separator + "_projectFiles");
-//	  if (!f.exists()) {
-//		  f.mkdirs();
-//	  }
-//	  System.out.println("[DEBUG] Copy file from: "+srcStr+" to: "+destStr);
+//      File f = new File(JN_DOCPATH + CurrentProject.get().getID() + File.separator + "_projectFiles");
+//      if (!f.exists()) {
+//          f.mkdirs();
+//      }
+//      System.out.println("[DEBUG] Copy file from: "+srcStr+" to: "+destStr);
 //
-//	  try {
+//      try {
 //         FileInputStream in = new FileInputStream(srcStr);
 //         FileOutputStream out = new FileOutputStream(destStr);
 //         byte[] buf = new byte[4096];
@@ -518,7 +518,7 @@ public class RouteMapPanel extends JPanel {
 //         out.close();
 //         in.close();
 //       }
-//	   catch (IOException e) {
+//       catch (IOException e) {
 //         System.err.println(e.toString());
 //       }
 //

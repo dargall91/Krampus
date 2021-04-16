@@ -36,16 +36,21 @@ public class History {
     static Object prev = null;
 
     public static void add(HistoryItem item) {
-        if (prev != null)
-            if (item.equals(prev)) return;
-        if (p < _list.size() - 1)
+        if (prev != null) {
+            if (item.equals(prev)) {
+                return;
+            }
+        }
+        if (p < _list.size() - 1) {
             _list.setSize(p + 1);
+        }
         _list.add(item);
         p = _list.size() - 1;
-        if (p > 0)
+        if (p > 0) {
             prev = _list.get(p - 1);
-        else
+        } else {
             prev = null;
+        }
         next = null;
         historyBackAction.update();
         historyForwardAction.update();  
@@ -53,8 +58,9 @@ public class History {
         for (int i = 0; i < _list.size(); i++)
             System.out.println(((HistoryItem)_list.get(i)).getDate().toString());
         System.out.println(item.getDate().toShortString()+ " added");*/
-        if (_list.size() > 99)
+        if (_list.size() > 99) {
             _list.remove(0);
+        }
     }
 
     public static HistoryItem rollBack() {
@@ -65,12 +71,14 @@ public class History {
         } else if (p > 0) {
             p--;
             prev = null;
-        } else
+        } else {
             prev = null;
-        if (p < _list.size() - 1)
+        }
+        if (p < _list.size() - 1) {
             next = _list.get(p + 1);
-        else
+        } else {
             next = null;
+        }
         return (HistoryItem) n;
     }
 
@@ -78,15 +86,18 @@ public class History {
         Object n = next;
         if (p < _list.size() - 1) {
             p++;
-            if (p == 1)
+            if (p == 1) {
                 p++;
+            }
             next = _list.get(p);
-        } else
+        } else {
             next = null;
-        if (p > 0)
+        }
+        if (p > 0) {
             prev = _list.get(p - 1);
-        else
+        } else {
             prev = null;
+        }
         return (HistoryItem) n;
     }
 
@@ -112,8 +123,11 @@ public class History {
                 list.add(_list.elementAt(i));
                 p--;
                 if (_list.elementAt(i).equals(prev)) {
-                    if (p > 0) prev = _list.get(p - 1);
-                    else prev = null;
+                    if (p > 0) {
+                        prev = _list.get(p - 1);
+                    } else {
+                        prev = null;
+                    }
                 }
             }
         }
@@ -130,8 +144,9 @@ public class History {
     }
 
     private static void notifyListeners(HistoryItem n) {
-        for (int i = 0; i < historyListeners.size(); i++)
+        for (int i = 0; i < historyListeners.size(); i++) {
             ((HistoryListener) historyListeners.get(i)).historyWasRolledTo(n);
+        }
     }
 
     public static HistoryBackAction historyBackAction = new HistoryBackAction();

@@ -600,8 +600,9 @@ public class AppFrame extends JFrame {
             int w = new Integer((String) fwo).intValue();
             int h = new Integer((String) fho).intValue();
             this.setSize(w, h);
-        } else
+        } else {
             this.setExtendedState(Frame.MAXIMIZED_BOTH);
+        }
 
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
@@ -651,7 +652,9 @@ public class AppFrame extends JFrame {
             ExitConfirmationDialog dlg = new ExitConfirmationDialog(this, Local.getString("Exit"));
             dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
             dlg.setVisible(true);
-            if (dlg.CANCELLED) return;
+            if (dlg.CANCELLED) {
+                return;
+            }
         }
 
         Context.put("FRAME_WIDTH", new Integer(this.getWidth()));
@@ -685,10 +688,11 @@ public class AppFrame extends JFrame {
 
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            if (Configuration.get("ON_CLOSE").equals("exit"))
+            if (Configuration.get("ON_CLOSE").equals("exit")) {
                 doExit();
-            else
+            } else {
                 doMinimize();
+            }
         } else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
                     WindowEvent.WINDOW_ICONIFIED));
@@ -697,8 +701,9 @@ public class AppFrame extends JFrame {
             super.processWindowEvent(new WindowEvent(this,
                     WindowEvent.WINDOW_ICONIFIED));
             doMaximize();
-        } else
+        } else {
             super.processWindowEvent(e);
+        }
     }
 
     public static void addExitListener(ActionListener al) {
@@ -710,8 +715,9 @@ public class AppFrame extends JFrame {
     }
 
     private static void exitNotify() {
-        for (int i = 0; i < exitListeners.size(); i++)
+        for (int i = 0; i < exitListeners.size(); i++) {
             ((ActionListener) exitListeners.get(i)).actionPerformed(null);
+        }
     }
 
     public void setEnabledEditorMenus(boolean enabled) {
@@ -768,10 +774,12 @@ public class AppFrame extends JFrame {
         }
         //---------------------------------------------------------------------
 
-        if (lastSel != null)
+        if (lastSel != null) {
             chooser.setCurrentDirectory(lastSel);
-        if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION)
+        }
+        if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
             return;
+        }
         Context.put("LAST_SELECTED_PACK_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
         ProjectPackager.pack(CurrentProject.get(), f);
@@ -823,10 +831,12 @@ public class AppFrame extends JFrame {
         }
         //---------------------------------------------------------------------
 
-        if (lastSel != null)
+        if (lastSel != null) {
             chooser.setCurrentDirectory(lastSel);
-        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+        }
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
             return;
+        }
         Context.put("LAST_SELECTED_PACK_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
         ProjectPackager.unpack(f);
@@ -884,8 +894,9 @@ public class AppFrame extends JFrame {
         chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
 
         String lastSel = (String) Context.get("LAST_SELECTED_EXPORT_FILE");
-        if (lastSel != null)
+        if (lastSel != null) {
             chooser.setCurrentDirectory(new File(lastSel));
+        }
 
         ProjectExportDialog dlg =
                 new ProjectExportDialog(
@@ -893,14 +904,17 @@ public class AppFrame extends JFrame {
                         Local.getString("Export notes"),
                         chooser);
         String enc = (String) Context.get("EXPORT_FILE_ENCODING");
-        if (enc != null)
+        if (enc != null) {
             dlg.encCB.setSelectedItem(enc);
+        }
         String spl = (String) Context.get("EXPORT_SPLIT_NOTES");
-        if (spl != null)
+        if (spl != null) {
             dlg.splitChB.setSelected(spl.equalsIgnoreCase("true"));
+        }
         String ti = (String) Context.get("EXPORT_TITLES_AS_HEADERS");
-        if (ti != null)
+        if (ti != null) {
             dlg.titlesAsHeadersChB.setSelected(ti.equalsIgnoreCase("true"));
+        }
         Dimension dlgSize = new Dimension(550, 500);
         dlg.setSize(dlgSize);
         Dimension frmSize = App.getFrame().getSize();
@@ -909,8 +923,9 @@ public class AppFrame extends JFrame {
                 (frmSize.width - dlgSize.width) / 2 + loc.x,
                 (frmSize.height - dlgSize.height) / 2 + loc.y);
         dlg.setVisible(true);
-        if (dlg.CANCELLED)
+        if (dlg.CANCELLED) {
             return;
+        }
 
         Context.put(
                 "LAST_SELECTED_EXPORT_FILE",
@@ -920,8 +935,9 @@ public class AppFrame extends JFrame {
 
         int ei = dlg.encCB.getSelectedIndex();
         enc = null;
-        if (ei == 1)
+        if (ei == 1) {
             enc = "UTF-8";
+        }
         boolean nument = (ei == 2);
         File f = chooser.getSelectedFile();
         boolean xhtml =
@@ -971,10 +987,12 @@ public class AppFrame extends JFrame {
         }
         //---------------------------------------------------------------------
 
-        if (lastSel != null)
+        if (lastSel != null) {
             chooser.setCurrentDirectory(lastSel);
-        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+        }
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
             return;
+        }
         Context.put("LAST_SELECTED_NOTE_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
         HashMap<String, String> notesName = new HashMap<String, String>();
@@ -1065,10 +1083,12 @@ public class AppFrame extends JFrame {
         }
         //---------------------------------------------------------------------
 
-        if (lastSel != null)
+        if (lastSel != null) {
             chooser.setCurrentDirectory(lastSel);
-        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+        }
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
             return;
+        }
         Context.put("LAST_SELECTED_NOTE_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
         HashMap<String, String> notesName = new HashMap<String, String>();

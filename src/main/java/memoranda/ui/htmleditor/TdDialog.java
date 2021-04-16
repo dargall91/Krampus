@@ -453,21 +453,27 @@ public class TdDialog extends JDialog {
 
     void tdBgcolorB_actionPerformed(ActionEvent e) {
         Color c = JColorChooser.showDialog(this, Local.getString("Table cell background color"), Util.decodeColor(tdBgcolorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         tdBgcolorField.setText(Util.encodeColor(c));
         Util.setBgcolorField(tdBgcolorField);
     }
 
     void trBgcolorB_actionPerformed(ActionEvent e) {
         Color c = JColorChooser.showDialog(this, Local.getString("Table row background color"), Util.decodeColor(trBgcolorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         trBgcolorField.setText(Util.encodeColor(c));
         Util.setBgcolorField(trBgcolorField);
     }
 
     void bgColorB_actionPerformed(ActionEvent e) {
         Color c = JColorChooser.showDialog(this, Local.getString("Table background color"), Util.decodeColor(bgcolorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         bgcolorField.setText(Util.encodeColor(c));
         Util.setBgcolorField(bgcolorField);
     }

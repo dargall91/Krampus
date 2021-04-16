@@ -225,8 +225,9 @@ public class TaskDialog extends JDialog {
                 SpinnerDateModel sdm = new SpinnerDateModel((Date) startDate.getModel().getValue(), null, null, Calendar.DAY_OF_WEEK);
                 startDate.setModel(sdm);
 
-                if (ignoreStartChanged)
+                if (ignoreStartChanged) {
                     return;
+                }
                 ignoreStartChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 Date ed = (Date) endDate.getModel().getValue();
@@ -277,8 +278,9 @@ public class TaskDialog extends JDialog {
                 SpinnerDateModel sdm = new SpinnerDateModel((Date) endDate.getModel().getValue(), null, null, Calendar.DAY_OF_WEEK);
                 endDate.setModel(sdm);
 
-                if (ignoreEndChanged)
+                if (ignoreEndChanged) {
                     return;
+                }
                 ignoreEndChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 Date ed = (Date) endDate.getModel().getValue();
@@ -364,16 +366,18 @@ public class TaskDialog extends JDialog {
         priorityCB.setSelectedItem(Local.getString("Normal"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ignoreStartChanged)
+                if (ignoreStartChanged) {
                     return;
+                }
                 startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
             }
         });
 
         endCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ignoreEndChanged)
+                if (ignoreEndChanged) {
                     return;
+                }
                 endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
             }
         });
@@ -384,8 +388,9 @@ public class TaskDialog extends JDialog {
     }
 
     public void setEndDate(CalendarDate d) {
-        if (d != null)
+        if (d != null) {
             this.endDate.getModel().setValue(d.getDate());
+        }
     }
 
     public void setStartDateLimit(CalendarDate min, CalendarDate max) {
@@ -436,8 +441,8 @@ public class TaskDialog extends JDialog {
     }
 
     //void setNotifB_actionPerformed(ActionEvent e) {
-    //	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.tourPanel.newTourB_actionPerformed(e, 
-    //		this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
+    //    ((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.tourPanel.newTourB_actionPerformed(e, 
+    //        this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
     //}
 
 }

@@ -1,7 +1,7 @@
 package main.java.memoranda.ui.treetable;
 
 /*
- * @(#)JTreeTable.java	1.2 98/10/27
+ * @(#)JTreeTable.java    1.2 98/10/27
  *
  * Copyright 1997, 1998 by Sun Microsystems, Inc.,
  * 901 San Antonio Road, Palo Alto, California, 94303, U.S.A.
@@ -209,10 +209,11 @@ public class JTreeTable extends JTable {
         public Component getTableCellRendererComponent(JTable table,
                                                        Object value, boolean isSelected, boolean hasFocus, int row,
                                                        int column) {
-            if (isSelected)
+            if (isSelected) {
                 setBackground(table.getSelectionBackground());
-            else
+            } else {
                 setBackground(table.getBackground());
+            }
             if (value instanceof Task) {
 
             }

@@ -39,12 +39,13 @@ public class ExceptionDialog extends JDialog {
         super(App.getFrame(), "Problem", true);
         exc.printStackTrace();
         owner = App.getFrame();
-        if ((description != null) && (description.length() > 0))
+        if ((description != null) && (description.length() > 0)) {
             this.description = description;
-        else if (exc.getMessage() != null)
+        } else if (exc.getMessage() != null) {
             this.description = exc.getMessage();
-        else
+        } else {
             this.description = "Unknown error";
+        }
         this.tip = tip;
         StringWriter sw = new StringWriter();
         exc.printStackTrace(new PrintWriter(sw));
@@ -84,8 +85,9 @@ public class ExceptionDialog extends JDialog {
         jPanel2.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         borderLayout3.setVgap(5);
         String labelText = "<html><b>Description:</b><br>" + description;
-        if ((tip != null) && (tip.length() > 0))
+        if ((tip != null) && (tip.length() > 0)) {
             labelText = labelText + "<br><br><b>Tip:</b><br>" + tip;
+        }
         labelText = labelText + "<br><br><b>Stack trace:</b></html>";
         descLabel.setText(labelText);
         descLabel.setFont(new java.awt.Font("Dialog", 0, 12));

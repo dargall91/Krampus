@@ -318,8 +318,9 @@ public class TableDialog extends JDialog {
                         this,
                         Local.getString("Table background color"),
                         initColor);
-        if (c == null)
+        if (c == null) {
             return;
+        }
 
         bgcolorField.setText(
                 "#" + Integer.toHexString(c.getRGB()).substring(2).toUpperCase());

@@ -38,15 +38,17 @@ public class ExportFilter extends FileFilter {
      * @see javax.swing.filechooser.FileFilter#accept(java.io.File)
      */
     public boolean accept(File f) {
-        if (f.isDirectory())
+        if (f.isDirectory()) {
             return true;
+        }
         String ext = getExtension(f);
-        if (_type.equals(RTF))
+        if (_type.equals(RTF)) {
             return ext.equals("rtf");
-        else if (_type.equals(ZIP))
+        } else if (_type.equals(ZIP)) {
             return ext.equals("zip");
-        else if (_type.equals(XHTML))
+        } else if (_type.equals(XHTML)) {
             return (ext.equals("xhtml") || ext.equals("xml"));
+        }
         return ext.startsWith("htm");
     }
 
@@ -54,12 +56,13 @@ public class ExportFilter extends FileFilter {
      * @see javax.swing.filechooser.FileFilter#getDescription()
      */
     public String getDescription() {
-        if (_type.equals(RTF))
+        if (_type.equals(RTF)) {
             return "Rich Text Format (*.rtf)";
-        else if (_type.equals(ZIP))
+        } else if (_type.equals(ZIP)) {
             return "ZIP archives (*.zip)";
-        else if (_type.equals(XHTML))
+        } else if (_type.equals(XHTML)) {
             return "XHTML files (*.xhtml, *.xml)";
+        }
         return "HTML files (*.html, *.htm)";
     }
 

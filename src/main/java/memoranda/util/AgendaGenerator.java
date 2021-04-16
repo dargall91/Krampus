@@ -73,11 +73,11 @@ public class AgendaGenerator {
                 Task t = (Task) i.next();
                 // Always show active tasks only on agenda page from now on.
                 // If it's not active, then it's probably "not on the agenda" isn't it?
-                //        		if(Context.get("SHOW_ACTIVE_TASKS_ONLY").equals(new Boolean(true))) {
+                //                if(Context.get("SHOW_ACTIVE_TASKS_ONLY").equals(new Boolean(true))) {
                 //                    if (!((t.getStatus() == Task.ACTIVE) || (t.getStatus() == Task.DEADLINE) || (t.getStatus() == Task.FAILED))) {
-                //                    	continue;
-                //                	}
-                //        		}
+                //                        continue;
+                //                    }
+                //                }
                 // ignore if it's a sub-task, iterate over ROOT tasks here only
                 if (tl.hasParentTask(t.getID())) {
                     continue;
@@ -110,11 +110,11 @@ public class AgendaGenerator {
 
         for (Iterator iter = st.iterator(); iter.hasNext(); ) {
             Task subTask = (Task) iter.next();
-            //			if(Context.get("SHOW_ACTIVE_TASKS_ONLY").equals(new Boolean(true))) {
+            //            if(Context.get("SHOW_ACTIVE_TASKS_ONLY").equals(new Boolean(true))) {
             //                if (!((subTask.getStatus() == Task.ACTIVE) || (subTask.getStatus() == Task.DEADLINE) || (subTask.getStatus() == Task.FAILED))) {
-            //                	continue;
-            //            	}
-            //			}
+            //                    continue;
+            //                }
+            //            }
             s = s + renderTask(p, date, tl, subTask, level, expandedTasks);
             if (expandedTasks.contains(subTask.getID())) {
                 s = s + expandRecursively(p, date, tl, subTask, expandedTasks, level + 1);
@@ -137,26 +137,27 @@ public class AgendaGenerator {
 
         int pg = t.getProgress();
         String progress = "";
-        if (pg == 100)
+        if (pg == 100) {
             progress = "<font color=\"green\">" + Local.getString("Completed") + "</font>";
-        else
+        } else {
             progress = pg + Local.getString("% done");
+        }
 
-        //		String nbsp = "&nbsp;&nbsp;";
-        //		String spacing = "";
-        //		for(int i = 0; i < level; i ++) {
-        //			spacing = spacing + nbsp;
-        //		}
-        //		Util.debug("Spacing for task " + t.getText() + " is " + spacing);
+        //        String nbsp = "&nbsp;&nbsp;";
+        //        String spacing = "";
+        //        for(int i = 0; i < level; i ++) {
+        //            spacing = spacing + nbsp;
+        //        }
+        //        Util.debug("Spacing for task " + t.getText() + " is " + spacing);
 
         String subTaskOperation = "";
         if (tl.hasSubTasks(t.getID())) {
-            //			Util.debug("Task " + t.getID() + " has subtasks");
+            //            Util.debug("Task " + t.getID() + " has subtasks");
             if (expandedTasks.contains(t.getID())) {
-                //				Util.debug("Task " + t.getID() + " is in list of expanded tasks");
+                //                Util.debug("Task " + t.getID() + " is in list of expanded tasks");
                 subTaskOperation = "<a href=\"memoranda:closesubtasks#" + t.getID() + "\">(-)</a>";
             } else {
-                //				Util.debug("Task " + t.getID() + " is not in list of expanded tasks");
+                //                Util.debug("Task " + t.getID() + " is not in list of expanded tasks");
                 subTaskOperation = "<a href=\"memoranda:expandsubtasks#" + t.getID() + "\">(+)</a>";
             }
         }
@@ -173,35 +174,35 @@ public class AgendaGenerator {
                 + ": "
                 + getPriorityString(t.getPriority())
                 + "</p>";
-		/*<<<<<<< AgendaGenerator.java
-		if (!(t.getStartDate().getDate()).after(t.getEndDate().getDate())) {
-		    if (t.getEndDate().equals(date))
-		        s += "<p><font color=\"#FF9900\"><b>"
-		            + Local.getString("Should be done today")
-		            + ".</b></font></p>";
-		    else {
-		        Calendar endDateCal = t.getEndDate().getCalendar();
-		        Calendar dateCal = date.getCalendar();
-		        int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) - 
-		                (dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
-		        String days = "";
-		        if (numOfDays > 1)
-		            days = Local.getString("in")+" "+numOfDays+" "+Local.getString("day(s)");
-		        else
-		            days = Local.getString("tomorrow");
-		        s += "<p>"
-		            + Local.getString("Deadline")
-		            + ": <i>"
-		            + t.getEndDate().getMediumDateString()
-		            + "</i> ("+days+")</p>";
-		    }                    
-		}
+        /*<<<<<<< AgendaGenerator.java
+        if (!(t.getStartDate().getDate()).after(t.getEndDate().getDate())) {
+            if (t.getEndDate().equals(date))
+                s += "<p><font color=\"#FF9900\"><b>"
+                    + Local.getString("Should be done today")
+                    + ".</b></font></p>";
+            else {
+                Calendar endDateCal = t.getEndDate().getCalendar();
+                Calendar dateCal = date.getCalendar();
+                int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) - 
+                        (dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
+                String days = "";
+                if (numOfDays > 1)
+                    days = Local.getString("in")+" "+numOfDays+" "+Local.getString("day(s)");
+                else
+                    days = Local.getString("tomorrow");
+                s += "<p>"
+                    + Local.getString("Deadline")
+                    + ": <i>"
+                    + t.getEndDate().getMediumDateString()
+                    + "</i> ("+days+")</p>";
+            }                    
+        }
 =======*/
-        if (t.getEndDate().equals(date))
+        if (t.getEndDate().equals(date)) {
             s += "<p><font color=\"#FF9900\"><b>"
                     + Local.getString("Should be done today")
                     + ".</b></font></p>";
-        else {
+        } else {
             Calendar endDateCal = t.getEndDate().getCalendar();
             Calendar dateCal = date.getCalendar();
             int numOfDays = (endDateCal.get(Calendar.YEAR) * 365 + endDateCal.get(Calendar.DAY_OF_YEAR)) -
@@ -238,8 +239,9 @@ public class AgendaGenerator {
 
     static int getProgress(TaskList tl) {
         Vector v = (Vector) tl.getAllSubTasks(null);
-        if (v.size() == 0)
+        if (v.size() == 0) {
             return -1;
+        }
         int p = 0;
         for (Enumeration en = v.elements(); en.hasMoreElements(); ) {
             Task t = (Task) en.nextElement();
@@ -272,9 +274,10 @@ public class AgendaGenerator {
                 + "</a></h2>\n"
                 + "<table border=\"0\" width=\"100%\" cellpadding=\"2\" bgcolor=\"#EFEFEF\"><tr><td>"
                 + Local.getString("Start date") + ": <i>" + p.getStartDate().getMediumDateString() + "</i>\n";
-        if (p.getEndDate() != null)
+        if (p.getEndDate() != null) {
             s += "<br>" + Local.getString("End date") + ": <i>" + p.getEndDate().getMediumDateString()
                     + "</i>\n";
+        }
         return s + generateTasksInfo(p, date, expandedTasks);
     }
 
@@ -289,8 +292,9 @@ public class AgendaGenerator {
              i.hasNext();
         ) {
             Project p = (Project) i.next();
-            if (!p.getID().equals(CurrentProject.get().getID()))
+            if (!p.getID().equals(CurrentProject.get().getID())) {
                 s += generateProjectInfo(p, date, expandedTasks);
+            }
         }
         return s + "</td>";
     }
@@ -314,8 +318,9 @@ public class AgendaGenerator {
                             .getResource("/ui/agenda/spacer.gif")
                             .toExternalForm();
             if (date.equals(CalendarDate.today())) {
-                if (e.getTime().after(new Date()))
+                if (e.getTime().after(new Date())) {
                     txt = "<b>" + txt + "</b>";
+                }
                 if ((EventsScheduler.isEventScheduled())
                         && (EventsScheduler
                         .getFirstScheduledEvent()
@@ -420,7 +425,7 @@ public class AgendaGenerator {
         //      /*DEBUG*/System.out.println(s+FOOTER);
         return s + FOOTER;
     }
-	/*    
+    /*    
     we do not need this. Tasks are sorted using the Comparable interface
     public static class TaskSorter {
 
@@ -435,12 +440,12 @@ public class AgendaGenerator {
 
         public static long calcTaskRate(Task t, CalendarDate d) {
             /*
-	 * A "Task rate" is an informal index of importance of the task
-	 * considering priority, number of days to deadline and current
-	 * progress.
-	 * 
-	 * rate = (100-progress) / (numOfDays+1) * (priority+1)
-	 * /
+     * A "Task rate" is an informal index of importance of the task
+     * considering priority, number of days to deadline and current
+     * progress.
+     * 
+     * rate = (100-progress) / (numOfDays+1) * (priority+1)
+     * /
             Calendar endDateCal = t.getEndDate().getCalendar();
             Calendar dateCal = d.getCalendar();
             int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) - 
@@ -495,5 +500,5 @@ public class AgendaGenerator {
         }
 
     }
-	 */
+     */
 }

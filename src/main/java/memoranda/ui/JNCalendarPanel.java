@@ -239,13 +239,18 @@ public class JNCalendarPanel extends JPanel {
     }
 
     private void notifyListeners() {
-        for (Enumeration en = selectionListeners.elements(); en.hasMoreElements(); )
+        for (Enumeration en = selectionListeners.elements(); en.hasMoreElements(); ) {
             ((ActionListener) en.nextElement()).actionPerformed(new ActionEvent(this, 0, "Calendar event"));
+        }
     }
 
     private void setCurrentDateDay(CalendarDate dt, int d) {
-        if (ignoreChange) return;
-        if (_date.equals(dt)) return;
+        if (ignoreChange) {
+            return;
+        }
+        if (_date.equals(dt)) {
+            return;
+        }
         _date = new CalendarDate(d, _date.getMonth(), _date.getYear());
         notifyListeners();
     }
@@ -259,14 +264,18 @@ public class JNCalendarPanel extends JPanel {
     }
 
     void monthsCB_actionPerformed(ActionEvent e) {
-        if (ignoreChange) return;
+        if (ignoreChange) {
+            return;
+        }
         _date = new CalendarDate(_date.getDay(), monthsCB.getSelectedIndex(), _date.getYear());
         jnCalendar.set(_date);
         notifyListeners();
     }
 
     void yearSpin_actionPerformed() {
-        if (ignoreChange) return;
+        if (ignoreChange) {
+            return;
+        }
         _date = new CalendarDate(_date.getDay(), _date.getMonth(), ((Integer) yearSpin.getValue()).intValue());
         jnCalendar.set(_date);
         notifyListeners();

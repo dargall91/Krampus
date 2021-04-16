@@ -43,10 +43,11 @@ public class CalendarDate {
         cal.set(Calendar.MONTH, _month);
         cal.getTime();
         int dmax = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        if (day <= dmax)
+        if (day <= dmax) {
             _day = day;
-        else
+        } else {
             _day = dmax;
+        }
 
     }
 
@@ -136,17 +137,23 @@ public class CalendarDate {
     }
 
     public boolean equals(CalendarDate date) {
-        if (date == null) return false;
+        if (date == null) {
+            return false;
+        }
         return ((date.getDay() == getDay()) && (date.getMonth() == getMonth()) && (date.getYear() == getYear()));
     }
 
     public boolean before(CalendarDate date) {
-        if (date == null) return true;
+        if (date == null) {
+            return true;
+        }
         return this.getCalendar().before(date.getCalendar());
     }
 
     public boolean after(CalendarDate date) {
-        if (date == null) return true;
+        if (date == null) {
+            return true;
+        }
         return this.getCalendar().after(date.getCalendar());
     }
 

@@ -56,8 +56,9 @@ public class CurrentProject {
             // alexeya: Fixed bug with NullPointer when LAST_OPENED_PROJECT_ID
             // references to missing project
             _project = ProjectManager.getProject("__default");
-            if (_project == null)
+            if (_project == null) {
                 _project = (Project) ProjectManager.getActiveProjects().get(0);
+            }
             Context.put("LAST_OPENED_PROJECT_ID", _project.getID());
 
         }
@@ -146,7 +147,9 @@ public class CurrentProject {
 
 
     public static void set(Project project) {
-        if (project.getID().equals(_project.getID())) return;
+        if (project.getID().equals(_project.getID())) {
+            return;
+        }
         try {
             db = Database.getDatabase(project);
         } catch (InterruptedException e) {

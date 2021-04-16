@@ -198,8 +198,9 @@ public class EventDialog extends JDialog implements WindowListener {
         repeatPanel.add(lblSince, gbc);
         startDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                if (ignoreStartChanged)
+                if (ignoreStartChanged) {
                     return;
+                }
                 ignoreStartChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 Date ed = (Date) endDate.getModel().getValue();
@@ -284,8 +285,9 @@ public class EventDialog extends JDialog implements WindowListener {
         //---------------------------------------------------
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                if (ignoreEndChanged)
+                if (ignoreEndChanged) {
                     return;
+                }
                 ignoreEndChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 Date ed = (Date) endDate.getModel().getValue();
@@ -412,14 +414,17 @@ public class EventDialog extends JDialog implements WindowListener {
         // Do final things...
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ignoreStartChanged) return;
+                if (ignoreStartChanged) {
+                    return;
+                }
                 startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
             }
         });
         endCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ignoreEndChanged)
+                if (ignoreEndChanged) {
                     return;
+                }
                 endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
             }
         });

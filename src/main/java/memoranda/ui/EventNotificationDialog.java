@@ -102,8 +102,9 @@ public class EventNotificationDialog extends JFrame {
     }
 
     private void playSoundNotification() {
-        if (Configuration.get("NOTIFY_SOUND").equals("DISABLED"))
+        if (Configuration.get("NOTIFY_SOUND").equals("DISABLED")) {
             return;
+        }
         if (Configuration.get("NOTIFY_SOUND").equals("BEEP")) {
             java.awt.Toolkit.getDefaultToolkit().beep();
             return;
@@ -113,11 +114,11 @@ public class EventNotificationDialog extends JFrame {
             Configuration.saveConfig();
         }
         URL url;
-        if (Configuration.get("NOTIFY_SOUND").equals("DEFAULT"))
+        if (Configuration.get("NOTIFY_SOUND").equals("DEFAULT")) {
             url =
                     EventNotificationDialog.class.getResource(
                             "/ui/beep.wav");
-        else
+        } else {
             try {
                 url =
                         new File(Configuration.get("NOTIFY_SOUND").toString())
@@ -127,6 +128,7 @@ public class EventNotificationDialog extends JFrame {
                         EventNotificationDialog.class.getResource(
                                 "/ui/beep.wav");
             }
+        }
         try {
             AudioClip clip = Applet.newAudioClip(url);
             clip.play();

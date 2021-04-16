@@ -167,7 +167,7 @@ public class DriverTourDialogTable extends JTable {
             }
             
             /*if (col == 4) {
-            	return tour.get(row).getDate();
+                return tour.get(row).getDate();
             }*/
 
             return null;

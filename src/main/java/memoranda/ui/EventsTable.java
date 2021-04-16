@@ -77,8 +77,9 @@ public class EventsTable extends JTable {
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Event ev = (Event) getModel().getValueAt(row, EVENT);
                 comp.setForeground(java.awt.Color.gray);
-                if (ev.isRepeatable())
+                if (ev.isRepeatable()) {
                     comp.setFont(comp.getFont().deriveFont(Font.ITALIC));
+                }
                 if (CurrentDate.get().after(CalendarDate.today())) {
                     comp.setForeground(java.awt.Color.black);
                 } else if (CurrentDate.get().equals(CalendarDate.today())) {
@@ -123,13 +124,16 @@ public class EventsTable extends JTable {
         public Object getValueAt(int row, int col) {
             Event ev = (Event) events.get(row);
             if (col == 0)
-                //return ev.getHour()+":"+ev.getMinute();
+            //return ev.getHour()+":"+ev.getMinute();
+            {
                 return ev.getTimeString();
-            else if (col == 1)
+            } else if (col == 1) {
                 return ev.getText();
-            else if (col == EVENT_ID)
+            } else if (col == EVENT_ID) {
                 return ev.getId();
-            else return ev;
+            } else {
+                return ev;
+            }
         }
 
         public String getColumnName(int col) {

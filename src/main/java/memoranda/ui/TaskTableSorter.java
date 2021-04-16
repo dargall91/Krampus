@@ -25,9 +25,15 @@ public class TaskTableSorter extends TaskTableModel {
 
     Comparator comparator = new Comparator() {
         public int compare(Object o1, Object o2) {
-            if (sorting_column == -1) return 0;
-            if ((o1 instanceof Task) == false) return 0;
-            if ((o2 instanceof Task) == false) return 0;
+            if (sorting_column == -1) {
+                return 0;
+            }
+            if ((o1 instanceof Task) == false) {
+                return 0;
+            }
+            if ((o2 instanceof Task) == false) {
+                return 0;
+            }
 
 
             Task task1 = (Task) o1;
@@ -64,12 +70,18 @@ public class TaskTableSorter extends TaskTableModel {
         Collection c = null;
 
         if (parent instanceof Project) {
-            if (activeOnly()) c = CurrentProject.getTaskList().getActiveSubTasks(null, CurrentDate.get());
-            else c = CurrentProject.getTaskList().getTopLevelTasks();
+            if (activeOnly()) {
+                c = CurrentProject.getTaskList().getActiveSubTasks(null, CurrentDate.get());
+            } else {
+                c = CurrentProject.getTaskList().getTopLevelTasks();
+            }
         } else {
             Task t = (Task) parent;
-            if (activeOnly()) c = CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get());
-            else c = t.getSubTasks();
+            if (activeOnly()) {
+                c = CurrentProject.getTaskList().getActiveSubTasks(t.getID(), CurrentDate.get());
+            } else {
+                c = t.getSubTasks();
+            }
         }
 
         Object array[] = c.toArray();
@@ -92,10 +104,15 @@ public class TaskTableSorter extends TaskTableModel {
 
                 // 0 == priority icon column
                 // 4 == priority text column
-                if (column == 0) sorting_column = 4;
+                if (column == 0) {
+                    sorting_column = 4;
+                }
 
-                if (e.isControlDown()) sorting_column = -1;
-                else opposite = !opposite;
+                if (e.isControlDown()) {
+                    sorting_column = -1;
+                } else {
+                    opposite = !opposite;
+                }
 
                 TaskTable treetable = ((TaskTable) h.getTable());
 
@@ -125,7 +142,9 @@ public class TaskTableSorter extends TaskTableModel {
             if (column == sorting_column) {
                 c.setFont(c.getFont().deriveFont(Font.BOLD));
                 //c.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));
-            } else c.setFont(c.getFont().deriveFont(Font.PLAIN));
+            } else {
+                c.setFont(c.getFont().deriveFont(Font.PLAIN));
+            }
             return c;
         }
     }
