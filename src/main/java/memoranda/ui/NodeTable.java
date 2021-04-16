@@ -32,7 +32,9 @@ public class NodeTable extends JTable {
     }
 
     private void initTable() {
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        //todo NPE
+        route = (Route) CurrentProject.getRouteColl().getRoutes().toArray()
+                [(routeTable.getSelectedRow() != -1) ? routeTable.getSelectedRow() : 0];
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
         updateUI();
@@ -85,7 +87,8 @@ public class NodeTable extends JTable {
          */
         @Override
         public int getRowCount() {
-            return (route.getRoute().size() != 0) ? route.getRoute().size() : 1;
+            //todo NPE
+            return (route != null && route.getRoute().size() != 0) ? route.getRoute().size() : 1;
         }
 
 
@@ -109,6 +112,7 @@ public class NodeTable extends JTable {
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
+            //todo NPE
             Node n = route.getRoute().get(rowIndex);
 
             if (columnIndex == 0) {

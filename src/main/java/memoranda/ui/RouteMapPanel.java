@@ -30,11 +30,14 @@ public class RouteMapPanel extends JPanel {
     private final int BUTTON_WIDTH = 150;
 
     private BorderLayout borderLayout1 = new BorderLayout();
+    private BorderLayout borderLayout2 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
     private RouteMap map = new RouteMap();
     private JScrollPane scrollPane = new JScrollPane();
     private RouteTable routeTable = new RouteTable();
     private JScrollPane rScrollPane = new JScrollPane();
+    private NodeTable nodeTable = new NodeTable(routeTable);
+    private JScrollPane nScrollPane = new JScrollPane();
 
     private JButton newRouteB = new JButton();
     private JButton removeRouteB = new JButton();
@@ -160,6 +163,12 @@ public class RouteMapPanel extends JPanel {
         rScrollPane.getViewport().setBackground(Color.lightGray);
         rScrollPane.getViewport().add(routeTable, null);
 
+        /* Node Table */
+        nodeTable.setMaximumSize(new Dimension(32767, 32767));
+        nodeTable.setRowHeight(24);
+        nScrollPane.getViewport().setBackground(Color.gray);
+        nScrollPane.getViewport().add(nodeTable, null);
+
         toolBar.add(newRouteB, null);
         toolBar.addSeparator();
         toolBar.add(removeRouteB, null);
@@ -180,7 +189,8 @@ public class RouteMapPanel extends JPanel {
         resPPMenu.add(ppRefresh);
 
         scrollPane.getViewport().add(map, null);
-        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.WEST);
+        this.add(nScrollPane, BorderLayout.CENTER);
         this.add(rScrollPane, BorderLayout.EAST);
         this.add(toolBar, BorderLayout.NORTH);
     }
