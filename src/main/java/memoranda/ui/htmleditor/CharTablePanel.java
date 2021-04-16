@@ -1,17 +1,9 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 public class CharTablePanel extends JPanel {
@@ -21,35 +13,34 @@ public class CharTablePanel extends JPanel {
     FlowLayout flowLayout1 = new FlowLayout();
 
     String[] chars =
-            {
-                    "\u00A9",
-                    "\u00AE",
-                    "\u2122",
-                    "\u00AB\u00BB",
-                    "\u201C\u201D",
-                    "\u2018\u2019",
-                    "\u2013",
-                    "\u2014",
-                    "\u2020",
-                    "\u2021",
-                    "\u00A7",
-                    "\u2116",
-                    "\u20AC",
-                    "\u00A2",
-                    "\u00A3",
-                    "\u00A4",
-                    "\u00A5",
-                    "\u00B7",
-                    "\u2022",
-                    "\u25E6",
-                    "\u25AA",
-                    "\u25AB",
-                    "\u25CF",
-                    "\u25CB",
-                    "\u25A0",
-                    "\u25A1",
-                    "\u263A",
-                    "\u00A0"};
+            {"\u00A9",
+             "\u00AE",
+             "\u2122",
+             "\u00AB\u00BB",
+             "\u201C\u201D",
+             "\u2018\u2019",
+             "\u2013",
+             "\u2014",
+             "\u2020",
+             "\u2021",
+             "\u00A7",
+             "\u2116",
+             "\u20AC",
+             "\u00A2",
+             "\u00A3",
+             "\u00A4",
+             "\u00A5",
+             "\u00B7",
+             "\u2022",
+             "\u25E6",
+             "\u25AA",
+             "\u25AB",
+             "\u25CF",
+             "\u25CB",
+             "\u25A0",
+             "\u25A1",
+             "\u263A",
+             "\u00A0"};
 
     Vector buttons = new Vector();
 

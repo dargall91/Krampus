@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  * @version 2021-04-01
  */
 public class Tour extends IndexedObject {
-    public final static int DEFAULT_SPEED = 1;
+    public static final int DEFAULT_SPEED = 1;
 
     private String name;
     private int speed;
