@@ -153,7 +153,8 @@ public class App {
         if (frame == null) {
             return;
         }
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setExtendedState(frame.getExtendedState());
+        frame.pack();
     }
 
     /**
