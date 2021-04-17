@@ -157,6 +157,6 @@ public class ExceptionDialog extends JDialog {
     }
 
     void reportB_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
+        Util.runBrowser(App.getBugsTrackerUrl());
     }
 }
