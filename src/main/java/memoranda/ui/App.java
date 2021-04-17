@@ -19,7 +19,7 @@ import main.java.memoranda.util.Configuration;
 public class App {
     // boolean packFrame = false;
 
-    static AppFrame frame = null;
+    private static AppFrame frame = null;
 
     public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
     public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
@@ -78,7 +78,9 @@ public class App {
             }
 
         } catch (Exception e) {
-            new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
+            new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. " 
+                    + "Default LF will be used.", "Make sure that specified look-and-feel library "
+                    + "classes are on the CLASSPATH.");
         }
         if (Configuration.get("FIRST_DAY_OF_WEEK").equals("")) {
             String fdow;
@@ -121,13 +123,10 @@ public class App {
          */
         /* Used to maximize the screen if the JVM Version if 1.4 or higher */
         /* --------------------------------------------------------------- */
-        double JVMVer =
-                Double
-                        .valueOf(System.getProperty("java.version").substring(0, 3))
-                        .doubleValue();
+        double jvmver = Double.parseDouble(System.getProperty("java.version").substring(0, 3));
 
         frame.pack();
-        if (JVMVer >= 1.4) {
+        if (jvmver >= 1.4) {
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         } else {
             frame.setExtendedState(Frame.NORMAL);
@@ -142,17 +141,25 @@ public class App {
 
     }
 
+    /**
+     * Iconifies the application window when clicking the minimize button.
+     */
     public static void closeWindow() {
         if (frame == null) {
             return;
         }
+        
         frame.setExtendedState(JFrame.ICONIFIED);
     }
 
+    /**
+     * Defines what state the application window will take when the window is opened.
+     */
     public static void openWindow() {
         if (frame == null) {
             return;
         }
+        
         frame.setExtendedState(frame.getExtendedState());
         frame.pack();
     }
