@@ -160,8 +160,7 @@ public class App {
             return;
         }
         
-        frame.setExtendedState(frame.getExtendedState());
-        frame.pack();
+        frame.setExtendedState(Frame.NORMAL);
     }
 
     /**
