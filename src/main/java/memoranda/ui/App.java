@@ -19,11 +19,11 @@ import main.java.memoranda.util.Configuration;
 public class App {
     // boolean packFrame = false;
 
-    static AppFrame frame = null;
+    private static AppFrame frame = null;
 
-    public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
-    public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
-    public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+    private static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
+    private static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
+    private static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
 
     private JFrame splash = null;
 
@@ -32,8 +32,8 @@ public class App {
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-    public static final String VERSION_INFO = "@VERSION@";
-    public static final String BUILD_INFO = "@BUILD@";
+    private static final String VERSION_INFO = "@VERSION@";
+    private static final String BUILD_INFO = "@BUILD@";
 
     /*========================================================================*/
 
@@ -78,7 +78,9 @@ public class App {
             }
 
         } catch (Exception e) {
-            new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
+            new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. " 
+                    + "Default LF will be used.", "Make sure that specified look-and-feel library "
+                    + "classes are on the CLASSPATH.");
         }
         if (Configuration.get("FIRST_DAY_OF_WEEK").equals("")) {
             String fdow;
@@ -121,13 +123,10 @@ public class App {
          */
         /* Used to maximize the screen if the JVM Version if 1.4 or higher */
         /* --------------------------------------------------------------- */
-        double JVMVer =
-                Double
-                        .valueOf(System.getProperty("java.version").substring(0, 3))
-                        .doubleValue();
+        double jvmver = Double.parseDouble(System.getProperty("java.version").substring(0, 3));
 
         frame.pack();
-        if (JVMVer >= 1.4) {
+        if (jvmver >= 1.4) {
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         } else {
             frame.setExtendedState(Frame.NORMAL);
@@ -142,18 +141,26 @@ public class App {
 
     }
 
+    /**
+     * Iconifies the application window when clicking the minimize button.
+     */
     public static void closeWindow() {
         if (frame == null) {
             return;
         }
+        
         frame.setExtendedState(JFrame.ICONIFIED);
     }
 
+    /**
+     * Defines what state the application window will take when the window is opened.
+     */
     public static void openWindow() {
         if (frame == null) {
             return;
         }
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        frame.setExtendedState(Frame.NORMAL);
     }
 
     /**
@@ -176,5 +183,50 @@ public class App {
                 (screenSize.height - 450) / 2);
         splash.setUndecorated(true);
         splash.setVisible(true);
+    }
+    
+    /**
+     * Gets the Guide URL String.
+     * 
+     * @return The Guide URL
+     */
+    public static String getGuideUrl() {
+        return GUIDE_URL;
+    }
+    
+    /**
+     * Gets the Bug Tracker URL.
+     * 
+     * @return The Bug Tracker URL
+     */
+    public static String getBugsTrackerUrl() {
+        return BUGS_TRACKER_URL;
+    }
+    
+    /**
+     * Gets the Website URL.
+     * 
+     * @return The Website URL
+     */
+    public static String getWebsiteUrl() {
+        return WEBSITE_URL;
+    }
+    
+    /**
+     * Gets the Version Number.
+     * 
+     * @return The Version Number
+     */
+    public static String getVersionInfo() {
+        return VERSION_INFO;
+    }
+    
+    /**
+     * Gets the Build Number.
+     * 
+     * @return The Build Number
+     */
+    public static String getBuildInfo() {
+        return BUILD_INFO;
     }
 }

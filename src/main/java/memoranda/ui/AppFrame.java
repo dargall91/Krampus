@@ -264,8 +264,8 @@ public class AppFrame extends JFrame {
         //this.setSize(new Dimension(800, 500));
         this.setTitle("Memoranda - " + CurrentProject.get().getTitle());
         //Added a space to App.VERSION_INFO to make it look some nicer
-        statusBar.setText(" Version:" + App.VERSION_INFO + " (Build "
-                + App.BUILD_INFO + " )");
+        statusBar.setText(" Version:" + App.getVersionInfo() + " (Build "
+                + App.getBuildInfo() + " )");
 
         jMenuFile.setText(Local.getString("File"));
         jMenuFileExit.setText(Local.getString("Exit"));
@@ -632,15 +632,15 @@ public class AppFrame extends JFrame {
     }
 
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
+        Util.runBrowser(App.getBugsTrackerUrl());
     }
 
     protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.WEBSITE_URL);
+        Util.runBrowser(App.getWebsiteUrl());
     }
 
     protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.GUIDE_URL);
+        Util.runBrowser(App.getGuideUrl());
     }
 
     //File | Exit action performed
@@ -697,11 +697,7 @@ public class AppFrame extends JFrame {
             super.processWindowEvent(new WindowEvent(this,
                     WindowEvent.WINDOW_ICONIFIED));
             doMinimize();
-        } else if ((e.getID() == WindowEvent.WINDOW_ACTIVATED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_ICONIFIED));
-            doMaximize();
-        } else {
+        }  else {
             super.processWindowEvent(e);
         }
     }
