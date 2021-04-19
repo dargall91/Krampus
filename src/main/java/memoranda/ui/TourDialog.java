@@ -14,9 +14,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -48,7 +50,7 @@ import main.java.memoranda.util.Local;
  * Referenced DriverTourDialog.java, Author: Derek Argall, Version: 04/05/2021
  */
 public class TourDialog extends JDialog {
-    private boolean cancelled;
+    private boolean cancelled = true;;
     private JPanel topPanel = new JPanel(new BorderLayout());
     private JPanel bottomPanel = new JPanel(new BorderLayout());
     private JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -64,9 +66,9 @@ public class TourDialog extends JDialog {
     private JButton cancelB = new JButton();
     private Date tourDate;
     private RouteColl routes;
-    private BusColl busses;
+    private BusColl buses;
     private JComboBox<Route> routeCB = new JComboBox<Route>();
-    private JComboBox<Bus> busCB = new JComboBox<Bus>();
+    private JComboBox<String > busCB = new JComboBox<String>();
     private int error = 0;
     private final int ERROR_VALUE = 1;
 
@@ -108,9 +110,9 @@ public class TourDialog extends JDialog {
         }
         
         routeCB.setRenderer(new RouteListCellRenderer());
-        busses = CurrentProject.getBusColl();
+        buses = CurrentProject.getBusColl();
         
-        if (busses.size() < 1) {
+        if (buses.size() < 1) {
             int result = JOptionPane.showConfirmDialog(null, "No Buses In System", "Need Bus", JOptionPane.OK_CANCEL_OPTION);
             
             if (result == JOptionPane.OK_OPTION) {
@@ -122,10 +124,12 @@ public class TourDialog extends JDialog {
             }
         }
         
-        Iterator<Bus> busIter = busses.iterator();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        Iterator<Bus> busIter = buses.iterator();
         
         while (busIter.hasNext()) {
-            busCB.addItem(busIter.next());
+            busCB.addItem("No. " + busIter.next().getNumber());
         }
 
 
@@ -307,7 +311,7 @@ public class TourDialog extends JDialog {
      * @return bus
      */
     public Bus getBus() {
-        return (Bus) busCB.getSelectedItem();
+        return buses.getBuses().toArray(new Bus[buses.size()])[busCB.getSelectedIndex()];
     }
 
     /**
