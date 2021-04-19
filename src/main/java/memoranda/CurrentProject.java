@@ -210,6 +210,9 @@ public class CurrentProject {
         }
     }
 
+    /**
+     * Saves all the Database's collections
+     */
     public static void save() {
         Storage storage = CurrentStorage.get();
 

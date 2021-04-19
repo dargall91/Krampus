@@ -189,6 +189,7 @@ public class Route extends IndexedObject {
      * 
      * @return The list of Tours
      */
+    @JsonIgnore
     public ArrayList<Tour> getTours() {
         return tours;
     }

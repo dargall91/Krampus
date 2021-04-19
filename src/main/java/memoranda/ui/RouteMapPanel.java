@@ -190,7 +190,11 @@ public class RouteMapPanel extends JPanel {
         this.add(toolBar, BorderLayout.NORTH);
     }
 
-
+    /**
+     * Event handler for the "Remove Route" button.
+     *
+     * @param e action event
+     */
     private void removeRouteB_actionPerformed(ActionEvent e) {
         Route route = routeTable.getRoute();
         
@@ -204,19 +208,20 @@ public class RouteMapPanel extends JPanel {
                 //tours that don't exist.
                 ArrayList<Tour> tours = route.getTours();
 
-                for (Tour t : tours) {
-                    if (t.getDriver() != null) {
-                        t.getDriver().delTour(t);
+                for (int i = 0; i < tours.size(); i++) {
+                    if (tours.get(i).getDriver() != null) {
+                        tours.get(i).getDriver().delTour(tours.get(i));
                     }
                     
-                    if (t.getBus() != null) {
-                        t.getBus().delTour(t);
+                    if (tours.get(i).getBus() != null) {
+                        tours.get(i).getBus().delTour(tours.get(i));
                     }
                     
-                    CurrentProject.getTourColl().del(t.getID());
+                    CurrentProject.getTourColl().del(tours.get(i).getID());
                 }
                 
                 CurrentProject.getRouteColl().del(route.getID());
+                CurrentProject.save();
                 routeTable.refresh();
                 parentPanel.refresh();
             }
