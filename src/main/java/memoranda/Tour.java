@@ -135,6 +135,7 @@ public class Tour extends IndexedObject {
      */
     public void setRoute(Route route) {
         this.route = route;
+        route.addTour(this);
     }
 
 
@@ -254,6 +255,22 @@ public class Tour extends IndexedObject {
         } else {
             throw new UnsupportedOperationException("Cannot unilaterally remove driver. " +
                     "Call driver.delTour()");
+        }
+
+    }
+    
+    /**
+     * Delete driver associated with this tour.
+     *
+     * @param driver driver to delete
+     * @throws UnsupportedOperationException if an invalid driver is passed to the method.
+     */
+    public void delRoute(Route route) throws UnsupportedOperationException {
+        if (this.route.equals(route)) {
+            this.route = null;
+        } else {
+            throw new UnsupportedOperationException("Cannot unilaterally remove route. " +
+                    "Call route.delTour()");
         }
 
     }

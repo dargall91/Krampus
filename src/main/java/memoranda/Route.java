@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class Route extends IndexedObject {
     private String name;
     private LinkedList<Node> route;
+    private ArrayList<Tour> tours;
 
 
     /**
@@ -27,6 +29,7 @@ public class Route extends IndexedObject {
     public Route(int id) {
         super(id);
         route = new LinkedList<>();
+        tours = new ArrayList<>();
     }
 
 
@@ -171,8 +174,25 @@ public class Route extends IndexedObject {
     public LinkedList<Node> getRoute() {
         return route;
     }
-
-
+    
+    /**
+     * Adds a Tour to this Route.
+     * 
+     * @param tour The Tour to add
+     */
+    public void addTour(Tour tour) {
+        tours.add(tour);
+    }
+    
+    /**
+     * Gets the list of Tours associated with this Route.
+     * 
+     * @return The list of Tours
+     */
+    public ArrayList<Tour> getTours() {
+        return tours;
+    }
+    
     /**
      * Returns an ordered list of only the IDs of the nodes in this route for json serialization.
      *

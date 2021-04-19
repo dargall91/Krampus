@@ -35,6 +35,10 @@ public class RouteTable extends JTable {
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
         updateUI();
+        
+        if (routes.size() > 0) {
+            setRowSelectionInterval(0, 0);
+        }
     }
 
 
@@ -141,7 +145,11 @@ public class RouteTable extends JTable {
      * @return The selected Route
      */
     public Route getRoute() {
-        return null;
+        if (getSelectedRow() < 0) {
+            return null;
+        }
+        
+        return routes.getRoutes().toArray(new Route[routes.size()])[getSelectedRow()];
     }
 
 }
