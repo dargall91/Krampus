@@ -103,7 +103,6 @@ public class TourPanel extends JPanel {
             }
         });
 
-
         scrollPane.getViewport().setBackground(Color.white);
         tourTable.setMaximumSize(new Dimension(32767, 32767));
         tourTable.setRowHeight(24);
@@ -115,14 +114,12 @@ public class TourPanel extends JPanel {
             }
         });
 
-
         ppRemoveTour.setText("Remove Tour");
         ppRemoveTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppRemoveTour_actionPerformed(e);
             }
         });
-
 
         ppNewTour.setText("New Tour");
         ppNewTour.addActionListener(new java.awt.event.ActionListener() {
@@ -166,10 +163,7 @@ public class TourPanel extends JPanel {
         tourMenu.add(ppEditTour);
         tourMenu.addSeparator();
         tourMenu.add(ppRemoveTour);
-
-
     }
-
 
     /**
      * Attempts to create new tour when new tour action is performed.

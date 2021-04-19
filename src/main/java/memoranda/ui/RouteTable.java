@@ -4,6 +4,7 @@ import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JTable;
@@ -64,7 +65,11 @@ public class RouteTable extends JTable {
                     int column) {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                comp.setForeground(java.awt.Color.gray);
+                
+                if (((row % 2) > 0) && (!isSelected)) {
+                    comp.setBackground(new Color(230, 240, 255));
+                }
+                
                 return comp;
             }
         };

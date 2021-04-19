@@ -63,8 +63,12 @@ public class TourDialog extends JDialog {
     private JPanel tourPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints gbc;
     private JLabel lblTime = new JLabel();
-    private JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
-    private JLabel lblText = new JLabel();
+    private JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null,
+            Calendar.MINUTE));
+    private JLabel tourLabel;
+    private JLabel routeLabel;
+    private JLabel busLabel;
+    private JLabel driverLabel;
     private JTextField nameField = new JTextField();
     private JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
     private JButton okB = new JButton();
@@ -197,16 +201,16 @@ public class TourDialog extends JDialog {
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
         tourPanel.add(timeSpin, gbc);
-
-        lblText.setText(Local.getString("Tour Name"));
-        lblText.setMinimumSize(new Dimension(120, 24));
+        
+        tourLabel = new JLabel("Tour Name:");
+        tourLabel.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
-        tourPanel.add(lblText, gbc);
+        tourPanel.add(tourLabel, gbc);
 
         nameField.setMinimumSize(new Dimension(375, 24));
         nameField.setPreferredSize(new Dimension(375, 24));
@@ -218,18 +222,18 @@ public class TourDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(nameField, gbc);
-
-        routeCB.setPreferredSize(new Dimension(100, 25));
+        
+        routeLabel = new JLabel("Route Name:");
+        routeLabel.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 6;
-        gbc.insets = new Insets(5, 10, 10, 10);
+        gbc.gridwidth = 3;
+        gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        tourPanel.add(routeCB, gbc);
-
-        busCB.setPreferredSize(new Dimension(100, 25));
+        tourPanel.add(routeLabel, gbc);
+        
+        routeCB.setPreferredSize(new Dimension(100, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -237,13 +241,43 @@ public class TourDialog extends JDialog {
         gbc.insets = new Insets(5, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        tourPanel.add(routeCB, gbc);
+        
+        busLabel = new JLabel("Bus Number:");
+        busLabel.setMinimumSize(new Dimension(120, 24));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 3;
+        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        tourPanel.add(busLabel, gbc);
+
+        busCB.setPreferredSize(new Dimension(100, 25));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 6;
+        gbc.insets = new Insets(5, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(busCB, gbc);
         
         if (tour != null && tour.getDriver() != null) {
+            driverLabel = new JLabel("Driver:");
+            driverLabel.setMinimumSize(new Dimension(120, 24));
+            gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = 7;
+            gbc.gridwidth = 3;
+            gbc.insets = new Insets(5, 10, 5, 10);
+            gbc.anchor = GridBagConstraints.WEST;
+            tourPanel.add(driverLabel, gbc);
+            
             driverCB.setPreferredSize(new Dimension(100, 25));
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
-            gbc.gridy = 5;
+            gbc.gridy = 8;
             gbc.gridwidth = 6;
             gbc.insets = new Insets(5, 10, 10, 10);
             gbc.anchor = GridBagConstraints.WEST;

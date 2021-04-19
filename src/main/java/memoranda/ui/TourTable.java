@@ -1,5 +1,6 @@
 package main.java.memoranda.ui;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JTable;
@@ -66,7 +67,9 @@ public class TourTable extends JTable {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-                comp.setForeground(java.awt.Color.gray);
+                if (((row % 2) > 0) && (!isSelected)) {
+                    comp.setBackground(new Color(230, 240, 255));
+                }
 
                 return comp;
             }
