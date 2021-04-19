@@ -29,15 +29,15 @@ public class BusDialog extends JDialog {
     private boolean cancelled;
     private JPanel errorPanel;
     private JTextField numberField;
-    private final Dimension BUTTON_SIZE = new Dimension(100, 25);
-    private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
-    private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+    private static final Dimension BUTTON_SIZE = new Dimension(100, 25);
+    private static final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
+    private static final Dimension VERTICAL_GAP = new Dimension(0, 5);
     private static final int FIELD_WIDTH = 5;
     private static final int NO_NUMBER = -1;
 
     /**
      * Creates a JDialog window that allows the user to add a new Bus to the system
-     * or edit an existing one
+     * or edit an existing one.
      *
      * @param frame         The main application Frame
      * @param title         The title for this JDialog
@@ -155,7 +155,7 @@ public class BusDialog extends JDialog {
     }
 
     /**
-     * Checks if this JDialog was exited via the cancel button or not
+     * Checks if this JDialog was exited via the cancel button or not.
      *
      * @return True if exited via Cancel button, false if not
      */
@@ -164,7 +164,7 @@ public class BusDialog extends JDialog {
     }
 
     /**
-     * New Bus number getter
+     * New Bus number getter.
      *
      * @return The bus's number, or -1 if no number is entered
      */
@@ -177,7 +177,7 @@ public class BusDialog extends JDialog {
     }
 
     /**
-     * Sets the bus number field when editing a Bus
+     * Sets the bus number field when editing a Bus.
      *
      * @param number The bus's number
      */

@@ -421,30 +421,6 @@ public class DailyItemsPanel extends JPanel {
             calendar.jnCalendar.renderer.setTask(null);
             //   calendar.jnCalendar.updateUI();
         }
-        
-        /*
-        if (pan.equals("TASKS") && (taskPanel.taskTable.getSelectedRow() > -1)) {
-            Task t =
-                CurrentProject.getTaskList().getTask(
-                    tasksPanel
-                        .taskTable
-                        .getModel()
-                        .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
-                        .toString());
-            calendar.jnCalendar.renderer.setTask(t);
-       //     calendar.jnCalendar.updateUI();
-        }*/
-        //TODO: (Derek) This method to have been relevant for the calendar system, but not for the Bus system
-        //Test what happens if it's removed after completing US7
-        boolean isAg = pan.equals("DRIVERS");
-        driverPanel.setActive(isAg);
-
-        //TODO: (Derek) Found where DriverPanel.refresh is called (I missed it the first time because all changes
-        //were made via the Refactor function). But does it actually do anything relevant to the new 
-        //bus scheduling system? It does not appear so, but will be tested sometime after US7 is completed
-        if (isAg) {
-            driverPanel.refresh(CurrentDate.get());
-        }
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
         calendar.jnCalendar.updateUI();

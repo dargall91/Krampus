@@ -198,30 +198,6 @@ public class DriverPanel extends JSplitPane {
 
     /**
      * Refreshes this panel
-     * <p>
-     * TODO: Is CalendarDate needed? What did it do before? Only usage commented out in original code.
-     * Does this method even do anything, or did it only refresh something related to the Calendar system?
-     *
-     * @param date
-     */
-    public void refresh(CalendarDate date) {
-        //viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (gotoTask != null) {
-                    //viewer.scrollToReference(gotoTask);
-                    //scrollPane.setViewportView(viewer);
-                    Util.debug("Set view port to " + gotoTask);
-                }
-            }
-        });
-
-        Util.debug("Summary updated.");
-    }
-
-    /**
-     * Secondary refresh, since I'm still certain the first one does nothing, but haven't tested it
-     * Refreshes the UI
      */
     public void refresh() {
         driverTable.tableChanged();

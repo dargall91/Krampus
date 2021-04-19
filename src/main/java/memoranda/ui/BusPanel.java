@@ -15,17 +15,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
 
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.Util;
 
 /**
- * A JPanel that provides the interface for a user to add, edit, and delete buses from the system, as well as schedule tours for a bus
+ * A JPanel that provides the interface for a user to add, edit, and delete buses from the system,
+ * as well as schedule tours for a bus.
  *
  * @author Derek Argall
  * @version 04/09/2020
@@ -36,13 +34,11 @@ public class BusPanel extends JSplitPane {
     private DailyItemsPanel parentPanel;
     private BusColl buses;
     private String gotoTask;
-    private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+    private static final Dimension VERTICAL_GAP = new Dimension(0, 5);
     private static final int LABEL_SIZE = 25;
 
     /**
-     * Constructor for the BusPanel
-     * <p>
-     * Creates a JPanel which houses the the information about the Bus Schedule
+     * Constructor for the BusPanel.
      *
      * @param parentPanel The DailyItemsPanel which will house this panel
      */
@@ -143,7 +139,9 @@ public class BusPanel extends JSplitPane {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (scheduleTable.getBus() == null) {
-                    JOptionPane.showMessageDialog(null, "Cannot Schedule Tour: No Bus Selected", "Error", JOptionPane.OK_OPTION, new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
+                    JOptionPane.showMessageDialog(null, "Cannot Schedule Tour: No Bus Selected",
+                            "Error", JOptionPane.OK_OPTION,
+                            new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
                             "/ui/icons/error.png")));
                 } else {
                     BusTourDialog dlg = new BusTourDialog(App.getFrame(), scheduleTable.getBus().getNumber());
@@ -193,31 +191,7 @@ public class BusPanel extends JSplitPane {
     }
 
     /**
-     * Refreshes this panel
-     * <p>
-     * TODO: Is CalendarDate needed? What did it do before? Only usage commented out in original code.
-     * Does this method even do anything, or did it only refresh something related to the Calendar system?
-     *
-     * @param date
-     */
-    public void refresh(CalendarDate date) {
-        //viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (gotoTask != null) {
-                    //viewer.scrollToReference(gotoTask);
-                    //scrollPane.setViewportView(viewer);
-                    Util.debug("Set view port to " + gotoTask);
-                }
-            }
-        });
-
-        Util.debug("Summary updated.");
-    }
-
-    /**
-     * Secondary refresh, since I'm still certain the first one does nothing, but haven't tested it
-     * Refreshes the UI
+     * Refreshes the Panel.
      */
     public void refresh() {
         busTable.tableChanged();
@@ -225,7 +199,7 @@ public class BusPanel extends JSplitPane {
     }
 
     /**
-     * Gets the BusScheduleTable used to display a Bus's schedule
+     * Gets the BusScheduleTable used to display a Bus's schedule.
      *
      * @return The BusScheduleTable
      */

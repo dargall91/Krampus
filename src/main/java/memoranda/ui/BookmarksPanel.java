@@ -4,8 +4,9 @@
  * Package: net.sf.memoranda.ui
  *
  * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
+
 package main.java.memoranda.ui;
 
 import java.awt.BorderLayout;
@@ -31,9 +32,5 @@ public class BookmarksPanel extends JPanel {
         this.setLayout(borderLayout1);
         this.add(scrollPane, BorderLayout.CENTER);
         scrollPane.getViewport().add(notesList, null);
-
-
     }
-
-
 }
