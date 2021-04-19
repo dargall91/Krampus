@@ -23,6 +23,7 @@ import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.Tour;
 import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 
@@ -176,7 +177,7 @@ public class TourPanel extends JPanel {
      * @param e new tour ActionEvent
      */
     public void newTourB_actionPerformed(ActionEvent e) {
-        TourDialog dlg = new TourDialog(App.getFrame(), "Add Tour");
+        TourDialog dlg = new TourDialog(App.getFrame());
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
 
@@ -215,7 +216,7 @@ public class TourPanel extends JPanel {
      */
     public void editTourB_actionPerformed(ActionEvent e) {
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
-        TourDialog dlg = new TourDialog(App.getFrame(), "Edit Tour");
+        TourDialog dlg = new TourDialog(App.getFrame(), tour);
         dlg.setName(tour.getName());
         dlg.setRoute(tour.getRoute());
         dlg.setTime(tour.getTime());
@@ -235,12 +236,38 @@ public class TourPanel extends JPanel {
             tour.setName(dlg.getName());
             tour.setRoute(dlg.getRoute());
             tour.setTime(dlg.getTime());
-            tour.setBus(dlg.getBus());
+            
+            try {
+                tour.getBus().delTour(tour);
+                dlg.getBus().addTour(tour);
+            } catch (DuplicateKeyException e2) {
+                e2.printStackTrace();
+            }
+            
+            if (dlg.getDriver() != null && tour.getDriver() == null) {
+                try {
+                    dlg.getDriver().addTour(tour);
+                } catch (DuplicateKeyException e1) {
+                    e1.printStackTrace();
+                }
+            } else if (dlg.getDriver() != null && tour.getDriver() != null) {
+                try {
+                    tour.getDriver().delTour(tour);
+                    dlg.getDriver().addTour(tour);
+                } catch (DuplicateKeyException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
             try {
 
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
+                CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
+                CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
                 tourTable.refresh();
+                parentPanel.getDriverScheduleTable().tableChanged();
                 parentPanel.getBusScheduleTable().tableChanged();
+                
             } catch (Exception f) {
                 f.printStackTrace();
             }

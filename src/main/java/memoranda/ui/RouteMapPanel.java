@@ -221,7 +221,11 @@ public class RouteMapPanel extends JPanel {
                 }
                 
                 CurrentProject.getRouteColl().del(route.getID());
-                CurrentProject.save();
+                try {
+                    CurrentStorage.get().storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 routeTable.refresh();
                 parentPanel.refresh();
             }

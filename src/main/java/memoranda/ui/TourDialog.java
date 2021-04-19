@@ -31,8 +31,11 @@ import javax.swing.SpinnerDateModel;
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
+import main.java.memoranda.Tour;
 import main.java.memoranda.util.Local;
 
 
@@ -69,20 +72,39 @@ public class TourDialog extends JDialog {
     private Date tourDate;
     private RouteColl routes;
     private BusColl buses;
+    private DriverColl drivers;
     private JComboBox<Route> routeCB = new JComboBox<Route>();
     private JComboBox<String> busCB = new JComboBox<String>();
+    private JComboBox<String> driverCB = new JComboBox<String>();
     private int error = 0;
     private static final int ERROR_VALUE = 1;
+    private Tour tour;
 
     /**
-     * TourDialog constructor.
+     * TourDialog constructor when creating a new Tour.
      *
      * @param frame frame to display with
-     * @param title dialog title
      */
-    public TourDialog(Frame frame, String title) {
-        super(frame, title, true);
+    public TourDialog(Frame frame) {
+        super(frame, "Add Tour", true);
         try {
+            error = jbInit();
+            pack();
+        } catch (Exception ex) {
+            new ExceptionDialog(ex);
+        }
+
+    }
+    
+    /**
+     * TourDialog constructor when editing an existing Tour.
+     *
+     * @param frame frame to display with
+     */
+    public TourDialog(Frame frame, Tour tour) {
+        super(frame, "Edit Tour", true);
+        try {
+            this.tour = tour;
             error = jbInit();
             pack();
         } catch (Exception ex) {
@@ -108,10 +130,12 @@ public class TourDialog extends JDialog {
             }
         }
         
-        
-        
         for (Route r : routes) {
             routeCB.addItem(r);
+            
+            if (tour != null) {
+                routeCB.setSelectedItem(tour.getRoute());
+            }
         }
         
         routeCB.setRenderer(new RouteListCellRenderer());
@@ -132,8 +156,23 @@ public class TourDialog extends JDialog {
 
         for (Bus b : buses) {
             busCB.addItem("Bus No. " + b.getNumber());
+            
+            if (tour != null) {
+                busCB.setSelectedItem("Bus No. " + tour.getBus().getNumber());
+            }
         }
+        
+        if (tour != null) {
+            drivers = CurrentProject.getDriverColl();
 
+            for (Driver d : drivers) {
+                driverCB.addItem(d.getName());
+            }
+            
+            if (tour.getDriver() != null) {
+                driverCB.setSelectedItem(tour.getDriver().getName());                
+            }
+        }
 
         this.setResizable(false);
         headerPanel.setBackground(Color.WHITE);
@@ -199,6 +238,19 @@ public class TourDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(busCB, gbc);
+        
+        if (tour != null) {
+            driverCB.setPreferredSize(new Dimension(100, 25));
+            gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = 5;
+            gbc.gridwidth = 6;
+            gbc.insets = new Insets(5, 10, 10, 10);
+            gbc.anchor = GridBagConstraints.WEST;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            tourPanel.add(driverCB, gbc);
+        }
+        
 
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
@@ -314,6 +366,15 @@ public class TourDialog extends JDialog {
      */
     public Bus getBus() {
         return buses.getBuses().toArray(new Bus[buses.size()])[busCB.getSelectedIndex()];
+    }
+    
+    /**
+     * Gets the Driver when editing a Tour with a Driver.
+     *
+     * @return the Driver
+     */
+    public Driver getDriver() {
+        return drivers.getDrivers().toArray(new Driver[drivers.size()])[driverCB.getSelectedIndex()];
     }
 
     /**
