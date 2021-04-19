@@ -12,13 +12,14 @@ import main.java.memoranda.TourColl;
 
 
 /**
- * JTable to display current Tours in system
+ * JTable to display current Tours in system.
  *
  * @author John Thurstonson
  * @version 04/10/2021
  * <p>
- * References:
- * Used EventsTable.java as base, v 1.6 2004/10/11 08:48:20 alexeya Exp
+ *      References:
+ *      Used EventsTable.java as base, v 1.6 2004/10/11 08:48:20 alexeya Exp
+ * </p>
  */
 public class TourTable extends JTable {
 
@@ -26,7 +27,7 @@ public class TourTable extends JTable {
     private TourColl tours;
 
     /**
-     * TourTable constructor
+     * TourTable constructor.
      */
     public TourTable() {
         super();
@@ -45,15 +46,13 @@ public class TourTable extends JTable {
     }
 
     /**
-     * Refresh table
+     * Refresh table.
      */
     public void refresh() {
         initTable();
     }
 
-    /**
-     * Setup Cells for Table
-     */
+    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
@@ -77,7 +76,7 @@ public class TourTable extends JTable {
 
 
     /**
-     * Creates tour table
+     * Creates tour table.
      *
      * @author John Thurstonson
      * @version 04/10/2021
@@ -88,35 +87,23 @@ public class TourTable extends JTable {
 
 
         /**
-         * Tour table model constructor
+         * Tour table model constructor.
          */
         public TourTableModel() {
             super();
         }
 
-        /**
-         * Return number of columns in table
-         *
-         * @return int
-         */
+        @Override
         public int getColumnCount() {
             return 4;
         }
 
-        /**
-         * Return number of rows in table
-         *
-         * @return int
-         */
+        @Override
         public int getRowCount() {
             return tours.size();
         }
 
-        /**
-         * Return object in cell
-         *
-         * @return Object
-         */
+        @Override
         public Object getValueAt(int row, int col) {
             Tour tour = tours.getTours().toArray(new Tour[tours.size()])[row];
 
@@ -133,11 +120,7 @@ public class TourTable extends JTable {
             }
         }
 
-        /**
-         * Return name of column
-         *
-         * @return String
-         */
+        @Override
         public String getColumnName(int col) {
             return columnNames[col];
         }

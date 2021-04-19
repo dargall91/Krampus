@@ -32,31 +32,30 @@ import main.java.memoranda.util.Local;
  * @author John Thurstonson
  * @version 04/10/2021
  * <p>
- * References:
- * Used EventsPanel.java as base, v 1.25 2005/02/19 10:06:25 rawsushi Exp
- * Referenced DriverPanel.java, Author: Derek Argall, Version: 04/05/2021
+ *      References:
+ *      Used EventsPanel.java as base, v 1.25 2005/02/19 10:06:25 rawsushi Exp
+ *      Referenced DriverPanel.java, Author: Derek Argall, Version: 04/05/2021
+ * </p>
  */
 public class TourPanel extends JPanel {
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toursToolBar = new JToolBar();
     private JScrollPane scrollPane = new JScrollPane();
     private TourTable tourTable = new TourTable();
-    private JPopupMenu tourPPMenu = new JPopupMenu();
+    private JPopupMenu tourMenu = new JPopupMenu();
     private JMenuItem ppEditTour = new JMenuItem();
     private JMenuItem ppRemoveTour = new JMenuItem();
     private JMenuItem ppNewTour = new JMenuItem();
     private DailyItemsPanel parentPanel = null;
-    //private DriverScheduleTable scheduleTable;
 
     /**
-     * TourPanel Constructor
-     * Creates TourPanel with current tour information
+     * TourPanel Constructor. Creates TourPanel with current tour information.
      *
-     * @param _parentPanel DailyItemsPanel
+     * @param parentPanel DailyItemsPanel
      */
-    public TourPanel(DailyItemsPanel _parentPanel) {
+    public TourPanel(DailyItemsPanel parentPanel) {
         try {
-            parentPanel = _parentPanel;
+            this.parentPanel = parentPanel;
             jbInit();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -161,18 +160,18 @@ public class TourPanel extends JPanel {
 
         ppEditTour.setEnabled(false);
         ppRemoveTour.setEnabled(false);
-        tourPPMenu.add(ppNewTour);
-        tourPPMenu.addSeparator();
-        tourPPMenu.add(ppEditTour);
-        tourPPMenu.addSeparator();
-        tourPPMenu.add(ppRemoveTour);
+        tourMenu.add(ppNewTour);
+        tourMenu.addSeparator();
+        tourMenu.add(ppEditTour);
+        tourMenu.addSeparator();
+        tourMenu.add(ppRemoveTour);
 
 
     }
 
 
     /**
-     * Attempts to create new tour when new tour action is performed
+     * Attempts to create new tour when new tour action is performed.
      *
      * @param e new tour ActionEvent
      */
@@ -210,7 +209,7 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * Allows user to edit tour
+     * Allows user to edit tour.
      *
      * @param e edit tour ActionEvent
      */
@@ -249,15 +248,15 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * Allows user to delete tour
+     * Allows user to delete tour.
      *
      * @param e remove tour ActionEvent
      */
     public void removeTourB_actionPerformed(ActionEvent e) {
         Driver driver;
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
-        int result = JOptionPane.showConfirmDialog(null, "Delete " + tour.getName() +
-                "?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Delete " + tour.getName()
+                + "?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
 
@@ -291,7 +290,7 @@ public class TourPanel extends JPanel {
 
 
     /**
-     * PopupListener for mouse on specific tour
+     * PopupListener for mouse on specific tour.
      *
      * @author John Thurstonson
      * @version 04/10/2021
@@ -299,7 +298,7 @@ public class TourPanel extends JPanel {
     private class PopupListener extends MouseAdapter {
 
         /**
-         * Double click for edit
+         * Double click for edit.
          */
         public void mouseClicked(MouseEvent e) {
             if ((e.getClickCount() == 2) && (tourTable.getSelectedRow() > -1)) {
@@ -308,34 +307,34 @@ public class TourPanel extends JPanel {
         }
 
         /**
-         * Mouse clicked
+         * Mouse clicked.
          */
         public void mousePressed(MouseEvent e) {
             maybeShowPopup(e);
         }
 
         /**
-         * Mouse released
+         * Mouse released.
          */
         public void mouseReleased(MouseEvent e) {
             maybeShowPopup(e);
         }
 
         /**
-         * Shows pop up for add, edit, remove
+         * Shows pop up for add, edit, remove.
          *
          * @param e mouse click
          */
         private void maybeShowPopup(MouseEvent e) {
             if (e.isPopupTrigger()) {
-                tourPPMenu.show(e.getComponent(), e.getX(), e.getY());
+                tourMenu.show(e.getComponent(), e.getX(), e.getY());
             }
         }
 
     }
 
     /**
-     * Edit tour selected
+     * Edit tour selected.
      *
      * @param e edit even
      */
@@ -344,7 +343,7 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * Remove tour selected
+     * Remove tour selected.
      *
      * @param e remove tour
      */
@@ -353,7 +352,7 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * New tour selected
+     * New tour selected.
      *
      * @param e new tour
      */

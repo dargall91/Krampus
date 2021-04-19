@@ -37,17 +37,22 @@ import main.java.memoranda.util.Local;
 
 
 /**
- * JDialog for user to add, edit or remove a tour
+ * JDialog for user to add, edit or remove a tour.
  *
  * @author John Thurstonson
  * @version 04/10/2021
+ * 
  * <p>
- * References:
- * Used EventDialog.java as base, v 1.28 2005/02/19 10:06:25 rawsushi Exp
- * Referenced DriverTourDialog.java, Author: Derek Argall, Version: 04/05/2021
+ *      References:
+ *      Used EventDialog.java as base, v 1.28 2005/02/19 10:06:25 rawsushi Exp
+ *      Referenced DriverTourDialog.java, Author: Derek Argall, Version: 04/05/2021
+ *      https://stackoverflow.com/questions/63502597/
+ *          how-to-set-the-value-of-a-jspinner-using-a-localtime-object
+ *          for Time spinner
+ * </p>
  */
 public class TourDialog extends JDialog {
-    private boolean cancelled = true;;
+    private boolean cancelled = true;
     private JPanel topPanel = new JPanel(new BorderLayout());
     private JPanel bottomPanel = new JPanel(new BorderLayout());
     private JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -65,12 +70,12 @@ public class TourDialog extends JDialog {
     private RouteColl routes;
     private BusColl buses;
     private JComboBox<Route> routeCB = new JComboBox<Route>();
-    private JComboBox<String > busCB = new JComboBox<String>();
+    private JComboBox<String> busCB = new JComboBox<String>();
     private int error = 0;
     private static final int ERROR_VALUE = 1;
 
     /**
-     * TourDialog constructor
+     * TourDialog constructor.
      *
      * @param frame frame to display with
      * @param title dialog title
@@ -91,7 +96,8 @@ public class TourDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         if (routes.size() < 1) {
-            int result = JOptionPane.showConfirmDialog(null, "No Routes In System", "Need Route", JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, "No Routes In System", "Need Route",
+                    JOptionPane.OK_CANCEL_OPTION);
             
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
@@ -112,7 +118,8 @@ public class TourDialog extends JDialog {
         buses = CurrentProject.getBusColl();
         
         if (buses.size() < 1) {
-            int result = JOptionPane.showConfirmDialog(null, "No Buses In System", "Need Bus", JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, "No Buses In System", "Need Bus",
+                    JOptionPane.OK_CANCEL_OPTION);
             
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
@@ -230,7 +237,7 @@ public class TourDialog extends JDialog {
 
 
     /**
-     * OK button pressed
+     * OK button pressed.
      *
      * @param e ok button ActionEvent
      */
@@ -245,7 +252,7 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Cancel button pressed
+     * Cancel button pressed.
      *
      * @param e cancel button ActionEvent
      */
@@ -255,7 +262,7 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Return if cancelled or not
+     * Return if cancelled or not.
      *
      * @return true if cancelled
      */
@@ -265,7 +272,7 @@ public class TourDialog extends JDialog {
 
 
     /**
-     * Returns name
+     * Returns name.
      *
      * @return name
      */
@@ -275,7 +282,7 @@ public class TourDialog extends JDialog {
 
     /**
      * Sets current name
-     *
+     *.
      * @param name tour name
      */
     public void setName(String name) {
@@ -283,7 +290,7 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Returns route
+     * Returns route.
      *
      * @return route
      */
@@ -292,7 +299,7 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Sets current route
+     * Sets current route.
      *
      * @param route tour route
      */
@@ -301,7 +308,7 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Returns bus
+     * Returns bus.
      *
      * @return bus
      */
@@ -310,7 +317,7 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Sets current bus
+     * Sets current bus.
      *
      * @param bus tour bus
      */
@@ -319,12 +326,11 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Returns time
+     * Returns time.
      *
      * @return set time in HH:MM
      */
     public LocalTime getTime() {
-        //https://stackoverflow.com/questions/63502597/how-to-set-the-value-of-a-jspinner-using-a-localtime-object
         //Time formatting
         Object obj = timeSpin.getValue();
         if (obj instanceof java.util.Date) {
@@ -357,19 +363,19 @@ public class TourDialog extends JDialog {
 
 
     /**
-     * Sets to current tour time
+     * Sets to current tour time.
      *
      * @param time tour time
      */
     public void setTime(LocalTime time) {
-        Instant inst = time.atDate(LocalDate.now()).
-                atZone(ZoneId.systemDefault()).toInstant();
+        Instant inst = time.atDate(LocalDate.now())
+                .atZone(ZoneId.systemDefault()).toInstant();
         Date dateTime = Date.from(inst);
         timeSpin.setValue(dateTime);
     }
 
     /**
-     * Returns 1 for error and 0 for no error
+     * Returns 1 for error and 0 for no error.
      *
      * @return error
      */
