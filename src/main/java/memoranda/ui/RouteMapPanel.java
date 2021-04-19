@@ -245,7 +245,7 @@ public class RouteMapPanel extends JPanel {
                 (frmSize.height - dialog.getSize().height) / 2 + loc.y);
         dialog.setVisible(dialog.getError() != 1);
 
-        if (!dialog.isComplete()) {
+        if (dialog.isComplete()) {
             Route route = CurrentProject.getRouteColl().newItem();
             route.setName(dialog.getName());
 

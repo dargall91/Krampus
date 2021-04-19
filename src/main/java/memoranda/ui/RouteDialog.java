@@ -74,6 +74,8 @@ public class RouteDialog extends JDialog {
      */
     private int jbInit() {
         routes = CurrentProject.getRouteColl();
+        
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setResizable(false);
         headerPanel.setBackground(Color.WHITE);
@@ -145,7 +147,7 @@ public class RouteDialog extends JDialog {
             pack();
             validate();
         } else {
-            complete = false;
+            complete = true;
             this.dispose();
         }
     }
@@ -157,7 +159,7 @@ public class RouteDialog extends JDialog {
      * @param e cancel button ActionEvent
      */
     private void cancelButton_actionPerformed(ActionEvent e) {
-        complete = true;
+        complete = false;
         this.dispose();
     }
 
