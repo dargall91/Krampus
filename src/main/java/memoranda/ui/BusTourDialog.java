@@ -32,8 +32,7 @@ public class BusTourDialog extends JDialog {
     private int bus;
 
     /**
-     * Creates a JDialog window that allows the user to add a new Bus to the system
-     * or edit an existing one.
+     * Creates a JDialog window that allows the user to schedule a Bus for a Tour.
      *
      * @param frame         The main application Frame
      * @param bus The Bus for which to schedule a Tour

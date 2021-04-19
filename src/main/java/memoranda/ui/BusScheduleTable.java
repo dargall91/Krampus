@@ -280,7 +280,7 @@ public class BusScheduleTable extends JTable {
     /**
      * Gets the bus who's schedule is being displayed.
      *
-     * @return bus The bus to display the schedule for
+     * @return The bus to display the schedule for
      */
     public Bus getBus() {
         return bus;

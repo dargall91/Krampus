@@ -1,25 +1,5 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
-import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.Local;
-
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -29,8 +9,29 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
+import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.Local;
+
 /**
- * DriverScheduleTable is a JTable that contains the data related to a Driver's Schedule (Tour Name, bus ID, tour ID, date, time)
+ * DriverScheduleTable is a JTable that contains the data related to a Driver's Schedule
+ * (Tour Name, bus ID, tour ID, date, time).
  *
  * @author Derek Argall
  * @version 04/05/2020
@@ -44,7 +45,7 @@ public class DriverScheduleTable extends JTable {
     private static final int HEIGHT = 24;
 
     /**
-     * Constructor for DriverScheduleTable. Sets a default driver
+     * Constructor for DriverScheduleTable. Sets a default driver.
      *
      * @param driver The default driver's who's schedule will be displayed
      */
@@ -55,7 +56,7 @@ public class DriverScheduleTable extends JTable {
     }
 
     /**
-     * Constructor for DriverScheduleTable to be used when DriverColl is empty
+     * Constructor for DriverScheduleTable to be used when DriverColl is empty.
      */
     public DriverScheduleTable() {
         super();
@@ -141,7 +142,7 @@ public class DriverScheduleTable extends JTable {
     }
 
     /**
-     * Repaints the table to reflect any changes to the data
+     * Repaints the table to reflect any changes to the data.
      */
     public void tableChanged() {
         //Reload driver's tours in case this method was called from BusTable or BusScheduleTable
@@ -150,9 +151,6 @@ public class DriverScheduleTable extends JTable {
         updateUI();
     }
 
-    /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
-     */
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -163,7 +161,8 @@ public class DriverScheduleTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
@@ -178,8 +177,7 @@ public class DriverScheduleTable extends JTable {
         private String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("Tour ID"),
-                Local.getString("Bus ID"),
-                //Local.getString("Date"),
+                Local.getString("Bus Number"),
                 Local.getString("Time")};
 
         @Override
@@ -221,10 +219,6 @@ public class DriverScheduleTable extends JTable {
             if (col == 3) {
                 return tour.getTime();
             }
-            
-            /*if (col == 4) {
-                return tour.getDate();
-            }*/
 
             return null;
         }
@@ -247,7 +241,8 @@ public class DriverScheduleTable extends JTable {
 
     private void removeActionEvent(ActionEvent e) {
         Tour tour = getTour();
-        int result = JOptionPane.showConfirmDialog(null, "Remove Tour from " + driver.getName() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Remove Tour from " + driver.getName()
+                + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             driver.delTour(tour);
@@ -264,7 +259,7 @@ public class DriverScheduleTable extends JTable {
     }
 
     /**
-     * Sets the driver who's schedule is to be displayed
+     * Sets the driver who's schedule is to be displayed.
      *
      * @param driver The driver to display the schedule for
      */
@@ -279,16 +274,16 @@ public class DriverScheduleTable extends JTable {
     }
 
     /**
-     * Gets the driver who's schedule is being displayed
+     * Gets the driver who's schedule is being displayed.
      *
-     * @param driver The driver to display the schedule for
+     * @return The driver to display the schedule for
      */
     public Driver getDriver() {
         return driver;
     }
 
     /**
-     * Gets the currently selected tour
+     * Gets the currently selected tour.
      *
      * @return the Tour
      */
@@ -297,7 +292,7 @@ public class DriverScheduleTable extends JTable {
     }
 
     /**
-     * Add a tour to this table
+     * Add a tour to this table.
      *
      * @param tour The tour  to be added
      */
