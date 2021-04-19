@@ -213,7 +213,7 @@ public class DriverScheduleTable extends JTable {
             }
 
             if (col == 2) {
-                return tour.getBusID();
+                return tour.getBus().getNumber();
             }
 
             if (col == 3) {

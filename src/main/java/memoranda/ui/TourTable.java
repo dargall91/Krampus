@@ -84,7 +84,7 @@ public class TourTable extends JTable {
      */
     private class TourTableModel extends AbstractTableModel {
 
-        private String[] columnNames = {"Time", "Tour", "Route", "Bus"};
+        private String[] columnNames = {"Time", "Tour", "Route", "Bus Number"};
 
 
         /**
@@ -109,13 +109,7 @@ public class TourTable extends JTable {
          * @return int
          */
         public int getRowCount() {
-            int i;
-            try {
-                i = tours.size();
-            } catch (NullPointerException e) {
-                i = 1;
-            }
-            return i;
+            return tours.size();
         }
 
         /**
@@ -133,7 +127,7 @@ public class TourTable extends JTable {
             } else if (col == 2) {
                 return tour.getRoute().getName();
             } else if (col == 3) {
-                return tour.getBus();
+                return tour.getBus().getNumber();
             } else {
                 return tour;
             }
