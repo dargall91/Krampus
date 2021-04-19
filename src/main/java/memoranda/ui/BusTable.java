@@ -1,25 +1,5 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Bus;
-import main.java.memoranda.BusColl;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
-import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.Local;
-
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -29,10 +9,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
+import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.Local;
 
 /**
- * BusTable is a JTable that contains the data related to a Bus (Bus Number and ID)
+ * BusTable is a JTable that contains the data related to a Bus (Bus Number and ID).
  *
  * @author Derek Argall
  * @version 04/09/2020
@@ -46,11 +43,11 @@ public class BusTable extends JTable {
     private DriverScheduleTable driverTable;
 
     /**
-     * Constructor for a BusTable
+     * Constructor for a BusTable.
      */
     public BusTable(BusScheduleTable busSchedule, DriverScheduleTable driverTable) {
         super();
-        //this.busSchedule = busSchedule;
+        this.busSchedule = busSchedule;
         this.driverTable = driverTable;
         init();
     }
@@ -147,16 +144,13 @@ public class BusTable extends JTable {
     }
 
     /**
-     * Repaints the table to reflect any changes to the data
+     * Repaints the table to reflect any changes to the data.
      */
     public void tableChanged() {
         init();
         updateUI();
     }
 
-    /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
-     */
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -167,7 +161,8 @@ public class BusTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
@@ -179,7 +174,7 @@ public class BusTable extends JTable {
     }
 
     /**
-     * Defines the table model for the Bus Table
+     * Defines the table model for the Bus Table.
      */
     private class BusTableModel extends AbstractTableModel {
         private String[] columnNames = {
@@ -261,7 +256,8 @@ public class BusTable extends JTable {
 
     private void deleteActionEvent(ActionEvent e) {
         Bus bus = getBus();
-        int result = JOptionPane.showConfirmDialog(null, "Delete Bus No. " + bus.getNumber() + "?", "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Delete Bus No. " + bus.getNumber() + "?",
+                "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             TourColl tours = CurrentProject.getTourColl();
@@ -301,7 +297,7 @@ public class BusTable extends JTable {
     }
 
     /**
-     * Gets the currently selected Bus
+     * Gets the currently selected Bus.
      *
      * @return the Bus
      */
@@ -311,7 +307,7 @@ public class BusTable extends JTable {
 
     /**
      * Sets the BusScheduleTable to be updated when a user selects a bus in this table
-     * The BusScheduleTable MUST be set for else errors will occur
+     * The BusScheduleTable MUST be set for else errors will occur.
      *
      * @param busSchedule The BusScheduleTable
      */

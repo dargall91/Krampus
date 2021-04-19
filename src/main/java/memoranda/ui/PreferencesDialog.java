@@ -725,9 +725,9 @@ public class PreferencesDialog extends JDialog {
         Configuration.put("HEADER_FONT", headerFontCB.getSelectedItem());
         Configuration.put("MONO_FONT", monoFontCB.getSelectedItem());
         Configuration.put("BASE_FONT_SIZE", baseFontSize.getValue());
-        App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.editor.setAntiAlias(antialiasChB.isSelected());
-        App.getFrame().workPanel.dailyItemsPanel.editorPanel.initCSS();
-        App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.repaint();
+        App.getFrame().getDailyItemsPanel().editorPanel.editor.editor.setAntiAlias(antialiasChB.isSelected());
+        App.getFrame().getDailyItemsPanel().editorPanel.initCSS();
+        App.getFrame().getDailyItemsPanel().editorPanel.editor.repaint();
 
         Configuration.saveConfig();
 

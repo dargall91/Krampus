@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * DriverDialog is a JDialog that has fields to enter and edit a driver's name and phone number
+ * DriverDialog is a JDialog that has fields to enter and edit a driver's name and phone number.
  *
  * @author Derek Argall
  * @version 04/05/2020
@@ -26,14 +26,14 @@ public class DriverDialog extends JDialog {
     private JPanel errorPanel;
     private JTextField nameField;
     private JTextField phoneField;
-    private final Dimension BUTTON_SIZE = new Dimension(100, 25);
-    private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
-    private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+    private static final Dimension BUTTON_SIZE = new Dimension(100, 25);
+    private static final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
+    private static final Dimension VERTICAL_GAP = new Dimension(0, 5);
     private static final int FIELD_WIDTH = 15;
 
     /**
      * Creates a JDialog window that allows the user to add a new Driver to the system
-     * or edit an existing one
+     * or edit an existing one.
      *
      * @param frame         The main application Frame
      * @param title         The title for this JDialog
@@ -135,7 +135,7 @@ public class DriverDialog extends JDialog {
     }
 
     /**
-     * Checks if this JDialog was exited via the cancel button or not
+     * Checks if this JDialog was exited via the cancel button or not.
      *
      * @return True if exited via Cancel button, false if not
      */
@@ -144,21 +144,25 @@ public class DriverDialog extends JDialog {
     }
 
     /**
-     * New Driver name getter
+     * Driver name getter.
+     * 
+     * @return The name of the Driver
      */
     public String getName() {
         return nameField.getText();
     }
 
     /**
-     * New Driver phone number getter
+     * Driver phone number getter.
+     * 
+     * @return The phone number of the Driver
      */
     public String getPhone() {
         return phoneField.getText();
     }
 
     /**
-     * Sets the driver name field when editing a Driver
+     * Sets the driver name field when editing a Driver.
      *
      * @param name The driver's name
      */
@@ -167,7 +171,7 @@ public class DriverDialog extends JDialog {
     }
 
     /**
-     * Sets the driver phone number field when editing a Driver
+     * Sets the driver phone number field when editing a Driver.
      *
      * @param phone The driver's phone number
      */

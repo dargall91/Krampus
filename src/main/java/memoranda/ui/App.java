@@ -24,6 +24,7 @@ public class App {
     private static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
     private static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
     private static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+    private static int state;
 
     private JFrame splash = null;
 
@@ -148,19 +149,26 @@ public class App {
         if (frame == null) {
             return;
         }
-        
+
+        state = frame.getExtendedState();
         frame.setExtendedState(JFrame.ICONIFIED);
     }
 
     /**
      * Defines what state the application window will take when the window is opened.
      */
+    @SuppressWarnings("deprecation")
     public static void openWindow() {
         if (frame == null) {
             return;
         }
         
-        frame.setExtendedState(Frame.NORMAL);
+        if (state == Frame.NE_RESIZE_CURSOR) {
+            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        } else {
+            frame.setExtendedState(Frame.NORMAL);
+        }
+        
     }
 
     /**

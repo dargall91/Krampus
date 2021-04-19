@@ -1,25 +1,5 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
-import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.Local;
-
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -29,10 +9,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
+
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Driver;
+import main.java.memoranda.DriverColl;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
+import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.Local;
 
 /**
- * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number)
+ * DriverTable is a JTable that contains the data related to a Driver (name, ID, and phone number).
  *
  * @author Derek Argall
  * @version 04/05/2020
@@ -45,7 +44,7 @@ public class DriverTable extends JTable {
     private DriverScheduleTable scheduleTable;
 
     /**
-     * Constructor for a DriverTable
+     * Constructor for a DriverTable.
      */
     public DriverTable() {
         super();
@@ -144,16 +143,13 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * Repaints the table to reflect any changes to the data
+     * Repaints the table to reflect any changes to the data.
      */
     public void tableChanged() {
         init();
         updateUI();
     }
 
-    /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
-     */
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -164,7 +160,8 @@ public class DriverTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
@@ -175,9 +172,6 @@ public class DriverTable extends JTable {
         };
     }
 
-    /**
-     * Defines the table model for the Driver Table
-     */
     private class DriverTableModel extends AbstractTableModel {
         private String[] columnNames = {
                 Local.getString("Name"),
@@ -201,7 +195,6 @@ public class DriverTable extends JTable {
 
         @Override
         public Object getValueAt(int row, int col) {
-            //set the selected driver for use by other methods in addition to displaying information
             Driver driver = drivers.getDrivers().toArray(new Driver[drivers.size()])[row];
 
             if (col == 0) {
@@ -265,7 +258,8 @@ public class DriverTable extends JTable {
 
     private void deleteActionEvent(ActionEvent e) {
         Driver driver = getDriver();
-        int result = JOptionPane.showConfirmDialog(null, "Delete " + driver.getName() + "?", "Delete Driver", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Delete " + driver.getName()
+            + "?", "Delete Driver", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             TourColl tours = CurrentProject.getTourColl();
@@ -298,7 +292,7 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * Gets the currently selected Driver
+     * Gets the currently selected Driver.
      *
      * @return the Driver
      */
@@ -307,7 +301,7 @@ public class DriverTable extends JTable {
     }
 
     /**
-     * Sets the DriverScheduleTable to be updated when a user selects a driver in this table
+     * Sets the DriverScheduleTable to be updated when a user selects a driver in this table.
      *
      * @param scheduleTable The DriverScheduleTable
      */

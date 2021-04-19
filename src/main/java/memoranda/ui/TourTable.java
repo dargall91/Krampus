@@ -1,5 +1,6 @@
 package main.java.memoranda.ui;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JTable;
@@ -12,13 +13,14 @@ import main.java.memoranda.TourColl;
 
 
 /**
- * JTable to display current Tours in system
+ * JTable to display current Tours in system.
  *
  * @author John Thurstonson
  * @version 04/10/2021
  * <p>
- * References:
- * Used EventsTable.java as base, v 1.6 2004/10/11 08:48:20 alexeya Exp
+ *      References:
+ *      Used EventsTable.java as base, v 1.6 2004/10/11 08:48:20 alexeya Exp
+ * </p>
  */
 public class TourTable extends JTable {
 
@@ -26,7 +28,7 @@ public class TourTable extends JTable {
     private TourColl tours;
 
     /**
-     * TourTable constructor
+     * TourTable constructor.
      */
     public TourTable() {
         super();
@@ -45,15 +47,13 @@ public class TourTable extends JTable {
     }
 
     /**
-     * Refresh table
+     * Refresh table.
      */
     public void refresh() {
         initTable();
     }
 
-    /**
-     * Setup Cells for Table
-     */
+    @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
@@ -67,7 +67,9 @@ public class TourTable extends JTable {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-                comp.setForeground(java.awt.Color.gray);
+                if (((row % 2) > 0) && (!isSelected)) {
+                    comp.setBackground(new Color(230, 240, 255));
+                }
 
                 return comp;
             }
@@ -77,52 +79,34 @@ public class TourTable extends JTable {
 
 
     /**
-     * Creates tour table
+     * Creates tour table.
      *
      * @author John Thurstonson
      * @version 04/10/2021
      */
     private class TourTableModel extends AbstractTableModel {
 
-        private String[] columnNames = {"Time", "Tour", "Route", "Bus"};
+        private String[] columnNames = {"Time", "Tour", "Route", "Bus Number", "Driver"};
 
 
         /**
-         * Tour table model constructor
+         * Tour table model constructor.
          */
         public TourTableModel() {
             super();
         }
 
-        /**
-         * Return number of columns in table
-         *
-         * @return int
-         */
+        @Override
         public int getColumnCount() {
-            return 4;
+            return columnNames.length;
         }
 
-        /**
-         * Return number of rows in table
-         *
-         * @return int
-         */
+        @Override
         public int getRowCount() {
-            int i;
-            try {
-                i = tours.size();
-            } catch (NullPointerException e) {
-                i = 1;
-            }
-            return i;
+            return tours.size();
         }
 
-        /**
-         * Return object in cell
-         *
-         * @return Object
-         */
+        @Override
         public Object getValueAt(int row, int col) {
             Tour tour = tours.getTours().toArray(new Tour[tours.size()])[row];
 
@@ -133,17 +117,19 @@ public class TourTable extends JTable {
             } else if (col == 2) {
                 return tour.getRoute().getName();
             } else if (col == 3) {
-                return tour.getBus();
+                return tour.getBus().getNumber();
+            } else if (col == 4) {
+                if (tour.getDriver() == null) {
+                    return "";
+                }
+                
+                return tour.getDriver().getName();
             } else {
                 return tour;
             }
         }
 
-        /**
-         * Return name of column
-         *
-         * @return String
-         */
+        @Override
         public String getColumnName(int col) {
             return columnNames[col];
         }

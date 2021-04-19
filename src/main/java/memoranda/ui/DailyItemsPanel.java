@@ -24,7 +24,6 @@ import javax.swing.border.Border;
 
 import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Database;
 import main.java.memoranda.EventNotificationListener;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.History;
@@ -36,14 +35,11 @@ import main.java.memoranda.NoteListener;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.Task;
 import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
-import main.java.memoranda.util.Util;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -68,6 +64,7 @@ public class DailyItemsPanel extends JPanel {
     private BusPanel busPanel = new BusPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
     private TourPanel tourPanel = new TourPanel(this);
+    private RouteMapPanel routeMapPanel = new RouteMapPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
@@ -209,6 +206,7 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(tourPanel, "TOURS");
         //editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(busPanel, "BUSES");
+        editorsPanel.add(routeMapPanel, "MAP");
         editorsPanel.add(editorPanel, "NOTES");
 
         splitPane.add(mainPanel, JSplitPane.RIGHT);
@@ -267,15 +265,6 @@ public class DailyItemsPanel extends JPanel {
                 dateChangedByCalendar = true;
                 CurrentDate.set(calendar.get());
                 dateChangedByCalendar = false;
-            }
-        });
-
-        AppFrame.addExitListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (editorPanel.isDocumentChanged()) {
-                    saveNote();
-                    CurrentStorage.get().storeNoteList(CurrentProject.getNoteList(), CurrentProject.get());
-                }
             }
         });
 
@@ -355,9 +344,6 @@ public class DailyItemsPanel extends JPanel {
 //        Util.debug("currentNoteChanged");
 
         if (editorPanel.isDocumentChanged()) {
-            if (toSaveCurrentNote) {
-                saveNote();
-            }
             notesControlPane.refresh();
         }
         currentNote = note;
@@ -374,27 +360,9 @@ public class DailyItemsPanel extends JPanel {
         if (!changedByHistory) {
             History.add(new HistoryItem(CurrentDate.get(), newprj));
         }
-        if (editorPanel.isDocumentChanged()) {
-            saveNote();
-        }
-        /*if ((currentNote != null) && !changedByHistory && !addedToHistory)
-                    History.add(new HistoryItem(currentNote));*/
+
         CurrentProject.save();        
-        
-        /*addedToHistory = false;
-        if (!changedByHistory) {
-            if (currentNote != null) {
-                History.add(new HistoryItem(currentNote));
-                addedToHistory = true;
-            }
-        }*/
-       /* 
-        try {
-            Database.getDatabase(newprj);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }*/
+
 
         updateIndicators(CurrentDate.get(), tl);
         App.getFrame().setCursor(cur);
@@ -405,16 +373,6 @@ public class DailyItemsPanel extends JPanel {
         CurrentProject.set(hi.getProject());
         CurrentDate.set(hi.getDate());
         changedByHistory = false;
-    }
-
-    public void saveNote() {
-        if (currentNote == null) {
-            currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
-        }
-        currentNote.setTitle(editorPanel.titleField.getText());
-        currentNote.setId(Util.generateId());
-        CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
-        /*DEBUG* System.out.println("Save");*/
     }
 
     void toggleButton_actionPerformed(ActionEvent e) {
@@ -463,30 +421,6 @@ public class DailyItemsPanel extends JPanel {
             calendar.jnCalendar.renderer.setTask(null);
             //   calendar.jnCalendar.updateUI();
         }
-        
-        /*
-        if (pan.equals("TASKS") && (taskPanel.taskTable.getSelectedRow() > -1)) {
-            Task t =
-                CurrentProject.getTaskList().getTask(
-                    tasksPanel
-                        .taskTable
-                        .getModel()
-                        .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
-                        .toString());
-            calendar.jnCalendar.renderer.setTask(t);
-       //     calendar.jnCalendar.updateUI();
-        }*/
-        //TODO: (Derek) This method to have been relevant for the calendar system, but not for the Bus system
-        //Test what happens if it's removed after completing US7
-        boolean isAg = pan.equals("DRIVERS");
-        driverPanel.setActive(isAg);
-
-        //TODO: (Derek) Found where DriverPanel.refresh is called (I missed it the first time because all changes
-        //were made via the Refactor function). But does it actually do anything relevant to the new 
-        //bus scheduling system? It does not appear so, but will be tested sometime after US7 is completed
-        if (isAg) {
-            driverPanel.refresh(CurrentDate.get());
-        }
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
         calendar.jnCalendar.updateUI();
@@ -505,6 +439,15 @@ public class DailyItemsPanel extends JPanel {
     public DriverScheduleTable getDriverScheduleTable() {
         return driverPanel.getDriverScheduleTable();
     }
+    
+    /**
+     * Gets the BusScheduleTable used to display a Bus's schedule
+     *
+     * @return The BusScheduleTable
+     */
+    public BusScheduleTable getBusScheduleTable() {
+        return busPanel.getBusScheduleTable();
+    }
 
     void taskB_actionPerformed(ActionEvent e) {
         parentPanel.busB_actionPerformed(null);
@@ -520,5 +463,6 @@ public class DailyItemsPanel extends JPanel {
     public void refresh() {
         driverPanel.refresh();
         busPanel.refresh();
+        tourPanel.refresh();
     }
 }
