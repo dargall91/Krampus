@@ -28,8 +28,8 @@ import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 public class RouteMapPanel extends JPanel {
-    private final int BUTTON_HEIGHT = 30;
-    private final int BUTTON_WIDTH = 150;
+    private static final int BUTTON_HEIGHT = 30;
+    private static final int BUTTON_WIDTH = 150;
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
@@ -301,9 +301,12 @@ public class RouteMapPanel extends JPanel {
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         Node node = CurrentProject.getNodeColl().newItem();
+        
+        Random rand = new Random();
+        
         node.setCoords(new Coordinate(
-                new Random().nextDouble() * 90,
-                new Random().nextDouble() * 90));
+                rand.nextDouble() * 90,
+                rand.nextDouble() * 90));
         node.setName("DEBUGNODE");
         r.addNode(node);
         try {

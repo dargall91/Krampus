@@ -112,7 +112,7 @@ public class CurrentProject {
     /**
      * Gets this project's DriverColl
      *
-     * @return the DriverColl
+     * @return the TourColl
      */
     public static TourColl getTourColl() {
         return _tours;
@@ -121,7 +121,7 @@ public class CurrentProject {
     /**
      * Gets this project's RouteColl
      *
-     * @return the DriverColl
+     * @return the RouteColl
      */
     public static RouteColl getRouteColl() {
         return _routes;
@@ -130,7 +130,7 @@ public class CurrentProject {
     /**
      * Gets this project's NodeColl
      *
-     * @return the DriverColl
+     * @return the NodeColl
      */
     public static NodeColl getNodeColl() {
         return _nodes;
@@ -139,7 +139,7 @@ public class CurrentProject {
     /**
      * Gets this project's BusColl
      *
-     * @return the DriverColl
+     * @return the BusColl
      */
     public static BusColl getBusColl() {
         return _buses;

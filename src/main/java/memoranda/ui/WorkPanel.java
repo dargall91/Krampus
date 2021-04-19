@@ -24,20 +24,28 @@ import main.java.memoranda.util.Local;
  */
 
 /*$Id: WorkPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
+/**
+ * A WorkPanel is the panel that contains the buttons for the different tabs of the Bus Schedule
+ * System (Drivers, Buses, the Map, and Tours).
+ *
+ */
 public class WorkPanel extends JPanel {
-    BorderLayout borderLayout1 = new BorderLayout();
-    JToolBar toolBar = new JToolBar();
-    JPanel panel = new JPanel();
-    CardLayout cardLayout1 = new CardLayout();
+    private BorderLayout borderLayout1 = new BorderLayout();
+    private JToolBar toolBar = new JToolBar();
+    private JPanel panel = new JPanel();
+    private CardLayout cardLayout1 = new CardLayout();
 
-    public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
-    public JButton driverB = new JButton();
-    public JButton busesB = new JButton();
-    public JButton toursB = new JButton();
-    public JButton mapB = new JButton();
-    JButton currentB = null;
-    Border border1;
+    private DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
+    private JButton driverB = new JButton();
+    private JButton busesB = new JButton();
+    private JButton toursB = new JButton();
+    private JButton mapB = new JButton();
+    private JButton currentB = null;
+    private Border border1;
 
+    /**
+     * Creates a new WorkPanel.
+     */
     public WorkPanel() {
         try {
             jbInit();
@@ -243,5 +251,41 @@ public class WorkPanel extends JPanel {
      */
     public DailyItemsPanel getDailyItemsPanel() {
         return dailyItemsPanel;
+    }
+    
+    /**
+     * Gets this panel's Map Button
+     * 
+     * @return The Map button
+     */
+    public JButton getMapButton() {
+        return mapB;
+    }
+    
+    /**
+     * Gets this panel's Driver Button
+     * 
+     * @return The Driver button
+     */
+    public JButton getDriverButton() {
+        return driverB;
+    }
+    
+    /**
+     * Gets this panel's Bus Button
+     * 
+     * @return The Bus button
+     */
+    public JButton getBusButton() {
+        return busesB;
+    }
+    
+    /**
+     * Gets this panel's Tour Button
+     * 
+     * @return The Tour button
+     */
+    public JButton getTourButton() {
+        return toursB;
     }
 }

@@ -14,11 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -70,7 +67,7 @@ public class TourDialog extends JDialog {
     private JComboBox<Route> routeCB = new JComboBox<Route>();
     private JComboBox<String > busCB = new JComboBox<String>();
     private int error = 0;
-    private final int ERROR_VALUE = 1;
+    private static final int ERROR_VALUE = 1;
 
     /**
      * TourDialog constructor
@@ -91,6 +88,8 @@ public class TourDialog extends JDialog {
 
     private int jbInit() throws Exception {
         routes = CurrentProject.getRouteColl();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
         if (routes.size() < 1) {
             int result = JOptionPane.showConfirmDialog(null, "No Routes In System", "Need Route", JOptionPane.OK_CANCEL_OPTION);
             
@@ -103,10 +102,10 @@ public class TourDialog extends JDialog {
             }
         }
         
-        Iterator<Route> routeIter = routes.iterator();
         
-        while (routeIter.hasNext()) {
-            routeCB.addItem(routeIter.next());
+        
+        for (Route r : routes) {
+            routeCB.addItem(r);
         }
         
         routeCB.setRenderer(new RouteListCellRenderer());
@@ -123,13 +122,9 @@ public class TourDialog extends JDialog {
                 return ERROR_VALUE;
             }
         }
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
-        Iterator<Bus> busIter = buses.iterator();
-        
-        while (busIter.hasNext()) {
-            busCB.addItem("No. " + busIter.next().getNumber());
+
+        for (Bus b : buses) {
+            busCB.addItem("Bus No. " + b.getNumber());
         }
 
 

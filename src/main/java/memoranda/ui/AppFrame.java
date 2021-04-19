@@ -78,8 +78,9 @@ public class AppFrame extends JFrame {
     JLabel statusBar = new JLabel();
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
-    public WorkPanel workPanel = new WorkPanel();
-    ProjectsPanel projectsPanel = new ProjectsPanel(workPanel.dailyItemsPanel);
+    private WorkPanel workPanel = new WorkPanel();
+    private DailyItemsPanel dailyItemsPanel = workPanel.getDailyItemsPanel();
+    ProjectsPanel projectsPanel = new ProjectsPanel(dailyItemsPanel);
     boolean prPanelExpanded = false;
 
     JMenu jMenuEdit = new JMenu();
@@ -87,7 +88,7 @@ public class AppFrame extends JFrame {
     JMenu jMenuInsert = new JMenu();
 
 
-    HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
+    HTMLEditor editor = dailyItemsPanel.editorPanel.editor;
 
     static Vector exitListeners = new Vector();
 
@@ -139,14 +140,14 @@ public class AppFrame extends JFrame {
             };
 
     JMenuItem jMenuFileNewPrj = new JMenuItem();
-    JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
+    JMenuItem jMenuFileNewNote = new JMenuItem(dailyItemsPanel.editorPanel.newAction);
     JMenuItem jMenuFilePackPrj = new JMenuItem(prjPackAction);
     JMenuItem jMenuFileUnpackPrj = new JMenuItem(prjUnpackAction);
     JMenuItem jMenuFileExportPrj = new JMenuItem(exportNotesAction);
     JMenuItem jMenuFileImportPrj = new JMenuItem(importNotesAction);
     JMenuItem jMenuFileImportNote = new JMenuItem(importOneNoteAction);
     JMenuItem jMenuFileExportNote = new JMenuItem(
-            workPanel.dailyItemsPanel.editorPanel.exportAction);
+            dailyItemsPanel.editorPanel.exportAction);
     JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
     JMenuItem jMenuItem1 = new JMenuItem();
@@ -170,11 +171,11 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuInsertHR = new JMenuItem(editor.insertHRAction);
     JMenuItem jMenuInsertChar = new JMenuItem(editor.insCharAction);
     JMenuItem jMenuInsertDate = new JMenuItem(
-            workPanel.dailyItemsPanel.editorPanel.insertDateAction);
+            dailyItemsPanel.editorPanel.insertDateAction);
     JMenuItem jMenuInsertTime = new JMenuItem(
-            workPanel.dailyItemsPanel.editorPanel.insertTimeAction);
+            dailyItemsPanel.editorPanel.insertTimeAction);
     JMenuItem jMenuInsertFile = new JMenuItem(
-            workPanel.dailyItemsPanel.editorPanel.importAction);
+            dailyItemsPanel.editorPanel.importAction);
 
     JMenu jMenuFormatPStyle = new JMenu();
     JMenuItem jMenuFormatP = new JMenuItem(editor.new BlockAction(editor.T_P,
@@ -227,11 +228,11 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
 
     JMenuItem jMenuGoDayBack = new JMenuItem(
-            workPanel.dailyItemsPanel.calendar.dayBackAction);
+            dailyItemsPanel.calendar.dayBackAction);
     JMenuItem jMenuGoDayFwd = new JMenuItem(
-            workPanel.dailyItemsPanel.calendar.dayForwardAction);
+            dailyItemsPanel.calendar.dayForwardAction);
     JMenuItem jMenuGoToday = new JMenuItem(
-            workPanel.dailyItemsPanel.calendar.todayAction);
+            dailyItemsPanel.calendar.todayAction);
 
     JMenuItem jMenuEditPref = new JMenuItem(preferencesAction);
 
@@ -577,15 +578,15 @@ public class AppFrame extends JFrame {
             }
         };
 
-        this.workPanel.dailyItemsPanel.taskB
+        dailyItemsPanel.taskB
                 .addActionListener(setMenusDisabled);
-        this.workPanel.dailyItemsPanel.alarmB.addActionListener(
+        dailyItemsPanel.alarmB.addActionListener(
                 setMenusDisabled);
 
-        this.workPanel.busesB.addActionListener(setMenusDisabled);
-        //this.workPanel.eventsB.addActionListener(setMenusDisabled);
-        this.workPanel.mapB.addActionListener(setMenusDisabled);
-        this.workPanel.driverB.addActionListener(setMenusDisabled);
+        workPanel.getBusButton().addActionListener(setMenusDisabled);
+        workPanel.getTourButton().addActionListener(setMenusDisabled);
+        workPanel.getMapButton().addActionListener(setMenusDisabled);
+        workPanel.getDriverButton().addActionListener(setMenusDisabled);
 
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
@@ -1028,7 +1029,7 @@ public class AppFrame extends JFrame {
                 note.setId(Util.generateId());
                 CurrentStorage.get().storeNote(note, doc);
             }
-            workPanel.dailyItemsPanel.notesControlPane.refresh();
+            dailyItemsPanel.notesControlPane.refresh();
 
         } catch (Exception exc) {
             exc.printStackTrace();
@@ -1112,11 +1113,28 @@ public class AppFrame extends JFrame {
                 note.setId(Util.generateId());
                 CurrentStorage.get().storeNote(note, doc);
             }
-            workPanel.dailyItemsPanel.notesControlPane.refresh();
+            dailyItemsPanel.notesControlPane.refresh();
 
         } catch (Exception exc) {
             exc.printStackTrace();
         }
     }
+    
+    /**
+     * Gets the frame's WorkPanel
+     * 
+     * @return The WorkPanel
+     */
+    public WorkPanel getWorkPanel() {
+        return workPanel;
+    }
 
+    /**
+     * Gets the frame's DailyItemsPanel
+     * 
+     * @return The DailyItemsPanel
+     */
+    public DailyItemsPanel getDailyItemsPanel() {
+        return dailyItemsPanel;
+    }
 }
