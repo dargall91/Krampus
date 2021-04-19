@@ -162,7 +162,7 @@ public class TourDialog extends JDialog {
             }
         }
         
-        if (tour != null) {
+        if (tour != null && tour.getDriver() != null) {
             drivers = CurrentProject.getDriverColl();
 
             for (Driver d : drivers) {
@@ -239,7 +239,7 @@ public class TourDialog extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(busCB, gbc);
         
-        if (tour != null) {
+        if (tour != null && tour.getDriver() != null) {
             driverCB.setPreferredSize(new Dimension(100, 25));
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
