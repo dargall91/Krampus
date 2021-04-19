@@ -68,6 +68,7 @@ public class DailyItemsPanel extends JPanel {
     private BusPanel busPanel = new BusPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
     private TourPanel tourPanel = new TourPanel(this);
+    private RouteMapPanel routeMapPanel = new RouteMapPanel();
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
@@ -209,6 +210,7 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(tourPanel, "TOURS");
         //editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(busPanel, "BUSES");
+        editorsPanel.add(routeMapPanel, "MAP");
         editorsPanel.add(editorPanel, "NOTES");
 
         splitPane.add(mainPanel, JSplitPane.RIGHT);
@@ -267,15 +269,6 @@ public class DailyItemsPanel extends JPanel {
                 dateChangedByCalendar = true;
                 CurrentDate.set(calendar.get());
                 dateChangedByCalendar = false;
-            }
-        });
-
-        AppFrame.addExitListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (editorPanel.isDocumentChanged()) {
-                    saveNote();
-                    CurrentStorage.get().storeNoteList(CurrentProject.getNoteList(), CurrentProject.get());
-                }
             }
         });
 
@@ -355,9 +348,6 @@ public class DailyItemsPanel extends JPanel {
 //        Util.debug("currentNoteChanged");
 
         if (editorPanel.isDocumentChanged()) {
-            if (toSaveCurrentNote) {
-                saveNote();
-            }
             notesControlPane.refresh();
         }
         currentNote = note;
@@ -374,27 +364,9 @@ public class DailyItemsPanel extends JPanel {
         if (!changedByHistory) {
             History.add(new HistoryItem(CurrentDate.get(), newprj));
         }
-        if (editorPanel.isDocumentChanged()) {
-            saveNote();
-        }
-        /*if ((currentNote != null) && !changedByHistory && !addedToHistory)
-                    History.add(new HistoryItem(currentNote));*/
+
         CurrentProject.save();        
-        
-        /*addedToHistory = false;
-        if (!changedByHistory) {
-            if (currentNote != null) {
-                History.add(new HistoryItem(currentNote));
-                addedToHistory = true;
-            }
-        }*/
-       /* 
-        try {
-            Database.getDatabase(newprj);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }*/
+
 
         updateIndicators(CurrentDate.get(), tl);
         App.getFrame().setCursor(cur);
@@ -405,16 +377,6 @@ public class DailyItemsPanel extends JPanel {
         CurrentProject.set(hi.getProject());
         CurrentDate.set(hi.getDate());
         changedByHistory = false;
-    }
-
-    public void saveNote() {
-        if (currentNote == null) {
-            currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
-        }
-        currentNote.setTitle(editorPanel.titleField.getText());
-        currentNote.setId(Util.generateId());
-        CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
-        /*DEBUG* System.out.println("Save");*/
     }
 
     void toggleButton_actionPerformed(ActionEvent e) {

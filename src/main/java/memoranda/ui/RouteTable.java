@@ -134,5 +134,14 @@ public class RouteTable extends JTable {
             return COLUMN_NAMES[columnIndex];
         }
     }
+    
+    /**
+     * Gets the currently selected Route
+     * 
+     * @return The selected Route
+     */
+    public Route getRoute() {
+        return null;
+    }
 
 }

@@ -31,7 +31,6 @@ public class WorkPanel extends JPanel {
     CardLayout cardLayout1 = new CardLayout();
 
     public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
-    public RouteMapPanel routeMapPanel = new RouteMapPanel();
     public JButton driverB = new JButton();
     public JButton busesB = new JButton();
     public JButton toursB = new JButton();
@@ -47,7 +46,7 @@ public class WorkPanel extends JPanel {
         }
     }
 
-    void jbInit() throws Exception {
+    private void jbInit() throws Exception {
         border1 =
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createBevelBorder(
@@ -110,13 +109,13 @@ public class WorkPanel extends JPanel {
                 toursB_actionPerformed(e);
             }
         });
+        
         toursB.setIcon(
                 new ImageIcon(
                         main.java.memoranda.ui.AppFrame.class.getResource(
                                 "/ui/icons/events.png")));
         toursB.setOpaque(false);
         toursB.setMargin(new Insets(0, 0, 0, 0));
-        //eventsB.setSelected(true);
 
         busesB.setSelected(true);
         busesB.setFont(new java.awt.Font("Dialog", 1, 10));
@@ -131,6 +130,7 @@ public class WorkPanel extends JPanel {
                 busB_actionPerformed(e);
             }
         });
+        
         busesB.setVerticalAlignment(SwingConstants.TOP);
         busesB.setText(Local.getString("Buses"));
         busesB.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -153,9 +153,10 @@ public class WorkPanel extends JPanel {
         mapB.setVerticalTextPosition(SwingConstants.BOTTOM);
         mapB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                filesB_actionPerformed(e);
+                mapB_actionPerformed(e);
             }
         });
+        
         mapB.setFont(new java.awt.Font("Dialog", 1, 10));
         mapB.setVerticalAlignment(SwingConstants.TOP);
         mapB.setText(Local.getString("Map"));
@@ -171,11 +172,9 @@ public class WorkPanel extends JPanel {
         this.add(toolBar, BorderLayout.WEST);
         this.add(panel, BorderLayout.CENTER);
         panel.add(dailyItemsPanel, "DAILYITEMS");
-        panel.add(routeMapPanel, "MAP");
         toolBar.add(driverB, null);
         toolBar.add(toursB, null);
         toolBar.add(busesB, null);
-        //toolBar.add(notesB, null);
         toolBar.add(mapB, null);
         currentB = driverB;
         // Default blue color
@@ -185,7 +184,6 @@ public class WorkPanel extends JPanel {
         toolBar.setBorder(null);
         panel.setBorder(null);
         dailyItemsPanel.setBorder(null);
-        routeMapPanel.setBorder(null);
 
     }
 
@@ -196,7 +194,7 @@ public class WorkPanel extends JPanel {
             } else if (pan.equals("EVENTS")) {
                 toursB_actionPerformed(null);
             } else if (pan.equals("MAP")) {
-                filesB_actionPerformed(null);
+                mapB_actionPerformed(null);
             }
         }
     }
@@ -222,8 +220,9 @@ public class WorkPanel extends JPanel {
         Context.put("CURRENT_PANEL", "TOURS");
     }
 
-    public void filesB_actionPerformed(ActionEvent e) {
+    public void mapB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "MAP");
+        dailyItemsPanel.selectPanel("MAP");
         setCurrentButton(mapB);
         Context.put("CURRENT_PANEL", "MAP");
     }

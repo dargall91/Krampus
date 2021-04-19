@@ -95,7 +95,7 @@ public class RouteMapPanel extends JPanel {
         removeRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         removeRouteB.setFocusable(false);
         removeRouteB.setBorderPainted(true);
-        //removeRouteB.addActionListener((e)->removeRouteB_actionPerformed(e)); //todo
+        removeRouteB.addActionListener((e)->removeRouteB_actionPerformed(e)); //todo
 
         /* Optimize Button */
         optRouteB.setIcon(
@@ -185,6 +185,11 @@ public class RouteMapPanel extends JPanel {
         this.add(toolBar, BorderLayout.NORTH);
     }
 
+
+    private void removeRouteB_actionPerformed(ActionEvent e) {
+        
+        
+    }
 
     /**
      * Event handler for the "New Route" button.
