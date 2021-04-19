@@ -196,11 +196,13 @@ public class TourPanel extends JPanel {
             tour.setName(dlg.getName());
             tour.setRoute(dlg.getRoute());
             tour.setTime(dlg.getTime());
-            tour.setBus(dlg.getBus());
+
             try {
+                dlg.getBus().addTour(tour);
                 CurrentProject.getTourColl().add(tour);
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
                 tourTable.refresh();
+                parentPanel.getBusScheduleTable().tableChanged();
             } catch (Exception f) {
                 f.printStackTrace();
             }
@@ -239,7 +241,7 @@ public class TourPanel extends JPanel {
 
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
                 tourTable.refresh();
-
+                parentPanel.getBusScheduleTable().tableChanged();
             } catch (Exception f) {
                 f.printStackTrace();
             }
@@ -260,34 +262,14 @@ public class TourPanel extends JPanel {
         if (result == JOptionPane.OK_OPTION) {
 
 
-            //TODO Fix to remove tour without having to remove from driver schedule first
-            if (Objects.nonNull(tour.getDriver())) {
-                driver = tour.getDriver();
-                int result2 = JOptionPane.showConfirmDialog(null, "Must Remove " + tour.getName() +
-                                " From " + driver.getName() + " Schedule First "
-                        , "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
-                if (result2 == JOptionPane.OK_OPTION) {
-                    parentPanel.selectPanel("DriverPanel");
-                    return;
-                } else {
-                    return;
-                }
-                
-                /*if (driver.getTours().size() > 1) {
-                    System.out.println(driver.getTours().size());
-                }
-                
-                
-                driver.delTour(tour);
-                if (Objects.isNull(driver.getTours())) {
-                    //CurrentProject.getTourColl().del(tour.getID());
-                    scheduleTable = new DriverScheduleTable();
-                } else {
-                    int result2 = JOptionPane.showConfirmDialog(null,  "Must Remove " + tour.getName() + 
-                            "From " + driver.getName() +"Schedule First " 
-                            , "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
-                }
-                */
+            if (tour.getDriver() != null) {
+                tour.getDriver().delTour(tour);
+                parentPanel.getDriverScheduleTable().tableChanged();
+            }
+            
+            if (tour.getBus() != null) {
+                tour.getBus().delTour(tour);
+                parentPanel.getBusScheduleTable().tableChanged();
             }
 
             CurrentProject.getTourColl().del(tour.getID());
@@ -297,7 +279,6 @@ public class TourPanel extends JPanel {
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
                 CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
                 tourTable.refresh();
-
             } catch (Exception f) {
                 f.printStackTrace();
             }
@@ -378,5 +359,12 @@ public class TourPanel extends JPanel {
      */
     public void ppNewTour_actionPerformed(ActionEvent e) {
         newTourB_actionPerformed(e);
+    }
+    
+    /**
+     * Refreshes the table. Should be called when changes are made in another tab.
+     */
+    public void refresh() {
+        tourTable.refresh();
     }
 }

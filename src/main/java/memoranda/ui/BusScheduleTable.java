@@ -147,6 +147,7 @@ public class BusScheduleTable extends JTable {
      * Repaints the table to reflect any changes to the data
      */
     public void tableChanged() {
+        setBus(getBus());
         init();
         updateUI();
     }

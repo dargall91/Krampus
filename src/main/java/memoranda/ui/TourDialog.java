@@ -91,6 +91,7 @@ public class TourDialog extends JDialog {
         routes = CurrentProject.getRouteColl();
         if (routes.size() < 1) {
             int result = JOptionPane.showConfirmDialog(null, "No Routes In System", "Need Route", JOptionPane.OK_CANCEL_OPTION);
+            
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
                 return ERROR_VALUE;
@@ -99,16 +100,19 @@ public class TourDialog extends JDialog {
                 return ERROR_VALUE;
             }
         }
+        
         Iterator<Route> routeIter = routes.iterator();
+        
         while (routeIter.hasNext()) {
             routeCB.addItem(routeIter.next());
         }
+        
         routeCB.setRenderer(new RouteListCellRenderer());
-
-
         busses = CurrentProject.getBusColl();
+        
         if (busses.size() < 1) {
-            int result = JOptionPane.showConfirmDialog(null, "No Busses In System", "Need Buss", JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, "No Buses In System", "Need Bus", JOptionPane.OK_CANCEL_OPTION);
+            
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
                 return ERROR_VALUE;
@@ -117,7 +121,9 @@ public class TourDialog extends JDialog {
                 return ERROR_VALUE;
             }
         }
+        
         Iterator<Bus> busIter = busses.iterator();
+        
         while (busIter.hasNext()) {
             busCB.addItem(busIter.next());
         }
@@ -197,12 +203,14 @@ public class TourDialog extends JDialog {
                 okButton_actionPerformed(e);
             }
         });
+        
         this.getRootPane().setDefaultButton(okB);
         cancelB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cancelButton_actionPerformed(e);
             }
         });
+        
         cancelB.setText(Local.getString("Cancel"));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));

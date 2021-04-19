@@ -697,6 +697,10 @@ public class AppFrame extends JFrame {
             super.processWindowEvent(new WindowEvent(this,
                     WindowEvent.WINDOW_ICONIFIED));
             doMinimize();
+        } else if ((e.getID() == WindowEvent.WINDOW_DEICONIFIED)) {
+            super.processWindowEvent(new WindowEvent(this,
+                    WindowEvent.WINDOW_ICONIFIED));
+            doMaximize();
         }  else {
             super.processWindowEvent(e);
         }

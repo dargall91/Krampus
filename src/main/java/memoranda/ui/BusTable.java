@@ -50,7 +50,7 @@ public class BusTable extends JTable {
      */
     public BusTable(BusScheduleTable busSchedule, DriverScheduleTable driverTable) {
         super();
-        //this.busSchedule = busSchedule;
+        this.busSchedule = busSchedule;
         this.driverTable = driverTable;
         init();
     }

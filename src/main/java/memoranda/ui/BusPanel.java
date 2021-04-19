@@ -223,4 +223,13 @@ public class BusPanel extends JSplitPane {
         busTable.tableChanged();
         scheduleTable.tableChanged();
     }
+
+    /**
+     * Gets the BusScheduleTable used to display a Bus's schedule
+     *
+     * @return The BusScheduleTable
+     */
+    public BusScheduleTable getBusScheduleTable() {
+        return scheduleTable;
+    }
 }

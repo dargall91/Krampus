@@ -505,6 +505,15 @@ public class DailyItemsPanel extends JPanel {
     public DriverScheduleTable getDriverScheduleTable() {
         return driverPanel.getDriverScheduleTable();
     }
+    
+    /**
+     * Gets the BusScheduleTable used to display a Bus's schedule
+     *
+     * @return The BusScheduleTable
+     */
+    public BusScheduleTable getBusScheduleTable() {
+        return busPanel.getBusScheduleTable();
+    }
 
     void taskB_actionPerformed(ActionEvent e) {
         parentPanel.busB_actionPerformed(null);
@@ -520,5 +529,6 @@ public class DailyItemsPanel extends JPanel {
     public void refresh() {
         driverPanel.refresh();
         busPanel.refresh();
+        tourPanel.refresh();
     }
 }
