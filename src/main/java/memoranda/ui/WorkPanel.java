@@ -245,7 +245,7 @@ public class WorkPanel extends JPanel {
     }
 
     /**
-     * Gets the DailyItemsPanel
+     * Gets the DailyItemsPanel.
      * 
      * @return the DailyItemsPanel
      */
@@ -254,7 +254,7 @@ public class WorkPanel extends JPanel {
     }
     
     /**
-     * Gets this panel's Map Button
+     * Gets this panel's Map Button.
      * 
      * @return The Map button
      */
@@ -263,7 +263,7 @@ public class WorkPanel extends JPanel {
     }
     
     /**
-     * Gets this panel's Driver Button
+     * Gets this panel's Driver Button.
      * 
      * @return The Driver button
      */
@@ -272,7 +272,7 @@ public class WorkPanel extends JPanel {
     }
     
     /**
-     * Gets this panel's Bus Button
+     * Gets this panel's Bus Button.
      * 
      * @return The Bus button
      */
@@ -281,7 +281,7 @@ public class WorkPanel extends JPanel {
     }
     
     /**
-     * Gets this panel's Tour Button
+     * Gets this panel's Tour Button.
      * 
      * @return The Tour button
      */
