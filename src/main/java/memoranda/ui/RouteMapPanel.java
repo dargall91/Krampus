@@ -10,11 +10,13 @@ package main.java.memoranda.ui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -26,8 +28,8 @@ import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 public class RouteMapPanel extends JPanel {
-    private final int BUTTON_HEIGHT = 30;
-    private final int BUTTON_WIDTH = 150;
+    private static final int BUTTON_HEIGHT = 30;
+    private static final int BUTTON_WIDTH = 150;
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
@@ -47,12 +49,15 @@ public class RouteMapPanel extends JPanel {
     private JMenuItem ppRemoveRes = new JMenuItem();
     private JMenuItem ppNewRes = new JMenuItem();
     private JMenuItem ppRefresh = new JMenuItem();
+    
+    private DailyItemsPanel parentPanel;
 
     /**
      * Constructor for RouteMapPanel
      */
-    public RouteMapPanel() {
+    public RouteMapPanel(DailyItemsPanel parentPanel) {
         try {
+            this.parentPanel = parentPanel;
             jbInit();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -87,7 +92,7 @@ public class RouteMapPanel extends JPanel {
         removeRouteB.setIcon(
                 new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         removeRouteB.setText("Remove");
-        removeRouteB.setEnabled(false);
+        removeRouteB.setEnabled(true);
         removeRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         removeRouteB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         removeRouteB.setToolTipText(Local.getString("Remove route."));
@@ -95,7 +100,7 @@ public class RouteMapPanel extends JPanel {
         removeRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         removeRouteB.setFocusable(false);
         removeRouteB.setBorderPainted(true);
-        //removeRouteB.addActionListener((e)->removeRouteB_actionPerformed(e)); //todo
+        removeRouteB.addActionListener((e)->removeRouteB_actionPerformed(e)); //todo
 
         /* Optimize Button */
         optRouteB.setIcon(
@@ -185,6 +190,49 @@ public class RouteMapPanel extends JPanel {
         this.add(toolBar, BorderLayout.NORTH);
     }
 
+    /**
+     * Event handler for the "Remove Route" button.
+     *
+     * @param e action event
+     */
+    private void removeRouteB_actionPerformed(ActionEvent e) {
+        Route route = routeTable.getRoute();
+        
+        //do nothing if there is no route selected
+        if (route != null) {
+            int result = JOptionPane.showConfirmDialog(null, "Delete " + route.getName() + "?", "Delete Route", JOptionPane.OK_CANCEL_OPTION);
+            
+            if (result == JOptionPane.OK_OPTION) {
+                //get list of associated tours, remove their drivers and buses, then remove them.
+                //A Tour cannot exist without a route, buses and drivers can't be scheduled for
+                //tours that don't exist.
+                ArrayList<Tour> tours = route.getTours();
+
+                for (int i = 0; i < tours.size(); i++) {
+                    if (tours.get(i).getDriver() != null) {
+                        tours.get(i).getDriver().delTour(tours.get(i));
+                    }
+                    
+                    if (tours.get(i).getBus() != null) {
+                        tours.get(i).getBus().delTour(tours.get(i));
+                    }
+                    
+                    CurrentProject.getTourColl().del(tours.get(i).getID());
+                }
+                
+                CurrentProject.getRouteColl().del(route.getID());
+                try {
+                    CurrentStorage.get().storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                routeTable.refresh();
+                parentPanel.refresh();
+            }
+        } else {
+            
+        }
+    }
 
     /**
      * Event handler for the "New Route" button.
@@ -201,7 +249,7 @@ public class RouteMapPanel extends JPanel {
                 (frmSize.height - dialog.getSize().height) / 2 + loc.y);
         dialog.setVisible(dialog.getError() != 1);
 
-        if (!dialog.isComplete()) {
+        if (dialog.isComplete()) {
             Route route = CurrentProject.getRouteColl().newItem();
             route.setName(dialog.getName());
 
@@ -257,9 +305,12 @@ public class RouteMapPanel extends JPanel {
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         Node node = CurrentProject.getNodeColl().newItem();
+        
+        Random rand = new Random();
+        
         node.setCoords(new Coordinate(
-                new Random().nextDouble() * 90,
-                new Random().nextDouble() * 90));
+                rand.nextDouble() * 90,
+                rand.nextDouble() * 90));
         node.setName("DEBUGNODE");
         r.addNode(node);
         try {
