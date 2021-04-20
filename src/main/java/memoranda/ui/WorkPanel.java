@@ -89,7 +89,7 @@ public class WorkPanel extends JPanel {
         driverB.setIcon(
                 new ImageIcon(
                         main.java.memoranda.ui.AppFrame.class.getResource(
-                                "/ui/icons/driver.png")));
+                                "/ui/icons/driver_icon.png")));
         driverB.setOpaque(false);
         driverB.setMargin(new Insets(0, 0, 0, 0));
         driverB.setSelected(true);
@@ -115,7 +115,7 @@ public class WorkPanel extends JPanel {
         toursB.setIcon(
                 new ImageIcon(
                         main.java.memoranda.ui.AppFrame.class.getResource(
-                                "/ui/icons/events.png")));
+                                "/ui/icons/tour_icon.png")));
         toursB.setOpaque(false);
         toursB.setMargin(new Insets(0, 0, 0, 0));
         //eventsB.setSelected(true);
@@ -126,7 +126,7 @@ public class WorkPanel extends JPanel {
         busesB.setIcon(
                 new ImageIcon(
                         main.java.memoranda.ui.AppFrame.class.getResource(
-                                "/ui/icons/tasks.png")));
+                                "/ui/icons/bus_icon.png")));
         busesB.setVerticalTextPosition(SwingConstants.BOTTOM);
         busesB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -203,7 +203,7 @@ public class WorkPanel extends JPanel {
         toolBar.add(driverB, null);
         toolBar.add(toursB, null);
         toolBar.add(busesB, null);
-        toolBar.add(notesB, null);
+        //toolBar.add(notesB, null);
         toolBar.add(filesB, null);
         currentB = driverB;
         // Default blue color
