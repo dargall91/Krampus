@@ -258,12 +258,12 @@ public class AppFrame extends JFrame {
     //Component initialization
     private void jbInit() throws Exception {
         this.setIconImage(new ImageIcon(AppFrame.class.getResource(
-                "/ui/icons/jnotes16.png"))
+                "/ui/logo/logo_icon.png"))
                 .getImage());
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(borderLayout1);
         //this.setSize(new Dimension(800, 500));
-        this.setTitle("Memoranda - " + CurrentProject.get().getTitle());
+        this.setTitle("Magic Tour Bus - " + CurrentProject.get().getTitle());
         //Added a space to App.VERSION_INFO to make it look some nicer
         statusBar.setText(" Version:" + App.getVersionInfo() + " (Build "
                 + App.getBuildInfo() + " )");
