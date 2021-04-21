@@ -146,16 +146,28 @@ public class Coordinate {
      * @param o another coordinate for comparison
      * @return whether supplied coordinate is equal to this one
      */
-    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
+        } else if (o.getClass().equals(this.getClass())) {
+            
         }
+        
         Coordinate c = (Coordinate) o;
         String lat1 = lat.toString();
         String lat2 = c.lat.toString();
         String long1 = lat.toString();
         String long2 = c.lat.toString();
         return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
+    }
+    
+    /**
+     * Override of hashCode for equals method.
+     * 
+     * @return an arbitrary constant
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 0;
     }
 }
