@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 
+import main.java.memoranda.BuildVersion;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
 
@@ -28,13 +29,8 @@ public class App {
 
     private JFrame splash = null;
 
-    /*========================================================================*/
-    /* Note: Please DO NOT edit the version/build info manually!
-       The actual values are substituted by the Ant build script using 
-       'version' property and datestamp.*/
-
-    private static final String VERSION_INFO = "@VERSION@";
-    private static final String BUILD_INFO = "@BUILD@";
+    private static final String VERSION_INFO = BuildVersion.getVersion();
+    private static final String BUILD_INFO = BuildVersion.getBuild();
 
     /*========================================================================*/
 
