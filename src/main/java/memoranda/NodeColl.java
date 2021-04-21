@@ -17,7 +17,7 @@ import main.java.memoranda.util.DuplicateKeyException;
 public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
 
     /**
-     * create a new node collection
+     * create a new node collection.
      */
     public NodeColl() {
         super();
@@ -81,11 +81,9 @@ public class NodeColl extends DataCollection<Node> implements Iterable<Node> {
     }
 
     /**
-     * iterator.
-     *
-     * @param <Node>
+     * Defines how to Iterate over the collection.
      */
-    public class NodeIterator<Node> implements Iterator<Node> {
+    public class NodeIterator<NodeT> implements Iterator<Node> {
         Collection coll;
         Iterator<Node> it;
 
