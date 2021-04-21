@@ -37,7 +37,7 @@ public class Database {
      * static var to hold database for open projects.
      */
     private static HashMap<String, Database> databases;
-    private int busy = 0;
+    private static int busy = 0;
 
     /**
      * Initializes the database for a given project and the default storage.
@@ -115,15 +115,28 @@ public class Database {
             Thread.sleep(100);
         }
         
-        busy++;
+        incrementBusy();
         stg.storeNodeList(prj, nodeColl);
         stg.storeBusList(prj, busColl);
         stg.storeRouteList(prj, routeColl);
         stg.storeDriverList(prj, driverColl);
         stg.storeTourList(prj, tourColl);
-        busy--;
+        decrementBusy();
     }
 
+    /**
+     * Increments the bust counter by 1.
+     */
+    private static void incrementBusy() {
+        busy++;
+    }
+    
+    /**
+     * Decrements the bust counter by 1.
+     */
+    private static void decrementBusy() {
+        busy--;
+    }
 
     /**
      * Load database files.
