@@ -90,6 +90,7 @@ public class Coordinate {
      *
      * @param c other coordinate
      * @return distance in km to other coordinate
+     * @throws NullPointerException if the Coordinate is null
      */
     public Double distanceTo(Coordinate c) throws NullPointerException {
         return haversine(lat, c.getLat(), lon, c.getLon());
@@ -111,6 +112,7 @@ public class Coordinate {
      *
      * @param c other coordinate
      * @return absolute distance to provided coordinate
+     * @throws NullPointerException if the Coordinate is null
      */
     public Double latDelta(Coordinate c) throws NullPointerException {
         return Math.abs(c.getLat() - lat);
@@ -121,6 +123,7 @@ public class Coordinate {
      *
      * @param c other coordinate
      * @return absolute distance to provided coordinate
+     * @throws NullPointerException if the Coordinate is null
      */
     public Double lonDelta(Coordinate c) throws NullPointerException {
         return Math.abs(c.getLon() - lon);

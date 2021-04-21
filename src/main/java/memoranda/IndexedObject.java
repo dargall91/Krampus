@@ -1,7 +1,8 @@
 package main.java.memoranda;
 
 /**
- * IndexedObject represents an object with a unique integer ID, used for json serialization/deserialization
+ * IndexedObject represents an object with a unique integer ID, used for json
+ * serialization and deserialization.
  *
  * @author Brian Pape
  * @version 2021-04-01
@@ -11,7 +12,7 @@ public abstract class IndexedObject {
 
 
     /**
-     * create a new object with given integer id
+     * create a new object with given integer id.
      *
      * @param id id for new object
      */
@@ -20,7 +21,7 @@ public abstract class IndexedObject {
     }
 
     /**
-     * id getter
+     * id getter.
      *
      * @return
      */
@@ -29,7 +30,7 @@ public abstract class IndexedObject {
     }
 
     /**
-     * standard toString
+     * standard toString.
      *
      * @return String repr of obj
      */
