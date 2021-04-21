@@ -1,5 +1,5 @@
 language: java
-jdk: openjdk11
+jdk: oraclejdk11
 
 script:
   - ./gradlew clean build test
