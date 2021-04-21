@@ -37,7 +37,7 @@ public class Database {
      * static var to hold database for open projects.
      */
     private static HashMap<String, Database> databases;
-    private static int busy = 0;
+    private int busy = 0;
 
     /**
      * Initializes the database for a given project and the default storage.
@@ -114,6 +114,7 @@ public class Database {
         while (busy > 0) {
             Thread.sleep(100);
         }
+        
         busy++;
         stg.storeNodeList(prj, nodeColl);
         stg.storeBusList(prj, busColl);
