@@ -3,10 +3,9 @@ package main.java.memoranda;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * Tour object representing a route at a given time, assigned to a bus.
@@ -63,6 +62,7 @@ public class Tour extends IndexedObject {
      *                  specified in TourLoader obj
      * @param newTour   TourLoader obj holding deserialized json data with integer route and bus IDs
      * @throws IndexOutOfBoundsException if provided id is not unique
+     * @throws DuplicateKeyException if a bus already associated with another tour
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour)
@@ -186,9 +186,9 @@ public class Tour extends IndexedObject {
     public LocalTime getEndTime() {
 
         // route.duration is returned in hours.
-        final int SECS_PER_HOUR = 3600;
+        final int secPerHour = 3600;
 
-        int travelTime = (int) (route.duration(speed) * SECS_PER_HOUR);
+        int travelTime = (int) (route.duration(speed) * secPerHour);
         return getTime().plusSeconds(travelTime);
     }
 
@@ -253,8 +253,8 @@ public class Tour extends IndexedObject {
         if (this.driver.equals(driver)) {
             this.driver = null;
         } else {
-            throw new UnsupportedOperationException("Cannot unilaterally remove driver. " +
-                    "Call driver.delTour()");
+            throw new UnsupportedOperationException("Cannot unilaterally remove driver. "
+                    + "Call driver.delTour()");
         }
 
     }
@@ -262,15 +262,15 @@ public class Tour extends IndexedObject {
     /**
      * Delete driver associated with this tour.
      *
-     * @param driver driver to delete
+     * @param route route to delete
      * @throws UnsupportedOperationException if an invalid driver is passed to the method.
      */
     public void delRoute(Route route) throws UnsupportedOperationException {
         if (this.route.equals(route)) {
             this.route = null;
         } else {
-            throw new UnsupportedOperationException("Cannot unilaterally remove route. " +
-                    "Call route.delTour()");
+            throw new UnsupportedOperationException("Cannot unilaterally remove route. "
+                    + "Call route.delTour()");
         }
 
     }
@@ -319,8 +319,8 @@ public class Tour extends IndexedObject {
         if (this.bus.equals(bus)) {
             this.bus = null;
         } else {
-            throw new UnsupportedOperationException("Cannot unilaterally remove bus. " +
-                    "Call bus.delTour()");
+            throw new UnsupportedOperationException("Cannot unilaterally remove bus. "
+                    + "Call bus.delTour()");
         }
     }
 

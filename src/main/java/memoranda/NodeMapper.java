@@ -3,12 +3,12 @@ package main.java.memoranda;
 import java.awt.*;
 
 /**
- * NodeMapper class
+ * NodeMapper class.
  * <p>
- * Maps nodes (coordinates) to a given plotting window size
- * Implement scale object to allow for easy cartesian plotting of map coordinates assuming an ideal
- * Mercator projection.
- *
+ *      Maps nodes (coordinates) to a given plotting window size Implement scale object to allow
+ *      for easy Cartesian plotting of map coordinates assuming an ideal Mercator projection.
+ * </p>
+ * 
  * @author Brian Pape
  * @version 2021-04-06
  */
@@ -24,7 +24,9 @@ public class NodeMapper {
     private Scale scale;
 
     /**
-     * @param nodeColl
+     * Creates a new NodeMapper from a NodeCollection.
+     * 
+     * @param nodeColl the NodeCollection
      */
     public NodeMapper(NodeColl nodeColl) {
         if (nodeColl.size() == 0) {
@@ -37,28 +39,40 @@ public class NodeMapper {
     }
 
     private static class Scale {
-        double latScale, lonScale;
+        double latScale;
+        double lonScale;
 
         Scale(double lonScale, double latScale) {
             this.latScale = latScale;
             this.lonScale = lonScale;
         }
 
+        /**
+         * Gets the Lateral Scale.
+         * 
+         * @return the lateral scale
+         */
         public double getLatScale() {
             return latScale;
         }
 
+        /**
+         * Gets the Longitude Scale.
+         * 
+         * @return the longitude scale
+         */
         public double getLonScale() {
             return lonScale;
         }
 
+        @Override
         public String toString() {
             return latScale + "," + lonScale;
         }
     }
 
     /**
-     * sets scaling factor for this plotting window
+     * sets scaling factor for this plotting window.
      *
      * @param dim dimension to scale to
      */
@@ -69,7 +83,7 @@ public class NodeMapper {
 
     /**
      * Set the map size for calculations. Note that scales are 0-based, so a map size of
-     * 1000x1000 results in a return range of 0-999 x 0-999
+     * 1000x1000 results in a return range of 0-999 x 0-999.
      *
      * @param dim dimensions
      */
@@ -98,9 +112,12 @@ public class NodeMapper {
      *
      * @param n node
      * @return scaled Point
+     * @throws IllegalArgumentException if the Node is not in range of the collection
+     * @throws NullPointerException if the node is null
      */
     public Point getScaled(Node n) throws IllegalArgumentException, NullPointerException {
-        int lat, lon;
+        int lat;
+        int lon;
 
         if (!inRange(n.getCoords())) {
             throw new IllegalArgumentException("Node is not in range of provided node collection");

@@ -24,7 +24,8 @@ public class RouteLoader extends IndexedObject {
      * @param nodeIDs IDs of nodes (ordered list) associated with route
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodeIDs) {
+    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name,
+            @JsonProperty("nodeIDs") LinkedList<Integer> nodeIDs) {
         super(id);
         this.name = name;
         this.nodeIDs = nodeIDs;
