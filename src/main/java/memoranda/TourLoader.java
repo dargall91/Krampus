@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Used to load tours with numeric IDs from JSON and subsequently be converted into an object hierarchy
+ * Used to load tours with numeric IDs from JSON and subsequently be converted into an object hierarchy.
  *
  * @author Brian Pape
  * @version 2021-04-01
@@ -17,7 +17,7 @@ public class TourLoader extends IndexedObject {
     private Integer routeID;
 
     /**
-     * constructor for json deserialization
+     * constructor for json deserialization.
      *
      * @param id      id for Tour
      * @param name    name of tour
@@ -85,7 +85,7 @@ public class TourLoader extends IndexedObject {
     }
 
     /**
-     * standard toString()
+     * standard toString().
      *
      * @return string repr of obj
      */
