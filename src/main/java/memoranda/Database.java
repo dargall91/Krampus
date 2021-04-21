@@ -1,21 +1,20 @@
 package main.java.memoranda;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
-
-import java.io.IOException;
-import java.util.HashMap;
 
 
 /**
  * Database control multi-singleton (per project) class.
  * <p>
- * Use:
- * Database db=Database.getDatabase(storage,project) when MTB opens to read persisted serialized data.
- * After making changes, commit them to disk with db.write().
- * All parts of the program will get the same collection instances because Database acts as a
- * multi-singleton class - it will return one Database per (storage, project) tuple.
+ * Use: Database db=Database.getDatabase(storage,project) when MTB opens to read persisted
+ * serialized data. After making changes, commit them to disk with db.write(). All parts of the
+ * program will get the same collection instances because Database acts as a multi-singleton class -
+ * it will return one Database per (storage, project) tuple.
  * <p>
  * This code is mildly thread-safe and will try to eliminate race conditions on read/write, but
  * cannot compensate for filesystem-level race conditions under hundreds of simultaneous reads/
@@ -25,6 +24,11 @@ import java.util.HashMap;
  * @version 2021-04-06
  */
 public class Database {
+    /**
+     * static var to hold database for open projects.
+     */
+    private static HashMap<String, Database> databases;
+    private static int busy = 0;
     private NodeColl nodeColl;
     private RouteColl routeColl;
     private TourColl tourColl;
@@ -32,12 +36,6 @@ public class Database {
     private BusColl busColl;
     private Storage stg;
     private Project prj;
-
-    /**
-     * static var to hold database for open projects.
-     */
-    private static HashMap<String, Database> databases;
-    private static int busy = 0;
 
     /**
      * @param prj Project to use (uses default Storage)
@@ -88,6 +86,29 @@ public class Database {
 
 
     /**
+     * lock access to database I/O before using it.
+     */
+    public static void lock() {
+        busy++;
+    }
+
+    /**
+     * unlock access to database I/O when we're done using it.
+     */
+    public static void unlock() {
+        busy--;
+    }
+
+    /**
+     * check to see if database I/O is busy.
+     *
+     * @return true if db I/O is busy
+     */
+    public static boolean isBusy() {
+        return busy > 0;
+    }
+
+    /**
      * @param prj check to see if database exists for this project.
      * @return whether db exists for this project
      */
@@ -103,16 +124,16 @@ public class Database {
      */
 //    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void write() throws IOException, InterruptedException {
-        while (busy > 0) {
+        while (isBusy()) {
             Thread.sleep(100);
         }
-        busy++;
+        lock();
         stg.storeNodeList(prj, nodeColl);
         stg.storeBusList(prj, busColl);
         stg.storeRouteList(prj, routeColl);
         stg.storeDriverList(prj, driverColl);
         stg.storeTourList(prj, tourColl);
-        busy--;
+        unlock();
     }
 
 
@@ -121,7 +142,7 @@ public class Database {
      */
     public void load() throws InterruptedException {
 
-        while (busy > 0) {
+        while (isBusy()) {
             Thread.sleep(100);
         }
         try {
