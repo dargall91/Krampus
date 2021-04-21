@@ -93,11 +93,6 @@ public class Database {
 
 
     /**
-<<<<<<< HEAD
-     * Checks if a databse for a given project exists.
-     * 
-     * @param prj The project to check for
-=======
      * lock access to database I/O before using it.
      */
     public static void lock() {
@@ -121,8 +116,9 @@ public class Database {
     }
 
     /**
+     * Checks if a database for a given project exists.
+     * 
      * @param prj check to see if database exists for this project.
->>>>>>> ff8821fc3f5dd0385e52455bb48e3306542df27c
      * @return whether db exists for this project
      */
     public static boolean exists(Project prj) {
