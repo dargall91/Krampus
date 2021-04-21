@@ -12,8 +12,8 @@ mainClassName = 'main/java/memoranda/Start'
 
 compileJava.options.encoding = 'UTF-8'
 
-def krampusVersion = '2.0'
-def krampusBuild = '1.0'
+def krampusVersion = 'Undecided'
+def krampusBuild = 'I don\'t know'
 
 //create a .properties file with the version and build
 task createProperties(dependsOn: processResources) {
