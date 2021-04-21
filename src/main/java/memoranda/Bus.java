@@ -51,6 +51,7 @@ public class Bus extends IndexedObject {
      * Add a tour to this bus.
      *
      * @param tour the tour to add
+     * @throws DuplicateKeyException if the tour is already associated with a bus
      */
     public void addTour(Tour tour) throws DuplicateKeyException {
         if (tour.getBus() != this && tour.getBus() != null) {

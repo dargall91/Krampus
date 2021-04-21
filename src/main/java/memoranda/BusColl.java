@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.Iterator;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * BusColl object holding a collection of buses in the MTB scheduling system.
@@ -15,7 +14,7 @@ import java.util.Iterator;
 public class BusColl extends DataCollection<Bus> implements Iterable<Bus> {
 
     /**
-     * create a new bus collection
+     * create a new bus collection.
      */
     public BusColl() {
         super();
@@ -81,11 +80,9 @@ public class BusColl extends DataCollection<Bus> implements Iterable<Bus> {
     }
 
     /**
-     * iterator.
-     *
-     * @param <Bus>
+     * Defines how to Iterate over the collection.
      */
-    public class BusIterator<Bus> implements Iterator<Bus> {
+    public class BusIterator<BusT> implements Iterator<Bus> {
         Collection coll;
         Iterator<Bus> it;
 
