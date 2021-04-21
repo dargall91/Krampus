@@ -21,7 +21,10 @@ public class BuildVersion {
     public static String getVersion() {
         String version = "0";
         
-        try (InputStream propertiesFile = new FileInputStream("src/main/resources/util/version.properties")) {
+        try {
+            ClassLoader loader = BuildVersion.class.getClassLoader();
+            
+            InputStream propertiesFile = ClassLoader.getSystemClassLoader().getResourceAsStream("util/version.properties");
             Properties properties = new Properties();
 
             properties.load(propertiesFile);
@@ -42,11 +45,16 @@ public class BuildVersion {
     public static String getBuild() {
         String build = "0";
         
-        try (InputStream propertiesFile = new FileInputStream("src/main/resources/util/version.properties")) {
+        try {
+            ClassLoader loader = BuildVersion.class.getClassLoader();
+            
+            InputStream propertiesFile = ClassLoader.getSystemClassLoader().getResourceAsStream("util/version.properties");
             Properties properties = new Properties();
 
             properties.load(propertiesFile);
             build = properties.getProperty("build");
+            
+            propertiesFile.close();
 
         } catch (IOException ex) {
             ex.printStackTrace();
