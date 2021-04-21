@@ -1,3 +1,4 @@
+
 package main.java.memoranda;
 
 import java.io.IOException;
@@ -16,7 +17,6 @@ import main.java.memoranda.util.Storage;
  *      of the program will get the same collection instances because Database acts as a
  *      multi-singleton class - it will return one Database per (storage, project) tuple.
  * </p>
-
  * This code is mildly thread-safe and will try to eliminate race conditions on read/write, but
  * cannot compensate for filesystem-level race conditions under hundreds of simultaneous reads/
  * writes.  Concurrent writes are safe.
@@ -25,6 +25,11 @@ import main.java.memoranda.util.Storage;
  * @version 2021-04-06
  */
 public class Database {
+    /**
+     * static var to hold database for open projects.
+     */
+    private static HashMap<String, Database> databases;
+    private static int busy = 0;
     private NodeColl nodeColl;
     private RouteColl routeColl;
     private TourColl tourColl;
@@ -32,12 +37,6 @@ public class Database {
     private BusColl busColl;
     private Storage stg;
     private Project prj;
-
-    /**
-     * static var to hold database for open projects.
-     */
-    private static HashMap<String, Database> databases;
-    private int busy = 0;
 
     /**
      * Initializes the database for a given project and the default storage.
@@ -94,9 +93,36 @@ public class Database {
 
 
     /**
+<<<<<<< HEAD
      * Checks if a databse for a given project exists.
      * 
      * @param prj The project to check for
+=======
+     * lock access to database I/O before using it.
+     */
+    public static void lock() {
+        busy++;
+    }
+
+    /**
+     * unlock access to database I/O when we're done using it.
+     */
+    public static void unlock() {
+        busy--;
+    }
+
+    /**
+     * check to see if database I/O is busy.
+     *
+     * @return true if db I/O is busy
+     */
+    public static boolean isBusy() {
+        return busy > 0;
+    }
+
+    /**
+     * @param prj check to see if database exists for this project.
+>>>>>>> ff8821fc3f5dd0385e52455bb48e3306542df27c
      * @return whether db exists for this project
      */
     public static boolean exists(Project prj) {
@@ -111,17 +137,17 @@ public class Database {
      * @throws InterruptedException the thread was interrupted
      */
     public void write() throws IOException, InterruptedException {
-        while (busy > 0) {
+        while (isBusy()) {
             Thread.sleep(100);
         }
         
-        busy++;
+        lock();
         stg.storeNodeList(prj, nodeColl);
         stg.storeBusList(prj, busColl);
         stg.storeRouteList(prj, routeColl);
         stg.storeDriverList(prj, driverColl);
         stg.storeTourList(prj, tourColl);
-        busy--;
+        unlock();
     }
 
 
@@ -132,7 +158,7 @@ public class Database {
      */
     public void load() throws InterruptedException {
 
-        while (busy > 0) {
+        while (isBusy()) {
             Thread.sleep(100);
         }
         try {
@@ -146,7 +172,6 @@ public class Database {
         }
     }
 
-
     /**
      * Initialize empty collections.
      */
@@ -157,7 +182,6 @@ public class Database {
         driverColl = new DriverColl();
         busColl = new BusColl();
     }
-
 
     /**
      * Return node collection for this database.
