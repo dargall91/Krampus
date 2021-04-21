@@ -53,6 +53,7 @@ public class Driver extends IndexedObject {
      *
      * @param tc        the tourColl
      * @param newDriver the DriverLoader object
+     * @throws DuplicateKeyException if a tour in the collection is assigned to another Driver
      */
     public Driver(TourColl tc, DriverLoader newDriver) throws DuplicateKeyException {
         this(newDriver.getID());
@@ -69,6 +70,7 @@ public class Driver extends IndexedObject {
      * Add a tour to this driver.
      *
      * @param tour the tour to add
+     * @throws DuplicateKeyException if the tour is assigned to another Driver
      */
     public void addTour(Tour tour) throws DuplicateKeyException {
         if (tour.getDriver() != this && tour.getDriver() != null) {

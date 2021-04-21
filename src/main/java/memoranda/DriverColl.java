@@ -73,11 +73,9 @@ public class DriverColl extends DataCollection<Driver> implements Iterable<Drive
     }
 
     /**
-     * iterator.
-     *
-     * @param <Driver>
+     * Defines how to Iterate over the collection.
      */
-    public class DriverIterator<Driver> implements Iterator<Driver> {
+    public class DriverIterator<DriverT> implements Iterator<Driver> {
         Collection coll;
         Iterator<Driver> it;
 
