@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * RouteOptimizer provides methods for the optimization of a route's path, both with a given start point
- * and a selected start point
+ * and a selected start point.
  *
  * @author Chris Boveda
  * @version 2021-04-10
@@ -28,7 +28,8 @@ public class RouteOptimizer {
 
         newRoute.add(routeCopy.removeFirst());
         while (!routeCopy.isEmpty()) {
-            double thisDistance, minDistance = Double.MAX_VALUE;
+            double thisDistance;
+            double minDistance = Double.MAX_VALUE;
             int minDistIndex = 0;
             for (Node n : routeCopy) {
                 thisDistance = newRoute.getLast().distanceTo(n);

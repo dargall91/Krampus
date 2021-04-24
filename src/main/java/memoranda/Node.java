@@ -67,6 +67,7 @@ public class Node extends IndexedObject {
      *
      * @param n node to calculate distance to
      * @return distance to provided node
+     * @throws NullPointerException if the Node is null
      */
     public Double distanceTo(Node n) throws NullPointerException {
         return this.coords.distanceTo(n.getCoords());

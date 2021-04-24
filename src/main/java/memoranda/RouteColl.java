@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.java.memoranda.util.DuplicateKeyException;
-
 import java.util.Collection;
 import java.util.Iterator;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * RouteColl object holding a collection of routes in the MTB scheduling system.
@@ -16,7 +15,7 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
 
 
     /**
-     * create a new route collection
+     * create a new route collection.
      */
     public RouteColl() {
         super();
@@ -98,11 +97,9 @@ public class RouteColl extends DataCollection<Route> implements Iterable<Route> 
     }
 
     /**
-     * iterator class.
-     *
-     * @param <Route>
+     * Defines how to Iterate over the collection.
      */
-    public class RouteIterator<Route> implements Iterator<Route> {
+    public class RouteIterator<RouteT> implements Iterator<Route> {
         Collection coll;
         Iterator<Route> it;
 

@@ -264,9 +264,8 @@ public class AppFrame extends JFrame {
         contentPane.setLayout(borderLayout1);
         //this.setSize(new Dimension(800, 500));
         this.setTitle("Magic Tour Bus - " + CurrentProject.get().getTitle());
-        //Added a space to App.VERSION_INFO to make it look some nicer
-        statusBar.setText(" Version:" + App.getVersionInfo() + " (Build "
-                + App.getBuildInfo() + " )");
+        statusBar.setText(" Version: " + App.getVersionInfo() + " (Build: "
+                + App.getBuildInfo() + ")");
 
         menuFile.setText(Local.getString("File"));
         menuFileExit.setText(Local.getString("Exit"));

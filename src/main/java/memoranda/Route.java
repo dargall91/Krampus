@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Route object representing a route in the MTB scheduling system.
- * Routes contain an ordered list of Nodes
+ * Routes contain an ordered list of Nodes.
  *
  * @author Brian Pape, Chris Boveda
  * @version 2021-04-10
@@ -156,7 +156,7 @@ public class Route extends IndexedObject {
 
 
     /**
-     * Standard setter for name
+     * Standard setter for name.
      *
      * @param name new name
      */
