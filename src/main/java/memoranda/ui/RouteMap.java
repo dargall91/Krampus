@@ -1,50 +1,76 @@
 /**
  * RouteMap plots the stops on the map to visualize the nodes.
  *
- * @author Kevin Dolan
- * @version 1.0
+ * @author Kevin Dolan, John Thurstonson
+ * @version 2021-04-25
  */
 package main.java.memoranda.ui;
 
 import main.java.memoranda.Coordinate;
+import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Node;
-import main.java.memoranda.NodeColl;
 import main.java.memoranda.NodeMapper;
+import main.java.memoranda.Route;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.lang.*;
 
 public class RouteMap extends JPanel {
-    private NodeColl nodes;
+    //private NodeColl nodes;
     private List<RouteStop> stops;
     private int id;
-
+    private Route route;
+    private RouteMapPanel parentPanel;
+    
     /**
-     * Constructor for RouteMap.
+     * Constructor for TESTING ONLY.
      */
     public RouteMap() {
         id = 1;
-        nodes = new NodeColl();
+        //nodes = new NodeColl();
         stops = new ArrayList<>();
+    }
 
-        RouteStop s1 = new RouteStop(1, createPoint(100, 100));
-        RouteStop s2 = new RouteStop(2, createPoint(200, 110));
-        RouteStop s3 = new RouteStop(3, createPoint(300, 250));
-        RouteStop s4 = new RouteStop(4, createPoint(400, 10));
-        RouteStop s5 = new RouteStop(5, createPoint(500, 700));
-
-        addStop(stops, s1.getBusStop());
-        addStop(stops, s2.getBusStop());
-        addStop(stops, s3.getBusStop());
-        addStop(stops, s4.getBusStop());
-        addStop(stops, s5.getBusStop());
+    /**
+     * Constructor for RouteMap.
+     *
+     * @param parentPanel
+     */
+    public RouteMap(RouteMapPanel parentPanel) {
+        this.parentPanel = parentPanel;
+        
+        initMap();
+    }
+    
+    /**
+     * Initiate RouteMap.
+     */
+    private void initMap() {
+        id = 1;
+        //nodes = new NodeColl();
+        stops = new ArrayList<>();
+        
+        if (parentPanel.getRouteTable().getRoute() != null) {
+            route = parentPanel.getRouteTable().getRoute();
+        } else {
+            return;
+        }
 
         setPreferredSize(new Dimension(1000, 1000));
         setBackground(Color.WHITE);
+        
+        populateStops(route.getRoute());
+    }
+    
+    /**
+     * Refresh RouteMap.
+     */
+    public void refresh() {
+        initMap();
     }
 
     /**
@@ -93,19 +119,25 @@ public class RouteMap extends JPanel {
     }
 
     /**
-     * populateStops retrieves stops from the NodeCollection and stores
+     * populateStops retrieves stops from the Route and stores
      * them in the list for mapping.
+     * Updated to accept linked list of nodes
      *
-     * @param nodeCollection
+     * @param nodes
      */
-    public void populateStops(NodeColl nodeCollection) {
-        NodeMapper mapper = new NodeMapper(nodeCollection);
-
-        while (nodeCollection.iterator().hasNext()) {
-            for (Node n : nodeCollection) {
-                addStop(stops, mapper.getScaled(n));
-            }
+    public void populateStops(LinkedList<Node> nodes) {
+        NodeMapper mapper = new NodeMapper(CurrentProject.getNodeColl());
+        
+        for (Node n : nodes) {
+            addStop(stops, mapper.getScaled(n), n.getName());
         }
+
+        //while (nodeCollection.iterator().hasNext()) {
+        //    for (Node n : nodeCollection) {
+        //        System.out.println("adding stops");
+        //        addStop(stops, mapper.getScaled(n));
+        //    }
+        //}
     }
 
     /**
@@ -113,9 +145,10 @@ public class RouteMap extends JPanel {
      *
      * @param list
      * @param point
+     * @param name
      */
-    public void addStop(List<RouteStop> list, Point2D point) {
-        list.add(new RouteStop(getId(), point));
+    public void addStop(List<RouteStop> list, Point2D point, String name) {
+        list.add(new RouteStop(getId(), point, name));
         setId(getId() + 1);
         repaint();
     }

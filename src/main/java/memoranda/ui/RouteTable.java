@@ -6,6 +6,8 @@ import main.java.memoranda.RouteColl;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -14,21 +16,22 @@ import javax.swing.table.TableCellRenderer;
 /**
  * JTable to display routes in the system
  *
- * @author Chris Boveda
- * @version 2021-04-11
+ * @author Chris Boveda, John Thurstonson
+ * @version 2021-04-25
  */
-public class RouteTable extends JTable {
+public class RouteTable extends JTable implements MouseListener {
     private RouteColl routes;
-
+    private RouteMapPanel parentPanel;
 
     /**
      * Default CTor for RouteTable
      */
-    public RouteTable() {
+    public RouteTable(RouteMapPanel parentPanel) {
         super();
         setModel(new RouteTableModel());
         initTable();
         this.setShowGrid(false);
+        this.parentPanel = parentPanel;
     }
 
     private void initTable() {
@@ -40,6 +43,8 @@ public class RouteTable extends JTable {
         if (routes.size() > 0) {
             setRowSelectionInterval(0, 0);
         }
+
+        addMouseListener(this);
     }
 
 
@@ -157,4 +162,52 @@ public class RouteTable extends JTable {
         return routes.getRoutes().toArray(new Route[routes.size()])[getSelectedRow()];
     }
 
+    /**
+     * Action for mouse clicked.
+     * Refreshes RouteMap.
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        parentPanel.getRouteMap().refresh();
+    }
+
+    /**
+     * Action for mouse pressed.
+     * Currently no action.
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+        
+    }
+
+    /**
+     * Action for mouse released.
+     * Currently no action.
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+        
+    }
+
+    /**
+     * Action for mouse entered.
+     * Currently no action.
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+        
+    }
+
+    /**
+     * Action for mouse exited.
+     * Currently no action.
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+        
+    }
 }
