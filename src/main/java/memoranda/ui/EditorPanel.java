@@ -26,9 +26,7 @@ import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.text.html.HTMLDocument;
 
-import main.java.memoranda.CurrentNote;
 import main.java.memoranda.History;
-import main.java.memoranda.Note;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.ui.htmleditor.HTMLEditor;
 import main.java.memoranda.util.Configuration;
@@ -499,20 +497,20 @@ public class EditorPanel extends JPanel {
             enc = "UTF-8";
         }
         File f = chooser.getSelectedFile();
-        new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
-                dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
+        //new HTMLFileExport(f, editor.document, CurrentNote.get(), enc,
+        //        dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
     }
 
     String initialTitle = "";
 
-    public void setDocument(Note note) {
+    public void setDocument(Object note) {
         // Note note = CurrentProject.getNoteList().getActiveNote();
         // try {
         // this.editor.editor.setPage(CurrentStorage.get().getNoteURL(note));
-        editor.document = (HTMLDocument) CurrentStorage.get().openNote(note);
+        //editor.document = (HTMLDocument) CurrentStorage.get().openNote(note);
         editor.initEditor();
         if (note != null) {
-            titleField.setText(note.getTitle());
+            //titleField.setText(note.getTitle());
         } else {
             titleField.setText("");
         }
@@ -584,7 +582,7 @@ public class EditorPanel extends JPanel {
     }
 
     void newB_actionPerformed(ActionEvent e) {
-        CurrentNote.set(null, true);
+        //CurrentNote.set(null, true);
         setDocument(null);
         this.titleField.requestFocus();
     }
@@ -593,8 +591,8 @@ public class EditorPanel extends JPanel {
         File f;
         try {
             f = Util.getTempFile();
-            new HTMLFileExport(f, editor.document, CurrentNote.get(), "UTF-8",
-                    false, null, false);
+            //new HTMLFileExport(f, editor.document, CurrentNote.get(), "UTF-8",
+            //        false, null, false);
             Util.runBrowser("file:" + f.getAbsolutePath());
         } catch (IOException ioe) {
             new ExceptionDialog(ioe, "Cannot create temporary file", null);

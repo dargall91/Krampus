@@ -21,7 +21,6 @@ import org.apache.xml.serialize.XMLSerializer;
 import org.cyberneko.html.parsers.SAXParser;
 import org.xml.sax.InputSource;
 
-import main.java.memoranda.Note;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 
@@ -34,7 +33,6 @@ public class HTMLFileExport {
     String charset = "";
     File f = null;
     HTMLDocument doc;
-    Note note = null;
     boolean xhtml = false;
     boolean num = false;
     String templFile = null;
@@ -42,10 +40,9 @@ public class HTMLFileExport {
     /**
      * Constructor for HTMLFileExport.
      */
-    public HTMLFileExport(File f, Document doc, Note note, String charset, boolean num, String templFile, boolean xhtml) {
+    public HTMLFileExport(File f, Document doc, String charset, boolean num, String templFile, boolean xhtml) {
         this.f = f;
         this.doc = (HTMLDocument) doc;
-        this.note = note;
         this.charset = charset;
         this.num = num;
         this.templFile = templFile;
@@ -77,7 +74,6 @@ public class HTMLFileExport {
             } else {
                 fw = new FileWriter(f);
             }
-            fw.write(applyTemplate());
             fw.flush();
             fw.close();
         } catch (Exception ex) {
@@ -110,30 +106,6 @@ public class HTMLFileExport {
             return t;
         }
         return "<html>\n<head>\n@METACHARSET@\n<title>@TITLE@ - @PROJECT@</title>\n</head>\n<body>\n@CONTENT@\n</body>\n</html>";
-    }
-
-    private String applyTemplate() {
-        String body = getNoteBody();
-        String title = note != null ? note.getTitle() : "";
-        String id = note != null ? note.getId() : "";
-        String project = note != null ? note.getProject().getTitle() : "";
-        String date = note != null ? note.getDate().getFullDateString() : "";
-        String now = new Date().toString();
-        String templ = getTemplateString(templFile);
-        templ = templ.replaceAll("@CONTENT@", body);
-        templ = templ.replaceAll("@TITLE@", title);
-        templ = templ.replaceAll("@ID@", id);
-        templ = templ.replaceAll("@PROJECT@", project);
-        templ = templ.replaceAll("@DATE@", date);
-        templ = templ.replaceAll("@NOW@", now);
-        if ((charset != null) && (charset.length() > 0)) {
-            templ = templ.replaceAll("@METACHARSET@", "<meta http-equiv=\"Content-Type\" content=\"text/html; charset="
-                    + charset + "\" >");
-        }
-        if (xhtml) {
-            templ = convertToXHTML(templ);
-        }
-        return templ;
     }
 
     private String getNoteBody() {

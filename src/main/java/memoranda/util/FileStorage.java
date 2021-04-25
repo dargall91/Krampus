@@ -34,9 +34,6 @@ import main.java.memoranda.DriverLoader;
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
-import main.java.memoranda.Note;
-import main.java.memoranda.NoteList;
-import main.java.memoranda.NoteListImpl;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectManager;
 import main.java.memoranda.ResourcesList;
@@ -119,130 +116,6 @@ public class FileStorage implements Storage {
 
     public static boolean documentExists(String filePath) {
         return new File(filePath).exists();
-    }
-
-    /**
-     * @see main.java.memoranda.util.Storage#storeNote(main.java.memoranda.Note)
-     */
-    public void storeNote(Note note, javax.swing.text.Document doc) {
-        String filename =
-                JN_DOCPATH + note.getProject().getID() + File.separator;
-        doc.putProperty(
-                javax.swing.text.Document.TitleProperty,
-                note.getTitle());
-        CalendarDate d = note.getDate();
-
-        filename += note.getId();//d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-        /*DEBUG*/
-        System.out.println("[DEBUG] Save note: " + filename);
-
-        try {
-            OutputStreamWriter fw =
-                    new OutputStreamWriter(new FileOutputStream(filename), "UTF-8");
-            AltHTMLWriter writer = new AltHTMLWriter(fw, (HTMLDocument) doc);
-            writer.write();
-            fw.flush();
-            fw.close();
-            //editorKit.write(new FileOutputStream(filename), doc, 0, doc.getLength());
-            //editorKit.write(fw, doc, 0, doc.getLength());
-        } catch (Exception ex) {
-            new ExceptionDialog(
-                    ex,
-                    "Failed to write a document to " + filename,
-                    "");
-        }
-        /*String filename = JN_DOCPATH + note.getProject().getID() + "/";
-        doc.putProperty(javax.swing.text.Document.TitleProperty, note.getTitle());
-        CalendarDate d = note.getDate();
-        filename += d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-        try {
-            long t1 = new java.util.Date().getTime();
-            FileOutputStream ostream = new FileOutputStream(filename);
-            ObjectOutputStream oos = new ObjectOutputStream(ostream);
-        
-            oos.writeObject((HTMLDocument)doc);
-        
-            oos.flush();
-            oos.close();
-            ostream.close();
-            long t2 = new java.util.Date().getTime();
-            System.out.println(filename+" save:"+ (t2-t1) );
-        }
-            catch (Exception ex) {
-                ex.printStackTrace();
-            }*/
-
-    }
-
-    /**
-     * @see main.java.memoranda.util.Storage#openNote(main.java.memoranda.Note)
-     */
-    public javax.swing.text.Document openNote(Note note) {
-
-        HTMLDocument doc = (HTMLDocument) editorKit.createDefaultDocument();
-        if (note == null) {
-            return doc;
-        }
-        /*
-                String filename = JN_DOCPATH + note.getProject().getID() + File.separator;
-                CalendarDate d = note.getDate();
-                filename += d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-        */
-        String filename = getNotePath(note);
-        try {
-            /*DEBUG*/
-
-//            Util.debug("Open note: " + filename);
-//            Util.debug("Note Title: " + note.getTitle());
-            doc.setBase(new URL(getNoteURL(note)));
-            editorKit.read(
-                    new InputStreamReader(new FileInputStream(filename), "UTF-8"),
-                    doc,
-                    0);
-        } catch (Exception ex) {
-            //ex.printStackTrace();
-            // Do nothing - we've got a new empty document!
-        }
-
-        return doc;
-        /*HTMLDocument doc = (HTMLDocument)editorKit.createDefaultDocument();
-        if (note == null) return doc;
-        String filename = JN_DOCPATH + note.getProject().getID() + "/";
-        CalendarDate d = note.getDate();
-        filename += d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-        try {
-            long t1 = new java.util.Date().getTime();
-            FileInputStream istream = new FileInputStream(filename);
-            ObjectInputStream ois = new ObjectInputStream(istream);
-            doc = (HTMLDocument)ois.readObject();
-            ois.close();
-            istream.close();
-            long t2 = new java.util.Date().getTime();
-            System.out.println(filename+" open:"+ (t2-t1) );
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return doc;*/
-    }
-
-    public String getNoteURL(Note note) {
-        return "file:" + JN_DOCPATH + note.getProject().getID() + "/" + note.getId();
-    }
-
-    public String getNotePath(Note note) {
-        String filename = JN_DOCPATH + note.getProject().getID() + File.separator;
-//        CalendarDate d = note.getDate();
-        filename += note.getId();//d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-        return filename;
-    }
-
-
-    public void removeNote(Note note) {
-        File f = new File(getNotePath(note));
-        /*DEBUG*/
-        System.out.println("[DEBUG] Remove note:" + getNotePath(note));
-        f.delete();
     }
 
     /**
@@ -347,44 +220,6 @@ public class FileStorage implements Storage {
             // TODO Auto-generated catch block
             new ExceptionDialog(e);
         }
-    }
-
-    /**
-     * @see main.java.memoranda.util.Storage#openNoteList(main.java.memoranda.Project)
-     */
-    public NoteList openNoteList(Project prj) {
-        String fn = JN_DOCPATH + prj.getID() + File.separator + ".notes";
-        //System.out.println(fn);
-        if (documentExists(fn)) {
-            /*DEBUG*/
-            System.out.println(
-                    "[DEBUG] Open note list: "
-                            + JN_DOCPATH
-                            + prj.getID()
-                            + File.separator
-                            + ".notes");
-            return new NoteListImpl(openDocument(fn), prj);
-        } else {
-            /*DEBUG*/
-            System.out.println("[DEBUG] New note list created");
-            return new NoteListImpl(prj);
-        }
-    }
-
-    /**
-     * @see main.java.memoranda.util.Storage#storeNoteList(main.java.memoranda.NoteList, main.java.memoranda.Project)
-     */
-    public void storeNoteList(NoteList nl, Project prj) {
-        /*DEBUG*/
-        System.out.println(
-                "[DEBUG] Save note list: "
-                        + JN_DOCPATH
-                        + prj.getID()
-                        + File.separator
-                        + ".notes");
-        saveDocument(
-                nl.getXMLContent(),
-                JN_DOCPATH + prj.getID() + File.separator + ".notes");
     }
 
     /**

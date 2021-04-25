@@ -23,18 +23,6 @@ public interface Storage {
 
     void storeTaskList(TaskList tl, Project prj);
 
-    NoteList openNoteList(Project prj);
-
-    void storeNoteList(NoteList nl, Project prj);
-
-    void storeNote(Note note, javax.swing.text.Document doc);
-
-    javax.swing.text.Document openNote(Note note);
-
-    void removeNote(Note note);
-
-    String getNoteURL(Note note);
-
     void openProjectManager();
 
     void storeProjectManager();

@@ -26,7 +26,6 @@ import javax.swing.event.ListSelectionListener;
 
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.History;
-import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
@@ -339,14 +338,11 @@ public class TaskPanel extends JPanel {
             }
         });
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, TaskList tl, ResourcesList rl) {
                 newTaskB.setEnabled(
                         CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
             }
 
-            public void projectWasChanged() {
-                //taskTable.setCurrentRootTask(null); //XXX
-            }
         });
         taskTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
