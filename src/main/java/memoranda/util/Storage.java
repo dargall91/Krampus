@@ -31,10 +31,6 @@ public interface Storage {
 
     void removeProjectStorage(Project prj);
 
-    ResourcesList openResourcesList(Project prj);
-
-    void storeResourcesList(ResourcesList rl, Project prj);
-
     public void storeNodeList(Project prj, NodeColl nodeColl) throws JsonProcessingException, IOException;
 
     public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException, DuplicateKeyException;

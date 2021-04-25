@@ -28,7 +28,6 @@ import main.java.memoranda.HistoryItem;
 import main.java.memoranda.HistoryListener;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ResourcesList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -38,7 +37,6 @@ import main.java.memoranda.util.Local;
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 
-//TODO: Working on editorPanel (NOT editorsPanel!)
 /*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
 public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
@@ -209,12 +207,6 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, ResourcesList rl) {
-                currentProjectChanged(p, rl);
-            }
-        });
-
         calendar.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (calendarIgnoreChange) {
@@ -265,7 +257,7 @@ public class DailyItemsPanel extends JPanel {
         App.getFrame().setCursor(cur);
     }
 
-    void currentProjectChanged(Project newprj, ResourcesList rl) {
+    void currentProjectChanged(Project newprj) {
 //        Util.debug("currentProjectChanged");
 
         Cursor cur = App.getFrame().getCursor();

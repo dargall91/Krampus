@@ -28,7 +28,6 @@ import javax.swing.event.ChangeListener;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ResourcesList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.Local;
@@ -208,15 +207,6 @@ public class JNCalendarPanel extends JPanel {
                 yearSpin_actionPerformed();
             }
         });
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, ResourcesList rl) {
-            }
-
-            public void projectWasChanged() {
-                jnCalendar.updateUI();
-            }
-        });
-
 
         refreshView();
         yearSpin.setBorder(border2);

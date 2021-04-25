@@ -31,7 +31,6 @@ import main.java.memoranda.util.Storage;
 public class CurrentProject {
 
     private static Project _project = null;
-    private static ResourcesList _resources = null;
     private static Vector projectListeners = new Vector();
     private static DriverColl _drivers = null;
     private static TourColl _tours = null;
@@ -61,7 +60,6 @@ public class CurrentProject {
 
         }
 
-        _resources = CurrentStorage.get().openResourcesList(_project);
         try {
             db = Database.getDatabase(_project);
             _nodes = db.getNodeColl();
@@ -82,10 +80,6 @@ public class CurrentProject {
 
     public static Project get() {
         return _project;
-    }
-
-    public static ResourcesList getResourcesList() {
-        return _resources;
     }
 
     /**
@@ -144,7 +138,7 @@ public class CurrentProject {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
+        
         DriverColl newDriverColl = null;
         TourColl newTourColl = null;
         NodeColl newNodeColl = null;
@@ -160,9 +154,8 @@ public class CurrentProject {
             new ExceptionDialog(e);
         }
         //TODO: Potentially modify this method for additional collections
-        notifyListenersBefore(project, newresources);
+        notifyListenersBefore(project);
         _project = project;
-        _resources = newresources;
         _drivers = newDriverColl;
         _tours = newTourColl;
         _routes = newRouteColl;
@@ -180,10 +173,9 @@ public class CurrentProject {
     }
 
     //TODO: Potentially modify this method for additional collections
-    private static void notifyListenersBefore(Project project, ResourcesList rl) {
+    private static void notifyListenersBefore(Project project) {
         for (int i = 0; i < projectListeners.size(); i++) {
-            ((ProjectListener) projectListeners.get(i)).projectChange(project, rl);
-            /*DEBUGSystem.out.println(projectListeners.get(i));*/
+            ((ProjectListener) projectListeners.get(i)).projectChange(project);
         }
     }
 
@@ -193,7 +185,6 @@ public class CurrentProject {
     public static void save() {
         Storage storage = CurrentStorage.get();
 
-        storage.storeResourcesList(_resources, _project);
         try {
             db.write();
         } catch (IOException | InterruptedException e) {
@@ -205,7 +196,6 @@ public class CurrentProject {
 
     public static void free() {
         _project = null;
-        _resources = null;
         _nodes = null;
         _routes = null;
         _buses = null;
