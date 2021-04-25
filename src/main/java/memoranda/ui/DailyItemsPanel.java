@@ -23,8 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.EventNotificationListener;
-import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.History;
 import main.java.memoranda.HistoryItem;
 import main.java.memoranda.HistoryListener;
@@ -58,7 +56,6 @@ public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout4 = new BorderLayout();
     private DriverPanel driverPanel = new DriverPanel(this);
     private BusPanel busPanel = new BusPanel(this);
-    EventsPanel eventsPanel = new EventsPanel(this);
     private TourPanel tourPanel = new TourPanel(this);
     private RouteMapPanel routeMapPanel = new RouteMapPanel(this);
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
@@ -240,18 +237,6 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        EventsScheduler.addListener(new EventNotificationListener() {
-            public void eventIsOccured(main.java.memoranda.Event ev) {
-                /*DEBUG*/
-                System.out.println(ev.getTimeString() + " " + ev.getText());
-                updateIndicators();
-            }
-
-            public void eventsChanged() {
-                updateIndicators();
-            }
-        });
-
         currentDate = CurrentDate.get();
 
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
@@ -259,39 +244,29 @@ public class DailyItemsPanel extends JPanel {
         mainTabsPanel.add(toursTabbedPane, "TOURSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(driverTabbedPane, "DRIVERSTAB");
-        updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
-
 
     void currentDateChanged(CalendarDate newdate) {
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
+        
         if (!changedByHistory) {
             History.add(new HistoryItem(newdate, CurrentProject.get()));
         }
+        
         if (!dateChangedByCalendar) {
             calendarIgnoreChange = true;
             calendar.set(newdate);
             calendarIgnoreChange = false;
         }
 
-        /*if ((currentNote != null) && !changedByHistory && !addedToHistory)
-                            History.add(new HistoryItem(currentNote));*/
         currentDate = CurrentDate.get();
 
-        /*addedToHistory = false;
-        if (!changedByHistory) {
-            if (currentNote != null) {
-                History.add(new HistoryItem(currentNote));
-                addedToHistory = true;
-            }
-        }*/
 
         currentDateLabel.setText(newdate.getFullDateString());
         currentDateLabel.setIcon(null);
 
-        updateIndicators(newdate, CurrentProject.getTaskList());
         App.getFrame().setCursor(cur);
     }
 
@@ -306,8 +281,6 @@ public class DailyItemsPanel extends JPanel {
 
         CurrentProject.save();        
 
-
-        updateIndicators(CurrentDate.get(), tl);
         App.getFrame().setCursor(cur);
     }
 
@@ -333,30 +306,6 @@ public class DailyItemsPanel extends JPanel {
             controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
             splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
         }
-    }
-
-    public void updateIndicators(CalendarDate date, TaskList tl) {
-        indicatorsPanel.removeAll();
-        if (date.equals(CalendarDate.today())) {
-            if (tl.getActiveSubTasks(null, date).size() > 0) {
-                indicatorsPanel.add(taskB, null);
-            }
-            if (EventsScheduler.isEventScheduled()) {
-                /*String evlist = "";
-                for (Iterator it = EventsScheduler.getScheduledEvents().iterator(); it.hasNext();) {
-                    net.sf.memoranda.Event ev = (net.sf.memoranda.Event)it.next();   
-                    evlist += ev.getTimeString()+" - "+ev.getText()+"\n";
-                } */
-                main.java.memoranda.Event ev = EventsScheduler.getFirstScheduledEvent();
-                alarmB.setToolTipText(ev.getTimeString() + " - " + ev.getText());
-                indicatorsPanel.add(alarmB, null);
-            }
-        }
-        indicatorsPanel.updateUI();
-    }
-
-    public void updateIndicators() {
-        updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
     }
 
     public void selectPanel(String pan) {

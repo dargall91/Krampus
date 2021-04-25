@@ -483,8 +483,6 @@ public class TaskPanel extends JPanel {
 //        CurrentProject.getTaskList().adjustParentTasks(t);
 
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
-        taskTable.tableChanged();
-        parentPanel.updateIndicators();
         //taskTable.updateUI();
     }
 
@@ -517,7 +515,6 @@ public class TaskPanel extends JPanel {
         newTask.setProgress(((Integer) dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
         taskTable.tableChanged();
-        parentPanel.updateIndicators();
         //taskTable.updateUI();
     }
 
@@ -563,7 +560,6 @@ public class TaskPanel extends JPanel {
 
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
         taskTable.tableChanged();
-        parentPanel.updateIndicators();
         //taskTable.updateUI();
     }
 
@@ -680,7 +676,6 @@ public class TaskPanel extends JPanel {
         }
         taskTable.tableChanged();
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
-        parentPanel.updateIndicators();
         //taskTable.updateUI();
 
     }
@@ -702,7 +697,6 @@ public class TaskPanel extends JPanel {
         }
         taskTable.tableChanged();
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
-        parentPanel.updateIndicators();
         //taskTable.updateUI();
     }
 

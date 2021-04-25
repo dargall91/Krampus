@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import main.java.memoranda.BuildVersion;
-import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
 
 /**
@@ -90,8 +89,6 @@ public class App {
             System.out.println("[DEBUG] first day of week is set to " + fdow);
         }
 
-        EventsScheduler.init();
-        //frame = new AppFrame();
         if (fullmode) {
             init();
         }

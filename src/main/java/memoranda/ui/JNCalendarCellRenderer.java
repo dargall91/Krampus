@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.EventsManager;
 import main.java.memoranda.Task;
 import main.java.memoranda.date.CalendarDate;
 
@@ -89,19 +88,11 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         } else if (currentPanel.equals("TASKS") && (t != null) &&
                 (d.inPeriod(t.getStartDate(), t.getEndDate()))) {
             label.setBackground(new Color(230, 255, 230));
-        } else if (currentPanel.equals("EVENTS") &&
-                (!(EventsManager.getEventsForDate(d).isEmpty()))) {
-            label.setBackground(new Color(255, 230, 230));
         } else if (!isSelected) {
             label.setBackground(Color.WHITE);
         }
-
-        // always display NREvents
-        if (EventsManager.isNREventsForDate(d)) {
-            label.setIcon(evIcon);
-        } else {
-            label.setIcon(null);
-        }
+        
+        label.setIcon(null);
 
         return label;
     }

@@ -31,7 +31,6 @@ import main.java.memoranda.Database;
 import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.DriverLoader;
-import main.java.memoranda.EventsManager;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
 import main.java.memoranda.Project;
@@ -220,30 +219,6 @@ public class FileStorage implements Storage {
             // TODO Auto-generated catch block
             new ExceptionDialog(e);
         }
-    }
-
-    /**
-     * @see main.java.memoranda.util.Storage#openEventsList()
-     */
-    public void openEventsManager() {
-        if (!new File(JN_DOCPATH + ".events").exists()) {
-            EventsManager._doc = null;
-            return;
-        }
-        /*DEBUG*/
-        System.out.println(
-                "[DEBUG] Open events manager: " + JN_DOCPATH + ".events");
-        EventsManager._doc = openDocument(JN_DOCPATH + ".events");
-    }
-
-    /**
-     * @see main.java.memoranda.util.Storage#storeEventsList()
-     */
-    public void storeEventsManager() {
-        /*DEBUG*/
-        System.out.println(
-                "[DEBUG] Save events manager: " + JN_DOCPATH + ".events");
-        saveDocument(EventsManager._doc, JN_DOCPATH + ".events");
     }
 
     /**

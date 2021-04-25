@@ -27,10 +27,6 @@ public interface Storage {
 
     void storeProjectManager();
 
-    void openEventsManager();
-
-    void storeEventsManager();
-
     void openMimeTypesList();
 
     void storeMimeTypesList();
