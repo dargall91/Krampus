@@ -24,7 +24,7 @@ public class ExportFilter extends FileFilter {
     public static final String XHTML = "XHTML";
     public static final String ZIP = "ZIP";
 
-    String _type = "";
+    private String _type;
 
     /**
      * Constructor for ExportFilter.

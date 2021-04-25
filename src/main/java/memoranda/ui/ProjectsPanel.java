@@ -1,13 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.SystemColor;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -59,12 +53,12 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
     boolean expanded = false;
     ImageIcon expIcon =
             new ImageIcon(
-                    main.java.memoranda.ui.AppFrame.class.getResource(
-                            "/ui/icons/exp_panel.png"));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/exp_panel.png")));
     ImageIcon collIcon =
             new ImageIcon(
-                    main.java.memoranda.ui.AppFrame.class.getResource(
-                            "/ui/icons/coll_panel.png"));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/coll_panel.png")));
     JLabel curProjectTitle = new JLabel();
     Component component1;
     JPopupMenu projectsPPMenu = new JPopupMenu();
@@ -81,8 +75,8 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
             new AbstractAction(
                     Local.getString("New project") + "...",
                     new ImageIcon(
-                            main.java.memoranda.ui.AppFrame.class.getResource(
-                                    "/ui/icons/newproject.png"))) {
+                            Objects.requireNonNull(AppFrame.class.getResource(
+                                    "/ui/icons/newproject.png")))) {
 
                 public void actionPerformed(ActionEvent e) {
                     ppNewProject_actionPerformed(e);
@@ -136,7 +130,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         flowLayout1.setHgap(0);
         flowLayout1.setVgap(0);
 
-        curProjectTitle.setFont(new java.awt.Font("Dialog", 1, 11));
+        curProjectTitle.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
         curProjectTitle.setForeground(new Color(64, 70, 128));
         curProjectTitle.setMaximumSize(new Dimension(32767, 22));
         curProjectTitle.setPreferredSize(new Dimension(32767, 22));
@@ -151,10 +145,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
          * buttonsPanel.add(newProjectB, null); buttonsPanel.add(editProjectB,
          * null);
          */
-        ppNewProject.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppNewProject.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
         ppNewProject.setAction(newProjectAction);
 
-        ppProperties.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppProperties.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
         ppProperties.setText(Local.getString("Project properties"));
         ppProperties.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -163,10 +157,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         });
         ppProperties.setIcon(
                 new ImageIcon(
-                        main.java.memoranda.ui.AppFrame.class.getResource(
-                                "/ui/icons/editproject.png")));
+                        Objects.requireNonNull(AppFrame.class.getResource(
+                                "/ui/icons/editproject.png"))));
         ppProperties.setEnabled(false);
-        ppDeleteProject.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppDeleteProject.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
         ppDeleteProject.setText(Local.getString("Delete project"));
         ppDeleteProject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -175,11 +169,11 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         });
         ppDeleteProject.setIcon(
                 new ImageIcon(
-                        main.java.memoranda.ui.AppFrame.class.getResource(
-                                "/ui/icons/removeproject.png")));
+                        Objects.requireNonNull(AppFrame.class.getResource(
+                                "/ui/icons/removeproject.png"))));
         ppDeleteProject.setEnabled(false);
 
-        ppOpenProject.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppOpenProject.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
 
         ppOpenProject.setText(" " + Local.getString("Open project"));
 
@@ -190,7 +184,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         });
         ppOpenProject.setEnabled(false);
 
-        ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", 1, 11));
+        ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
         ppShowActiveOnlyChB.setText(
                 Local.getString("Show active projects only"));
         ppShowActiveOnlyChB
@@ -205,7 +199,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         ppShowActiveOnlyChB.setSelected(isShao);
         ppShowActiveOnlyChB_actionPerformed(null);
 
-        projectsPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
+        projectsPPMenu.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         ppOpenB.setMaximumSize(new Dimension(34, 20));
         ppOpenB.setMinimumSize(new Dimension(24, 10));
         ppOpenB.setOpaque(false);
@@ -220,8 +214,8 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         });
         ppOpenB.setIcon(
                 new ImageIcon(
-                        main.java.memoranda.ui.AppFrame.class.getResource(
-                                "/ui/icons/ppopen.png")));
+                        Objects.requireNonNull(AppFrame.class.getResource(
+                                "/ui/icons/ppopen.png"))));
         buttonsPanel.add(ppOpenB, null);
         buttonsPanel.add(component1, null);
         this.add(topBar, BorderLayout.NORTH);

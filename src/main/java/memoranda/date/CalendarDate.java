@@ -123,6 +123,9 @@ public class CalendarDate {
     }
 
     public boolean equals(Object object) {
+        if (object==null){
+            return false;
+        }
         if (object.getClass().isInstance(CalendarDate.class)) {
             CalendarDate d2 = (CalendarDate) object;
             return ((d2.getDay() == getDay()) && (d2.getMonth() == getMonth()) && (d2.getYear() == getYear()));

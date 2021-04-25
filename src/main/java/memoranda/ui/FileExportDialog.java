@@ -1,12 +1,6 @@
-
 package main.java.memoranda.ui;
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 import main.java.memoranda.util.Local;
 
@@ -16,7 +10,15 @@ import main.java.memoranda.util.Local;
 public class FileExportDialog extends javax.swing.JDialog {
 
     public boolean CANCELLED = true;
+    public javax.swing.JCheckBox numentChB;
+    public javax.swing.JTextField templF;
+    public javax.swing.JCheckBox usetemplChB;
+    public javax.swing.JCheckBox xhtmlChB;
+    public JComboBox encCB;
+    private final javax.swing.JFileChooser fileChooser;
 
+    private javax.swing.JButton okB;
+    private javax.swing.JButton templBrowseB;
 
     /**
      * Creates new form ExportDialog
@@ -27,25 +29,24 @@ public class FileExportDialog extends javax.swing.JDialog {
         initComponents();
     }
 
-
     private void initComponents() {//GEN-BEGIN:initComponents
-        jPanel2 = new javax.swing.JPanel();
+        JPanel jPanel2 = new JPanel();
         okB = new javax.swing.JButton();
-        cancelB = new javax.swing.JButton();
-        filePanel = new javax.swing.JPanel();
+        JButton cancelB = new JButton();
+        JPanel filePanel = new JPanel();
         //fileChooser = new javax.swing.JFileChooser();
-        optionsPanel = new javax.swing.JPanel();
-        encPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        JPanel optionsPanel = new JPanel();
+        JPanel encPanel = new JPanel();
+        JLabel jLabel2 = new JLabel();
         encCB = new JComboBox(new String[]{Local.getString("System default"), "UTF-8", "ANSI"});
         usetemplChB = new javax.swing.JCheckBox();
         xhtmlChB = new javax.swing.JCheckBox();
-        templPanel = new javax.swing.JPanel();
+        JPanel templPanel = new JPanel();
         templF = new javax.swing.JTextField();
         templF.setEditable(false);
         templBrowseB = new javax.swing.JButton();
         numentChB = new javax.swing.JCheckBox();
-        jPanel6 = new javax.swing.JPanel();
+        JPanel jPanel6 = new JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -53,22 +54,16 @@ public class FileExportDialog extends javax.swing.JDialog {
 
         okB.setText(Local.getString("Save"));
         okB.setPreferredSize(new java.awt.Dimension(90, 25));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CANCELLED = false;
-                dispose();
-            }
+        okB.addActionListener(e -> {
+            CANCELLED = false;
+            dispose();
         });
         okB.setEnabled(false);
         jPanel2.add(okB);
 
         cancelB.setText(Local.getString("Cancel"));
         cancelB.setPreferredSize(new java.awt.Dimension(90, 25));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        cancelB.addActionListener(e -> dispose());
         jPanel2.add(cancelB);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.SOUTH);
@@ -77,14 +72,7 @@ public class FileExportDialog extends javax.swing.JDialog {
 
         filePanel.setBorder(new javax.swing.border.EtchedBorder());
         fileChooser.setControlButtonsAreShown(false);
-        fileChooser.addPropertyChangeListener(new PropertyChangeListener() {
-
-            public void propertyChange(PropertyChangeEvent evt) {
-                chooserActionPerformed();
-
-            }
-
-        });
+        fileChooser.addPropertyChangeListener(evt -> chooserActionPerformed());
         /*fileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooserActionPerformed();
@@ -109,25 +97,19 @@ public class FileExportDialog extends javax.swing.JDialog {
 
         usetemplChB.setText(Local.getString("Use template") + ":");
         usetemplChB.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        usetemplChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (usetemplChB.isSelected()) {
-                    templF.setEnabled(true);
-                    templBrowseB.setEnabled(true);
-                } else {
-                    templF.setEnabled(false);
-                    templBrowseB.setEnabled(false);
-                }
+        usetemplChB.addActionListener(e -> {
+            if (usetemplChB.isSelected()) {
+                templF.setEnabled(true);
+                templBrowseB.setEnabled(true);
+            } else {
+                templF.setEnabled(false);
+                templBrowseB.setEnabled(false);
             }
         });
         optionsPanel.add(usetemplChB);
 
         xhtmlChB.setText(Local.getString("Save as XHTML"));
-        xhtmlChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                xhtmlChBActionPerformed(evt);
-            }
-        });
+        xhtmlChB.addActionListener(evt -> xhtmlChBActionPerformed(evt));
 
         optionsPanel.add(xhtmlChB);
 
@@ -137,11 +119,7 @@ public class FileExportDialog extends javax.swing.JDialog {
 
         templBrowseB.setText("Browse");
         templBrowseB.setEnabled(false);
-        templBrowseB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                browseTemplate();
-            }
-        });
+        templBrowseB.addActionListener(e -> browseTemplate());
         templPanel.add(templBrowseB, java.awt.BorderLayout.EAST);
 
         optionsPanel.add(templPanel);
@@ -160,7 +138,8 @@ public class FileExportDialog extends javax.swing.JDialog {
         pack();
     }//GEN-END:initComponents
 
-    private void xhtmlChBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xhtmlChBActionPerformed
+    private void xhtmlChBActionPerformed(
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xhtmlChBActionPerformed
         // TODO add your handling code here:
     }
 
@@ -181,24 +160,6 @@ public class FileExportDialog extends javax.swing.JDialog {
             templF.setText(chooser.getSelectedFile().getPath());
         }
     }
-
-    private javax.swing.JButton cancelB;
-    private javax.swing.JFileChooser fileChooser;
-
-    private javax.swing.JPanel encPanel;
-    private javax.swing.JPanel filePanel;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel6;
-    public javax.swing.JCheckBox numentChB;
-    private javax.swing.JButton okB;
-    private javax.swing.JPanel optionsPanel;
-    private javax.swing.JButton templBrowseB;
-    public javax.swing.JTextField templF;
-    private javax.swing.JPanel templPanel;
-    public javax.swing.JCheckBox usetemplChB;
-    public javax.swing.JCheckBox xhtmlChB;
-    public JComboBox encCB;
     // End of variables declaration//GEN-END:variables
 
 }
