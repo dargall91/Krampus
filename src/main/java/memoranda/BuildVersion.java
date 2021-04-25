@@ -22,8 +22,6 @@ public class BuildVersion {
         String version = "0";
         
         try {
-            ClassLoader loader = BuildVersion.class.getClassLoader();
-            
             InputStream propertiesFile = ClassLoader.getSystemClassLoader().getResourceAsStream("util/version.properties");
             Properties properties = new Properties();
 
@@ -46,8 +44,6 @@ public class BuildVersion {
         String build = "0";
         
         try {
-            ClassLoader loader = BuildVersion.class.getClassLoader();
-            
             InputStream propertiesFile = ClassLoader.getSystemClassLoader().getResourceAsStream("util/version.properties");
             Properties properties = new Properties();
 

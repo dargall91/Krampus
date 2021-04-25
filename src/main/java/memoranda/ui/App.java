@@ -20,7 +20,7 @@ import main.java.memoranda.util.Configuration;
 public class App {
     // boolean packFrame = false;
 
-    private static AppFrame frame = null;
+    private static AppFrame frame = new AppFrame();
 
     private static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
     private static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
@@ -93,7 +93,7 @@ public class App {
         }
 
         EventsScheduler.init();
-        frame = new AppFrame();
+        //frame = new AppFrame();
         if (fullmode) {
             init();
         }

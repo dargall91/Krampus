@@ -11,6 +11,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +56,7 @@ import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+import nu.xom.ParsingException;
 
 
 /**
@@ -281,7 +283,7 @@ public class AppFrame extends JFrame {
                 "/ui/icons/help.png")));
         menuHelpGuide.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpGuide_actionPerformed(e);
+                menuHelpGuide_actionPerformed(e);
             }
         });
 
@@ -290,21 +292,21 @@ public class AppFrame extends JFrame {
                 "/ui/icons/web.png")));
         menuHelpWeb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpWeb_actionPerformed(e);
+                menuHelpWeb_actionPerformed(e);
             }
         });
 
         menuHelpBug.setText(Local.getString("Report a bug"));
         menuHelpBug.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpBug_actionPerformed(e);
+                menuHelpBug_actionPerformed(e);
             }
         });
 
         menuHelpAbout.setText(Local.getString("About Memoranda"));
         menuHelpAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpAbout_actionPerformed(e);
+                menuHelpAbout_actionPerformed(e);
             }
         });
         //jButton3.setIcon(image3);
@@ -590,8 +592,8 @@ public class AppFrame extends JFrame {
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
         if ((fwo != null) && (fho != null)) {
-            int w = new Integer((String) fwo).intValue();
-            int h = new Integer((String) fho).intValue();
+            int w = Integer.parseInt((String) fwo);//.intValue();
+            int h = Integer.parseInt((String) fho);//.intValue();
             this.setSize(w, h);
         } else {
             this.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -600,8 +602,8 @@ public class AppFrame extends JFrame {
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
         if ((xo != null) && (yo != null)) {
-            int x = new Integer((String) xo).intValue();
-            int y = new Integer((String) yo).intValue();
+            int x = Integer.parseInt((String) xo);//.intValue();
+            int y = Integer.parseInt((String) yo);//.intValue();
             this.setLocation(x, y);
         }
 
@@ -624,15 +626,15 @@ public class AppFrame extends JFrame {
 
     }
 
-    protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
+    protected void menuHelpBug_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.getBugsTrackerUrl());
     }
 
-    protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
+    protected void menuHelpWeb_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.getWebsiteUrl());
     }
 
-    protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
+    protected void menuHelpGuide_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.getGuideUrl());
     }
 
@@ -651,10 +653,10 @@ public class AppFrame extends JFrame {
             }
         }
 
-        Context.put("FRAME_WIDTH", new Integer(this.getWidth()));
-        Context.put("FRAME_HEIGHT", new Integer(this.getHeight()));
-        Context.put("FRAME_XPOS", new Integer(this.getLocation().x));
-        Context.put("FRAME_YPOS", new Integer(this.getLocation().y));
+        Context.put("FRAME_WIDTH", getWidth());
+        Context.put("FRAME_HEIGHT",getHeight());
+        Context.put("FRAME_XPOS", getLocation().x);
+        Context.put("FRAME_YPOS", getLocation().y);
         exitNotify();
         System.exit(0);
     }
@@ -670,8 +672,8 @@ public class AppFrame extends JFrame {
     }
 
     //Help | About action performed
-    public void jMenuHelpAbout_actionPerformed(ActionEvent e) {
-        AppFrame_AboutBox dlg = new AppFrame_AboutBox(this);
+    public void menuHelpAbout_actionPerformed(ActionEvent e) {
+        AppFrameAboutBox dlg = new AppFrameAboutBox(this);
         Dimension dlgSize = dlg.getSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
@@ -924,8 +926,8 @@ public class AppFrame extends JFrame {
         Context.put(
                 "LAST_SELECTED_EXPORT_FILE",
                 chooser.getSelectedFile().getPath());
-        Context.put("EXPORT_SPLIT_NOTES", new Boolean(dlg.splitChB.isSelected()).toString());
-        Context.put("EXPORT_TITLES_AS_HEADERS", new Boolean(dlg.titlesAsHeadersChB.isSelected()).toString());
+        Context.put("EXPORT_SPLIT_NOTES", String.valueOf(dlg.splitChB.isSelected()));//.toString());
+        Context.put("EXPORT_TITLES_AS_HEADERS", String.valueOf(dlg.titlesAsHeadersChB.isSelected()));//.toString();
 
         int ei = dlg.encCB.getSelectedIndex();
         enc = null;
@@ -933,7 +935,6 @@ public class AppFrame extends JFrame {
             enc = "UTF-8";
         }
         boolean nument = (ei == 2);
-        File f = chooser.getSelectedFile();
         boolean xhtml =
                 chooser.getFileFilter().getDescription().indexOf("XHTML") > -1;
         CurrentProject.save();
@@ -1033,7 +1034,9 @@ public class AppFrame extends JFrame {
             }
             dailyItemsPanel.notesControlPane.refresh();
 
-        } catch (Exception exc) {
+        } catch (ParsingException exc) {
+            exc.printStackTrace();
+        } catch (IOException exc) {
             exc.printStackTrace();
         }
     }
@@ -1088,7 +1091,6 @@ public class AppFrame extends JFrame {
         Context.put("LAST_SELECTED_NOTE_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
         HashMap<String, String> notesName = new HashMap<String, String>();
-        HashMap<String, String> notesContent = new HashMap<String, String>();
         Builder parser = new Builder();
         String id = "";
         String name = "";
@@ -1103,7 +1105,6 @@ public class AppFrame extends JFrame {
             id = Util.generateId();
             System.out.println(id + " " + name + " " + content);
             notesName.put(id, name);
-            notesContent.put(id, content);
             JEditorPane p = new JEditorPane();
             p.setContentType("text/html");
 
@@ -1119,7 +1120,9 @@ public class AppFrame extends JFrame {
             }
             dailyItemsPanel.notesControlPane.refresh();
 
-        } catch (Exception exc) {
+        } catch (ParsingException exc) {
+            exc.printStackTrace();
+        } catch (IOException exc) {
             exc.printStackTrace();
         }
     }
