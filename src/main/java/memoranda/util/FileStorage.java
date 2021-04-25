@@ -4,9 +4,14 @@
  * Package: net.sf.memoranda.util
  *
  * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ *         Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
+
 package main.java.memoranda.util;
+
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,40 +20,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.URL;
+
 import java.util.List;
-
-import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.*;
 
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.Database;
-import main.java.memoranda.Driver;
 import main.java.memoranda.DriverColl;
 import main.java.memoranda.DriverLoader;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectManager;
-import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 import main.java.memoranda.RouteLoader;
 import main.java.memoranda.TourColl;
 import main.java.memoranda.TourLoader;
-import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
-import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
+
 import nu.xom.Builder;
 import nu.xom.Document;
 
-
 /**
- *
+ * Defines how the software stores and reads files.
  */
 /*$Id: FileStorage.java,v 1.15 2006/10/09 23:31:58 alexeya Exp $*/
 public class FileStorage implements Storage {
@@ -61,9 +56,9 @@ public class FileStorage implements Storage {
           hacking the default location (Util.getEnvDir()) of the memoranda 
           storage dir. Note that memoranda.config file is always placed at fixed 
           location (Util.getEnvDir()) anyway */
-        String mHome = (String) Configuration.get("MEMORANDA_HOME");
-        if (mHome.length() > 0) {
-            JN_DOCPATH = mHome;
+        String home = (String) Configuration.get("MEMORANDA_HOME");
+        if (home.length() > 0) {
+            JN_DOCPATH = home;
             /*DEBUG*/
             System.out.println("[DEBUG]***Memoranda storage path has set to: " +
                     JN_DOCPATH);
