@@ -25,7 +25,6 @@ import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
@@ -109,14 +108,6 @@ public class SearchPanel extends JPanel {
         jPanel4.add(wholeWCB, BorderLayout.NORTH);
         jPanel4.add(regexpCB, BorderLayout.CENTER);
         jPanel3.add(searchB, BorderLayout.SOUTH);
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, TaskList tl, ResourcesList rl) {
-            }
-
-            public void projectWasChanged() {
-            }
-        });
-        //notesList.update(new Vector());
 
     }
 
@@ -154,29 +145,6 @@ public class SearchPanel extends JPanel {
             new ExceptionDialog(ex, "Error in regular expression", "Check the regular expression syntax");
             return;
         }
-        /*progressBar.setMinimum(0);
-        progressBar.setStringPainted(true);*/
-        //Vector notes = (Vector) CurrentProject.getNoteList().getAllNotes();
-        //Vector found = new Vector();
-        /*progressBar.setMaximum(notes.size()-1);
-        progressBar.setIndeterminate(false);
-        this.add(progressBar, BorderLayout.SOUTH);*/
-        /*for (int i = 0; i < notes.size(); i++) {
-            //progressBar.setValue(i);
-            Note note = (Note) notes.get(i);
-            Document doc = CurrentStorage.get().openNote(note);
-            try {
-                String txt = doc.getText(0, doc.getLength());
-                Matcher matcher = pattern.matcher(txt);
-                if (matcher.find()) {
-                    found.add(note);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        //this.remove(progressBar);
-        this.notesList.update(found);*/
     }
 
 }

@@ -29,7 +29,6 @@ import main.java.memoranda.HistoryListener;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -203,7 +202,6 @@ public class DailyItemsPanel extends JPanel {
         toggleToolBar.add(toggleButton, null);
 
         splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
-        //splitPane.setResizeWeight(0.0);
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
@@ -212,11 +210,8 @@ public class DailyItemsPanel extends JPanel {
         });
 
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, TaskList tl, ResourcesList rl) {
-//                Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");                
-//                Util.debug("current project is " + CurrentProject.get().getTitle());
-
-                currentProjectChanged(p, tl, rl);
+            public void projectChange(Project p, ResourcesList rl) {
+                currentProjectChanged(p, rl);
             }
         });
 
@@ -270,7 +265,7 @@ public class DailyItemsPanel extends JPanel {
         App.getFrame().setCursor(cur);
     }
 
-    void currentProjectChanged(Project newprj, TaskList tl, ResourcesList rl) {
+    void currentProjectChanged(Project newprj, ResourcesList rl) {
 //        Util.debug("currentProjectChanged");
 
         Cursor cur = App.getFrame().getCursor();
@@ -309,10 +304,6 @@ public class DailyItemsPanel extends JPanel {
     }
 
     public void selectPanel(String pan) {
-        if (calendar.jnCalendar.renderer.getTask() != null) {
-            calendar.jnCalendar.renderer.setTask(null);
-            //   calendar.jnCalendar.updateUI();
-        }
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
         calendar.jnCalendar.updateUI();

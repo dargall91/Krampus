@@ -40,7 +40,6 @@ import main.java.memoranda.History;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.ui.htmleditor.HTMLEditor;
 import main.java.memoranda.util.Configuration;
@@ -567,8 +566,7 @@ public class AppFrame extends JFrame {
 
         CurrentProject.addProjectListener(new ProjectListener() {
 
-            public void projectChange(Project prj, TaskList tl,
-                                      ResourcesList rl) {
+            public void projectChange(Project prj, ResourcesList rl) {
             }
 
             public void projectWasChanged() {

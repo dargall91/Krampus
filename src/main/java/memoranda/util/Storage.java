@@ -19,10 +19,6 @@ import java.io.IOException;
 /*$Id: Storage.java,v 1.4 2004/01/30 12:17:42 alexeya Exp $*/
 public interface Storage {
 
-    TaskList openTaskList(Project prj);
-
-    void storeTaskList(TaskList tl, Project prj);
-
     void openProjectManager();
 
     void storeProjectManager();

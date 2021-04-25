@@ -18,7 +18,6 @@ import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.Resource;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.ui.table.TableSorter;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.MimeType;
@@ -41,16 +40,6 @@ public class ResourcesTable extends JTable {
         this.setShowGrid(false);
         this.setFont(new Font("Dialog", 0, 11));
         initColumsWidth();
-        //this.setModel(new ResourcesTableModel());
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, TaskList tl, ResourcesList rl) {
-
-            }
-
-            public void projectWasChanged() {
-                tableChanged();
-            }
-        });
     }
 
     void initColumsWidth() {

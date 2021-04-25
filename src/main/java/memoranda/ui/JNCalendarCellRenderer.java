@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Task;
 import main.java.memoranda.date.CalendarDate;
 
 /**
@@ -29,15 +28,6 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
     private CalendarDate d = null;
     boolean disabled = false;
     ImageIcon evIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/en.png"));
-    Task t = null;
-
-    public void setTask(Task _t) {
-        t = _t;
-    }
-
-    public Task getTask() {
-        return t;
-    }
 
     public Component getTableCellRendererComponent(
             JTable table,
@@ -85,9 +75,6 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         // set background color
         if (currentPanel == null) {
             label.setBackground(Color.WHITE);
-        } else if (currentPanel.equals("TASKS") && (t != null) &&
-                (d.inPeriod(t.getStartDate(), t.getEndDate()))) {
-            label.setBackground(new Color(230, 255, 230));
         } else if (!isSelected) {
             label.setBackground(Color.WHITE);
         }

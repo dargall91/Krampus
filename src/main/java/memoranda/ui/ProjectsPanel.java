@@ -39,7 +39,6 @@ import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ProjectManager;
 import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -240,7 +239,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
         CurrentProject.addProjectListener(new ProjectListener() {
             public void projectChange(
                     Project p,
-                    TaskList tl,
                     ResourcesList rl) {
             }
 

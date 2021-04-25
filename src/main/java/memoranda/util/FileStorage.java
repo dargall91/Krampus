@@ -40,8 +40,6 @@ import main.java.memoranda.ResourcesListImpl;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 import main.java.memoranda.RouteLoader;
-import main.java.memoranda.TaskList;
-import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.TourColl;
 import main.java.memoranda.TourLoader;
 import main.java.memoranda.date.CalendarDate;
@@ -157,50 +155,6 @@ public class FileStorage implements Storage {
             files[i].delete();
         }
         f.delete();
-    }
-
-    public TaskList openTaskList(Project prj) {
-        String fn = JN_DOCPATH + prj.getID() + File.separator + ".tasklist";
-
-        if (documentExists(fn)) {
-            /*DEBUG*/
-            System.out.println(
-                    "[DEBUG] Open task list: "
-                            + JN_DOCPATH
-                            + prj.getID()
-                            + File.separator
-                            + ".tasklist");
-
-            Document tasklistDoc = openDocument(fn);
-            /*DocType tasklistDoctype = tasklistDoc.getDocType();
-            String publicId = null;
-            if (tasklistDoctype != null) {
-                publicId = tasklistDoctype.getPublicID();
-            }
-            boolean upgradeOccurred = TaskListVersioning.upgradeTaskList(publicId);
-            if (upgradeOccurred) {
-                // reload from new file
-                tasklistDoc = openDocument(fn);
-            }*/
-            return new TaskListImpl(tasklistDoc, prj);
-        } else {
-            /*DEBUG*/
-            System.out.println("[DEBUG] New task list created");
-            return new TaskListImpl(prj);
-        }
-    }
-
-    public void storeTaskList(TaskList tasklist, Project prj) {
-        /*DEBUG*/
-        System.out.println(
-                "[DEBUG] Save task list: "
-                        + JN_DOCPATH
-                        + prj.getID()
-                        + File.separator
-                        + ".tasklist");
-        Document tasklistDoc = tasklist.getXMLContent();
-        //tasklistDoc.setDocType(TaskListVersioning.getCurrentDocType());
-        saveDocument(tasklistDoc, JN_DOCPATH + prj.getID() + File.separator + ".tasklist");
     }
 
     /**

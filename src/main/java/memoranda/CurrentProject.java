@@ -31,7 +31,6 @@ import main.java.memoranda.util.Storage;
 public class CurrentProject {
 
     private static Project _project = null;
-    private static TaskList _tasklist = null;
     private static ResourcesList _resources = null;
     private static Vector projectListeners = new Vector();
     private static DriverColl _drivers = null;
@@ -62,7 +61,6 @@ public class CurrentProject {
 
         }
 
-        _tasklist = CurrentStorage.get().openTaskList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
         try {
             db = Database.getDatabase(_project);
@@ -84,10 +82,6 @@ public class CurrentProject {
 
     public static Project get() {
         return _project;
-    }
-
-    public static TaskList getTaskList() {
-        return _tasklist;
     }
 
     public static ResourcesList getResourcesList() {
@@ -150,7 +144,6 @@ public class CurrentProject {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         ResourcesList newresources = CurrentStorage.get().openResourcesList(project);
         DriverColl newDriverColl = null;
         TourColl newTourColl = null;
@@ -167,9 +160,8 @@ public class CurrentProject {
             new ExceptionDialog(e);
         }
         //TODO: Potentially modify this method for additional collections
-        notifyListenersBefore(project, newtasklist, newresources);
+        notifyListenersBefore(project, newresources);
         _project = project;
-        _tasklist = newtasklist;
         _resources = newresources;
         _drivers = newDriverColl;
         _tours = newTourColl;
@@ -188,9 +180,9 @@ public class CurrentProject {
     }
 
     //TODO: Potentially modify this method for additional collections
-    private static void notifyListenersBefore(Project project, TaskList tl, ResourcesList rl) {
+    private static void notifyListenersBefore(Project project, ResourcesList rl) {
         for (int i = 0; i < projectListeners.size(); i++) {
-            ((ProjectListener) projectListeners.get(i)).projectChange(project, tl, rl);
+            ((ProjectListener) projectListeners.get(i)).projectChange(project, rl);
             /*DEBUGSystem.out.println(projectListeners.get(i));*/
         }
     }
@@ -201,7 +193,6 @@ public class CurrentProject {
     public static void save() {
         Storage storage = CurrentStorage.get();
 
-        storage.storeTaskList(_tasklist, _project);
         storage.storeResourcesList(_resources, _project);
         try {
             db.write();
@@ -214,7 +205,6 @@ public class CurrentProject {
 
     public static void free() {
         _project = null;
-        _tasklist = null;
         _resources = null;
         _nodes = null;
         _routes = null;
