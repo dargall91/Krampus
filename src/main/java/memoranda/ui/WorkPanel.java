@@ -183,6 +183,11 @@ public class WorkPanel extends JPanel {
 
     }
 
+    /**
+     * Sets the selected panel.
+     * 
+     * @param pan The name of the panel to select
+     */
     public void selectPanel(String pan) {
         if (pan != null) {
             if (pan.equals("BUSES")) {
@@ -195,35 +200,35 @@ public class WorkPanel extends JPanel {
         }
     }
 
-    public void driverB_actionPerformed(ActionEvent e) {
+    private void driverB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "DAILYITEMS");
         dailyItemsPanel.selectPanel("DRIVERS");
         setCurrentButton(driverB);
         Context.put("CURRENT_PANEL", "DRIVERS");
     }
 
-    public void busB_actionPerformed(ActionEvent e) {
+    private void busB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "DAILYITEMS");
         dailyItemsPanel.selectPanel("BUSES");
         setCurrentButton(busesB);
         Context.put("CURRENT_PANEL", "BUSES");
     }
 
-    public void toursB_actionPerformed(ActionEvent e) {
+    private void toursB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "DAILYITEMS");
         dailyItemsPanel.selectPanel("TOURS");
         setCurrentButton(toursB);
         Context.put("CURRENT_PANEL", "TOURS");
     }
 
-    public void mapB_actionPerformed(ActionEvent e) {
+    private void mapB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "MAP");
         dailyItemsPanel.selectPanel("MAP");
         setCurrentButton(mapB);
         Context.put("CURRENT_PANEL", "MAP");
     }
 
-    void setCurrentButton(JButton cb) {
+    private void setCurrentButton(JButton cb) {
         currentB.setBackground(Color.white);
         currentB.setOpaque(false);
         currentB = cb;

@@ -270,10 +270,6 @@ public class AppFrame extends JFrame {
             }
         };
 
-   
-        //dailyItemsPanel.alarmB.addActionListener(
-        //        setMenusDisabled);
-
         workPanel.getBusButton().addActionListener(setMenusDisabled);
         workPanel.getTourButton().addActionListener(setMenusDisabled);
         workPanel.getMapButton().addActionListener(setMenusDisabled);
@@ -292,8 +288,8 @@ public class AppFrame extends JFrame {
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
         if ((xo != null) && (yo != null)) {
-            int x = Integer.parseInt((String) xo);//.intValue();
-            int y = Integer.parseInt((String) yo);//.intValue();
+            int x = Integer.parseInt((String) xo);
+            int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
         }
 

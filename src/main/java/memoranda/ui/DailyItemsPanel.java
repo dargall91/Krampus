@@ -88,7 +88,7 @@ public class DailyItemsPanel extends JPanel {
         }
     }
 
-    public void jbInit() throws Exception {
+    private void jbInit() throws Exception {
         this.setLayout(new BorderLayout());
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(null);
@@ -301,14 +301,6 @@ public class DailyItemsPanel extends JPanel {
      */
     public BusScheduleTable getBusScheduleTable() {
         return busPanel.getBusScheduleTable();
-    }
-
-    void taskB_actionPerformed(ActionEvent e) {
-        parentPanel.busB_actionPerformed(null);
-    }
-
-    void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.toursB_actionPerformed(null);
     }
 
     /**
