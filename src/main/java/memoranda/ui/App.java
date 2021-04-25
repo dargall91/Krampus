@@ -18,8 +18,9 @@ import main.java.memoranda.util.Configuration;
 
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
-    // boolean packFrame = false;
-
+    private static final String VERSION_INFO = BuildVersion.getVersion();
+    private static final String BUILD_INFO = BuildVersion.getBuild();
+    
     private static AppFrame frame = new AppFrame();
 
     private static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
@@ -28,9 +29,6 @@ public class App {
     private static int state;
 
     private JFrame splash = null;
-
-    private static final String VERSION_INFO = BuildVersion.getVersion();
-    private static final String BUILD_INFO = BuildVersion.getBuild();
 
     /*========================================================================*/
 

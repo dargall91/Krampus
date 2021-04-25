@@ -268,6 +268,8 @@ public class AppFrame extends JFrame {
         this.setTitle("Magic Tour Bus - " + CurrentProject.get().getTitle());
         statusBar.setText(" Version: " + App.getVersionInfo() + " (Build: "
                 + App.getBuildInfo() + ")");
+        
+        System.out.println(statusBar.getText());
 
         menuFile.setText(Local.getString("File"));
         menuFileExit.setText(Local.getString("Exit"));
