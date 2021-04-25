@@ -48,7 +48,6 @@ public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout3 = new BorderLayout();
     JPanel editorsPanel = new JPanel();
     CardLayout cardLayout1 = new CardLayout();
-    public EditorPanel editorPanel = new EditorPanel(this);
     JLabel currentDateLabel = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
     private DriverPanel driverPanel = new DriverPanel(this);
