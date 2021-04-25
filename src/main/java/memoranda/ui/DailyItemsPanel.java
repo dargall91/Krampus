@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import main.java.memoranda.CurrentProject;
@@ -27,7 +26,6 @@ import main.java.memoranda.History;
 import main.java.memoranda.HistoryItem;
 import main.java.memoranda.HistoryListener;
 import main.java.memoranda.Project;
-import main.java.memoranda.ProjectListener;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -39,91 +37,78 @@ import main.java.memoranda.util.Local;
 
 /*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
 public class DailyItemsPanel extends JPanel {
-    BorderLayout borderLayout1 = new BorderLayout();
-    JSplitPane splitPane = new JSplitPane();
-    JPanel controlPanel = new JPanel(); /* Contains the calendar */
-    JPanel mainPanel = new JPanel();
-    BorderLayout borderLayout2 = new BorderLayout();
-    JPanel statusPanel = new JPanel();
-    BorderLayout borderLayout3 = new BorderLayout();
-    JPanel editorsPanel = new JPanel();
-    CardLayout cardLayout1 = new CardLayout();
-    JLabel currentDateLabel = new JLabel();
-    BorderLayout borderLayout4 = new BorderLayout();
+    private JSplitPane splitPane = new JSplitPane();
+    private JPanel controlPanel = new JPanel(); /* Contains the calendar */
+    private JPanel mainPanel = new JPanel();
+    private JPanel statusPanel = new JPanel();
+    private JPanel editorsPanel = new JPanel();
+    private CardLayout cardLayout1 = new CardLayout();
+    private JLabel currentDateLabel = new JLabel();
     private DriverPanel driverPanel = new DriverPanel(this);
     private BusPanel busPanel = new BusPanel(this);
     private TourPanel tourPanel = new TourPanel(this);
     private RouteMapPanel routeMapPanel = new RouteMapPanel(this);
-    ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
-    ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
-    ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
+    private ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class
+            .getResource("/ui/icons/exp_right.png"));
+    private ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class
+            .getResource("/ui/icons/exp_left.png"));
     boolean expanded = true;
+    
+    private CalendarDate currentDate;
 
-    CalendarDate currentDate;
+    private boolean calendarIgnoreChange = false;
+    private boolean dateChangedByCalendar = false;
+    private boolean changedByHistory = false;
+    private JPanel cmainPanel = new JPanel();
+    private JNCalendarPanel calendar = new JNCalendarPanel();
+    private JToolBar toggleToolBar = new JToolBar();
+    private BorderLayout borderLayout5 = new BorderLayout();
+    private JButton toggleButton = new JButton();
+    private WorkPanel parentPanel = null;
 
-    boolean calendarIgnoreChange = false;
-    boolean dateChangedByCalendar = false;
-    boolean changedByHistory = false;
-    JPanel cmainPanel = new JPanel();
-    JNCalendarPanel calendar = new JNCalendarPanel();
-    JToolBar toggleToolBar = new JToolBar();
-    BorderLayout borderLayout5 = new BorderLayout();
-    Border border1;
-    JButton toggleButton = new JButton();
-    WorkPanel parentPanel = null;
+    private JPanel indicatorsPanel = new JPanel();
+    private FlowLayout flowLayout1 = new FlowLayout();
+    private JPanel mainTabsPanel = new JPanel();
+    private CardLayout cardLayout2 = new CardLayout();
 
-    boolean addedToHistory = false;
-    JPanel indicatorsPanel = new JPanel();
-    JButton alarmB = new JButton();
-    FlowLayout flowLayout1 = new FlowLayout();
-    JButton taskB = new JButton();
-    JPanel mainTabsPanel = new JPanel();
-    CardLayout cardLayout2 = new CardLayout();
+    private JTabbedPane tasksTabbedPane = new JTabbedPane();
+    private JTabbedPane toursTabbedPane = new JTabbedPane();
+    private JTabbedPane driverTabbedPane = new JTabbedPane();
 
-    JTabbedPane tasksTabbedPane = new JTabbedPane();
-    JTabbedPane toursTabbedPane = new JTabbedPane();
-    JTabbedPane driverTabbedPane = new JTabbedPane();
-    Border border2;
+    private String currentPanel;
 
-    String CurrentPanel;
+    private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
 
-    Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
-
-    public DailyItemsPanel(WorkPanel _parentPanel) {
+    public DailyItemsPanel(WorkPanel parentPanel) {
         try {
-            parentPanel = _parentPanel;
+            this.parentPanel = parentPanel;
             jbInit();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
         }
     }
 
-    void jbInit() throws Exception {
-        border1 = BorderFactory.createEtchedBorder(Color.white, Color.gray);
-        border2 = BorderFactory.createEtchedBorder(Color.white, new Color(161, 161, 161));
-        this.setLayout(borderLayout1);
+    public void jbInit() throws Exception {
+        this.setLayout(new BorderLayout());
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(null);
         splitPane.setDividerSize(2);
-        controlPanel.setLayout(borderLayout2);
-        //calendar.setMinimumSize(new Dimension(200, 170));
-        mainPanel.setLayout(borderLayout3);
+        controlPanel.setLayout(new BorderLayout());
+        mainPanel.setLayout(new BorderLayout());
         editorsPanel.setLayout(cardLayout1);
         statusPanel.setBackground(Color.black);
         statusPanel.setForeground(Color.white);
         statusPanel.setMinimumSize(new Dimension(14, 24));
         statusPanel.setPreferredSize(new Dimension(14, 24));
-        statusPanel.setLayout(borderLayout4);
+        statusPanel.setLayout(new BorderLayout(4, 0));
         currentDateLabel.setFont(new java.awt.Font("Dialog", 0, 16));
         currentDateLabel.setForeground(Color.white);
         currentDateLabel.setText(CurrentDate.get().getFullDateString());
-        borderLayout4.setHgap(4);
         controlPanel.setBackground(new Color(230, 230, 230));
-        controlPanel.setBorder(border2);
+        controlPanel.setBorder(BorderFactory.createEtchedBorder(Color.white, new Color(161, 161, 161)));
         controlPanel.setMinimumSize(new Dimension(20, 170));
         controlPanel.setPreferredSize(new Dimension(205, 170));
-        //controlPanel.setMaximumSize(new Dimension(206, 170));
-        //controlPanel.setSize(controlPanel.getMaximumSize());
+
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
         calendar.setMinimumSize(new Dimension(0, 168));
         toggleToolBar.setBackground(new Color(215, 225, 250));
@@ -149,32 +134,10 @@ public class DailyItemsPanel extends JPanel {
         toggleButton.setIcon(collIcon);
         indicatorsPanel.setOpaque(false);
         indicatorsPanel.setLayout(flowLayout1);
-        alarmB.setMaximumSize(new Dimension(24, 24));
-        alarmB.setOpaque(false);
-        alarmB.setPreferredSize(new Dimension(24, 24));
-        alarmB.setToolTipText(Local.getString("Active events"));
-        alarmB.setBorderPainted(false);
-        alarmB.setMargin(new Insets(0, 0, 0, 0));
-        alarmB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                alarmB_actionPerformed(e);
-            }
-        });
-        alarmB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/alarm.png")));
+
         flowLayout1.setAlignment(FlowLayout.RIGHT);
         flowLayout1.setVgap(0);
-        taskB.setMargin(new Insets(0, 0, 0, 0));
-        taskB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                taskB_actionPerformed(e);
-            }
-        });
-        taskB.setPreferredSize(new Dimension(24, 24));
-        taskB.setToolTipText(Local.getString("Active to-do tasks"));
-        taskB.setBorderPainted(false);
-        taskB.setMaximumSize(new Dimension(24, 24));
-        taskB.setOpaque(false);
-        taskB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/task.png")));
+
 
         mainTabsPanel.setLayout(cardLayout2);
         this.add(splitPane, BorderLayout.CENTER);
@@ -233,10 +196,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.setBorder(null);
     }
 
-    void currentDateChanged(CalendarDate newdate) {
-        Cursor cur = App.getFrame().getCursor();
-        App.getFrame().setCursor(waitCursor);
-        
+    private void currentDateChanged(CalendarDate newdate) {        
         if (!changedByHistory) {
             History.add(new HistoryItem(newdate, CurrentProject.get()));
         }
@@ -252,32 +212,33 @@ public class DailyItemsPanel extends JPanel {
 
         currentDateLabel.setText(newdate.getFullDateString());
         currentDateLabel.setIcon(null);
+        
+        Cursor cur = App.getFrame().getCursor();
+        App.getFrame().setCursor(waitCursor);
 
         App.getFrame().setCursor(cur);
     }
 
-    void currentProjectChanged(Project newprj) {
-//        Util.debug("currentProjectChanged");
-
-        Cursor cur = App.getFrame().getCursor();
-        App.getFrame().setCursor(waitCursor);
+    private void currentProjectChanged(Project newprj) {
         if (!changedByHistory) {
             History.add(new HistoryItem(CurrentDate.get(), newprj));
         }
 
-        CurrentProject.save();        
-
+        Cursor cur = App.getFrame().getCursor();
+        App.getFrame().setCursor(waitCursor);
+        CurrentProject.save(); 
+        
         App.getFrame().setCursor(cur);
     }
 
-    void historyChanged(HistoryItem hi) {
+    private void historyChanged(HistoryItem hi) {
         changedByHistory = true;
         CurrentProject.set(hi.getProject());
         CurrentDate.set(hi.getDate());
         changedByHistory = false;
     }
 
-    void toggleButton_actionPerformed(ActionEvent e) {
+    private void toggleButton_actionPerformed(ActionEvent e) {
         if (expanded) {
             expanded = false;
             toggleButton.setIcon(expIcon);
@@ -294,19 +255,38 @@ public class DailyItemsPanel extends JPanel {
         }
     }
 
+    /**
+     * Selects a panel.
+     * 
+     * @param pan The name fo the panel to select
+     */
     public void selectPanel(String pan) {
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
         calendar.jnCalendar.updateUI();
-        CurrentPanel = pan;
-    }
-
-    public String getCurrentPanel() {
-        return CurrentPanel;
+        currentPanel = pan;
     }
 
     /**
-     * Gets the DriverScheduleTable used to display a Driver's schedule
+     * Gets the name of the currently selected panel.
+     * 
+     * @return Selected panel's name
+     */
+    public String getCurrentPanel() {
+        return currentPanel;
+    }
+    
+    /**
+     * Gets the calendar.
+     * 
+     * @return THe calendar
+     */
+    public JNCalendarPanel getCalendar() {
+        return calendar;
+    }
+
+    /**
+     * Gets the DriverScheduleTable used to display a Driver's schedule.
      *
      * @return The DriverScheduleTable
      */
@@ -315,7 +295,7 @@ public class DailyItemsPanel extends JPanel {
     }
     
     /**
-     * Gets the BusScheduleTable used to display a Bus's schedule
+     * Gets the BusScheduleTable used to display a Bus's schedule.
      *
      * @return The BusScheduleTable
      */
@@ -332,7 +312,7 @@ public class DailyItemsPanel extends JPanel {
     }
 
     /**
-     * Refreshes the Panels when the project is changed
+     * Refreshes the Panels when the project is changed.
      */
     public void refresh() {
         driverPanel.refresh();

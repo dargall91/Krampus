@@ -119,11 +119,11 @@ public class AppFrame extends JFrame {
     JMenuItem menuGoFwd = new JMenuItem(History.historyForwardAction);
 
     JMenuItem menuGoDayBack = new JMenuItem(
-            dailyItemsPanel.calendar.dayBackAction);
+            dailyItemsPanel.getCalendar().dayBackAction);
     JMenuItem menuGoDayFwd = new JMenuItem(
-            dailyItemsPanel.calendar.dayForwardAction);
+            dailyItemsPanel.getCalendar().dayForwardAction);
     JMenuItem menuGoToday = new JMenuItem(
-            dailyItemsPanel.calendar.todayAction);
+            dailyItemsPanel.getCalendar().todayAction);
 
     JMenuItem menuEditPref = new JMenuItem(preferencesAction);
 
@@ -270,10 +270,9 @@ public class AppFrame extends JFrame {
             }
         };
 
-        dailyItemsPanel.taskB
-                .addActionListener(setMenusDisabled);
-        dailyItemsPanel.alarmB.addActionListener(
-                setMenusDisabled);
+   
+        //dailyItemsPanel.alarmB.addActionListener(
+        //        setMenusDisabled);
 
         workPanel.getBusButton().addActionListener(setMenusDisabled);
         workPanel.getTourButton().addActionListener(setMenusDisabled);

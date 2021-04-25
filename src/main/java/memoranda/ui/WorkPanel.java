@@ -30,7 +30,6 @@ import main.java.memoranda.util.Local;
  *
  */
 public class WorkPanel extends JPanel {
-    private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
     private JPanel panel = new JPanel();
     private CardLayout cardLayout1 = new CardLayout();
@@ -41,7 +40,6 @@ public class WorkPanel extends JPanel {
     private JButton toursB = new JButton();
     private JButton mapB = new JButton();
     private JButton currentB = null;
-    private Border border1;
 
     /**
      * Creates a new WorkPanel.
@@ -55,17 +53,7 @@ public class WorkPanel extends JPanel {
     }
 
     private void jbInit() throws Exception {
-        border1 =
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createBevelBorder(
-                                BevelBorder.LOWERED,
-                                Color.white,
-                                Color.white,
-                                new Color(124, 124, 124),
-                                new Color(178, 178, 178)),
-                        BorderFactory.createEmptyBorder(0, 2, 0, 0));
-
-        this.setLayout(borderLayout1);
+        this.setLayout(new BorderLayout());
         toolBar.setOrientation(JToolBar.VERTICAL);
         toolBar.setBackground(Color.white);
 
