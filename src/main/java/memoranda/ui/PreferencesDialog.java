@@ -547,7 +547,7 @@ public class PreferencesDialog extends JDialog {
         if (Configuration.get("BASE_FONT_SIZE").toString().length() > 0) {
             baseFontSize.setValue(Integer.decode(Configuration.get("BASE_FONT_SIZE").toString()));
         } else {
-            baseFontSize.setValue(new Integer(16));
+            baseFontSize.setValue(16);
         }
     }
 

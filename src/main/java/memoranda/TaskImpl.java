@@ -48,7 +48,7 @@ public class TaskImpl implements Task, Comparable {
 
     public CalendarDate getEndDate() {
         String ed = _element.getAttribute("endDate").getValue();
-        if (ed != "") {
+        if (!ed.equals("")) {
             return new CalendarDate(_element.getAttribute("endDate").getValue());
         }
         Task parent = this.getParentTask();
