@@ -9,14 +9,13 @@ import main.java.memoranda.util.Local;
  */
 public class FileExportDialog extends javax.swing.JDialog {
 
+    private final javax.swing.JFileChooser fileChooser;
     public boolean CANCELLED = true;
     public javax.swing.JCheckBox numentChB;
     public javax.swing.JTextField templF;
     public javax.swing.JCheckBox usetemplChB;
     public javax.swing.JCheckBox xhtmlChB;
     public JComboBox encCB;
-    private final javax.swing.JFileChooser fileChooser;
-
     private javax.swing.JButton okB;
     private javax.swing.JButton templBrowseB;
 

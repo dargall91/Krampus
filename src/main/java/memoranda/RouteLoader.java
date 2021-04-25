@@ -13,8 +13,8 @@ import java.util.LinkedList;
  * @version 2021-04-01
  */
 public class RouteLoader extends IndexedObject {
-    private String name;
-    private LinkedList<Integer> nodeIDs;
+    private final String name;
+    private final LinkedList<Integer> nodeIDs;
 
     /**
      * constructor for json deserialization.

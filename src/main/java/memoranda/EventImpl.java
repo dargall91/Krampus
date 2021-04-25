@@ -1,10 +1,8 @@
 /**
- * EventImpl.java
- * Created on 08.03.2003, 13:20:13 Alex
- * Package: net.sf.memoranda
+ * EventImpl.java Created on 08.03.2003, 13:20:13 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
@@ -37,14 +35,14 @@ public class EventImpl implements Event, Comparable {
      * @see main.java.memoranda.Event#getHour()
      */
     public int getHour() {
-        return new Integer(_elem.getAttribute("hour").getValue()).intValue();
+        return Integer.parseInt(_elem.getAttribute("hour").getValue());
     }
 
     /**
      * @see main.java.memoranda.Event#getMinute()
      */
     public int getMinute() {
-        return new Integer(_elem.getAttribute("min").getValue()).intValue();
+        return Integer.parseInt(_elem.getAttribute("min").getValue());
     }
 
     public String getTimeString() {
@@ -101,7 +99,7 @@ public class EventImpl implements Event, Comparable {
     public int getPeriod() {
         Attribute a = _elem.getAttribute("period");
         if (a != null) {
-            return new Integer(a.getValue()).intValue();
+            return Integer.parseInt(a.getValue());
         }
         return 0;
     }
@@ -123,7 +121,7 @@ public class EventImpl implements Event, Comparable {
     public int getRepeat() {
         Attribute a = _elem.getAttribute("repeat-type");
         if (a != null) {
-            return new Integer(a.getValue()).intValue();
+            return Integer.parseInt(a.getValue());
         }
         return 0;
     }
@@ -140,24 +138,28 @@ public class EventImpl implements Event, Comparable {
         //End deprecated methods
 
         Date d = new Date(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-        Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+        Calendar calendar = new GregorianCalendar(
+                Local.getCurrentLocale()); //Revision to fix deprecated methods (jcscoobyrs)
+        // 12-NOV-2003 14:26:00
         calendar.setTime(d); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-        calendar.set(Calendar.HOUR_OF_DAY, getHour()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-        calendar.set(Calendar.MINUTE, getMinute()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-        calendar.set(Calendar.SECOND, 0); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
-        d = calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+        calendar.set(Calendar.HOUR_OF_DAY,
+                getHour()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+        calendar.set(Calendar.MINUTE,
+                getMinute()); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+        calendar.set(Calendar.SECOND,
+                0); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003 14:26:00
+        d =
+                calendar.getTime(); //Revision to fix deprecated methods (jcscoobyrs) 12-NOV-2003
+        // 14:26:00
         return d;
     }
 
     /**
-     * @see main.java.memoranda.Event#getWorkinDays()
+     * @see main.java.memoranda.Event#getWorkingDays()
      */
     public boolean getWorkingDays() {
         Attribute a = _elem.getAttribute("workingDays");
-        if (a != null && a.getValue().equals("true")) {
-            return true;
-        }
-        return false;
+        return a != null && a.getValue().equals("true");
     }
 
     public int compareTo(Object o) {

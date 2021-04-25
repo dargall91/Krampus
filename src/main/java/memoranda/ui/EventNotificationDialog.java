@@ -74,7 +74,7 @@ public class EventNotificationDialog extends JFrame {
         panel1.setBorder(border4);
         panel1.setMinimumSize(new Dimension(300, 200));
         panel1.setPreferredSize(new Dimension(300, 200));
-        timeLabel.setFont(new java.awt.Font("Dialog", 0, 20));
+        timeLabel.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(panel1);

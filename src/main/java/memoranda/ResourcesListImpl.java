@@ -1,19 +1,15 @@
 /**
- * ResourcesListImpl.java
- * Created on 24.03.2003, 18:30:31 Alex
- * Package: net.sf.memoranda
+ * ResourcesListImpl.java Created on 24.03.2003, 18:30:31 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
+import java.io.File;
 import java.util.Vector;
 
 import main.java.memoranda.util.Util;
-
-import java.io.File;
-
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -25,9 +21,9 @@ import nu.xom.Elements;
 /*$Id: ResourcesListImpl.java,v 1.5 2007/03/20 06:21:46 alexeya Exp $*/
 public class ResourcesListImpl implements ResourcesList {
 
-    private Project _project = null;
-    private Document _doc = null;
-    private Element _root = null;
+    //private Project _project = null;
+    private final Document _doc;
+    private final Element _root;
 
     /**
      * Constructor for TaskListImpl.
@@ -35,20 +31,22 @@ public class ResourcesListImpl implements ResourcesList {
     public ResourcesListImpl(Document doc, Project prj) {
         _doc = doc;
         _root = _doc.getRootElement();
-        _project = prj;
+        //_project = prj;
     }
 
     public ResourcesListImpl(Project prj) {
         _root = new Element("resources-list");
         _doc = new Document(_root);
-        _project = prj;
+        //_project = prj;
     }
 
-    public Vector getAllResources() {
-        Vector v = new Vector();
+    public Vector<Resource> getAllResources() {
+        Vector<Resource> v = new Vector<>();
         Elements rs = _root.getChildElements("resource");
         for (int i = 0; i < rs.size(); i++) {
-            v.add(new Resource(rs.get(i).getAttribute("path").getValue(), rs.get(i).getAttribute("isInetShortcut") != null, rs.get(i).getAttribute("isProjectFile") != null));
+            v.add(new Resource(rs.get(i).getAttribute("path").getValue(),
+                    rs.get(i).getAttribute("isInetShortcut") != null,
+                    rs.get(i).getAttribute("isProjectFile") != null));
         }
         return v;
     }
@@ -60,7 +58,9 @@ public class ResourcesListImpl implements ResourcesList {
         Elements rs = _root.getChildElements("resource");
         for (int i = 0; i < rs.size(); i++) {
             if (rs.get(i).getAttribute("path").getValue().equals(path)) {
-                return new Resource(rs.get(i).getAttribute("path").getValue(), rs.get(i).getAttribute("isInetShortcut") != null, rs.get(i).getAttribute("isProjectFile") != null);
+                return new Resource(rs.get(i).getAttribute("path").getValue(),
+                        rs.get(i).getAttribute("isInetShortcut") != null,
+                        rs.get(i).getAttribute("isProjectFile") != null);
             }
         }
         return null;

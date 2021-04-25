@@ -1,13 +1,6 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -69,7 +62,7 @@ public class LinkDialog extends JDialog {
 
     void jbInit() throws Exception {
         this.setResizable(false);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Insert hyperlink"));
         header.setIcon(new ImageIcon(
@@ -152,21 +145,13 @@ public class LinkDialog extends JDialog {
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText("Ok");
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         cancelB.setMaximumSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);

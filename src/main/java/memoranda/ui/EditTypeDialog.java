@@ -1,10 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -106,13 +102,9 @@ public class EditTypeDialog extends JDialog {
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         flowLayout7.setAlignment(FlowLayout.LEFT);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Resource type"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.EditTypeDialog.class.getResource(
@@ -126,11 +118,7 @@ public class EditTypeDialog extends JDialog {
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         areaPanel.setLayout(borderLayout2);
         mPanel.setLayout(borderLayout3);
@@ -141,20 +129,12 @@ public class EditTypeDialog extends JDialog {
         extField.setMaximumSize(new Dimension(2147483647, 24));
         extField.setMinimumSize(new Dimension(4, 24));
         extField.setPreferredSize(new Dimension(300, 24));
-        extField.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(CaretEvent e) {
-                extField_caretUpdate(e);
-            }
-        });
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 11));
+        extField.addCaretListener(e -> extField_caretUpdate(e));
+        jLabel1.setFont(new java.awt.Font("Dialog", Font.PLAIN, 11));
         jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel1.setText(Local.getString("List of file extensions, divided by spaces"));
         descField.setPreferredSize(new Dimension(300, 24));
-        descField.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(CaretEvent e) {
-                descField_caretUpdate(e);
-            }
-        });
+        descField.addCaretListener(e -> descField_caretUpdate(e));
         descField.setMaximumSize(new Dimension(2147483647, 24));
         descField.setMinimumSize(new Dimension(4, 24));
         jPanel4.setBorder(titledBorder4);
@@ -170,11 +150,7 @@ public class EditTypeDialog extends JDialog {
         setIconB.setMaximumSize(new Dimension(160, 24));
         setIconB.setMinimumSize(new Dimension(100, 24));
         setIconB.setText(Local.getString("Set icon"));
-        setIconB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setIconB_actionPerformed(e);
-            }
-        });
+        setIconB.addActionListener(e -> setIconB_actionPerformed(e));
         jPanel3.setLayout(borderLayout5);
         jPanel3.setBorder(titledBorder6);
         buttonsPanel.add(okB, null);

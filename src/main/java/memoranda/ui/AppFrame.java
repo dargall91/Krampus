@@ -1071,8 +1071,8 @@ public class AppFrame extends JFrame {
         }
         Context.put("LAST_SELECTED_NOTE_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
-        HashMap<String, String> notesName = new HashMap<String, String>();
-        HashMap<String, String> notesContent = new HashMap<String, String>();
+        HashMap<String, String> notesName = new HashMap<>();
+        HashMap<String, String> notesContent = new HashMap<>();
         Builder parser = new Builder();
         String id;
         String name;
@@ -1083,7 +1083,7 @@ public class AppFrame extends JFrame {
             content = content.substring(content.indexOf("\n", content.indexOf("-")));
             content = content.replace("<p>", "").replace("</p>", "\n");
             name = f.getName().substring(0, f.getName().lastIndexOf("."));
-            Element item;
+            //Element item;
             id = Util.generateId();
             System.out.println(id + " " + name + " " + content);
             notesName.put(id, name);

@@ -40,7 +40,7 @@ public class ResourcesTable extends JTable {
         sorter.addMouseListenerToHeaderInTable(this);
         setModel(sorter);
         this.setShowGrid(false);
-        this.setFont(new Font("Dialog", 0, 11));
+        this.setFont(new Font("Dialog", Font.PLAIN, 11));
         initColumsWidth();
         //this.setModel(new ResourcesTableModel());
         CurrentProject.addProjectListener(new ProjectListener() {
@@ -75,9 +75,9 @@ public class ResourcesTable extends JTable {
 
     public void initTable() {
         Vector v = CurrentProject.getResourcesList().getAllResources();
-        files = new Vector();
-        for (int i = 0; i < v.size(); i++) {
-            Resource r = (Resource) v.get(i);
+        files = new Vector<Resource>();
+        for (Object  o : v) {
+            Resource r = (Resource) o;
             if (!r.isInetShortcut()) {
                 File f = new File(r.getPath());
                 if (f.isFile()) {

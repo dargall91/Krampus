@@ -1,24 +1,10 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.SystemColor;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
+import java.util.Objects;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -32,13 +18,13 @@ import main.java.memoranda.util.Util;
 
 /*$Id: ResourceTypePanel.java,v 1.8 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ResourceTypePanel extends JPanel {
+    public String ext = "";
+    public JList typesList = new JList();
     Border border1;
     TitledBorder titledBorder1;
-
     Border border2;
     TitledBorder titledBorder2;
-    public String ext = "";
-    boolean CANCELLED = true;
+    //boolean CANCELLED = true;
     JPanel jPanel1 = new JPanel();
     JButton newTypeB = new JButton();
     JScrollPane jScrollPane1 = new JScrollPane();
@@ -48,7 +34,6 @@ public class ResourceTypePanel extends JPanel {
     JButton editB = new JButton();
     JButton deleteB = new JButton();
     BorderLayout borderLayout1 = new BorderLayout();
-    public JList typesList = new JList();
     BorderLayout borderLayout3 = new BorderLayout();
     Border border3;
 
@@ -64,9 +49,11 @@ public class ResourceTypePanel extends JPanel {
 
     void jbInit() throws Exception {
         border1 = BorderFactory.createLineBorder(SystemColor.controlText, 2);
-        titledBorder1 = new TitledBorder(BorderFactory.createEmptyBorder(), Local.getString("Registered types"));
+        titledBorder1 = new TitledBorder(BorderFactory.createEmptyBorder(),
+                Local.getString("Registered types"));
         border2 = BorderFactory.createLineBorder(Color.gray, 1);
-        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(Color.gray, 1), Local.getString("Details"));
+        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(Color.gray, 1),
+                Local.getString("Details"));
         border3 = BorderFactory.createEmptyBorder(0, 10, 0, 0);
 
 
@@ -75,22 +62,14 @@ public class ResourceTypePanel extends JPanel {
         newTypeB.setMaximumSize(new Dimension(110, 25));
         newTypeB.setPreferredSize(new Dimension(110, 25));
         newTypeB.setText(Local.getString("New"));
-        newTypeB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                newTypeB_actionPerformed(e);
-            }
-        });
+        newTypeB.addActionListener(e -> newTypeB_actionPerformed(e));
         areaPanel.setLayout(borderLayout2);
         jPanel2.setMaximumSize(new Dimension(120, 32767));
         jPanel2.setMinimumSize(new Dimension(120, 36));
         jPanel2.setPreferredSize(new Dimension(120, 36));
         jPanel2.setBorder(border3);
         editB.setText(Local.getString("Edit"));
-        editB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                editB_actionPerformed(e);
-            }
-        });
+        editB.addActionListener(e -> editB_actionPerformed(e));
         editB.setEnabled(false);
         editB.setMaximumSize(new Dimension(110, 25));
         editB.setPreferredSize(new Dimension(110, 25));
@@ -98,18 +77,10 @@ public class ResourceTypePanel extends JPanel {
         deleteB.setMaximumSize(new Dimension(110, 25));
         deleteB.setPreferredSize(new Dimension(110, 25));
         deleteB.setText(Local.getString("Delete"));
-        deleteB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteB_actionPerformed(e);
-            }
-        });
+        deleteB.addActionListener(e -> deleteB_actionPerformed(e));
         typesList.setCellRenderer(new TypesListRenderer());
         typesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        typesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                typesList_valueChanged(e);
-            }
-        });
+        typesList.addListSelectionListener(e -> typesList_valueChanged(e));
         initTypesList();
 
         //typesList.setCellRenderer(new TypesListRenderer());
@@ -142,18 +113,21 @@ public class ResourceTypePanel extends JPanel {
 
 
     void newTypeB_actionPerformed(ActionEvent e) {
-        EditTypeDialog dlg = new EditTypeDialog(App.getFrame(), Local.getString("New resource type"));
+        EditTypeDialog dlg =
+                new EditTypeDialog(App.getFrame(), Local.getString("New resource type"));
         Dimension dlgSize = new Dimension(420, 420);
         dlg.setSize(dlgSize);
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
-        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x,
+                (frmSize.height - dlgSize.height) / 2 + loc.y);
         dlg.extField.setText(ext);
         dlg.descField.setText(ext);
         dlg.appPanel.argumentsField.setText("$1");
         dlg.iconLabel.setIcon(
                 new ImageIcon(
-                        main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes/default.png")));
+                        Objects.requireNonNull(
+                                AppFrame.class.getResource("/ui/icons/mimetypes/default.png"))));
         dlg.setVisible(true);
         if (dlg.CANCELLED) {
             return;
@@ -205,12 +179,14 @@ public class ResourceTypePanel extends JPanel {
     }
 
     void editB_actionPerformed(ActionEvent e) {
-        EditTypeDialog dlg = new EditTypeDialog(App.getFrame(), Local.getString("Edit resource type"));
+        EditTypeDialog dlg =
+                new EditTypeDialog(App.getFrame(), Local.getString("Edit resource type"));
         Dimension dlgSize = new Dimension(420, 450);
         dlg.setSize(dlgSize);
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
-        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x,
+                (frmSize.height - dlgSize.height) / 2 + loc.y);
         MimeType mt = (MimeType) typesList.getSelectedValue();
         String[] exts = mt.getExtensions();
         String extss = "";
@@ -232,8 +208,8 @@ public class ResourceTypePanel extends JPanel {
         MimeTypesList.removeMimeType(typeId);
         mt = MimeTypesList.addMimeType(typeId);
         exts = dlg.extField.getText().trim().split(" ");
-        for (int i = 0; i < exts.length; i++) {
-            mt.addExtension(exts[i]);
+        for (String s : exts) {
+            mt.addExtension(s);
         }
         mt.setLabel(dlg.descField.getText());
         if (dlg.appPanel.applicationField.getText().length() > 0) {
@@ -255,6 +231,11 @@ public class ResourceTypePanel extends JPanel {
 
     }
 
+    void typesList_valueChanged(ListSelectionEvent e) {
+        boolean en = typesList.getSelectedValue() != null;
+        this.editB.setEnabled(en);
+        this.deleteB.setEnabled(en);
+    }
 
     class TypesListRenderer extends JLabel implements ListCellRenderer {
 
@@ -291,12 +272,6 @@ public class ResourceTypePanel extends JPanel {
             }
             return this;
         }
-    }
-
-    void typesList_valueChanged(ListSelectionEvent e) {
-        boolean en = typesList.getSelectedValue() != null;
-        this.editB.setEnabled(en);
-        this.deleteB.setEnabled(en);
     }
 
 

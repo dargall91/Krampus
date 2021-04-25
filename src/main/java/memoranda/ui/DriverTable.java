@@ -47,23 +47,13 @@ public class DriverTable extends JTable {
         drivers = CurrentProject.getDriverColl();
 
         JPopupMenu optionsMenu = new JPopupMenu();
-        optionsMenu.setFont(new Font("Dialog", 1, 10));
+        optionsMenu.setFont(new Font("Dialog", Font.BOLD, 10));
 
         JMenuItem editDriver = new JMenuItem("Edit Driver");
-        editDriver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editActionEvent(e);
-            }
-        });
+        editDriver.addActionListener(e -> editActionEvent(e));
 
         JMenuItem deleteDriver = new JMenuItem("Delete Driver");
-        deleteDriver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deleteActionEvent(e);
-            }
-        });
+        deleteDriver.addActionListener(e -> deleteActionEvent(e));
 
         optionsMenu.add(editDriver);
         optionsMenu.add(deleteDriver);

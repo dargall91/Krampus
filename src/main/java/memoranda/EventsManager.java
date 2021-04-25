@@ -1,27 +1,22 @@
 /**
- * EventsManager.java Created on 08.03.2003, 12:35:19 Alex Package:
- * net.sf.memoranda
+ * EventsManager.java Created on 08.03.2003, 12:35:19 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003
- * Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
-
-import java.util.Map;
-import java.util.Collections;
-
 import nu.xom.Attribute;
-//import nu.xom.Comment;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
@@ -187,8 +182,10 @@ public class EventsManager {
 
             // --- ivanrise
             // ignore this event if it's a 'only working days' event and today is weekend.
-            if (ev.getWorkingDays() && (date.getCalendar().get(Calendar.DAY_OF_WEEK) == 1 ||
-                    date.getCalendar().get(Calendar.DAY_OF_WEEK) == 7)) {
+            if (ev.getWorkingDays() && (
+                    date.getCalendar().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+                            ||
+                            date.getCalendar().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)) {
                 continue;
             }
             // ---
@@ -248,9 +245,9 @@ public class EventsManager {
         Elements els = d.getElement().getChildElements("event");
         for (int i = 0; i < els.size(); i++) {
             Element el = els.get(i);
-            if ((new Integer(el.getAttribute("hour").getValue()).intValue()
+            if ((Integer.parseInt(el.getAttribute("hour").getValue())
                     == hh)
-                    && (new Integer(el.getAttribute("min").getValue()).intValue()
+                    && (Integer.parseInt(el.getAttribute("min").getValue())
                     == mm)) {
                 return new EventImpl(el);
             }
@@ -288,14 +285,14 @@ public class EventsManager {
 
     private static Year createYear(int y) {
         Element el = new Element("year");
-        el.addAttribute(new Attribute("year", new Integer(y).toString()));
+        el.addAttribute(new Attribute("year", Integer.toString(y)));
         _root.appendChild(el);
         return new Year(el);
     }
 
     private static Year getYear(int y) {
         Elements yrs = _root.getChildElements("year");
-        String yy = new Integer(y).toString();
+        String yy = Integer.toString(y);
         for (int i = 0; i < yrs.size(); i++) {
             if (yrs.get(i).getAttribute("year").getValue().equals(yy)) {
                 return new Year(yrs.get(i));
@@ -325,13 +322,12 @@ public class EventsManager {
         }
 
         public int getValue() {
-            return new Integer(yearElement.getAttribute("year").getValue())
-                    .intValue();
+            return Integer.parseInt(yearElement.getAttribute("year").getValue());
         }
 
         public Month getMonth(int m) {
             Elements ms = yearElement.getChildElements("month");
-            String mm = new Integer(m).toString();
+            String mm = Integer.toString(m);
             for (int i = 0; i < ms.size(); i++) {
                 if (ms.get(i).getAttribute("month").getValue().equals(mm)) {
                     return new Month(ms.get(i));
@@ -343,13 +339,13 @@ public class EventsManager {
 
         private Month createMonth(int m) {
             Element el = new Element("month");
-            el.addAttribute(new Attribute("month", new Integer(m).toString()));
+            el.addAttribute(new Attribute("month", Integer.toString(m)));
             yearElement.appendChild(el);
             return new Month(el);
         }
 
         public Vector getMonths() {
-            Vector v = new Vector();
+            Vector<Month> v = new Vector();
             Elements ms = yearElement.getChildElements("month");
             for (int i = 0; i < ms.size(); i++) {
                 v.add(new Month(ms.get(i)));
@@ -371,8 +367,7 @@ public class EventsManager {
         }
 
         public int getValue() {
-            return new Integer(mElement.getAttribute("month").getValue())
-                    .intValue();
+            return Integer.parseInt(mElement.getAttribute("month").getValue());
         }
 
         public Day getDay(int d) {
@@ -380,7 +375,7 @@ public class EventsManager {
                 return null;
             }
             Elements ds = mElement.getChildElements("day");
-            String dd = new Integer(d).toString();
+            String dd = Integer.toString(d);
             for (int i = 0; i < ds.size(); i++) {
                 if (ds.get(i).getAttribute("day").getValue().equals(dd)) {
                     return new Day(ds.get(i));
@@ -392,29 +387,27 @@ public class EventsManager {
 
         private Day createDay(int d) {
             Element el = new Element("day");
-            el.addAttribute(new Attribute("day", new Integer(d).toString()));
+            el.addAttribute(new Attribute("day", Integer.toString(d)));
             el.addAttribute(
                     new Attribute(
                             "date",
                             new CalendarDate(
                                     d,
                                     getValue(),
-                                    new Integer(
-                                            ((Element) mElement.getParent())
-                                                    .getAttribute("year")
-                                                    .getValue())
-                                            .intValue())
+                                    Integer.parseInt(((Element) mElement.getParent())
+                                            .getAttribute("year")
+                                            .getValue()))
                                     .toString()));
 
             mElement.appendChild(el);
             return new Day(el);
         }
 
-        public Vector getDays() {
+        public Vector<Day> getDays() {
             if (mElement == null) {
                 return null;
             }
-            Vector v = new Vector();
+            Vector<Day> v = new Vector<>();
             Elements ds = mElement.getChildElements("day");
             for (int i = 0; i < ds.size(); i++) {
                 v.add(new Day(ds.get(i)));
@@ -436,7 +429,7 @@ public class EventsManager {
         }
 
         public int getValue() {
-            return new Integer(dEl.getAttribute("day").getValue()).intValue();
+            return Integer.parseInt(dEl.getAttribute("day").getValue());
         }
 
         /*

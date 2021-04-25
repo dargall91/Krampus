@@ -197,7 +197,7 @@ public class NotesControlPanel extends JPanel {
 
     void ppAddBkmrk_actionPerformed(ActionEvent e) {
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
-            Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
+            Note note = notesList.getNote(notesList.getSelectedIndices()[i]);
             note.setMark(true);
         }
         notesList.updateUI();
