@@ -48,23 +48,16 @@ import nu.xom.Document;
 /*$Id: FileStorage.java,v 1.15 2006/10/09 23:31:58 alexeya Exp $*/
 public class FileStorage implements Storage {
 
-    public static String JN_DOCPATH = Util.getEnvDir();
-    private HTMLEditorKit editorKit = new HTMLEditorKit();
+    private static String JN_DOCPATH = Util.getEnvDir();
 
-    public FileStorage() {
-        /*The 'MEMORANDA_HOME' key is an undocumented feature for 
-          hacking the default location (Util.getEnvDir()) of the memoranda 
-          storage dir. Note that memoranda.config file is always placed at fixed 
-          location (Util.getEnvDir()) anyway */
-        String home = (String) Configuration.get("MEMORANDA_HOME");
-        if (home.length() > 0) {
-            JN_DOCPATH = home;
-            /*DEBUG*/
-            System.out.println("[DEBUG]***Memoranda storage path has set to: " +
-                    JN_DOCPATH);
-        }
-    }
 
+
+    /**
+     * Defines how to save a document.
+     * 
+     * @param doc The document
+     * @param filePath Path to the document 
+     */
     public static void saveDocument(Document doc, String filePath) {
         /**
          * @todo: Configurable parameters
@@ -87,11 +80,24 @@ public class FileStorage implements Storage {
         }
     }
 
+    /**
+     * Opens a document from an InputStream.
+     * 
+     * @param in the InputStream
+     * @return the document
+     * @throws Exception If there is an error opening the document
+     */
     public static Document openDocument(InputStream in) throws Exception {
         Builder builder = new Builder();
         return builder.build(new InputStreamReader(in, "UTF-8"));
     }
 
+    /**
+     * Opens a document at a specific file path.
+     * 
+     * @param filePath the file path
+     * @return The document
+     */
     public static Document openDocument(String filePath) {
         try {
             return openDocument(new FileInputStream(filePath));
@@ -104,12 +110,18 @@ public class FileStorage implements Storage {
         return null;
     }
 
+    /**
+     * Checks that document exists.
+     * 
+     * @param filePath File path for the document to check
+     * @return True if it exists, false if it does not
+     */
     public static boolean documentExists(String filePath) {
         return new File(filePath).exists();
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#openProjectManager()
+     * Opens the ProjectManager.
      */
     public void openProjectManager() {
         if (!new File(JN_DOCPATH + ".projects").exists()) {
@@ -123,7 +135,7 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#storeProjectManager(nu.xom.Document)
+     * Stores the ProjectManager.
      */
     public void storeProjectManager() {
         /*DEBUG*/
@@ -133,7 +145,9 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#removeProject(main.java.memoranda.Project)
+     * Removes the storage for a specified project.
+     * 
+     * @param prj The project to remove
      */
     public void removeProjectStorage(Project prj) {
         String id = prj.getID();
@@ -144,21 +158,33 @@ public class FileStorage implements Storage {
 
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            files[i].delete();
+        
+        if (files != null) {
+            for (int i = 0; i < files.length; i++) {
+                if (!files[i].delete()) {
+                    System.out.println("Failed to deleted file " + files[i].getPath());
+                }
+            }
+            
+            if (!f.delete()) {
+                System.out.println("Failed to delete files");
+            }
         }
-        f.delete();
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#createProjectStorage(main.java.memoranda.Project)
+     * Creates the storage for a specified project.
+     * 
+     * @param prj The project to store
      */
     public void createProjectStorage(Project prj) {
         /*DEBUG*/
         System.out.println(
                 "[DEBUG] Create project dir: " + JN_DOCPATH + prj.getID());
         File dir = new File(JN_DOCPATH + prj.getID());
-        dir.mkdirs();
+        if (!dir.mkdirs()) {
+            System.out.println("Failed to make dirs in FileStorage.");
+        }
 
         try {
             Database.getDatabase(prj).write();
@@ -169,7 +195,7 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#openMimeTypesList()
+     * Opens the list of MIMEs.
      */
     public void openMimeTypesList() {
         if (!new File(JN_DOCPATH + ".mimetypes").exists()) {
@@ -193,7 +219,7 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#storeMimeTypesList()
+     * Saves the list of MIMEs.
      */
     public void storeMimeTypesList() {
         /*DEBUG*/
@@ -203,14 +229,16 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#restoreContext()
+     * Restores the context.
      */
     public void restoreContext() {
+        //FileInputStream stream = new FileInputStream();
         try {
             /*DEBUG*/
             System.out.println(
                     "[DEBUG] Open context: " + JN_DOCPATH + ".context");
-            Context.context.load(new FileInputStream(JN_DOCPATH + ".context"));
+            //stream = new FileInputStream(JN_DOCPATH + ".context");
+            Context.context.load(ClassLoader.getSystemClassLoader().getResourceAsStream(JN_DOCPATH + ".context"));
         } catch (Exception ex) {
             /*DEBUG*/
             System.out.println("Context created.");
@@ -218,22 +246,32 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @see main.java.memoranda.util.Storage#storeContext()
+     * Stores the context.
      */
     public void storeContext() {
+        FileOutputStream stream = null;
         try {
             /*DEBUG*/
             System.out.println(
                     "[DEBUG] Save context: " + JN_DOCPATH + ".context");
-            Context.context.save(new FileOutputStream(JN_DOCPATH + ".context"));
+            stream = new FileOutputStream(JN_DOCPATH + ".context");
+            Context.context.save(stream);
         } catch (Exception ex) {
             new ExceptionDialog(
                     ex,
                     "Failed to store context to " + JN_DOCPATH + ".context",
                     "");
+        } finally {
+            try {
+                if (stream != null) {
+                    stream.close();
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
-
 
     /*
     // Required output format from @amehlhase
@@ -303,7 +341,9 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @param prj      project to use (for obtaining file path)
+     * Gets the file path of a specific file in a project.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param filename composes filename for given data collection
      * @return filesystem pathname for file
      */
@@ -313,12 +353,12 @@ public class FileStorage implements Storage {
 
 
     /**
-     * Save a node list to JSON file in specified project
+     * Save a node list to JSON file in specified project.
      *
-     * @param prj      project to use (for obtaining file path)
+     * @param prj project to use (for obtaining file path)
      * @param nodeColl node collection to write to disk
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
      */
     public void storeNodeList(Project prj, NodeColl nodeColl) throws JsonProcessingException,
             IOException {
@@ -329,22 +369,17 @@ public class FileStorage implements Storage {
         mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
         mapper.configure(JsonGenerator.Feature.AUTO_CLOSE_TARGET, true);
 
-        // annotation is used so Jackson knows which method to use for output
-//        String js= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(nodeColl);
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fn), nodeColl);
-
-        /*DEBUG*/
-//        System.out.println("[DEBUG] Save note list: " + fn);
-//        System.out.println("jsonString collection="+js);
     }
 
     /**
-     * Load a node list from JSON file in specified project
+     * Load a node list from JSON file in specified project.
      *
      * @param prj project to use (for obtaining file path)
      * @return node list
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
+     * @throws DuplicateKeyException if a key already exists
      */
     public NodeColl openNodeList(Project prj) throws JsonProcessingException, IOException,
             DuplicateKeyException {
@@ -357,10 +392,6 @@ public class FileStorage implements Storage {
 
         String all = jsonNode.toString();
         System.out.println("all=" + all);
-//            System.out.println("jsonNode is object:"+jsonNode.isObject());
-//            JsonNode next=jsonNode.get("nodes");
-//            System.out.println("next="+next+" is object:"+next.isObject());
-//            System.out.println("next as string:"+next.toString());
 
         // find value of "nodes" object (which is an array) and create list of Node objects
         List<Node> nodeList;
@@ -374,18 +405,18 @@ public class FileStorage implements Storage {
         // create new nodeColl based on read data/objects
         NodeColl nodeColl = new NodeColl(nodeList);
 
-//            for (Node n:nodeColl){
-//                System.out.println("Found node in list="+n);
-//            }
         return nodeColl;
     }
 
     /**
-     * @param prj      project to use (for obtaining file path)
+     * Opens the list of Routes.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param nodeList node collection to use for building route
      * @return route collection
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
+     * @throws DuplicateKeyException if a key already exists
      */
     public RouteColl openRouteList(Project prj, NodeColl nodeList) throws JsonProcessingException,
             IOException, DuplicateKeyException {
@@ -415,10 +446,12 @@ public class FileStorage implements Storage {
 
 
     /**
-     * @param prj       project to use (for obtaining file path)
+     * Stores the list of Routes.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param routeColl route collection to write to disk
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
      */
     public void storeRouteList(Project prj, RouteColl routeColl) throws JsonProcessingException,
             IOException {
@@ -436,11 +469,13 @@ public class FileStorage implements Storage {
 
 
     /**
-     * @param prj       project to use (for obtaining file path)
+     * Opens the list of Tours.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param routeColl route collection to read from disk
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
-     * @throws DuplicateKeyException
+     * @throws IOException in case of disk i/o error
+     * @throws DuplicateKeyException if the key exists
      */
     public TourColl openTourList(Project prj, RouteColl routeColl, BusColl busColl) throws
             JsonProcessingException, IOException, DuplicateKeyException {
@@ -468,10 +503,12 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @param prj      project to use (for obtaining file path)
+     * Stores the list of Tours.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param tourColl tour collection to write to disk
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
      */
     public void storeTourList(Project prj, TourColl tourColl) throws JsonProcessingException,
             IOException {
@@ -488,11 +525,14 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @param prj      project to use (for obtaining file path)
+     * Opens the list of Drivers.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param tourColl tour collection to read from disk
      * @return bus collection
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
+     * @throws DuplicateKeyException if a key already exists
      */
     public DriverColl openDriverList(Project prj, TourColl tourColl) throws JsonProcessingException,
             IOException, DuplicateKeyException {
@@ -521,10 +561,12 @@ public class FileStorage implements Storage {
 
 
     /**
+     * Stores the list of Drivers.
+     * 
      * @param driverColl driver collection to write to disk
-     * @param prj        project to use (for obtaining file path)
+     * @param prj project to use (for obtaining file path)
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
      */
     public void storeDriverList(Project prj, DriverColl driverColl) throws JsonProcessingException,
             IOException {
@@ -542,11 +584,13 @@ public class FileStorage implements Storage {
 
 
     /**
+     * Opens the list of Buses.
+     * 
      * @param prj project to use (for obtaining file path)
      * @return bus collection
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
-     * @throws DuplicateKeyException
+     * @throws IOException in case of disk i/o error
+     * @throws DuplicateKeyException if the key exists
      */
     public BusColl openBusList(Project prj) throws JsonProcessingException, IOException,
             DuplicateKeyException {
@@ -576,10 +620,12 @@ public class FileStorage implements Storage {
     }
 
     /**
-     * @param prj     project to use (for obtaining file path)
+     * Stores the list of Buses.
+     * 
+     * @param prj project to use (for obtaining file path)
      * @param busColl bus collection to write to disk
      * @throws JsonProcessingException in case of json error
-     * @throws IOException             in case of disk i/o error
+     * @throws IOException in case of disk i/o error
      */
     public void storeBusList(Project prj, BusColl busColl) throws JsonProcessingException, IOException {
         String fn = getBusFileName(prj);
@@ -595,8 +641,10 @@ public class FileStorage implements Storage {
 
 
     /**
-     * @param doc
-     * @param filePath
+     * Saves the list.
+     * 
+     * @param doc Document to save
+     * @param filePath path to the document
      */
     public static void saveList(Document doc, String filePath) {
         /**
