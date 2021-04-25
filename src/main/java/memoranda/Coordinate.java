@@ -150,15 +150,15 @@ public class Coordinate {
         if (o == null) {
             return false;
         } else if (o.getClass().equals(this.getClass())) {
-            
+            Coordinate c = (Coordinate) o;
+            String lat1 = lat.toString();
+            String lat2 = c.lat.toString();
+            String long1 = lat.toString();
+            String long2 = c.lat.toString();
+            return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
         }
         
-        Coordinate c = (Coordinate) o;
-        String lat1 = lat.toString();
-        String lat2 = c.lat.toString();
-        String long1 = lat.toString();
-        String long2 = c.lat.toString();
-        return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
+        return false;
     }
     
     /**

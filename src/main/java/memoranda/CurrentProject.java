@@ -4,8 +4,9 @@
  * Package: net.sf.memoranda
  *
  * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ *         Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
+
 package main.java.memoranda;
 
 import java.awt.event.ActionEvent;
@@ -38,7 +39,6 @@ public class CurrentProject {
     private static BusColl _buses = null;
     private static NodeColl _nodes = null;
     private static Database db;
-
 
     static {
         String prjId = (String) Context.get("LAST_OPENED_PROJECT_ID");
@@ -78,12 +78,17 @@ public class CurrentProject {
     }
 
 
+    /**
+     * Gets the project.
+     * 
+     * @return the current project
+     */
     public static Project get() {
         return _project;
     }
 
     /**
-     * Gets this project's DriverColl
+     * Gets this project's DriverColl.
      *
      * @return the DriverColl
      */
@@ -92,7 +97,7 @@ public class CurrentProject {
     }
 
     /**
-     * Gets this project's DriverColl
+     * Gets this project's DriverColl.
      *
      * @return the TourColl
      */
@@ -101,7 +106,7 @@ public class CurrentProject {
     }
 
     /**
-     * Gets this project's RouteColl
+     * Gets this project's RouteColl.
      *
      * @return the RouteColl
      */
@@ -110,7 +115,7 @@ public class CurrentProject {
     }
 
     /**
-     * Gets this project's NodeColl
+     * Gets this project's NodeColl.
      *
      * @return the NodeColl
      */
@@ -119,7 +124,7 @@ public class CurrentProject {
     }
 
     /**
-     * Gets this project's BusColl
+     * Gets this project's BusColl.
      *
      * @return the BusColl
      */
@@ -128,6 +133,11 @@ public class CurrentProject {
     }
 
 
+    /**
+     * Sets the current project.
+     * 
+     * @param project The project to set
+     */
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) {
             return;
@@ -153,7 +163,7 @@ public class CurrentProject {
         } catch (Exception e) {
             new ExceptionDialog(e);
         }
-        //TODO: Potentially modify this method for additional collections
+        
         notifyListenersBefore(project);
         _project = project;
         _drivers = newDriverColl;
@@ -164,15 +174,19 @@ public class CurrentProject {
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }
 
+    /**
+     * Adds an event listener to this project.
+     * 
+     * @param pl The ProjectListener to add
+     */
     public static void addProjectListener(ProjectListener pl) {
         projectListeners.add(pl);
     }
 
-    public static Collection getChangeListeners() {
+    private static Collection getChangeListeners() {
         return projectListeners;
     }
 
-    //TODO: Potentially modify this method for additional collections
     private static void notifyListenersBefore(Project project) {
         for (int i = 0; i < projectListeners.size(); i++) {
             ((ProjectListener) projectListeners.get(i)).projectChange(project);
@@ -180,7 +194,7 @@ public class CurrentProject {
     }
 
     /**
-     * Saves all the Database's collections
+     * Saves all the Database's collections.
      */
     public static void save() {
         Storage storage = CurrentStorage.get();
@@ -194,6 +208,9 @@ public class CurrentProject {
         storage.storeProjectManager();
     }
 
+    /**
+     * Empties this project of all data.
+     */
     public static void free() {
         _project = null;
         _nodes = null;
