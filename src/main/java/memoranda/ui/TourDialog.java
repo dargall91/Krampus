@@ -161,7 +161,7 @@ public class TourDialog extends JDialog {
         for (Bus b : buses) {
             busCB.addItem("Bus No. " + b.getNumber());
             
-            if (tour != null) {
+            if (tour != null && tour.getBus() != null) {
                 busCB.setSelectedItem("Bus No. " + tour.getBus().getNumber());
             }
         }
@@ -176,6 +176,8 @@ public class TourDialog extends JDialog {
             if (tour.getDriver() != null) {
                 driverCB.setSelectedItem(tour.getDriver().getName());                
             }
+        } else {
+            drivers = null;
         }
 
         this.setResizable(false);
@@ -408,6 +410,10 @@ public class TourDialog extends JDialog {
      * @return the Driver
      */
     public Driver getDriver() {
+        if (drivers == null) {
+            return null;
+        }
+        
         return drivers.getDrivers().toArray(new Driver[drivers.size()])[driverCB.getSelectedIndex()];
     }
 

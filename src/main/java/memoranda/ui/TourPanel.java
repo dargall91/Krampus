@@ -232,7 +232,10 @@ public class TourPanel extends JPanel {
             tour.setTime(dlg.getTime());
             
             try {
-                tour.getBus().delTour(tour);
+                if (tour.getBus() != null) {
+                    tour.getBus().delTour(tour);
+                }
+                
                 dlg.getBus().addTour(tour);
             } catch (DuplicateKeyException e2) {
                 e2.printStackTrace();
