@@ -61,6 +61,7 @@ public class HTMLEditor extends JPanel {
     public final int I_SUPERSCRIPT = 5;
     public final int I_SUBSCRIPT = 6;
     public final int I_CUSTOM = 7;
+    final Class<HTMLEditor> cl = main.java.memoranda.ui.htmleditor.HTMLEditor.class;
     public HTMLEditorPane editor = new HTMLEditorPane("");
     public HTMLEditorKit editorKit = new HTMLEditorKit();
     public HTMLDocument document = null;
@@ -102,53 +103,6 @@ public class HTMLEditor extends JPanel {
     public UndoAction undoAction = new UndoAction();
     public RedoAction redoAction = new RedoAction();
     public JToolBar editToolbar = new JToolBar();
-    /**
-     * Listener for the edits on the current document.
-     */
-    protected UndoableEditListener undoHandler = new UndoHandler();
-    /**
-     * UndoManager that we add edits to.
-     */
-    protected UndoManager undo = new UndoManager();
-    JScrollPane jScrollPane1 = new JScrollPane();
-    boolean bold = false;
-    boolean italic = false;
-    boolean under = false;
-    boolean list = false;
-    String currentTagName = "BODY";
-    Element currentParaElement = null;
-    /*
-     * new AbstractAction() { public void actionPerformed(ActionEvent e) { if
-     * (editor.getSelectedText() == null) return; doCopy();
-     * editor.replaceSelection(""); }
-     *
-     */
-    Border border1, border2;
-//new DefaultEditorKit.CopyAction();
-    Class cl = main.java.memoranda.ui.htmleditor.HTMLEditor.class;
-    /*
-     * new AbstractAction() { public void actionPerformed(ActionEvent e) { if
-     * (editor.getSelectedText() == null) return; doCopy(); }
-     */
-    public Action ulAction =
-            new HTMLEditorAction(
-                    Local.getString("Unordered list"),
-                    new ImageIcon(
-                            Objects.requireNonNull(
-                                    cl.getResource("/htmleditor/icons/listunordered.png")))) {
-                public void actionPerformed(ActionEvent e) {
-                    ulActionB_actionPerformed(e);
-                }
-            };
-    public Action olAction =
-            new HTMLEditorAction(
-                    Local.getString("Ordered list"),
-                    new ImageIcon(Objects.requireNonNull(
-                            cl.getResource("/htmleditor/icons/listordered.png")))) {
-                public void actionPerformed(ActionEvent e) {
-                    olActionB_actionPerformed(e);
-                }
-            };
     public Action lAlignAction =
             new HTMLEditorAction(
                     Local.getString("Align left"),
@@ -167,7 +121,6 @@ public class HTMLEditor extends JPanel {
                     cAlignActionB_actionPerformed(e);
                 }
             };
-
     /*
      * private void insertTextInElement(Element el, String text, int pos) {
      * String elName = el.getName(); StringWriter sw = new StringWriter();
@@ -245,6 +198,52 @@ public class HTMLEditor extends JPanel {
                     doFind();
                 }
             };
+    /**
+     * Listener for the edits on the current document.
+     */
+    protected UndoableEditListener undoHandler = new UndoHandler();
+    /**
+     * UndoManager that we add edits to.
+     */
+    protected UndoManager undo = new UndoManager();
+    JScrollPane jScrollPane1 = new JScrollPane();
+    boolean bold = false;
+    boolean italic = false;
+    boolean under = false;
+    boolean list = false;
+    //new DefaultEditorKit.CopyAction();
+    /*
+     * new AbstractAction() { public void actionPerformed(ActionEvent e) { if
+     * (editor.getSelectedText() == null) return; doCopy(); }
+     */
+    public Action ulAction =
+            new HTMLEditorAction(
+                    Local.getString("Unordered list"),
+                    new ImageIcon(
+                            Objects.requireNonNull(
+                                    cl.getResource("/htmleditor/icons/listunordered.png")))) {
+                public void actionPerformed(ActionEvent e) {
+                    ulActionB_actionPerformed(e);
+                }
+            };
+    public Action olAction =
+            new HTMLEditorAction(
+                    Local.getString("Ordered list"),
+                    new ImageIcon(Objects.requireNonNull(
+                            cl.getResource("/htmleditor/icons/listordered.png")))) {
+                public void actionPerformed(ActionEvent e) {
+                    olActionB_actionPerformed(e);
+                }
+            };
+    String currentTagName = "BODY";
+    Element currentParaElement = null;
+    /*
+     * new AbstractAction() { public void actionPerformed(ActionEvent e) { if
+     * (editor.getSelectedText() == null) return; doCopy();
+     * editor.replaceSelection(""); }
+     *
+     */
+    Border border1, border2;
     String imagesDir = null;
     /*
      * public Action jAlignAction = new AbstractAction() { public void
@@ -375,6 +374,7 @@ public class HTMLEditor extends JPanel {
                     insCharActionB.setBorderPainted(charTableShow);
                 }
             };
+
     public HTMLEditor() {
         try {
             jbInit();
@@ -577,7 +577,7 @@ public class HTMLEditor extends JPanel {
         /*
          * jAlignActionB.setIcon( new
          * ImageIcon(net.sf.memoranda.ui.htmleditor.HTMLEditor.class.getResource
-                * ("/htmleditor/icons/alignjust.png")));
+         * ("/htmleditor/icons/alignjust.png")));
          * jAlignActionB.setMaximumSize(new Dimension(22, 22));
          * jAlignActionB.setMinimumSize(new Dimension(22, 22));
          * jAlignActionB.setPreferredSize(new Dimension(22, 22));
@@ -1985,7 +1985,7 @@ public class HTMLEditor extends JPanel {
         /*
          * HTML.Tag parentTag =
          * HTML.getTag(document.getParagraphElement(editor.getCaretPosition()).getParentElement()
-* .getName());
+         * .getName());
          * HTML.Tag tag = null; String tagText = ""; switch (sel) { case T_P:
          * tag = HTML.Tag.P; tagText=" <p></p> ";break; //case T_PRE: tag =
          * HTML.Tag.PRE; tagText=" <pre></pre> ";break; case T_H1: tag =
