@@ -5,10 +5,10 @@ import java.awt.*;
 /**
  * NodeMapper class.
  * <p>
- *      Maps nodes (coordinates) to a given plotting window size Implement scale object to allow
- *      for easy Cartesian plotting of map coordinates assuming an ideal Mercator projection.
+ * Maps nodes (coordinates) to a given plotting window size Implement scale object to allow for easy
+ * Cartesian plotting of map coordinates assuming an ideal Mercator projection.
  * </p>
- * 
+ *
  * @author Brian Pape
  * @version 2021-04-06
  */
@@ -16,10 +16,9 @@ import java.awt.*;
 public class NodeMapper {
     private static final int MAP_DEFAULT_WIDTH = 640;
     private static final int MAP_DEFAULT_HEIGHT = 480;
-
+    private final NodeColl nodeColl;
     private Dimension dim;
     private Dimension mapSize;
-    private final NodeColl nodeColl;
     private Coordinate origin;
     private Coordinate outlier;
     private Insets inset;
@@ -27,7 +26,7 @@ public class NodeMapper {
 
     /**
      * Creates a new NodeMapper from a NodeCollection.
-     * 
+     *
      * @param nodeColl the NodeCollection
      */
     public NodeMapper(NodeColl nodeColl) {
@@ -39,45 +38,8 @@ public class NodeMapper {
         findOutlier();
 
         // set default inset and map size
-        inset=new Insets(0,0,0,0);
+        inset = new Insets(0, 0, 0, 0);
         setMapSize(new Dimension(MAP_DEFAULT_WIDTH, MAP_DEFAULT_HEIGHT));
-    }
-
-    private static class Scale {
-        double latScale;
-        double lonScale;
-
-        Scale(double lonScale, double latScale) {
-            this.latScale = latScale;
-            this.lonScale = lonScale;
-        }
-
-        /**
-         * Gets the Latitude Scale.
-         * 
-         * @return the latitude scale
-         */
-        public double getLatScale() {
-            return latScale;
-        }
-
-        /**
-         * Gets the Longitude Scale.
-         * 
-         * @return the longitude scale
-         */
-        public double getLonScale() {
-            return lonScale;
-        }
-
-        /**
-         * standard toString.
-         * @return string rep
-         */
-        @Override
-        public String toString() {
-            return latScale + "," + lonScale;
-        }
     }
 
     /**
@@ -86,31 +48,31 @@ public class NodeMapper {
      * @param dim dimension to scale to
      */
     //private void setScale(Dimension dim) {
-    private void setScale(){
-        int insetWidth=inset.left=inset.right;
-        int insetHeight=inset.top+inset.bottom;
+    private void setScale() {
+        int insetWidth = inset.left + inset.right;
+        int insetHeight = inset.top + inset.bottom;
 
-        dim=mapSize.getSize();
-        dim.setSize(mapSize.getWidth() - insetWidth- 1,
+        dim = mapSize.getSize();
+        dim.setSize(mapSize.getWidth() - insetWidth - 1,
                 mapSize.getHeight() - insetHeight - 1);
 
         scale = new Scale(dim.getWidth() / origin.lonDelta(outlier),
                 dim.getHeight() / origin.latDelta(outlier));
     }
 
-    public void setInsets(Insets inset){
+    public void setInsets(Insets inset) {
         if ((inset.left + inset.right) >= dim.getWidth()
-            || (inset.top + inset.bottom) >= dim.getHeight()){
+                || (inset.top + inset.bottom) >= dim.getHeight()) {
             throw new IllegalArgumentException("Insets cannot be greater than map dimensions.");
         }
-        this.inset=inset;
+        this.inset = inset;
 
         setScale();
     }
 
     /**
-     * Set the map size for calculations. Note that scales are 0-based, so a map size of
-     * 1000x1000 results in a return range of 0-999 x 0-999.
+     * Set the map size for calculations. Note that scales are 0-based, so a map size of 1000x1000
+     * results in a return range of 0-999 x 0-999.
      *
      * @param dim dimensions
      */
@@ -120,7 +82,7 @@ public class NodeMapper {
         }
 
         // set the map size...
-        this.mapSize=dim.getSize();
+        this.mapSize = dim.getSize();
 
         // and the working dimensions, adjusting for inset, scale, etc.
         //this.dim = dim;
@@ -141,14 +103,14 @@ public class NodeMapper {
     }
 
     /**
-     * get the point scaled to the specified map size. Allows passing arbitrary nodes for scaling
-     * as long as they are within the scale window calculated from the original nodes passed to
-     * this object's constructor.
+     * get the point scaled to the specified map size. Allows passing arbitrary nodes for scaling as
+     * long as they are within the scale window calculated from the original nodes passed to this
+     * object's constructor.
      *
      * @param n node
      * @return scaled Point
      * @throws IllegalArgumentException if the Node is not in range of the collection
-     * @throws NullPointerException if the node is null
+     * @throws NullPointerException     if the node is null
      */
     public Point getScaled(Node n) throws IllegalArgumentException, NullPointerException {
         int lat;
@@ -158,11 +120,10 @@ public class NodeMapper {
             throw new IllegalArgumentException("Node is not in range of provided node collection");
         }
 
-        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale()) + inset.left;
-        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale()) + inset.top;
+        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale()) + inset.top;
+        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale()) + inset.left;
         return new Point(lon, lat);
     }
-
 
     /**
      * Check to see if provided coordinate is in range of this mapper's NodeColl.
@@ -179,8 +140,7 @@ public class NodeMapper {
     }
 
     /**
-     * Find the farthest "west" and "north" nodes.
-     * Based on 0,-180 (lat/lon) being west
+     * Find the farthest "west" and "north" nodes. Based on 0,-180 (lat/lon) being west
      */
     private void findBaseline() {
         double lat = Coordinate.LAT_MAX;
@@ -197,8 +157,7 @@ public class NodeMapper {
     }
 
     /**
-     * Find the farthest "east" and "south" nodes.
-     * Based on 0,-180 (lat/lon) being west
+     * Find the farthest "east" and "south" nodes. Based on 0,-180 (lat/lon) being west
      */
     private void findOutlier() {
         double lat = Coordinate.LAT_MIN;
@@ -212,5 +171,43 @@ public class NodeMapper {
             }
         }
         outlier = new Coordinate(lat, lon);
+    }
+
+    private static class Scale {
+        double latScale;
+        double lonScale;
+
+        Scale(double lonScale, double latScale) {
+            this.latScale = latScale;
+            this.lonScale = lonScale;
+        }
+
+        /**
+         * Gets the Latitude Scale.
+         *
+         * @return the latitude scale
+         */
+        public double getLatScale() {
+            return latScale;
+        }
+
+        /**
+         * Gets the Longitude Scale.
+         *
+         * @return the longitude scale
+         */
+        public double getLonScale() {
+            return lonScale;
+        }
+
+        /**
+         * standard toString.
+         *
+         * @return string rep
+         */
+        @Override
+        public String toString() {
+            return latScale + "," + lonScale;
+        }
     }
 }
