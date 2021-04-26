@@ -1,17 +1,11 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -88,12 +82,12 @@ public class ImageDialog extends JDialog implements WindowListener {
         // three Panels, so used BorderLayout for this dialog.
         headerPanel.setBorder(new EmptyBorder(new Insets(0, 5, 0, 5)));
         headerPanel.setBackground(Color.WHITE);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Image"));
         header.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/imgbig.png")));
+                Objects.requireNonNull(ImageDialog.class.getResource(
+                        "/htmleditor/icons/imgbig.png"))));
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
@@ -119,13 +113,9 @@ public class ImageDialog extends JDialog implements WindowListener {
         browseB.setMinimumSize(new Dimension(25, 25));
         browseB.setPreferredSize(new Dimension(25, 25));
         browseB.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/fileopen16.png")));
-        browseB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                browseB_actionPerformed(e);
-            }
-        });
+                Objects.requireNonNull(ImageDialog.class.getResource(
+                        "/htmleditor/icons/fileopen16.png"))));
+        browseB.addActionListener(e -> browseB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 6;
         gbc.gridy = 0;
@@ -235,7 +225,7 @@ public class ImageDialog extends JDialog implements WindowListener {
         gbc.anchor = GridBagConstraints.WEST;
         areaPanel.add(jLabel8, gbc);
         alignCB.setBackground(new Color(230, 230, 230));
-        alignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        alignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         alignCB.setPreferredSize(new Dimension(100, 25));
         alignCB.setSelectedIndex(0);
         gbc = new GridBagConstraints();
@@ -268,21 +258,13 @@ public class ImageDialog extends JDialog implements WindowListener {
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         cancelB.setMaximumSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         buttonsPanel.add(okB, null);
         buttonsPanel.add(cancelB, null);
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
@@ -317,7 +299,7 @@ public class ImageDialog extends JDialog implements WindowListener {
     //java.io.File selectedFile = null;
     public void updatePreview() {
         try {
-            if (new java.net.URL(fileField.getText()).getPath() != "") {
+            if (!new URL(fileField.getText()).getPath().equals("")) {
                 header.setIcon(getPreviewIcon(new java.io.File(
                         new java.net.URL(fileField.getText()).getPath())));
             }
@@ -402,9 +384,9 @@ public class ImageDialog extends JDialog implements WindowListener {
             try {
                 ImageIcon img = new ImageIcon(chooser.getSelectedFile()
                         .getPath());
-                widthField.setText(new Integer(img.getIconWidth()).toString());
+                widthField.setText(Integer.toString(img.getIconWidth()));
                 heightField
-                        .setText(new Integer(img.getIconHeight()).toString());
+                        .setText(Integer.toString(img.getIconHeight()));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

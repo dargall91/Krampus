@@ -82,22 +82,12 @@ public class DriverTourDialog extends JDialog {
         JButton scheduleButton = new JButton("Schedule");
         scheduleButton.setHorizontalAlignment(JButton.CENTER);
         scheduleButton.setMaximumSize(BUTTON_SIZE);
-        scheduleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                posButton_actionPerformed(e);
-            }
-        });
+        scheduleButton.addActionListener(e -> posButton_actionPerformed(e));
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
         cancelButton.setMaximumSize(BUTTON_SIZE);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelButton_actionPerformed(e);
-            }
-        });
+        cancelButton.addActionListener(e -> cancelButton_actionPerformed(e));
 
         buttonPanel.add(scheduleButton);
         buttonPanel.add(Box.createRigidArea(HORIZONTAL_GAP));

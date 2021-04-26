@@ -4,12 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class CharTablePanel extends JPanel {
 
     JEditorPane editor;
-    Border border1;
+    //Border border1;
     FlowLayout flowLayout1 = new FlowLayout();
 
     String[] chars =
@@ -40,9 +39,10 @@ public class CharTablePanel extends JPanel {
              "\u25A0",
              "\u25A1",
              "\u263A",
-             "\u00A0"};
+             "\u00A0"
+            };
 
-    Vector buttons = new Vector();
+    //Vector buttons = new Vector();
 
     public CharTablePanel(JEditorPane ed) {
         try {
@@ -83,10 +83,10 @@ public class CharTablePanel extends JPanel {
             button.setBorderPainted(false);
             button.setOpaque(false);
             button.setMargin(new Insets(0, 0, 0, 0));
-            button.setFont(new Font("serif", 0, 14));
+            button.setFont(new Font("serif", Font.PLAIN, 14));
             if (i == chars.length - 1) {
                 button.setText("nbsp");
-                button.setFont(new Font("Dialog", 0, 10));
+                button.setFont(new Font("Dialog", Font.PLAIN, 10));
                 button.setMargin(new Insets(0, 0, 0, 0));
             }
             this.add(button, null);

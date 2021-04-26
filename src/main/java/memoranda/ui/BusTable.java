@@ -1,25 +1,16 @@
 package main.java.memoranda.ui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.CurrentProject;
@@ -35,12 +26,11 @@ import main.java.memoranda.util.Local;
  * @version 04/09/2020
  */
 public class BusTable extends JTable {
-    private BusColl buses;
-    private TableRowSorter<TableModel> sorter;
     private static final int HEIGHT = 24;
     private static final int ID_COLUMN = 1;
+    private final DriverScheduleTable driverTable;
+    private BusColl buses;
     private BusScheduleTable busSchedule;
-    private DriverScheduleTable driverTable;
 
     /**
      * Constructor for a BusTable.
@@ -58,23 +48,13 @@ public class BusTable extends JTable {
         buses = CurrentProject.getBusColl();
 
         JPopupMenu optionsMenu = new JPopupMenu();
-        optionsMenu.setFont(new Font("Dialog", 1, 10));
+        optionsMenu.setFont(new Font("Dialog", Font.BOLD, 10));
 
         JMenuItem editBus = new JMenuItem("Edit Bus");
-        editBus.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editActionEvent(e);
-            }
-        });
+        editBus.addActionListener(e -> editActionEvent(e));
 
         JMenuItem deleteBus = new JMenuItem("Delete Bus");
-        deleteBus.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deleteActionEvent(e);
-            }
-        });
+        deleteBus.addActionListener(e -> deleteActionEvent(e));
 
         optionsMenu.add(editBus);
         optionsMenu.add(deleteBus);
@@ -106,7 +86,7 @@ public class BusTable extends JTable {
         BusTableModel model = new BusTableModel();
         setModel(model);
 
-        sorter = new TableRowSorter<>(model);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
         setRowSorter(sorter);
 
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -173,13 +153,102 @@ public class BusTable extends JTable {
         };
     }
 
+    private void editActionEvent(ActionEvent e) {
+        BusDialog dlg = new BusDialog(App.getFrame(), "Edit Bus", "Edit");
+        Bus bus = getBus();
+        dlg.setNumber(bus.getNumber());
+
+        Dimension frmSize = App.getFrame().getSize();
+        Point loc = App.getFrame().getLocation();
+
+        dlg.setLocation(
+                (frmSize.width - dlg.getSize().width) / 2 + loc.x,
+                (frmSize.height - dlg.getSize().height) / 2
+                        + loc.y);
+        dlg.setVisible(true);
+
+        if (!dlg.isCancelled()) {
+            bus.setNumber(dlg.getNumber());
+
+            try {
+                CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
+                tableChanged();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void deleteActionEvent(ActionEvent e) {
+        Bus bus = getBus();
+        int result = JOptionPane.showConfirmDialog(null, "Delete Bus No. " + bus.getNumber() + "?",
+                "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            TourColl tours = CurrentProject.getTourColl();
+
+            //remove bus from all scheduled tours
+            for (Tour t : bus.getTours()) {
+                //A driver cannot be scheduled for a tour without a bus. Check if the tour has a
+                // driver, then unschedule
+                //the tour from the driver if there is
+                if (t.getDriver() != null) {
+                    t.getDriver().delTour(t);
+                    driverTable.tableChanged();
+                }
+
+                bus.delTour(t);
+            }
+
+            buses.del(bus.getID());
+
+            try {
+                CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
+                CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
+                tableChanged();
+
+                if (buses.size() == 0) {
+                    busSchedule.setBus(null);
+                } else {
+                    busSchedule.setBus(getBus());
+                }
+
+                busSchedule.tableChanged();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            tableChanged();
+        }
+    }
+
+    /**
+     * Gets the currently selected Bus.
+     *
+     * @return the Bus
+     */
+    public Bus getBus() {
+        return (Bus) buses.get((int) getValueAt(getSelectedRow(), ID_COLUMN));
+    }
+
+    /**
+     * Sets the BusScheduleTable to be updated when a user selects a bus in this table The
+     * BusScheduleTable MUST be set for else errors will occur.
+     *
+     * @param busSchedule The BusScheduleTable
+     */
+    public void setBusScheduleTable(BusScheduleTable busSchedule) {
+        this.busSchedule = busSchedule;
+    }
+
     /**
      * Defines the table model for the Bus Table.
      */
     private class BusTableModel extends AbstractTableModel {
-        private String[] columnNames = {
+        private final String[] columnNames = {
                 Local.getString("Number"),
-                Local.getString("ID")};
+                Local.getString("ID")
+        };
 
         @Override
         public String getColumnName(int i) {
@@ -226,92 +295,5 @@ public class BusTable extends JTable {
             //default to String
             return String.class;
         }
-    }
-
-    private void editActionEvent(ActionEvent e) {
-        BusDialog dlg = new BusDialog(App.getFrame(), "Edit Bus", "Edit");
-        Bus bus = getBus();
-        dlg.setNumber(bus.getNumber());
-
-        Dimension frmSize = App.getFrame().getSize();
-        Point loc = App.getFrame().getLocation();
-
-        dlg.setLocation(
-                (frmSize.width - dlg.getSize().width) / 2 + loc.x,
-                (frmSize.height - dlg.getSize().height) / 2
-                        + loc.y);
-        dlg.setVisible(true);
-
-        if (!dlg.isCancelled()) {
-            bus.setNumber(dlg.getNumber());
-
-            try {
-                CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
-                tableChanged();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    private void deleteActionEvent(ActionEvent e) {
-        Bus bus = getBus();
-        int result = JOptionPane.showConfirmDialog(null, "Delete Bus No. " + bus.getNumber() + "?",
-                "Delete Bus", JOptionPane.OK_CANCEL_OPTION);
-
-        if (result == JOptionPane.OK_OPTION) {
-            TourColl tours = CurrentProject.getTourColl();
-
-            //remove bus from all scheduled tours
-            for (Tour t : bus.getTours()) {
-                //A driver cannot be scheduled for a tour without a bus. Check if the tour has a driver, then unschedule
-                //the tour from the driver if there is
-                if (t.getDriver() != null) {
-                    t.getDriver().delTour(t);
-                    driverTable.tableChanged();
-                }
-
-                bus.delTour(t);
-            }
-
-            buses.del(bus.getID());
-
-            try {
-                CurrentStorage.get().storeBusList(CurrentProject.get(), buses);
-                CurrentStorage.get().storeTourList(CurrentProject.get(), tours);
-                tableChanged();
-
-                if (buses.size() == 0) {
-                    busSchedule.setBus(null);
-                } else {
-                    busSchedule.setBus(getBus());
-                }
-
-                busSchedule.tableChanged();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
-            tableChanged();
-        }
-    }
-
-    /**
-     * Gets the currently selected Bus.
-     *
-     * @return the Bus
-     */
-    public Bus getBus() {
-        return (Bus) buses.get((int) getValueAt(getSelectedRow(), ID_COLUMN));
-    }
-
-    /**
-     * Sets the BusScheduleTable to be updated when a user selects a bus in this table
-     * The BusScheduleTable MUST be set for else errors will occur.
-     *
-     * @param busSchedule The BusScheduleTable
-     */
-    public void setBusScheduleTable(BusScheduleTable busSchedule) {
-        this.busSchedule = busSchedule;
     }
 }

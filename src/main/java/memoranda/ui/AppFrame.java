@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -70,14 +71,11 @@ public class AppFrame extends JFrame {
 
     JToolBar toolBar = new JToolBar();
     JButton button3 = new JButton();
-    ImageIcon image1;
-    ImageIcon image2;
-    ImageIcon image3;
     JLabel statusBar = new JLabel();
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
-    private WorkPanel workPanel = new WorkPanel();
-    private DailyItemsPanel dailyItemsPanel = workPanel.getDailyItemsPanel();
+    private final WorkPanel workPanel = new WorkPanel();
+    private final DailyItemsPanel dailyItemsPanel = workPanel.getDailyItemsPanel();
     ProjectsPanel projectsPanel = new ProjectsPanel(dailyItemsPanel);
     boolean prPanelExpanded = false;
 
@@ -136,7 +134,9 @@ public class AppFrame extends JFrame {
     JMenuItem menuHelpBug = new JMenuItem();
     JMenuItem menuHelpAbout = new JMenuItem();
 
-    //Construct the frame
+    /**
+     * Constructor for AppFrame
+     */
     public AppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
@@ -146,14 +146,15 @@ public class AppFrame extends JFrame {
         }
     }
 
-    //Component initialization
-    private void jbInit() throws Exception {
-        this.setIconImage(new ImageIcon(AppFrame.class.getResource(
-                "/ui/logo/logo_icon.png"))
-                .getImage());
+    private void jbInit() {
+        try {
+            this.setIconImage(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                    "/ui/logo/logo_icon.png")))
+                    .getImage());
+        } catch (NullPointerException e){
+        }
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(borderLayout1);
-        //this.setSize(new Dimension(800, 500));
         this.setTitle("Magic Tour Bus - " + CurrentProject.get().getTitle());
         statusBar.setText(" Version: " + App.getVersionInfo() + " (Build: "
                 + App.getBuildInfo() + ")");
@@ -162,44 +163,18 @@ public class AppFrame extends JFrame {
 
         menuFile.setText(Local.getString("File"));
         menuFileExit.setText(Local.getString("Exit"));
-        menuFileExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doExit();
-            }
-        });
+        menuFileExit.addActionListener(e -> doExit());
         menuHelp.setText(Local.getString("Help"));
 
         menuHelpGuide.setText(Local.getString("Online user's guide"));
         menuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
                 "/ui/icons/help.png")));
-        menuHelpGuide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                menuHelpGuide_actionPerformed(e);
-            }
-        });
+
 
         menuHelpWeb.setText(Local.getString("Memoranda web site"));
         menuHelpWeb.setIcon(new ImageIcon(AppFrame.class.getResource(
                 "/ui/icons/web.png")));
-        menuHelpWeb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                menuHelpWeb_actionPerformed(e);
-            }
-        });
 
-        menuHelpBug.setText(Local.getString("Report a bug"));
-        menuHelpBug.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                menuHelpBug_actionPerformed(e);
-            }
-        });
-
-        menuHelpAbout.setText(Local.getString("About Memoranda"));
-        menuHelpAbout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                menuHelpAbout_actionPerformed(e);
-            }
-        });
 
         button3.setToolTipText(Local.getString("Help"));
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -220,6 +195,7 @@ public class AppFrame extends JFrame {
         menuFileMin.setText(Local.getString("Close the window"));
         menuFileMin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,
                 InputEvent.ALT_MASK));
+
         toolBar.add(button3);
         menuFile.add(menuFileNewPrj);
         menuFile.addSeparator();
@@ -252,23 +228,17 @@ public class AppFrame extends JFrame {
 
         setEnabledEditorMenus(false);
 
-        projectsPanel.AddExpandListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (prPanelExpanded) {
-                    prPanelExpanded = false;
-                    splitPane.setDividerLocation(28);
-                } else {
-                    prPanelExpanded = true;
-                    splitPane.setDividerLocation(0.2);
-                }
+        projectsPanel.AddExpandListener(e -> {
+            if (prPanelExpanded) {
+                prPanelExpanded = false;
+                splitPane.setDividerLocation(28);
+            } else {
+                prPanelExpanded = true;
+                splitPane.setDividerLocation(0.2);
             }
         });
 
-        java.awt.event.ActionListener setMenusDisabled = new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setEnabledEditorMenus(false);
-            }
-        };
+        java.awt.event.ActionListener setMenusDisabled = e -> setEnabledEditorMenus(false);
 
         workPanel.getBusButton().addActionListener(setMenusDisabled);
         workPanel.getTourButton().addActionListener(setMenusDisabled);
@@ -278,8 +248,9 @@ public class AppFrame extends JFrame {
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
         if ((fwo != null) && (fho != null)) {
-            int w = Integer.parseInt((String) fwo);//.intValue();
-            int h = Integer.parseInt((String) fho);//.intValue();
+            int w = Integer.parseInt((String) fwo);
+            int h = Integer.parseInt((String) fho);
+
             this.setSize(w, h);
         } else {
             this.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -341,6 +312,7 @@ public class AppFrame extends JFrame {
         Context.put("FRAME_HEIGHT",getHeight());
         Context.put("FRAME_XPOS", getLocation().x);
         Context.put("FRAME_YPOS", getLocation().y);
+
         exitNotify();
         System.exit(0);
     }

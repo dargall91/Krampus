@@ -7,6 +7,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,7 +25,7 @@ import main.java.memoranda.util.Local;
 public class AppFrameAboutBox extends JDialog implements ActionListener {
 
     JButton button1 = new JButton();
-    JLabel imageLabel = new JLabel();
+    //JLabel imageLabel = new JLabel();
     JLabel lblText = new JLabel();
 
     String product = "Version: " + App.getVersionInfo() + " (Build: " + App.getBuildInfo() + ")";
@@ -76,17 +77,17 @@ public class AppFrameAboutBox extends JDialog implements ActionListener {
         text += "<b>" + product + "</b><br><br>";
         text += copyright + "<br>" + url + "<br><br>";
         text += "<b>" + developersHead + "</b><br>";
-        for (int i = 0; i < developers.length; i++) {
-            text += developers[i] + "<br>";
+        for (String developer : developers) {
+            text += developer + "<br>";
         }
         text += "<br><b>" + othersHead + "</b><br>";
-        for (int i = 0; i < others.length; i++) {
-            text += others[i] + "<br>";
+        for (String other : others) {
+            text += other + "<br>";
         }
 
         text += "</html>";
 
-        image = new ImageIcon(AppFrameAboutBox.class.getResource("/ui/memoranda.png"));
+        image = new ImageIcon(Objects.requireNonNull(AppFrameAboutBox.class.getResource("/ui/memoranda.png")));
         this.setTitle(Local.getString("About Memoranda"));
         setResizable(false);
         // Initialize Objects

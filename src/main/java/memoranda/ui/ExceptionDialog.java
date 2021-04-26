@@ -7,33 +7,34 @@ import main.java.memoranda.util.*;
 
 import java.awt.event.*;
 import java.io.*;
+import java.util.Objects;
 
 /*$Id: ExceptionDialog.java,v 1.2 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ExceptionDialog extends JDialog {
     JPanel panel1 = new JPanel();
     BorderLayout borderLayout1 = new BorderLayout();
-    private JPanel jPanel1 = new JPanel();
-    private JLabel jLabel1 = new JLabel();
-    private JPanel jPanel2 = new JPanel();
-    private JLabel jLabel2 = new JLabel();
-    private BorderLayout borderLayout2 = new BorderLayout();
-    private BorderLayout borderLayout3 = new BorderLayout();
-    private JLabel descLabel = new JLabel();
+    private final JPanel jPanel1 = new JPanel();
+    private final JLabel jLabel1 = new JLabel();
+    private final JPanel jPanel2 = new JPanel();
+    private final JLabel jLabel2 = new JLabel();
+    private final BorderLayout borderLayout2 = new BorderLayout();
+    private final BorderLayout borderLayout3 = new BorderLayout();
+    private final JLabel descLabel = new JLabel();
 
-    private String description;
-    private String tip;
-    private String trace;
-    private JPanel jPanel3 = new JPanel();
-    private JScrollPane jScrollPane1 = new JScrollPane();
-    private JTextArea traceTextArea = new JTextArea();
-    private JButton reportB = new JButton();
-    private JButton closeB = new JButton();
-    private FlowLayout flowLayout1 = new FlowLayout();
-    private JPanel jPanel4 = new JPanel();
-    private JButton copyB = new JButton();
-    private BorderLayout borderLayout4 = new BorderLayout();
+    private final String description;
+    private final String tip;
+    private final String trace;
+    private final JPanel jPanel3 = new JPanel();
+    private final JScrollPane jScrollPane1 = new JScrollPane();
+    private final JTextArea traceTextArea = new JTextArea();
+    private final JButton reportB = new JButton();
+    private final JButton closeB = new JButton();
+    private final FlowLayout flowLayout1 = new FlowLayout();
+    private final JPanel jPanel4 = new JPanel();
+    private final JButton copyB = new JButton();
+    private final BorderLayout borderLayout4 = new BorderLayout();
 
-    private Frame owner;
+    private final Frame owner;
 
     public ExceptionDialog(Exception exc, String description, String tip) {
         super(App.getFrame(), "Problem", true);
@@ -62,22 +63,22 @@ public class ExceptionDialog extends JDialog {
         this(exc, "", "");
     }
 
-    public ExceptionDialog() {
-        this(null, "", "");
-    }
+    //public ExceptionDialog() {
+    //    this(null, "", "");
+    //}
 
     private void jbInit() throws Exception {
         panel1.setLayout(borderLayout1);
         jPanel1.setBackground(Color.white);
         jPanel1.setLayout(borderLayout3);
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 16));
+        jLabel1.setFont(new java.awt.Font("Dialog", Font.BOLD, 16));
         jLabel1.setHorizontalAlignment(SwingConstants.LEFT);
         jLabel1.setHorizontalTextPosition(SwingConstants.RIGHT);
         jLabel1.setText("Problem occured");
-        jLabel1.setIcon(new ImageIcon(main.java.memoranda.ui.ExceptionDialog.class.getResource(
-                "/ui/icons/error.png")));
+        jLabel1.setIcon(new ImageIcon(Objects.requireNonNull(ExceptionDialog.class.getResource(
+                "/ui/icons/error.png"))));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 11));
+        jLabel2.setFont(new java.awt.Font("Dialog", Font.PLAIN, 11));
         jLabel2.setText("<html>An internal exception occured. It is may be a result of bug in the " +
                 "program, corrupted data, incorrect configuration or hardware failure.<br><br>" +
                 "Click on <b>Report bug..</b> button to submit a bug to the Memoranda bugs tracker on SourceForge.net </html>");
@@ -90,35 +91,23 @@ public class ExceptionDialog extends JDialog {
         }
         labelText = labelText + "<br><br><b>Stack trace:</b></html>";
         descLabel.setText(labelText);
-        descLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+        descLabel.setFont(new java.awt.Font("Dialog", Font.PLAIN, 12));
         jScrollPane1.setEnabled(false);
         reportB.setMaximumSize(new Dimension(120, 25));
         reportB.setMinimumSize(new Dimension(120, 25));
         reportB.setPreferredSize(new Dimension(120, 25));
         reportB.setText("Report bug...");
-        reportB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                reportB_actionPerformed(e);
-            }
-        });
+        reportB.addActionListener(e -> reportB_actionPerformed(e));
         closeB.setMaximumSize(new Dimension(120, 25));
         closeB.setMinimumSize(new Dimension(120, 25));
         closeB.setPreferredSize(new Dimension(120, 25));
         closeB.setText("Close");
-        closeB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                closeB_actionPerformed(e);
-            }
-        });
+        closeB.addActionListener(e -> closeB_actionPerformed(e));
         this.getRootPane().setDefaultButton(closeB);
         jPanel3.setLayout(flowLayout1);
         flowLayout1.setAlignment(FlowLayout.RIGHT);
         copyB.setText("Copy to clipboard");
-        copyB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                copyB_actionPerformed(e);
-            }
-        });
+        copyB.addActionListener(e -> copyB_actionPerformed(e));
         copyB.setHorizontalAlignment(SwingConstants.RIGHT);
         jPanel4.setLayout(borderLayout4);
         traceTextArea.setText(trace);

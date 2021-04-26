@@ -1,27 +1,9 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.UIManager;
+import java.util.Objects;
+import javax.swing.*;
 
 import main.java.memoranda.ui.htmleditor.util.Local;
 
@@ -36,24 +18,31 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  */
 
 public class TableDialog extends JDialog {
+    public JTextField heightField = new JTextField();
+    public JTextField widthField = new JTextField();
+    public boolean CANCELLED = false;
+    public JSpinner columns = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
+    public JSpinner rows = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
+    public JSpinner cellpadding = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+    public JSpinner cellspacing = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+    public JSpinner border = new JSpinner(new SpinnerNumberModel(1, 0, 999, 1));
     JPanel areaPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc;
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
     JButton cancelB = new JButton();
     JButton okB = new JButton();
     JLabel lblWidth = new JLabel();
-    public JTextField heightField = new JTextField();
     JLabel lblHeight = new JLabel();
-    public JTextField widthField = new JTextField();
     String[] aligns = {"", Local.getString("left"), Local.getString("center"),
-            Local.getString("right")};
+                       Local.getString("right")
+    };
     String[] valigns = {"", Local.getString("top"), Local.getString("center"),
-            Local.getString("bottom")};
+                        Local.getString("bottom")
+    };
     JLabel lblPadding = new JLabel();
     JLabel lblSpacing = new JLabel();
     JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JLabel header = new JLabel();
-    public boolean CANCELLED = false;
     JLabel lblColumns = new JLabel();
     JLabel lblRows = new JLabel();
     JComboBox vAlignCB = new JComboBox(valigns);
@@ -64,11 +53,6 @@ public class TableDialog extends JDialog {
     JLabel lblFillColor = new JLabel();
     JButton bgColorB = new JButton();
     JLabel lblBorder = new JLabel();
-    public JSpinner columns = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-    public JSpinner rows = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-    public JSpinner cellpadding = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-    public JSpinner cellspacing = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-    public JSpinner border = new JSpinner(new SpinnerNumberModel(1, 0, 999, 1));
 
     public TableDialog(Frame frame) {
         super(frame, Local.getString("Table"), true);
@@ -87,12 +71,12 @@ public class TableDialog extends JDialog {
     void jbInit() throws Exception {
         this.setResizable(false);
         headerPanel.setBackground(Color.WHITE);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Table"));
         header.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/tablebig.png")));
+                Objects.requireNonNull(ImageDialog.class.getResource(
+                        "/htmleditor/icons/tablebig.png"))));
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
@@ -202,14 +186,10 @@ public class TableDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 5);
         areaPanel.add(bgcolorField, gbc);
-        bgColorB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                bgColorB_actionPerformed(e);
-            }
-        });
+        bgColorB.addActionListener(e -> bgColorB_actionPerformed(e));
         bgColorB.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/color.png")));
+                Objects.requireNonNull(ImageDialog.class.getResource(
+                        "/htmleditor/icons/color.png"))));
         bgColorB.setPreferredSize(new Dimension(25, 25));
         gbc.gridx = 5;
         gbc.gridy = 3;
@@ -224,7 +204,7 @@ public class TableDialog extends JDialog {
         gbc.insets = new Insets(5, 10, 10, 5);
         areaPanel.add(lblOutline, gbc);
         alignCB.setBackground(new Color(230, 230, 230));
-        alignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        alignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         alignCB.setPreferredSize(new Dimension(70, 25));
         gbc.gridx = 1;
         gbc.gridy = 4;
@@ -239,7 +219,7 @@ public class TableDialog extends JDialog {
         gbc.insets = new Insets(5, 5, 10, 5);
         areaPanel.add(lblVertOutline, gbc);
         vAlignCB.setPreferredSize(new Dimension(70, 25));
-        vAlignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        vAlignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         vAlignCB.setBackground(new Color(230, 230, 230));
         gbc.gridx = 4;
         gbc.gridy = 4;
@@ -253,21 +233,13 @@ public class TableDialog extends JDialog {
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         cancelB.setMaximumSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);

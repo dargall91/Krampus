@@ -11,6 +11,7 @@ package main.java.memoranda.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -26,8 +27,8 @@ import main.java.memoranda.date.CalendarDate;
 /*$Id: JNCalendarCellRenderer.java,v 1.5 2004/10/11 08:48:20 alexeya Exp $*/
 public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRenderer {
     private CalendarDate d = null;
-    boolean disabled = false;
-    ImageIcon evIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/en.png"));
+    ImageIcon evIcon = new ImageIcon(
+            Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/en.png")));
 
     public Component getTableCellRendererComponent(
             JTable table,
@@ -38,7 +39,7 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
             int column) {
 
         JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        String currentPanel = ((AppFrame) App.getFrame()).getDailyItemsPanel().getCurrentPanel();
+        String currentPanel = App.getFrame().getDailyItemsPanel().getCurrentPanel();
 
         if (d == null) {
             label.setEnabled(false);

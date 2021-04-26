@@ -1005,7 +1005,7 @@ public class TestDataCollections {
         NodeMapper nm = setupMapperNodes();
         NodeColl nc = nm.getNodeColl();
 
-        assertEquals(new Point(999, 119), nm.getScaled(nc.get(MAPPER_RIGHT)));
+        assertEquals(new Point(1009, 129), nm.getScaled(nc.get(MAPPER_RIGHT)));
     }
 
     /**
@@ -1018,7 +1018,7 @@ public class TestDataCollections {
         NodeMapper nm = setupMapperNodes();
         NodeColl nc = nm.getNodeColl();
 
-        assertEquals(new Point(749, 599), nm.getScaled(nc.get(MAPPER_BOTTOM)));
+        assertEquals(new Point(759, 609), nm.getScaled(nc.get(MAPPER_BOTTOM)));
     }
 
     /**
@@ -1031,7 +1031,7 @@ public class TestDataCollections {
         NodeMapper nm = setupMapperNodes();
         NodeColl nc = nm.getNodeColl();
 
-        assertEquals(new Point(749, 0), nm.getScaled(nc.get(MAPPER_TOP)));
+        assertEquals(new Point(759, 10), nm.getScaled(nc.get(MAPPER_TOP)));
     }
 
     /**
@@ -1044,7 +1044,7 @@ public class TestDataCollections {
         NodeMapper nm = setupMapperNodes();
         NodeColl nc = nm.getNodeColl();
 
-        assertEquals(new Point(0, 119), nm.getScaled(nc.get(MAPPER_LEFT)));
+        assertEquals(new Point(10, 129), nm.getScaled(nc.get(MAPPER_LEFT)));
     }
 
     /**
@@ -1095,7 +1095,7 @@ public class TestDataCollections {
         NodeMapper nm = new NodeMapper(nc);
         nm.setMapSize(new Dimension(1000, 600));
 
-        assertEquals(new Point(0, 0), nm.getScaled(n1));
+        assertEquals(new Point(10, 10), nm.getScaled(n1));
     }
 
 

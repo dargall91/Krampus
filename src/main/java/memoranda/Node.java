@@ -42,26 +42,6 @@ public class Node extends IndexedObject {
         coords = new Coordinate(lat, lon);
     }
 
-
-    /**
-     * name setter.
-     *
-     * @param name name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * coordinate setter.
-     *
-     * @param coords the coordinate to assign to this node
-     */
-    public void setCoords(Coordinate coords) {
-        this.coords = coords;
-    }
-
-
     /**
      * return distance to another node.
      *
@@ -102,12 +82,30 @@ public class Node extends IndexedObject {
     }
 
     /**
+     * coordinate setter.
+     *
+     * @param coords the coordinate to assign to this node
+     */
+    public void setCoords(Coordinate coords) {
+        this.coords = coords;
+    }
+
+    /**
      * standard getter for name.
      *
      * @return name of this node
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * name setter.
+     *
+     * @param name name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

@@ -2,8 +2,8 @@
  * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of
  * the Route Map.
  *
- * @autor alexeya, Kevin Dolan, Chris Boveda
- * @version 2021-04-11
+ * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
+ * @version 2021-04-25
  */
 package main.java.memoranda.ui;
 
@@ -33,10 +33,11 @@ public class RouteMapPanel extends JPanel {
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
-    private RouteMap map = new RouteMap();
+    //private RouteMap map = new RouteMap(this);
     private JScrollPane scrollPane = new JScrollPane();
-    private RouteTable routeTable = new RouteTable();
+    private RouteTable routeTable = new RouteTable(this);
     private JScrollPane rScrollPane = new JScrollPane();
+    private RouteMap map = new RouteMap(this);
 
     private JButton newRouteB = new JButton();
     private JButton removeRouteB = new JButton();
@@ -275,8 +276,9 @@ public class RouteMapPanel extends JPanel {
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         new RouteOptimizer(r).optimize();
+        map.refresh();
         routeTable.refresh();
-        //map.refresh();    //todo
+        //map.refresh();    
     }
 
 
@@ -291,8 +293,9 @@ public class RouteMapPanel extends JPanel {
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         new RouteOptimizer(r).optimizeWithStart();
+        map.refresh();
         routeTable.refresh();
-        //map.refresh();    //todo
+        //map.refresh();    
     }
 
 
@@ -321,6 +324,24 @@ public class RouteMapPanel extends JPanel {
             exception.printStackTrace();
         }
 
+    }
+    
+    /**
+     * Getter for RouteTable.
+     * 
+     * @return routeTable
+     */
+    public RouteTable getRouteTable() {
+        return routeTable;
+    }
+    
+    /**
+     * Getter for RouteMap.
+     * 
+     * @return map
+     */
+    public RouteMap getRouteMap() {
+        return map;
     }
 
     //TODO: Review all of the following for usefulness
