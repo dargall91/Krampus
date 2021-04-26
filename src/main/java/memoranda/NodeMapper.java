@@ -123,8 +123,9 @@ public class NodeMapper {
             throw new IllegalArgumentException("Node is not in range of provided node collection");
         }
 
-        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale());
-        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale());
+        //Gives 10 buffer from left and top of map.
+        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale()) + 10;
+        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale()) + 10;
         return new Point(lon, lat);
     }
 
