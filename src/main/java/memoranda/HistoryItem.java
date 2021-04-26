@@ -1,10 +1,8 @@
 /**
- * HistoryItem.java
- * Created on 07.03.2003, 18:31:39 Alex
- * Package: net.sf.memoranda
+ * HistoryItem.java Created on 07.03.2003, 18:31:39 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
@@ -16,8 +14,8 @@ import main.java.memoranda.date.CalendarDate;
 /*$Id: HistoryItem.java,v 1.4 2004/10/06 19:15:43 ivanrise Exp $*/
 public class HistoryItem {
 
-    private CalendarDate _date;
-    private Project _project;
+    private final CalendarDate _date;
+    private final Project _project;
 
     /**
      * Constructor for HistoryItem.

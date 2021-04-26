@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
@@ -39,15 +38,17 @@ public class TourColl extends DataCollection<Tour> implements Iterable<Tour> {
     }
 
     /**
-     * Allows deserializing routes from JSON files.  TourLoader class is needed to deal with converting route IDs to
-     * route objects.
+     * Allows deserializing routes from JSON files.  TourLoader class is needed to deal with
+     * converting route IDs to route objects.
      *
-     * @param routeColl Collection of routes holding routes with indexes (IDs) held by TourLoader obj
+     * @param routeColl Collection of routes holding routes with indexes (IDs) held by TourLoader
+     *                  obj
      * @param busColl   Collection of buses holding buses with indexes (IDs) held by TourLoader obj
      * @param c         TourLoader obj from json deserialization
      * @throws DuplicateKeyException if provided id/key is not unique
      */
-    public TourColl(RouteColl routeColl, BusColl busColl, Collection<TourLoader> c) throws DuplicateKeyException {
+    public TourColl(RouteColl routeColl, BusColl busColl, Collection<TourLoader> c) throws
+            DuplicateKeyException {
         this();
         if (c != null) {
             for (TourLoader tl : c) {

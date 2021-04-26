@@ -1,17 +1,16 @@
 /**
- * Start.java
- * Created on 19.08.2003, 20:40:08 Alex
- * Package: net.sf.memoranda
+ * Start.java Created on 19.08.2003, 20:40:08 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import main.java.memoranda.ui.*;
+import main.java.memoranda.ui.App;
+import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Configuration;
 
 /**
@@ -46,7 +45,8 @@ public class Start {
     public static void main(String[] args) {
         if (checkIfAlreadyStartet) {
             try {
-                // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
+                // Try to open a socket. If socket opened successfully (app is already started),
+                // take no action and exit.
                 Socket socket = new Socket("127.0.0.1", DEFAULT_PORT);
                 socket.close();
                 System.exit(0);
@@ -81,8 +81,10 @@ class SLThread extends Thread {
         } catch (Exception e) {
             System.err.println("Port:" + Start.DEFAULT_PORT);
             e.printStackTrace();
-            new ExceptionDialog(e, "Cannot create a socket connection on localhost:" + Start.DEFAULT_PORT,
-                    "Make sure that other software does not use the port " + Start.DEFAULT_PORT + " and examine your security settings.");
+            new ExceptionDialog(e,
+                    "Cannot create a socket connection on localhost:" + Start.DEFAULT_PORT,
+                    "Make sure that other software does not use the port " + Start.DEFAULT_PORT
+                            + " and examine your security settings.");
         }
     }
 }

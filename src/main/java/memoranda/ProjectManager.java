@@ -1,10 +1,8 @@
 /**
- * ProjectManager.java
- * Created on 11.02.2003, 17:50:27 Alex
- * Package: net.sf.memoranda
+ * ProjectManager.java Created on 11.02.2003, 17:50:27 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
@@ -40,7 +38,8 @@ public class ProjectManager {
 //            _root.addNamespaceDeclaration("jnotes", NS_JNPROJECT);
 //            _root.appendChild(new Comment("This is JNotes 2 data file. Do not modify."));
             _doc = new Document(_root);
-            createProject("__default", Local.getString("Default project"), CalendarDate.today(), null);
+            createProject("__default", Local.getString("Default project"), CalendarDate.today(),
+                    null);
         } else {
             _root = _doc.getRootElement();
         }
@@ -49,9 +48,9 @@ public class ProjectManager {
     public static Project getProject(String id) {
         Elements prjs = _root.getChildElements("project");
         for (int i = 0; i < prjs.size(); i++) {
-            String pid = ((Element) prjs.get(i)).getAttribute("id").getValue();
+            String pid = prjs.get(i).getAttribute("id").getValue();
             if (pid.equals(id)) {
-                return new ProjectImpl((Element) prjs.get(i));
+                return new ProjectImpl(prjs.get(i));
             }
         }
         return null;
@@ -61,7 +60,7 @@ public class ProjectManager {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
         for (int i = 0; i < prjs.size(); i++) {
-            v.add(new ProjectImpl((Element) prjs.get(i)));
+            v.add(new ProjectImpl(prjs.get(i)));
         }
         return v;
     }
@@ -69,7 +68,7 @@ public class ProjectManager {
     public static int getAllProjectsNumber() {
         int i;
         try {
-            i = ((Elements) _root.getChildElements("project")).size();
+            i = _root.getChildElements("project").size();
         } catch (NullPointerException e) {
             i = 1;
         }
@@ -80,7 +79,7 @@ public class ProjectManager {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
         for (int i = 0; i < prjs.size(); i++) {
-            Project prj = new ProjectImpl((Element) prjs.get(i));
+            Project prj = new ProjectImpl(prjs.get(i));
             if (prj.getStatus() == Project.ACTIVE) {
                 v.add(prj);
             }
@@ -92,7 +91,7 @@ public class ProjectManager {
         Elements prjs = _root.getChildElements("project");
         int count = 0;
         for (int i = 0; i < prjs.size(); i++) {
-            Project prj = new ProjectImpl((Element) prjs.get(i));
+            Project prj = new ProjectImpl(prjs.get(i));
             if (prj.getStatus() == Project.ACTIVE) {
                 count++;
             }
@@ -100,7 +99,8 @@ public class ProjectManager {
         return count;
     }
 
-    public static Project createProject(String id, String title, CalendarDate startDate, CalendarDate endDate) {
+    public static Project createProject(String id, String title, CalendarDate startDate,
+                                        CalendarDate endDate) {
         Element el = new Element("project");
         el.addAttribute(new Attribute("id", id));
         _root.appendChild(el);
@@ -112,7 +112,8 @@ public class ProjectManager {
         return prj;
     }
 
-    public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate) {
+    public static Project createProject(String title, CalendarDate startDate,
+                                        CalendarDate endDate) {
         return createProject(Util.generateId(), title, startDate, endDate);
     }
 
@@ -125,7 +126,7 @@ public class ProjectManager {
         CurrentStorage.get().removeProjectStorage(prj);
         Elements prjs = _root.getChildElements("project");
         for (int i = 0; i < prjs.size(); i++) {
-            String pid = ((Element) prjs.get(i)).getAttribute("id").getValue();
+            String pid = prjs.get(i).getAttribute("id").getValue();
             if (pid.equals(id)) {
                 _root.removeChild(prjs.get(i));
                 return;

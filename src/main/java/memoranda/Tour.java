@@ -1,10 +1,11 @@
 package main.java.memoranda;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
@@ -56,13 +57,14 @@ public class Tour extends IndexedObject {
     /**
      * constructor for json deserialization.
      *
-     * @param routeColl collection of Routes containing the route with an ID matching that
-     *                  specified in TourLoader obj
-     * @param busColl   collection of Buses containing the Bus with an ID matching that
-     *                  specified in TourLoader obj
-     * @param newTour   TourLoader obj holding deserialized json data with integer route and bus IDs
+     * @param routeColl collection of Routes containing the route with an ID matching that specified
+     *                  in TourLoader obj
+     * @param busColl   collection of Buses containing the Bus with an ID matching that specified in
+     *                  TourLoader obj
+     * @param newTour   TourLoader obj holding deserialized json data with integer route and bus
+     *                  IDs
      * @throws IndexOutOfBoundsException if provided id is not unique
-     * @throws DuplicateKeyException if a bus already associated with another tour
+     * @throws DuplicateKeyException     if a bus already associated with another tour
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Tour(RouteColl routeColl, BusColl busColl, TourLoader newTour)
@@ -88,7 +90,8 @@ public class Tour extends IndexedObject {
         } else {
             Bus b = busColl.get(newTour.getBusID());
             if (b == null) {
-                throw new IndexOutOfBoundsException("Bus index " + newTour.getBusID() + " not found");
+                throw new IndexOutOfBoundsException(
+                        "Bus index " + newTour.getBusID() + " not found");
             } else {
                 bus = b;
                 bus.addTour(this);
@@ -108,46 +111,6 @@ public class Tour extends IndexedObject {
         }
     }
 
-
-    /**
-     * name setter.
-     *
-     * @param name name for Tour
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    /**
-     * bus setter.
-     *
-     * @param bus Bus for tour
-     */
-    public void setBus(Bus bus) {
-        this.bus = bus;
-    }
-
-    /**
-     * route setter.
-     *
-     * @param route Route for bus to travel
-     */
-    public void setRoute(Route route) {
-        this.route = route;
-        route.addTour(this);
-    }
-
-
-    /**
-     * time setter.
-     *
-     * @param time time for Tour to start
-     */
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
     /**
      * standard getter for name.
      *
@@ -158,6 +121,15 @@ public class Tour extends IndexedObject {
     }
 
     /**
+     * name setter.
+     *
+     * @param name name for Tour
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
      * time getter.
      *
      * @return time of tour
@@ -165,6 +137,15 @@ public class Tour extends IndexedObject {
     @JsonIgnore
     public LocalTime getTime() {
         return time;
+    }
+
+    /**
+     * time setter.
+     *
+     * @param time time for Tour to start
+     */
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     /**
@@ -193,21 +174,21 @@ public class Tour extends IndexedObject {
     }
 
     /**
-     * Sets the speed for this tour in km/h to support end-time calculation.
-     *
-     * @param speed speed to set in km/h
-     */
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    /**
      * set the bus speed for duration calculations.
      *
      * @return the bus speed
      */
     public int getSpeed() {
         return speed;
+    }
+
+    /**
+     * Sets the speed for this tour in km/h to support end-time calculation.
+     *
+     * @param speed speed to set in km/h
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     /**
@@ -223,16 +204,6 @@ public class Tour extends IndexedObject {
         return time.toString();
     }
 
-
-    /**
-     * Set a driver for this tour.
-     *
-     * @param driver Driver to set.
-     */
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
     /**
      * Get the driver associated with this tour.
      *
@@ -241,6 +212,15 @@ public class Tour extends IndexedObject {
     @JsonIgnore
     public Driver getDriver() {
         return driver;
+    }
+
+    /**
+     * Set a driver for this tour.
+     *
+     * @param driver Driver to set.
+     */
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     /**
@@ -258,7 +238,7 @@ public class Tour extends IndexedObject {
         }
 
     }
-    
+
     /**
      * Delete driver associated with this tour.
      *
@@ -286,6 +266,16 @@ public class Tour extends IndexedObject {
     }
 
     /**
+     * route setter.
+     *
+     * @param route Route for bus to travel
+     */
+    public void setRoute(Route route) {
+        this.route = route;
+        route.addTour(this);
+    }
+
+    /**
      * json serialization routine.
      *
      * @return integer id of this tour's route
@@ -298,7 +288,6 @@ public class Tour extends IndexedObject {
         return route.getID();
     }
 
-
     /**
      * bus getter.
      *
@@ -307,6 +296,15 @@ public class Tour extends IndexedObject {
     @JsonIgnore
     public Bus getBus() {
         return bus;
+    }
+
+    /**
+     * bus setter.
+     *
+     * @param bus Bus for tour
+     */
+    public void setBus(Bus bus) {
+        this.bus = bus;
     }
 
     /**

@@ -1,21 +1,20 @@
-
 package main.java.memoranda;
 
 import java.io.IOException;
 import java.util.HashMap;
+
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
 
 /**
  * Database control multi-singleton (per project) class.
- * 
+ *
  * <p>
- *      Use:
- *      Database db = Database.getDatabase(storage,project) when MTB opens to read persisted
- *      serialized data. After making changes, commit them to disk with db.write(). All parts of
- *      of the program will get the same collection instances because Database acts as a
- *      multi-singleton class - it will return one Database per (storage, project) tuple.
+ * Use: Database db = Database.getDatabase(storage,project) when MTB opens to read persisted
+ * serialized data. After making changes, commit them to disk with db.write(). All parts of of the
+ * program will get the same collection instances because Database acts as a multi-singleton class -
+ * it will return one Database per (storage, project) tuple.
  * </p>
  * This code is mildly thread-safe and will try to eliminate race conditions on read/write, but
  * cannot compensate for filesystem-level race conditions under hundreds of simultaneous reads/
@@ -30,17 +29,17 @@ public class Database {
      */
     private static HashMap<String, Database> databases;
     private static int busy = 0;
+    private final Storage stg;
+    private final Project prj;
     private NodeColl nodeColl;
     private RouteColl routeColl;
     private TourColl tourColl;
     private DriverColl driverColl;
     private BusColl busColl;
-    private Storage stg;
-    private Project prj;
 
     /**
      * Initializes the database for a given project and the default storage.
-     * 
+     *
      * @param prj Project to use (uses default Storage)
      */
     private Database(Project prj) throws InterruptedException {
@@ -49,7 +48,7 @@ public class Database {
 
     /**
      * Initializes the database for a given project and storage.
-     * 
+     *
      * @param stg Storage to use
      * @param prj Project to use
      */
@@ -117,7 +116,7 @@ public class Database {
 
     /**
      * Checks if a database for a given project exists.
-     * 
+     *
      * @param prj check to see if database exists for this project.
      * @return whether db exists for this project
      */
@@ -129,14 +128,14 @@ public class Database {
     /**
      * Write database files.
      *
-     * @throws IOException if disk i/o error
+     * @throws IOException          if disk i/o error
      * @throws InterruptedException the thread was interrupted
      */
     public void write() throws IOException, InterruptedException {
         while (isBusy()) {
             Thread.sleep(100);
         }
-        
+
         lock();
         stg.storeNodeList(prj, nodeColl);
         stg.storeBusList(prj, busColl);
@@ -149,7 +148,7 @@ public class Database {
 
     /**
      * Load database files.
-     * 
+     *
      * @throws InterruptedException the thread was interrupted
      */
     public void load() throws InterruptedException {
