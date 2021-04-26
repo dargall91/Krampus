@@ -46,6 +46,8 @@ public class App {
 
     public App(boolean fullmode) {
         super();
+
+        final String LOOK_AND_FEEL="LOOK_AND_FEEL";
         if (fullmode) {
             fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
         }
@@ -57,18 +59,18 @@ public class App {
             showSplash();
         }
         System.out.println(VERSION_INFO);
-        System.out.println(Configuration.get("LOOK_AND_FEEL"));
+        System.out.println(Configuration.get(LOOK_AND_FEEL));
         try {
-            if (Configuration.get("LOOK_AND_FEEL").equals("system")) {
+            if (Configuration.get(LOOK_AND_FEEL).equals("system")) {
                 UIManager.setLookAndFeel(
                         UIManager.getSystemLookAndFeelClassName());
-            } else if (Configuration.get("LOOK_AND_FEEL").equals("default")) {
+            } else if (Configuration.get(LOOK_AND_FEEL).equals("default")) {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
             } else if (
-                    Configuration.get("LOOK_AND_FEEL").toString().length() > 0) {
+                    Configuration.get(LOOK_AND_FEEL).toString().length() > 0) {
                 UIManager.setLookAndFeel(
-                        Configuration.get("LOOK_AND_FEEL").toString());
+                        Configuration.get(LOOK_AND_FEEL).toString());
             }
 
         } catch (Exception e) {

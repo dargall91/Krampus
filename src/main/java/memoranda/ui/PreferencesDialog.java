@@ -15,30 +15,22 @@ import main.java.memoranda.util.MimeTypesList;
 
 /*$Id: PreferencesDialog.java,v 1.16 2006/06/28 22:58:31 alexeya Exp $*/
 public class PreferencesDialog extends JDialog {
+    private final String LOOK_AND_FEEL="LOOK_AND_FEEL";
+
     JPanel topPanel = new JPanel(new BorderLayout());
-
     JTabbedPane tabbedPanel = new JTabbedPane();
-
     JPanel GeneralPanel = new JPanel(new GridBagLayout());
 
     GridBagConstraints gbc;
 
     JLabel jLabel1 = new JLabel();
-
     ButtonGroup minGroup = new ButtonGroup();
-
     JRadioButton minTaskbarRB = new JRadioButton();
-
     JRadioButton minHideRB = new JRadioButton();
-
     ButtonGroup closeGroup = new ButtonGroup();
-
     JLabel jLabel2 = new JLabel();
-
     JRadioButton closeExitRB = new JRadioButton();
-
     JCheckBox askConfirmChB = new JCheckBox();
-
     JRadioButton closeHideRB = new JRadioButton();
 
     //JLabel jLabel3 = new JLabel();
@@ -46,79 +38,48 @@ public class PreferencesDialog extends JDialog {
     //ButtonGroup lfGroup = new ButtonGroup();
 
     JRadioButton lfSystemRB = new JRadioButton();
-
     JRadioButton lfJavaRB = new JRadioButton();
-
     JRadioButton lfCustomRB = new JRadioButton();
-
     JLabel classNameLabel = new JLabel();
-
     JTextField lfClassName = new JTextField();
-
     JLabel jLabel4 = new JLabel();
-
     JCheckBox enSystrayChB = new JCheckBox();
-
     JCheckBox startMinimizedChB = new JCheckBox();
-
     JCheckBox enSplashChB = new JCheckBox();
-
     JCheckBox enL10nChB = new JCheckBox();
-
     JCheckBox firstdow = new JCheckBox();
 
-    Border rstPanelBorder;
-
-    JPanel rsBottomPanel = new JPanel(new GridBagLayout());
+    //Border rstPanelBorder;
+    //JPanel rsBottomPanel = new JPanel(new GridBagLayout());
 
     TitledBorder rsbpBorder;
-
     JButton okB = new JButton();
-
     JButton cancelB = new JButton();
-
     JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
-    JLabel jLabel5 = new JLabel();
+    //JLabel jLabel5 = new JLabel();
 
     JTextField browserPath = new JTextField();
 
-    JButton browseB = new JButton();
+    //JButton browseB = new JButton();
 
     JLabel lblExit = new JLabel();
-
     JPanel soundPanel = new JPanel();
-
     JCheckBox enableSoundCB = new JCheckBox();
-
     BorderLayout borderLayout1 = new BorderLayout();
-
     TitledBorder titledBorder1;
-
     ButtonGroup soundGroup = new ButtonGroup();
-
     JPanel jPanel2 = new JPanel();
-
     JButton soundFileBrowseB = new JButton();
-
     GridLayout gridLayout1 = new GridLayout();
-
     JPanel jPanel1 = new JPanel();
-
     JRadioButton soundBeepRB = new JRadioButton();
-
     JLabel jLabel6 = new JLabel();
-
     JTextField soundFile = new JTextField();
-
     JRadioButton soundDefaultRB = new JRadioButton();
-
     BorderLayout borderLayout3 = new BorderLayout();
-
     JPanel jPanel3 = new JPanel();
-
     JRadioButton soundCustomRB = new JRadioButton();
-
     BorderLayout borderLayout2 = new BorderLayout();
 
     public PreferencesDialog(Frame frame) {
@@ -334,7 +295,7 @@ public class PreferencesDialog extends JDialog {
                 .equalsIgnoreCase("mon"));
 
         enableCustomLF(false);
-        String lf = Configuration.get("LOOK_AND_FEEL").toString();
+        String lf = Configuration.get(LOOK_AND_FEEL).toString();
         if (lf.equalsIgnoreCase("system")) {
             lfSystemRB.setSelected(true);
         } else if (lf.equalsIgnoreCase("default")) {
@@ -437,7 +398,7 @@ public class PreferencesDialog extends JDialog {
 
         Configuration.put("ON_MINIMIZE", "normal");
 
-        String lf = Configuration.get("LOOK_AND_FEEL").toString();
+        String lf = Configuration.get(LOOK_AND_FEEL).toString();
         String newlf = "";
 
         if (this.lfSystemRB.isSelected()) {
@@ -449,23 +410,23 @@ public class PreferencesDialog extends JDialog {
         }
 
         if (!lf.equalsIgnoreCase(newlf)) {
-            Configuration.put("LOOK_AND_FEEL", newlf);
+            Configuration.put(LOOK_AND_FEEL, newlf);
             try {
-                if (Configuration.get("LOOK_AND_FEEL").equals("system")) {
+                if (Configuration.get(LOOK_AND_FEEL).equals("system")) {
                     UIManager.setLookAndFeel(UIManager
                             .getSystemLookAndFeelClassName());
-                } else if (Configuration.get("LOOK_AND_FEEL").equals("default")) {
+                } else if (Configuration.get(LOOK_AND_FEEL).equals("default")) {
                     UIManager.setLookAndFeel(UIManager
                             .getCrossPlatformLookAndFeelClassName());
-                } else if (Configuration.get("LOOK_AND_FEEL").toString().length() > 0) {
-                    UIManager.setLookAndFeel(Configuration.get("LOOK_AND_FEEL")
+                } else if (Configuration.get(LOOK_AND_FEEL).toString().length() > 0) {
+                    UIManager.setLookAndFeel(Configuration.get(LOOK_AND_FEEL)
                             .toString());
                 }
 
                 SwingUtilities.updateComponentTreeUI(App.getFrame());
 
             } catch (Exception e) {
-                Configuration.put("LOOK_AND_FEEL", lf);
+                Configuration.put(LOOK_AND_FEEL, lf);
                 new ExceptionDialog(
                         e,
                         "Error when initializing a pluggable look-and-feel. Default LF will be "
