@@ -308,7 +308,7 @@ public class TestDataCollections {
         bc.add(b1);
         bc.add(b2);
 
-        System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
+        //System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
 
         busColl=bc;
         return busColl;
@@ -408,18 +408,18 @@ public class TestDataCollections {
 
         // tourColl created in @beforeEach
 
-        System.out.println("TourColl=" + tourColl);
-        System.out.println("TourColl.size()=" + tourColl.size());
-        System.out.println("tour1=" + tourColl.get(TOUR1));
-        System.out.println("tour2=" + tourColl.get(TOUR2));
+        //System.out.println("TourColl=" + tourColl);
+        //System.out.println("TourColl.size()=" + tourColl.size());
+        //System.out.println("tour1=" + tourColl.get(TOUR1));
+        //System.out.println("tour2=" + tourColl.get(TOUR2));
 
         Driver d1 = createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
-        System.out.println("Tour1 driver=" + tourColl.get(TOUR1).getDriver());
+        //System.out.println("Tour1 driver=" + tourColl.get(TOUR1).getDriver());
 
         Driver d2 = createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));
-        System.out.println("Tour2 driver=" + tourColl.get(TOUR2).getDriver());
+        //System.out.println("Tour2 driver=" + tourColl.get(TOUR2).getDriver());
 
         DriverColl dc = new DriverColl();
         dc.add(d1);
@@ -636,7 +636,7 @@ public class TestDataCollections {
      * @throws DuplicateKeyException if duplicate id is added to collection
      */
     TourColl createTourColl() throws DuplicateKeyException {
-        System.out.println("in createTourColl");
+        //System.out.println("in createTourColl");
         tourColl = new TourColl();
 
         Tour tour1 = createTour();
