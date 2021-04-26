@@ -1005,7 +1005,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test mapper inset
+     * test mapper inset.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -1019,7 +1019,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test mapper inset
+     * test mapper inset.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -1033,7 +1033,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test mapper inset
+     * test mapper inset.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -1044,6 +1044,32 @@ public class TestDataCollections {
         NodeColl nc = nm.getNodeColl();
 
         assertEquals(new Point(749, 10), nm.getScaled(nc.get(MAPPER_TOP)));
+    }
+
+
+    /**
+     * test creating a new scaled node based on map coordinate.
+     *
+     * @throws DuplicateKeyException if dup key used
+     */
+    @Test
+    void testNodeMapperNewScaledNode() throws DuplicateKeyException {
+        NodeMapper nm = setupMapperNodes();
+        NodeColl nc = nm.getNodeColl();
+        Node n=nodeColl.newItem();
+        Point p0=new Point(749,119);
+        for (Node nn:nc){
+            System.out.println("node="+nn);
+        }
+        n=nm.newScaledNode(n,p0);
+        assertEquals(n.getLon(),0.4995,0.01);
+        assertEquals(n.getLat(), 0.0987, 0.01);
+        System.out.println("new scaled node="+n);
+        Point p1=new Point(990,590);
+        n=nm.newScaledNode(n,p1);
+        assertEquals(n.getLon(),0.98198,0.01);
+        assertEquals(n.getLat(), 0.88497, 0.01);
+        System.out.println("new scaled node="+n);
     }
 
     /**
