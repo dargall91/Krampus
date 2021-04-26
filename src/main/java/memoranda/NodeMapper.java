@@ -44,10 +44,7 @@ public class NodeMapper {
 
     /**
      * sets scaling factor for this plotting window.
-     *
-     * @param dim dimension to scale to
      */
-    //private void setScale(Dimension dim) {
     private void setScale() {
         int insetWidth = inset.left + inset.right;
         int insetHeight = inset.top + inset.bottom;
@@ -60,6 +57,11 @@ public class NodeMapper {
                 dim.getHeight() / origin.latDelta(outlier));
     }
 
+    /**
+     * set insets for the map (blank border).
+     *
+     * @param inset insets to set
+     */
     public void setInsets(Insets inset) {
         if ((inset.left + inset.right) >= dim.getWidth()
                 || (inset.top + inset.bottom) >= dim.getHeight()) {
@@ -123,6 +125,33 @@ public class NodeMapper {
         lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale()) + inset.top;
         lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale()) + inset.left;
         return new Point(lon, lat);
+    }
+
+    /**
+     * returns a new node based upon its location on the configured map, taking insets into
+     * account.
+     *
+     * For instance, if you have a 1000x1000 map with insets of 10 on all sides, scaled nodes
+     * using getScaled() will be in the range of 10-989 for both x and y (lon and lat).
+     *
+     * If you pass (500,500) to newScaledNode, you will get a node with a latitude approximately
+     * halfway between the norther- and southern-most nodes in the node collection, and a
+     * longitude approximately halfway between the western- and eastern-most nodes in the node
+     * collection.
+     *
+     * @param n a new to populate with new coordinates.
+     * @param p the point on the map (e.g. 500, 500) to create a new node from.
+     * @return the modified node
+     */
+    public Node newScaledNode(Node n, Point p) {
+        if (p.getX() + inset.left + inset.right >= mapSize.getWidth()
+                || p.getY() + inset.top + inset.bottom >= mapSize.getHeight()) {
+            throw new IllegalArgumentException("Point out of range of map size.");
+        }
+        double newLon = ((p.getX() - inset.left) / scale.getLonScale() + origin.getLon());
+        double newLat = ((p.getY() - inset.top) / scale.getLatScale() + origin.getLat());
+        n.setCoords(new Coordinate(newLat, newLon));
+        return n;
     }
 
     /**
