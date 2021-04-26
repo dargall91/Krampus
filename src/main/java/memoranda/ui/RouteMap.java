@@ -14,13 +14,14 @@ import main.java.memoranda.Route;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class RouteMap extends JPanel {
-    //private NodeColl nodes;
     private List<RouteStop> stops;
     private int id;
     private Route route;
@@ -31,7 +32,6 @@ public class RouteMap extends JPanel {
      */
     public RouteMap() {
         id = 1;
-        //nodes = new NodeColl();
         stops = new ArrayList<>();
     }
 
@@ -42,16 +42,27 @@ public class RouteMap extends JPanel {
      */
     public RouteMap(RouteMapPanel parentPanel) {
         this.parentPanel = parentPanel;
-        
+
+        this.addComponentListener(new ResizeListener());
         initMap();
     }
-    
+
+
+    /**
+     * adjust scaling on resize.
+     */
+    class ResizeListener extends ComponentAdapter {
+        public void componentResized(ComponentEvent e) {
+            initMap();
+        }
+    }
+
+
     /**
      * Initiate RouteMap.
      */
     private void initMap() {
         id = 1;
-        //nodes = new NodeColl();
         stops = new ArrayList<>();
         
         if (parentPanel.getRouteTable().getRoute() != null) {
@@ -61,6 +72,7 @@ public class RouteMap extends JPanel {
         }
 
         setPreferredSize(new Dimension(1000, 1000));
+
         setBackground(Color.WHITE);
         
         populateStops(route.getRoute());
@@ -102,10 +114,11 @@ public class RouteMap extends JPanel {
 
     @Override
     /**
-     * paintComponent draws the graphics to JPanal.
+     * paintComponent draws the graphics to JPanel.
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         for (int i = 0; i < stops.size(); i++) {
             if (i < stops.size() - 1) {
                 stops.get(i).drawConnection(g, stops.get(i).getBusStop(),
@@ -127,10 +140,17 @@ public class RouteMap extends JPanel {
      */
     public void populateStops(LinkedList<Node> nodes) {
         NodeMapper mapper = new NodeMapper(CurrentProject.getNodeColl());
-        
+
+        Dimension dim=this.getSize();
+        if (!dim.equals(new Dimension(0,0))){
+            mapper.setMapSize(dim);
+        };
+        mapper.setInsets(new Insets(40,40,20,20));
+
         for (Node n : nodes) {
             addStop(stops, mapper.getScaled(n), n.getName());
         }
+        repaint();
 
         //while (nodeCollection.iterator().hasNext()) {
         //    for (Node n : nodeCollection) {
@@ -150,7 +170,7 @@ public class RouteMap extends JPanel {
     public void addStop(List<RouteStop> list, Point2D point, String name) {
         list.add(new RouteStop(getId(), point, name));
         setId(getId() + 1);
-        repaint();
+        //repaint();
     }
 
     /**
