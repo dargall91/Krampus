@@ -18,9 +18,11 @@ public class NodeMapper {
     private static final int MAP_DEFAULT_HEIGHT = 480;
 
     private Dimension dim;
+    private Dimension mapSize;
     private final NodeColl nodeColl;
     private Coordinate origin;
     private Coordinate outlier;
+    private Insets inset;
     private Scale scale;
 
     /**
@@ -35,6 +37,9 @@ public class NodeMapper {
         this.nodeColl = nodeColl;
         findBaseline();
         findOutlier();
+
+        // set default inset and map size
+        inset=new Insets(0,0,0,0);
         setMapSize(new Dimension(MAP_DEFAULT_WIDTH, MAP_DEFAULT_HEIGHT));
     }
 
@@ -48,9 +53,9 @@ public class NodeMapper {
         }
 
         /**
-         * Gets the Lateral Scale.
+         * Gets the Latitude Scale.
          * 
-         * @return the lateral scale
+         * @return the latitude scale
          */
         public double getLatScale() {
             return latScale;
@@ -65,6 +70,10 @@ public class NodeMapper {
             return lonScale;
         }
 
+        /**
+         * standard toString.
+         * @return string rep
+         */
         @Override
         public String toString() {
             return latScale + "," + lonScale;
@@ -76,9 +85,27 @@ public class NodeMapper {
      *
      * @param dim dimension to scale to
      */
-    private void setScale(Dimension dim) {
+    //private void setScale(Dimension dim) {
+    private void setScale(){
+        int insetWidth=inset.left=inset.right;
+        int insetHeight=inset.top+inset.bottom;
+
+        dim=mapSize.getSize();
+        dim.setSize(mapSize.getWidth() - insetWidth- 1,
+                mapSize.getHeight() - insetHeight - 1);
+
         scale = new Scale(dim.getWidth() / origin.lonDelta(outlier),
                 dim.getHeight() / origin.latDelta(outlier));
+    }
+
+    public void setInsets(Insets inset){
+        if ((inset.left + inset.right) >= dim.getWidth()
+            || (inset.top + inset.bottom) >= dim.getHeight()){
+            throw new IllegalArgumentException("Insets cannot be greater than map dimensions.");
+        }
+        this.inset=inset;
+
+        setScale();
     }
 
     /**
@@ -91,9 +118,17 @@ public class NodeMapper {
         if (dim.getWidth() < 1 || dim.getHeight() < 1) {
             throw new IllegalArgumentException("Dimensions must be positive.");
         }
-        dim.setSize(dim.getWidth() - 1, dim.getHeight() - 1);
-        this.dim = dim;
-        setScale(this.dim);
+
+        // set the map size...
+        this.mapSize=dim.getSize();
+
+        // and the working dimensions, adjusting for inset, scale, etc.
+        //this.dim = dim;
+        //this.dim.setSize(mapSize.getWidth() - 1, mapSize.getHeight() - 1);
+
+        setScale();
+
+        //setScale(this.dim);
     }
 
     /**
@@ -123,9 +158,8 @@ public class NodeMapper {
             throw new IllegalArgumentException("Node is not in range of provided node collection");
         }
 
-        //Gives 10 buffer from left and top of map.
-        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale()) + 10;
-        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale()) + 10;
+        lat = (int) (origin.latDelta(n.getCoords()) * scale.getLatScale()) + inset.left;
+        lon = (int) (origin.lonDelta(n.getCoords()) * scale.getLonScale()) + inset.top;
         return new Point(lon, lat);
     }
 
