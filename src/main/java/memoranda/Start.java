@@ -9,8 +9,9 @@ package main.java.memoranda;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import main.java.memoranda.ui.App;
-import main.java.memoranda.ui.ExceptionDialog;
+import javax.swing.UIManager;
+
+import main.java.memoranda.ui.*;
 import main.java.memoranda.util.Configuration;
 
 /**
@@ -43,6 +44,7 @@ public class Start {
     }
 
     public static void main(String[] args) {
+        UIManager.installLookAndFeel("Aqua", "com.apple.laf.AquaLookAndFeel");
         if (checkIfAlreadyStartet) {
             try {
                 // Try to open a socket. If socket opened successfully (app is already started),
