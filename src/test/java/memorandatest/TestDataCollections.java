@@ -1056,20 +1056,20 @@ public class TestDataCollections {
     void testNodeMapperNewScaledNode() throws DuplicateKeyException {
         NodeMapper nm = setupMapperNodes();
         NodeColl nc = nm.getNodeColl();
-        Node n=nodeColl.newItem();
-        Point p0=new Point(749,119);
-        for (Node nn:nc){
-            System.out.println("node="+nn);
+        Node n = nodeColl.newItem();
+        Point p0 = new Point(749, 119);
+        for (Node nn : nc) {
+            System.out.println("node=" + nn);
         }
-        n=nm.newScaledNode(n,p0);
-        assertEquals(n.getLon(),0.4995,0.01);
+        n = nm.newScaledNode(n, p0);
+        assertEquals(n.getLon(), 0.4995, 0.01);
         assertEquals(n.getLat(), 0.0987, 0.01);
-        System.out.println("new scaled node="+n);
-        Point p1=new Point(990,590);
-        n=nm.newScaledNode(n,p1);
-        assertEquals(n.getLon(),0.98198,0.01);
+        System.out.println("new scaled node=" + n);
+        Point p1 = new Point(990, 590);
+        n = nm.newScaledNode(n, p1);
+        assertEquals(n.getLon(), 0.98198, 0.01);
         assertEquals(n.getLat(), 0.88497, 0.01);
-        System.out.println("new scaled node="+n);
+        System.out.println("new scaled node=" + n);
     }
 
     /**
