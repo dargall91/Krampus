@@ -130,8 +130,10 @@ public class NodeMapper {
     /**
      * returns a new node based upon its location on the configured map, taking insets into
      * account.
+     *
      * <p>For instance, if you have a 1000x1000 map with insets of 10 on all sides, scaled nodes
      * using getScaled() will be in the range of 10-989 for both x and y (lon and lat).
+     *
      * <p>If you pass (500,500) to newScaledNode, you will get a node with a latitude approximately
      * halfway between the norther- and southern-most nodes in the node collection, and a longitude
      * approximately halfway between the western- and eastern-most nodes in the node collection.
