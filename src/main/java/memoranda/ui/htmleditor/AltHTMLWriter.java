@@ -68,7 +68,6 @@ public class AltHTMLWriter extends AbstractWriter {
      * element.
      */
     private int preEndOffset;
-    private boolean inTextArea = false;
     private boolean newlineOutputed = false;
     private boolean completeDoc;
 
@@ -317,8 +316,8 @@ public class AltHTMLWriter extends AbstractWriter {
                 indent();
             }
 
-            Object nameTag = (attr != null) ? attr.getAttribute(StyleConstants.NameAttribute) : null;
-            Object endTag = (attr != null) ? attr.getAttribute(HTML.Attribute.ENDTAG) : null;
+            Object nameTag = attr.getAttribute(StyleConstants.NameAttribute);
+            Object endTag = attr.getAttribute(HTML.Attribute.ENDTAG);
 
             boolean outputEndTag = false;
             // If an instance of an UNKNOWN Tag, or an instance of a
@@ -484,7 +483,7 @@ public class AltHTMLWriter extends AbstractWriter {
             }
             doc.getText(0, doc.getLength(), segment);
             if (segment.count > 0) {
-                inTextArea = true;
+                //boolean inTextArea = true;
                 incrIndent();
                 indent();
                 setCanWrapLines(true);
@@ -493,7 +492,7 @@ public class AltHTMLWriter extends AbstractWriter {
                 replaceEntities = false;
                 setCanWrapLines(false);
                 writeLineSeparator();
-                inTextArea = false;
+                //inTextArea = false;
                 decrIndent();
             }
         }
@@ -687,10 +686,7 @@ public class AltHTMLWriter extends AbstractWriter {
      * for the p-implied tag.
      */
     protected boolean synthesizedElement(Element elem) {
-        if (matchNameAttribute(elem.getAttributes(), HTML.Tag.IMPLIED)) {
-            return true;
-        }
-        return false;
+        return matchNameAttribute(elem.getAttributes(), HTML.Tag.IMPLIED);
     }
 
     /**
@@ -881,10 +877,10 @@ public class AltHTMLWriter extends AbstractWriter {
                 // Output the areas
                 AttributeSet[] areas = map.getAreas();
                 if (areas != null) {
-                    for (int counter = 0, maxCounter = areas.length; counter < maxCounter; counter++) {
+                    for (AttributeSet area : areas) {
                         indent();
                         write("<area");
-                        writeAttributes(areas[counter]);
+                        writeAttributes(area);
                         write("></area>");
                         writeLineSeparator();
                     }
@@ -1003,6 +999,12 @@ public class AltHTMLWriter extends AbstractWriter {
             to = convAttr;
         }
         to.removeAttributes(to);
+        /**
+         * If true, the writer will emit CSS attributes in preference
+         * to HTML tags/attributes (i.e. It will emit an HTML 4.0
+         * style).
+         */
+        boolean writeCSS = false;
         if (writeCSS) {
             convertToHTML40(from, to);
         } else {
@@ -1012,22 +1014,15 @@ public class AltHTMLWriter extends AbstractWriter {
     }
 
     /**
-     * If true, the writer will emit CSS attributes in preference
-     * to HTML tags/attributes (i.e. It will emit an HTML 4.0
-     * style).
-     */
-    private boolean writeCSS = false;
-
-    /**
      * Buffer for the purpose of attribute conversion
      */
-    private MutableAttributeSet convAttr = new SimpleAttributeSet();
+    private final MutableAttributeSet convAttr = new SimpleAttributeSet();
 
     /**
      * Buffer for the purpose of attribute conversion. This can be
      * used if convAttr is being used.
      */
-    private MutableAttributeSet oConvAttr = new SimpleAttributeSet();
+    private final MutableAttributeSet oConvAttr = new SimpleAttributeSet();
 
     /**
      * Create an older style of HTML attributes.  This will
@@ -1056,7 +1051,7 @@ public class AltHTMLWriter extends AbstractWriter {
                     if (weightValue != null) {
                         int fweight;
                         try {
-                            fweight = new Integer(weightValue).intValue();
+                            fweight = new Integer(weightValue);
                         } catch (Exception ex) {
                             fweight = -1;
                         }
@@ -1066,23 +1061,23 @@ public class AltHTMLWriter extends AbstractWriter {
                     }
                 } else if (key == CSS.Attribute.FONT_STYLE) {
                     String s = from.getAttribute(key).toString();
-                    if (s.indexOf("italic") >= 0) {
+                    if (s.contains("italic")) {
                         to.addAttribute(HTML.Tag.I, SimpleAttributeSet.EMPTY);
                     }
                 } else if (key == CSS.Attribute.TEXT_DECORATION) {
                     String decor = from.getAttribute(key).toString();
-                    if (decor.indexOf("underline") >= 0) {
+                    if (decor.contains("underline")) {
                         to.addAttribute(HTML.Tag.U, SimpleAttributeSet.EMPTY);
                     }
-                    if (decor.indexOf("line-through") >= 0) {
+                    if (decor.contains("line-through")) {
                         to.addAttribute(HTML.Tag.STRIKE, SimpleAttributeSet.EMPTY);
                     }
                 } else if (key == CSS.Attribute.VERTICAL_ALIGN) {
                     String vAlign = from.getAttribute(key).toString();
-                    if (vAlign.indexOf("sup") >= 0) {
+                    if (vAlign.contains("sup")) {
                         to.addAttribute(HTML.Tag.SUP, SimpleAttributeSet.EMPTY);
                     }
-                    if (vAlign.indexOf("sub") >= 0) {
+                    if (vAlign.contains("sub")) {
                         to.addAttribute(HTML.Tag.SUB, SimpleAttributeSet.EMPTY);
                     }
                 } else if (key == CSS.Attribute.TEXT_ALIGN) {
@@ -1746,9 +1741,7 @@ public class AltHTMLWriter extends AbstractWriter {
             }
 
             int oldMin = Math.min(this.anchorIndex, this.leadIndex);
-            ;
             int oldMax = Math.max(this.anchorIndex, this.leadIndex);
-            ;
             int newMin = Math.min(anchorIndex, leadIndex);
             int newMax = Math.max(anchorIndex, leadIndex);
             if (value.get(this.anchorIndex)) {

@@ -1,26 +1,16 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import java.io.File;
+import java.net.URL;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.Local;
-
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.io.File;
-import java.net.URL;
 
 
 /*$Id: EventNotificationDialog.java,v 1.8 2004/10/18 19:08:56 ivanrise Exp $*/
@@ -28,7 +18,6 @@ public class EventNotificationDialog extends JFrame {
     JPanel panel1 = new JPanel();
     BorderLayout borderLayout1 = new BorderLayout();
     JButton jButton1 = new JButton();
-    Border border1;
     Border border2;
     Border border3;
     JPanel jPanel1 = new JPanel();
@@ -63,10 +52,14 @@ public class EventNotificationDialog extends JFrame {
 
     void jbInit() throws Exception {
         this.setResizable(false);
-        this.setIconImage(new ImageIcon(EventNotificationDialog.class.getResource("/ui/icons/jnotes16.png")).getImage());
+        this.setIconImage(
+                new ImageIcon(EventNotificationDialog.class.getResource("/ui/icons/jnotes16.png"))
+                        .getImage());
         this.getContentPane().setBackground(new Color(251, 197, 63));
         border2 = BorderFactory.createEmptyBorder(0, 30, 0, 30);
-        border3 = BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142)), BorderFactory.createEmptyBorder(0, 30, 0, 30));
+        border3 = BorderFactory.createCompoundBorder(
+                BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142)),
+                BorderFactory.createEmptyBorder(0, 30, 0, 30));
         border4 = BorderFactory.createEmptyBorder(10, 10, 0, 10);
         panel1.setLayout(borderLayout1);
         panel1.setBackground(new Color(251, 197, 63));
@@ -77,15 +70,11 @@ public class EventNotificationDialog extends JFrame {
         jButton1.setBackground(new Color(69, 125, 186));
         jButton1.setForeground(Color.white);
         jButton1.setDefaultCapable(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jButton1_actionPerformed(e);
-            }
-        });
+        jButton1.addActionListener(e -> jButton1_actionPerformed(e));
         panel1.setBorder(border4);
         panel1.setMinimumSize(new Dimension(300, 200));
         panel1.setPreferredSize(new Dimension(300, 200));
-        timeLabel.setFont(new java.awt.Font("Dialog", 0, 20));
+        timeLabel.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(panel1);
@@ -133,7 +122,8 @@ public class EventNotificationDialog extends JFrame {
             AudioClip clip = Applet.newAudioClip(url);
             clip.play();
         } catch (Exception ex) {
-            new ExceptionDialog(ex, "Error loading audioclip from " + url, "Check the location and type of audioclip file.");
+            new ExceptionDialog(ex, "Error loading audio clip from " + url,
+                    "Check the location and type of audioclip file.");
         }
     }
 }

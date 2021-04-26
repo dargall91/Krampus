@@ -1,9 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,7 +21,7 @@ public class ProjectsTablePanel extends JPanel {
     JScrollPane scrollPane = new JScrollPane();
     public JTable projectsTable = new JTable() {
         public TableCellRenderer getCellRenderer(int row, int column) {
-            if (((String) getModel().getValueAt(row, PROJECT_ID)).equals(CurrentProject.get().getID())) {
+            if (getModel().getValueAt(row, PROJECT_ID).equals(CurrentProject.get().getID())) {
                 return new javax.swing.table.DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(
                             JTable table,
@@ -35,7 +32,7 @@ public class ProjectsTablePanel extends JPanel {
                             int column) {
                         Component comp =
                                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                        comp.setFont(new java.awt.Font("Dialog", 1, 11));
+                        comp.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
                         if (((row % 2) > 0) && (!isSelected)) {
                             comp.setBackground(new Color(230, 240, 255));
                         }
@@ -84,8 +81,8 @@ public class ProjectsTablePanel extends JPanel {
     }
 
     void jbInit() throws Exception {
-        projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
-        projectsTable.setFont(new java.awt.Font("Dialog", 0, 11));
+        projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
+        projectsTable.setFont(new java.awt.Font("Dialog", Font.PLAIN, 11));
         projectsTable.setMinimumSize(new Dimension(200, 100));
         projectsTable.setMaximumSize(new Dimension(32767, 32767));
         //projectsTable.setPreferredSize(new Dimension(400, 100));

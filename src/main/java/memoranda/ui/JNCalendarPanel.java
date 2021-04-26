@@ -1,29 +1,15 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.Vector;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.NoteList;
@@ -53,19 +39,45 @@ public class JNCalendarPanel extends JPanel {
     JPanel dayBackBPanel = new JPanel();
     JButton dayBackB = new JButton();
     JComboBox monthsCB = new JComboBox(Local.getMonthNames());
-    BorderLayout borderLayout4 = new BorderLayout();
+    //BorderLayout borderLayout4 = new BorderLayout();
     JNCalendar jnCalendar = new JNCalendar(CurrentDate.get());
     JPanel jnCalendarPanel = new JPanel();
     BorderLayout borderLayout5 = new BorderLayout();
-    JSpinner yearSpin = new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
+    JSpinner yearSpin =
+            new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
     JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
 
     boolean ignoreChange = false;
-
-    private Vector selectionListeners = new Vector();
-
     Border border1;
     Border border2;
+    private final Vector<ActionListener> selectionListeners = new Vector();
+    public Action dayBackAction =
+            new AbstractAction(
+                    "Go one day back",
+                    new ImageIcon(Objects.requireNonNull(
+                            AppFrame.class.getResource("/ui/icons/back16.png")))) {
+                public void actionPerformed(ActionEvent e) {
+                    dayBackB_actionPerformed(e);
+                }
+            };
+    public Action dayForwardAction =
+            new AbstractAction(
+                    "Go one day forward",
+                    new ImageIcon(Objects.requireNonNull(
+                            AppFrame.class.getResource("/ui/icons/forward16.png")))) {
+                public void actionPerformed(ActionEvent e) {
+                    dayForwardB_actionPerformed(e);
+                }
+            };
+    public Action todayAction =
+            new AbstractAction(
+                    "Go to today",
+                    new ImageIcon(Objects.requireNonNull(
+                            AppFrame.class.getResource("/ui/icons/today16.png")))) {
+                public void actionPerformed(ActionEvent e) {
+                    todayB_actionPerformed(e);
+                }
+            };
 
     public JNCalendarPanel() {
         try {
@@ -75,37 +87,13 @@ public class JNCalendarPanel extends JPanel {
         }
     }
 
-    public Action dayBackAction =
-            new AbstractAction(
-                    "Go one day back",
-                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/back16.png"))) {
-                public void actionPerformed(ActionEvent e) {
-                    dayBackB_actionPerformed(e);
-                }
-            };
-
-    public Action dayForwardAction =
-            new AbstractAction(
-                    "Go one day forward",
-                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/forward16.png"))) {
-                public void actionPerformed(ActionEvent e) {
-                    dayForwardB_actionPerformed(e);
-                }
-            };
-
-    public Action todayAction =
-            new AbstractAction(
-                    "Go to today",
-                    new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/today16.png"))) {
-                public void actionPerformed(ActionEvent e) {
-                    todayB_actionPerformed(e);
-                }
-            };
-
     void jbInit() throws Exception {
-        //dayBackAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, KeyEvent.ALT_MASK));
-        //dayForwardAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, KeyEvent.ALT_MASK));
-        todayAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_HOME, KeyEvent.ALT_MASK));
+        //dayBackAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent
+        // .VK_PAGE_DOWN, KeyEvent.ALT_MASK));
+        //dayForwardAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent
+        // .VK_PAGE_UP, KeyEvent.ALT_MASK));
+        todayAction.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_HOME, KeyEvent.ALT_MASK));
 
         monthsCB.setRequestFocusEnabled(false);
         monthsCB.setMaximumRowCount(12);
@@ -121,7 +109,8 @@ public class JNCalendarPanel extends JPanel {
         dayForwardB.setRequestFocusEnabled(false);
         dayForwardB.setBorderPainted(false);
         dayForwardB.setFocusPainted(false);
-        dayForwardB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/forward.png")));
+        dayForwardB.setIcon(new ImageIcon(
+                Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/forward.png"))));
         dayForwardB.setText("");
         dayForwardB.setToolTipText(Local.getString("One day forward"));
 
@@ -137,7 +126,8 @@ public class JNCalendarPanel extends JPanel {
         todayB.setRequestFocusEnabled(false);
         todayB.setBorderPainted(false);
         todayB.setFocusPainted(false);
-        todayB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/today.png")));
+        todayB.setIcon(new ImageIcon(
+                Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/today.png"))));
         todayB.setText("");
         todayB.setToolTipText(Local.getString("To today"));
 
@@ -154,7 +144,8 @@ public class JNCalendarPanel extends JPanel {
         dayBackB.setToolTipText("");
         dayBackB.setBorderPainted(false);
         dayBackB.setFocusPainted(false);
-        dayBackB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/back.png")));
+        dayBackB.setIcon(new ImageIcon(
+                Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/back.png"))));
         dayBackB.setText("");
         dayBackB.setToolTipText(Local.getString("One day back"));
 
@@ -164,8 +155,8 @@ public class JNCalendarPanel extends JPanel {
         navbPanel.setMinimumSize(new Dimension(202, 30));
         navbPanel.setOpaque(false);
         navbPanel.setPreferredSize(new Dimension(155, 30));
-        jnCalendar.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
-        jnCalendar.setFont(new java.awt.Font("Dialog", 0, 10));
+        jnCalendar.getTableHeader().setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
+        jnCalendar.setFont(new java.awt.Font("Dialog", Font.PLAIN, 10));
         jnCalendar.setGridColor(Color.lightGray);
         jnCalendarPanel.setLayout(borderLayout5);
         todayBPanel.setMinimumSize(new Dimension(68, 24));
@@ -186,30 +177,19 @@ public class JNCalendarPanel extends JPanel {
         jnCalendar.getTableHeader().setPreferredSize(new Dimension(200, 15));
         jnCalendarPanel.add(jnCalendar.getTableHeader(), BorderLayout.NORTH);
         jnCalendarPanel.add(jnCalendar, BorderLayout.CENTER);
-        jnCalendar.addSelectionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setCurrentDateDay(jnCalendar.get(), jnCalendar.get().getDay());
-            }
-        });
+        jnCalendar.addSelectionListener(
+                e -> setCurrentDateDay(jnCalendar.get(), jnCalendar.get().getDay()));
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
         _date = CurrentDate.get();
         refreshView();
       }
     });*/
-        monthsCB.setFont(new java.awt.Font("Dialog", 0, 11));
+        monthsCB.setFont(new java.awt.Font("Dialog", Font.PLAIN, 11));
 
-        monthsCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                monthsCB_actionPerformed(e);
-            }
-        });
+        monthsCB.addActionListener(e -> monthsCB_actionPerformed(e));
 
-        yearSpin.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                yearSpin_actionPerformed();
-            }
-        });
+        yearSpin.addChangeListener(e -> yearSpin_actionPerformed());
         CurrentProject.addProjectListener(new ProjectListener() {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
             }
@@ -240,7 +220,8 @@ public class JNCalendarPanel extends JPanel {
 
     private void notifyListeners() {
         for (Enumeration en = selectionListeners.elements(); en.hasMoreElements(); ) {
-            ((ActionListener) en.nextElement()).actionPerformed(new ActionEvent(this, 0, "Calendar event"));
+            ((ActionListener) en.nextElement())
+                    .actionPerformed(new ActionEvent(this, 0, "Calendar event"));
         }
     }
 
@@ -258,8 +239,8 @@ public class JNCalendarPanel extends JPanel {
     private void refreshView() {
         ignoreChange = true;
         jnCalendar.set(_date);
-        monthsCB.setSelectedIndex(new Integer(_date.getMonth()));
-        yearSpin.setValue(new Integer(_date.getYear()));
+        monthsCB.setSelectedIndex(_date.getMonth());
+        yearSpin.setValue(_date.getYear());
         ignoreChange = false;
     }
 
@@ -276,7 +257,7 @@ public class JNCalendarPanel extends JPanel {
         if (ignoreChange) {
             return;
         }
-        _date = new CalendarDate(_date.getDay(), _date.getMonth(), ((Integer) yearSpin.getValue()).intValue());
+        _date = new CalendarDate(_date.getDay(), _date.getMonth(), (Integer) yearSpin.getValue());
         jnCalendar.set(_date);
         notifyListeners();
     }

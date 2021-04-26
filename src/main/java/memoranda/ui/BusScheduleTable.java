@@ -41,9 +41,8 @@ public class BusScheduleTable extends JTable {
     private Bus bus;
     private TourColl tourColl;
     private BusColl busColl;
-    private TableRowSorter<TableModel> sorter;
     private static final int HEIGHT = 24;
-    private DriverScheduleTable driverTable;
+    private final DriverScheduleTable driverTable;
 
     /**
      * Constructor for BusScheduleTable. Sets a default bus.
@@ -74,7 +73,7 @@ public class BusScheduleTable extends JTable {
         tourColl = CurrentProject.getTourColl();
 
         JPopupMenu optionsMenu = new JPopupMenu();
-        optionsMenu.setFont(new Font("Dialog", 1, 10));
+        optionsMenu.setFont(new Font("Dialog", Font.BOLD, 10));
 
         JMenuItem removeTour = new JMenuItem("Remove Tour");
         removeTour.addActionListener(new ActionListener() {
@@ -108,7 +107,7 @@ public class BusScheduleTable extends JTable {
         ScheduleTableModel model = new ScheduleTableModel();
         setModel(model);
 
-        sorter = new TableRowSorter<>(model);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
         setRowSorter(sorter);
 
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -271,9 +270,9 @@ public class BusScheduleTable extends JTable {
         this.bus = bus;
 
         if (bus == null) {
-            tours = new ArrayList<Tour>();
+            tours = new ArrayList<>();
         } else {
-            tours = new ArrayList<Tour>(bus.getTours());
+            tours = new ArrayList<>(bus.getTours());
         }
     }
 

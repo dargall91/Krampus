@@ -1,9 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -51,7 +48,7 @@ public class SearchPanel extends JPanel {
     JButton searchB = new JButton();
     BorderLayout borderLayout4 = new BorderLayout();
     BorderLayout borderLayout5 = new BorderLayout();
-    JProgressBar progressBar = new JProgressBar();
+    //JProgressBar progressBar = new JProgressBar();
 
     public SearchPanel() {
         try {
@@ -71,36 +68,28 @@ public class SearchPanel extends JPanel {
         jPanel1.setLayout(borderLayout2);
         jPanel2.setLayout(borderLayout3);
         jPanel2.setBorder(titledBorder1);
-        titledBorder1.setTitleFont(new java.awt.Font("Dialog", 1, 11));
-        searchField.setFont(new java.awt.Font("Dialog", 1, 10));
-        searchField.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(CaretEvent e) {
-                searchField_caretUpdate(e);
-            }
-        });
+        titledBorder1.setTitleFont(new java.awt.Font("Dialog", Font.BOLD, 11));
+        searchField.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
+        searchField.addCaretListener(e -> searchField_caretUpdate(e));
         jPanel3.setLayout(borderLayout5);
         caseSensCB.setText(Local.getString("Case sensitive"));
-        caseSensCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        caseSensCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         caseSensCB.setMargin(new Insets(0, 0, 0, 0));
 
-        regexpCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        regexpCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         regexpCB.setMargin(new Insets(0, 0, 0, 0));
         regexpCB.setText(Local.getString("Regular expressions"));
         wholeWCB.setText(Local.getString("Whole words only"));
         wholeWCB.setMargin(new Insets(0, 0, 0, 0));
-        wholeWCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        wholeWCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         searchB.setEnabled(false);
-        searchB.setFont(new java.awt.Font("Dialog", 1, 11));
+        searchB.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
         searchB.setMaximumSize(new Dimension(72, 25));
         searchB.setMinimumSize(new Dimension(2, 25));
         searchB.setPreferredSize(new Dimension(70, 25));
         searchB.setMargin(new Insets(0, 0, 0, 0));
         searchB.setText(Local.getString("Search"));
-        searchB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                searchB_actionPerformed(e);
-            }
-        });
+        searchB.addActionListener(e -> searchB_actionPerformed(e));
         jPanel4.setLayout(borderLayout4);
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(jPanel1, BorderLayout.NORTH);

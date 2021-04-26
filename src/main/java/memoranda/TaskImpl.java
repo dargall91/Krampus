@@ -1,21 +1,17 @@
 /**
- * DefaultTask.java
- * Created on 12.02.2003, 15:30:40 Alex
- * Package: net.sf.memoranda
+ * DefaultTask.java Created on 12.02.2003, 15:30:40 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Vector;
 
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
-
-import java.util.Calendar;
-
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
@@ -27,8 +23,8 @@ import nu.xom.Node;
 /*$Id: TaskImpl.java,v 1.15 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskImpl implements Task, Comparable {
 
-    private Element _element = null;
-    private TaskList _tl = null;
+    private final Element _element;
+    private final TaskList _tl;
 
     /**
      * Constructor for DefaultTask.
@@ -52,7 +48,7 @@ public class TaskImpl implements Task, Comparable {
 
     public CalendarDate getEndDate() {
         String ed = _element.getAttribute("endDate").getValue();
-        if (ed != "") {
+        if (!ed.equals("")) {
             return new CalendarDate(_element.getAttribute("endDate").getValue());
         }
         Task parent = this.getParentTask();
@@ -205,16 +201,16 @@ public class TaskImpl implements Task, Comparable {
         return _element.getFirstChildElement("text").getValue();
     }
 
-    public String toString() {
-        return getText();
-    }
-
     /**
      * @see main.java.memoranda.Task#setText()
      */
     public void setText(String s) {
         _element.getFirstChildElement("text").removeChildren();
         _element.getFirstChildElement("text").appendChild(s);
+    }
+
+    public String toString() {
+        return getText();
     }
 
     /**
@@ -276,7 +272,7 @@ public class TaskImpl implements Task, Comparable {
      * @see main.java.memoranda.Task#getProgress()
      */
     public int getProgress() {
-        return new Integer(_element.getAttribute("progress").getValue()).intValue();
+        return Integer.parseInt(_element.getAttribute("progress").getValue());
     }
 
     /**
@@ -284,7 +280,7 @@ public class TaskImpl implements Task, Comparable {
      */
     public void setProgress(int p) {
         if ((p >= 0) && (p <= 100)) {
-            setAttr("progress", new Integer(p).toString());
+            setAttr("progress", Integer.toString(p));
         }
     }
 
@@ -296,7 +292,7 @@ public class TaskImpl implements Task, Comparable {
         if (pa == null) {
             return Task.PRIORITY_NORMAL;
         }
-        return new Integer(pa.getValue()).intValue();
+        return Integer.parseInt(pa.getValue());
     }
 
     /**
@@ -329,8 +325,9 @@ public class TaskImpl implements Task, Comparable {
     private long calcTaskRate(CalendarDate d) {
         Calendar endDateCal = getEndDate().getCalendar();
         Calendar dateCal = d.getCalendar();
-        int numOfDays = (endDateCal.get(Calendar.YEAR) * 365 + endDateCal.get(Calendar.DAY_OF_YEAR)) -
-                (dateCal.get(Calendar.YEAR) * 365 + dateCal.get(Calendar.DAY_OF_YEAR));
+        int numOfDays =
+                (endDateCal.get(Calendar.YEAR) * 365 + endDateCal.get(Calendar.DAY_OF_YEAR)) -
+                        (dateCal.get(Calendar.YEAR) * 365 + dateCal.get(Calendar.DAY_OF_YEAR));
         if (numOfDays < 0) {
             return -1; //Something wrong ?
         }

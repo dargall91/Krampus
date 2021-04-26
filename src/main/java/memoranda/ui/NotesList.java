@@ -1,30 +1,19 @@
 package main.java.memoranda.ui;
 
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 import java.util.Collections;
 import java.util.Vector;
-
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 
 import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
-import main.java.memoranda.NoteListener;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
 import main.java.memoranda.TaskList;
-import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
-import main.java.memoranda.date.DateListener;
 import main.java.memoranda.util.Configuration;
 
 /*$Id: NotesList.java,v 1.9 2005/05/05 16:19:16 ivanrise Exp $*/
@@ -45,19 +34,11 @@ public class NotesList extends JList {
             sortOrderDesc = true;
         }
         _type = type;
-        this.setFont(new java.awt.Font("Dialog", 0, 11));
+        this.setFont(new java.awt.Font("Dialog", Font.PLAIN, 11));
         this.setModel(new NotesListModel());
-        CurrentDate.addDateListener(new DateListener() {
-            public void dateChange(CalendarDate d) {
-                updateUI();
-            }
-        });
+        CurrentDate.addDateListener(d -> updateUI());
 
-        CurrentNote.addNoteListener(new NoteListener() {
-            public void noteChange(Note n, boolean toSaveCurrentNote) {
-                updateUI();
-            }
-        });
+        CurrentNote.addNoteListener((n, toSaveCurrentNote) -> updateUI());
 
         CurrentProject.addProjectListener(new ProjectListener() {
             public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
@@ -78,7 +59,7 @@ public class NotesList extends JList {
         if (_type != EMPTY) {
             update(CurrentProject.getNoteList());
         } else {
-            update(new Vector());
+            update(new Vector<NoteList>());
         }
     }
 

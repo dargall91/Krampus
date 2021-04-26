@@ -1,18 +1,17 @@
 package main.java.memoranda.ui;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Vector;
-import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.MimeTypesList;
-
-import java.awt.event.*;
 
 /*$Id: PreferencesDialog.java,v 1.16 2006/06/28 22:58:31 alexeya Exp $*/
 public class PreferencesDialog extends JDialog {
@@ -42,9 +41,9 @@ public class PreferencesDialog extends JDialog {
 
     JRadioButton closeHideRB = new JRadioButton();
 
-    JLabel jLabel3 = new JLabel();
+    //JLabel jLabel3 = new JLabel();
 
-    ButtonGroup lfGroup = new ButtonGroup();
+    //ButtonGroup lfGroup = new ButtonGroup();
 
     JRadioButton lfSystemRB = new JRadioButton();
 
@@ -166,41 +165,21 @@ public class PreferencesDialog extends JDialog {
         gbc.insets = new Insets(10, 10, 0, 15);
         gbc.anchor = GridBagConstraints.EAST;
         enableSoundCB.setText(Local.getString("Enable sound notifications"));
-        enableSoundCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                enableSoundCB_actionPerformed(e);
-            }
-        });
+        enableSoundCB.addActionListener(e -> enableSoundCB_actionPerformed(e));
         soundPanel.setLayout(borderLayout1);
         soundFileBrowseB.setText(Local.getString("Browse"));
-        soundFileBrowseB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                soundFileBrowseB_actionPerformed(e);
-            }
-        });
+        soundFileBrowseB.addActionListener(e -> soundFileBrowseB_actionPerformed(e));
         gridLayout1.setRows(4);
         jPanel1.setBorder(titledBorder1);
         jPanel1.setLayout(gridLayout1);
         soundBeepRB.setText(Local.getString("System beep"));
-        soundBeepRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                soundBeepRB_actionPerformed(e);
-            }
-        });
+        soundBeepRB.addActionListener(e -> soundBeepRB_actionPerformed(e));
         jLabel6.setText(Local.getString("Sound file") + ":");
         soundDefaultRB.setText(Local.getString("Default"));
-        soundDefaultRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                soundDefaultRB_actionPerformed(e);
-            }
-        });
+        soundDefaultRB.addActionListener(e -> soundDefaultRB_actionPerformed(e));
         jPanel3.setLayout(borderLayout3);
         soundCustomRB.setText(Local.getString("Custom"));
-        soundCustomRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                soundCustomRB_actionPerformed(e);
-            }
-        });
+        soundCustomRB.addActionListener(e -> soundCustomRB_actionPerformed(e));
         jPanel2.setLayout(borderLayout2);
         soundPanel.add(jPanel2, BorderLayout.CENTER);
         jPanel2.add(jPanel1, BorderLayout.NORTH);
@@ -218,11 +197,7 @@ public class PreferencesDialog extends JDialog {
         minGroup.add(minTaskbarRB);
         minTaskbarRB.setSelected(true);
         minTaskbarRB.setText(Local.getString("Minimize to taskbar"));
-        minTaskbarRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                minTaskbarRB_actionPerformed(e);
-            }
-        });
+        minTaskbarRB.addActionListener(e -> minTaskbarRB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -231,11 +206,7 @@ public class PreferencesDialog extends JDialog {
         GeneralPanel.add(minTaskbarRB, gbc);
         minGroup.add(minHideRB);
         minHideRB.setText(Local.getString("Hide"));
-        minHideRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                minHideRB_actionPerformed(e);
-            }
-        });
+        minHideRB.addActionListener(e -> minHideRB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -253,11 +224,7 @@ public class PreferencesDialog extends JDialog {
         closeGroup.add(closeExitRB);
         closeExitRB.setSelected(true);
         closeExitRB.setText(Local.getString("Close and exit"));
-        closeExitRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                closeExitRB_actionPerformed(e);
-            }
-        });
+        closeExitRB.addActionListener(e -> closeExitRB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -267,11 +234,7 @@ public class PreferencesDialog extends JDialog {
 
         closeGroup.add(closeHideRB);
         closeHideRB.setText(Local.getString("Hide"));
-        closeHideRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                closeHideRB_actionPerformed(e);
-            }
-        });
+        closeHideRB.addActionListener(e -> closeHideRB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -346,11 +309,7 @@ public class PreferencesDialog extends JDialog {
         gbc.anchor = GridBagConstraints.EAST;
         GeneralPanel.add(jLabel4, gbc);
         enSystrayChB.setText(Local.getString("Enable system tray icon"));
-        enSystrayChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                enSystrayChB_actionPerformed(e);
-            }
-        });
+        enSystrayChB.addActionListener(e -> enSystrayChB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 10;
@@ -365,11 +324,7 @@ public class PreferencesDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         GeneralPanel.add(startMinimizedChB, gbc);
         enSplashChB.setText(Local.getString("Show splash screen"));
-        enSplashChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                enSplashChB_actionPerformed(e);
-            }
-        });
+        enSplashChB.addActionListener(e -> enSplashChB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 12;
@@ -377,11 +332,7 @@ public class PreferencesDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         GeneralPanel.add(enSplashChB, gbc);
         enL10nChB.setText(Local.getString("Enable localization"));
-        enL10nChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                enL10nChB_actionPerformed(e);
-            }
-        });
+        enL10nChB.addActionListener(e -> enL10nChB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 13;
@@ -389,9 +340,7 @@ public class PreferencesDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         GeneralPanel.add(enL10nChB, gbc);
         firstdow.setText(Local.getString("First day of week - Monday"));
-        firstdow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
+        firstdow.addActionListener(e -> {
         });
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -409,11 +358,7 @@ public class PreferencesDialog extends JDialog {
         GeneralPanel.add(lblExit, gbc);
         askConfirmChB.setSelected(true);
         askConfirmChB.setText(Local.getString("Ask confirmation"));
-        askConfirmChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                askConfirmChB_actionPerformed(e);
-            }
-        });
+        askConfirmChB.addActionListener(e -> askConfirmChB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 15;
@@ -445,11 +390,7 @@ public class PreferencesDialog extends JDialog {
         rsBottomPanel.add(browserPath, gbc);
         browseB.setText(Local.getString("Browse"));
         browseB.setPreferredSize(new Dimension(110, 25));
-        browseB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                browseB_actionPerformed(e);
-            }
-        });
+        browseB.addActionListener(e -> browseB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
@@ -497,21 +438,13 @@ public class PreferencesDialog extends JDialog {
         okB.setMaximumSize(new Dimension(100, 25));
         okB.setPreferredSize(new Dimension(100, 25));
         okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         bottomPanel.add(okB);
         cancelB.setMaximumSize(new Dimension(100, 25));
         cancelB.setPreferredSize(new Dimension(100, 25));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         bottomPanel.add(cancelB);
 
         // Build Preferences-Dialog
@@ -561,7 +494,7 @@ public class PreferencesDialog extends JDialog {
             // this.askConfirmChB.setEnabled(false);
         }
 
-        String onmin = Configuration.get("ON_MINIMIZE").toString();
+        //String onmin = Configuration.get("ON_MINIMIZE").toString();
         this.minTaskbarRB.setSelected(true);
 
         if (!System.getProperty("os.name").startsWith("Win")) {
@@ -614,7 +547,7 @@ public class PreferencesDialog extends JDialog {
         if (Configuration.get("BASE_FONT_SIZE").toString().length() > 0) {
             baseFontSize.setValue(Integer.decode(Configuration.get("BASE_FONT_SIZE").toString()));
         } else {
-            baseFontSize.setValue(new Integer(16));
+            baseFontSize.setValue(16);
         }
     }
 
@@ -694,8 +627,10 @@ public class PreferencesDialog extends JDialog {
                 Configuration.put("LOOK_AND_FEEL", lf);
                 new ExceptionDialog(
                         e,
-                        "Error when initializing a pluggable look-and-feel. Default LF will be used.",
-                        "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
+                        "Error when initializing a pluggable look-and-feel. Default LF will be "
+                                + "used.",
+                        "Make sure that specified look-and-feel library classes are on the "
+                                + "CLASSPATH.");
             }
         }
         String brPath = this.browserPath.getText();
@@ -725,7 +660,8 @@ public class PreferencesDialog extends JDialog {
         Configuration.put("HEADER_FONT", headerFontCB.getSelectedItem());
         Configuration.put("MONO_FONT", monoFontCB.getSelectedItem());
         Configuration.put("BASE_FONT_SIZE", baseFontSize.getValue());
-        App.getFrame().getDailyItemsPanel().editorPanel.editor.editor.setAntiAlias(antialiasChB.isSelected());
+        App.getFrame().getDailyItemsPanel().editorPanel.editor.editor
+                .setAntiAlias(antialiasChB.isSelected());
         App.getFrame().getDailyItemsPanel().editorPanel.initCSS();
         App.getFrame().getDailyItemsPanel().editorPanel.editor.repaint();
 

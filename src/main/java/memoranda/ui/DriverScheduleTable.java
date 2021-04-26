@@ -71,15 +71,10 @@ public class DriverScheduleTable extends JTable {
         tourColl = CurrentProject.getTourColl();
 
         JPopupMenu optionsMenu = new JPopupMenu();
-        optionsMenu.setFont(new Font("Dialog", 1, 10));
+        optionsMenu.setFont(new Font("Dialog", Font.BOLD, 10));
 
         JMenuItem removeTour = new JMenuItem("Remove Tour");
-        removeTour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeActionEvent(e);
-            }
-        });
+        removeTour.addActionListener(e -> removeActionEvent(e));
 
         optionsMenu.add(removeTour);
 

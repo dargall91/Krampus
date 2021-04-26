@@ -1,23 +1,18 @@
 package main.java.memoranda.ui;
 
-import java.io.*;
-import java.nio.*;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import main.java.memoranda.EventsManager;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
-import nu.xom.Document;
 import nu.xom.Element;
-import nu.xom.Elements;
 
 public class ExportSticker {
 
-    private String name;
+    private final String name;
         
         /*public static Document _doc = null;
         static Element _root = null;
@@ -54,7 +49,7 @@ public class ExportSticker {
 
     public boolean export(String src) {
         boolean result = true;
-        String fs = System.getProperty("file.separator");
+        //String fs = System.getProperty("file.separator");
 
         String contents = getSticker();
         try {
@@ -66,12 +61,14 @@ public class ExportSticker {
             fwrite.write(contents);
 
             fwrite.close();
-            JOptionPane.showMessageDialog(null, Local.getString("Document created successfully in your Memoranda folder =D"));
+            JOptionPane.showMessageDialog(null,
+                    Local.getString("Document created successfully in your Memoranda folder =D"));
 
 
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, Local.getString("We were NOT able to create your document =("));
+            JOptionPane.showMessageDialog(null,
+                    Local.getString("We were NOT able to create your document =("));
         }
 
 
@@ -82,9 +79,9 @@ public class ExportSticker {
         Map stickers = EventsManager.getStickers();
         String result = "";
         String nl = System.getProperty("line.separator");
-        for (Iterator i = stickers.keySet().iterator(); i.hasNext(); ) {
-            String id = (String) i.next();
-            result += (String) (((Element) stickers.get(id)).getValue()) + nl;
+        for (Object o : stickers.keySet()) {
+            String id = (String) o;
+            result += (((Element) stickers.get(id)).getValue()) + nl;
         }
 
         return result;

@@ -14,6 +14,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -72,14 +73,11 @@ public class AppFrame extends JFrame {
 
     JToolBar toolBar = new JToolBar();
     JButton button3 = new JButton();
-    ImageIcon image1;
-    ImageIcon image2;
-    ImageIcon image3;
     JLabel statusBar = new JLabel();
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
-    private WorkPanel workPanel = new WorkPanel();
-    private DailyItemsPanel dailyItemsPanel = workPanel.getDailyItemsPanel();
+    private final WorkPanel workPanel = new WorkPanel();
+    private final DailyItemsPanel dailyItemsPanel = workPanel.getDailyItemsPanel();
     ProjectsPanel projectsPanel = new ProjectsPanel(dailyItemsPanel);
     boolean prPanelExpanded = false;
 
@@ -256,10 +254,13 @@ public class AppFrame extends JFrame {
     }
 
     //Component initialization
-    private void jbInit() throws Exception {
-        this.setIconImage(new ImageIcon(AppFrame.class.getResource(
-                "/ui/logo/logo_icon.png"))
-                .getImage());
+    private void jbInit() {
+        try {
+            this.setIconImage(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                    "/ui/logo/logo_icon.png")))
+                    .getImage());
+        } catch (NullPointerException e){
+        }
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(borderLayout1);
         //this.setSize(new Dimension(800, 500));
@@ -269,44 +270,32 @@ public class AppFrame extends JFrame {
 
         menuFile.setText(Local.getString("File"));
         menuFileExit.setText(Local.getString("Exit"));
-        menuFileExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doExit();
-            }
-        });
+        menuFileExit.addActionListener(e -> doExit());
         menuHelp.setText(Local.getString("Help"));
 
         menuHelpGuide.setText(Local.getString("Online user's guide"));
         menuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
                 "/ui/icons/help.png")));
-        menuHelpGuide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpGuide_actionPerformed(e);
-            }
-        });
+        menuHelpGuide.addActionListener(e -> jMenuHelpGuide_actionPerformed(e));
 
         menuHelpWeb.setText(Local.getString("Memoranda web site"));
         menuHelpWeb.setIcon(new ImageIcon(AppFrame.class.getResource(
                 "/ui/icons/web.png")));
+        /*
         menuHelpWeb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jMenuHelpWeb_actionPerformed(e);
             }
         });
 
+         */
+        menuHelpWeb.addActionListener(e -> jMenuHelpWeb_actionPerformed(e));
+
         menuHelpBug.setText(Local.getString("Report a bug"));
-        menuHelpBug.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpBug_actionPerformed(e);
-            }
-        });
+        menuHelpBug.addActionListener(e -> jMenuHelpBug_actionPerformed(e));
 
         menuHelpAbout.setText(Local.getString("About Memoranda"));
-        menuHelpAbout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpAbout_actionPerformed(e);
-            }
-        });
+        menuHelpAbout.addActionListener(e -> jMenuHelpAbout_actionPerformed(e));
         //jButton3.setIcon(image3);
         button3.setToolTipText(Local.getString("Help"));
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -349,7 +338,7 @@ public class AppFrame extends JFrame {
         menuEditRedo.setToolTipText(Local.getString("Redo"));
         menuEditCut.setText(Local.getString("Cut"));
         menuEditCut.setToolTipText(Local.getString("Cut"));
-        menuEditCopy.setText((String) Local.getString("Copy"));
+        menuEditCopy.setText(Local.getString("Copy"));
         menuEditCopy.setToolTipText(Local.getString("Copy"));
         menuEditPaste.setText(Local.getString("Paste"));
         menuEditPaste.setToolTipText(Local.getString("Paste"));
@@ -559,23 +548,17 @@ public class AppFrame extends JFrame {
 
         setEnabledEditorMenus(false);
 
-        projectsPanel.AddExpandListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (prPanelExpanded) {
-                    prPanelExpanded = false;
-                    splitPane.setDividerLocation(28);
-                } else {
-                    prPanelExpanded = true;
-                    splitPane.setDividerLocation(0.2);
-                }
+        projectsPanel.AddExpandListener(e -> {
+            if (prPanelExpanded) {
+                prPanelExpanded = false;
+                splitPane.setDividerLocation(28);
+            } else {
+                prPanelExpanded = true;
+                splitPane.setDividerLocation(0.2);
             }
         });
 
-        java.awt.event.ActionListener setMenusDisabled = new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setEnabledEditorMenus(false);
-            }
-        };
+        java.awt.event.ActionListener setMenusDisabled = e -> setEnabledEditorMenus(false);
 
         dailyItemsPanel.taskB
                 .addActionListener(setMenusDisabled);
@@ -590,8 +573,8 @@ public class AppFrame extends JFrame {
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
         if ((fwo != null) && (fho != null)) {
-            int w = new Integer((String) fwo).intValue();
-            int h = new Integer((String) fho).intValue();
+            int w = Integer.parseInt((String) fwo);
+            int h = Integer.parseInt((String) fho);
             this.setSize(w, h);
         } else {
             this.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -600,8 +583,8 @@ public class AppFrame extends JFrame {
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
         if ((xo != null) && (yo != null)) {
-            int x = new Integer((String) xo).intValue();
-            int y = new Integer((String) yo).intValue();
+            int x = Integer.parseInt((String) xo);
+            int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
         }
 
@@ -651,10 +634,10 @@ public class AppFrame extends JFrame {
             }
         }
 
-        Context.put("FRAME_WIDTH", new Integer(this.getWidth()));
-        Context.put("FRAME_HEIGHT", new Integer(this.getHeight()));
-        Context.put("FRAME_XPOS", new Integer(this.getLocation().x));
-        Context.put("FRAME_YPOS", new Integer(this.getLocation().y));
+        Context.put("FRAME_WIDTH", this.getWidth());
+        Context.put("FRAME_HEIGHT", this.getHeight());
+        Context.put("FRAME_XPOS", this.getLocation().x);
+        Context.put("FRAME_YPOS", this.getLocation().y);
         exitNotify();
         System.exit(0);
     }
@@ -924,8 +907,9 @@ public class AppFrame extends JFrame {
         Context.put(
                 "LAST_SELECTED_EXPORT_FILE",
                 chooser.getSelectedFile().getPath());
-        Context.put("EXPORT_SPLIT_NOTES", new Boolean(dlg.splitChB.isSelected()).toString());
-        Context.put("EXPORT_TITLES_AS_HEADERS", new Boolean(dlg.titlesAsHeadersChB.isSelected()).toString());
+        Context.put("EXPORT_SPLIT_NOTES", Boolean.toString(dlg.splitChB.isSelected()));
+        Context.put("EXPORT_TITLES_AS_HEADERS",
+                Boolean.toString(dlg.titlesAsHeadersChB.isSelected()));
 
         int ei = dlg.encCB.getSelectedIndex();
         enc = null;
@@ -1087,19 +1071,19 @@ public class AppFrame extends JFrame {
         }
         Context.put("LAST_SELECTED_NOTE_FILE", chooser.getSelectedFile());
         java.io.File f = chooser.getSelectedFile();
-        HashMap<String, String> notesName = new HashMap<String, String>();
-        HashMap<String, String> notesContent = new HashMap<String, String>();
+        HashMap<String, String> notesName = new HashMap<>();
+        HashMap<String, String> notesContent = new HashMap<>();
         Builder parser = new Builder();
-        String id = "";
-        String name = "";
-        String content = "";
+        String id;
+        String name;
+        String content;
         try {
             Document document = parser.build(f);
             content = document.getRootElement().getFirstChildElement("body").getValue();
             content = content.substring(content.indexOf("\n", content.indexOf("-")));
             content = content.replace("<p>", "").replace("</p>", "\n");
             name = f.getName().substring(0, f.getName().lastIndexOf("."));
-            Element item;
+            //Element item;
             id = Util.generateId();
             System.out.println(id + " " + name + " " + content);
             notesName.put(id, name);
