@@ -147,7 +147,6 @@ public class AppFrame extends JFrame {
     }
 
     private void jbInit() {
-        UIManager.installLookAndFeel("Aqua", "com.apple.laf.AquaLookAndFeel");
         try {
             this.setIconImage(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
                     "/ui/logo/logo_icon.png")))

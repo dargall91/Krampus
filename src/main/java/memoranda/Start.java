@@ -11,6 +11,8 @@ package main.java.memoranda;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.UIManager;
+
 import main.java.memoranda.ui.*;
 import main.java.memoranda.util.Configuration;
 
@@ -70,6 +72,7 @@ public class Start {
 class SLThread extends Thread {
 
     public void run() {
+        UIManager.installLookAndFeel("Aqua", "com.apple.laf.AquaLookAndFeel");
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(Start.DEFAULT_PORT);
