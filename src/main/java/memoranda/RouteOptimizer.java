@@ -3,8 +3,8 @@ package main.java.memoranda;
 import java.util.LinkedList;
 
 /**
- * RouteOptimizer provides methods for the optimization of a route's path, both with a given start point
- * and a selected start point.
+ * RouteOptimizer provides methods for the optimization of a route's path, both with a given start
+ * point and a selected start point.
  *
  * @author Chris Boveda
  * @version 2021-04-10
@@ -19,8 +19,8 @@ public class RouteOptimizer {
     /**
      * Optimizes the path between the nodes of the routes using a nearest-neighbor/greedy algorithm.
      * Behavior with duplicate nodes is uncertain. Will select first element of a set of nodes that
-     * are equidistant from the current. Only factor that affects the determination of the route is the
-     * starting node.
+     * are equidistant from the current. Only factor that affects the determination of the route is
+     * the starting node.
      */
     public void optimize() {
         LinkedList<Node> routeCopy = new LinkedList<>(route.getRoute());

@@ -132,11 +132,8 @@ public class NodeMapper {
      * @return true if coord is in domain/range of this mapper's NodeColl
      */
     private boolean inRange(Coordinate coord) {
-        if ((coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon())
-                && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat())) {
-            return true;
-        }
-        return false;
+        return (coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon())
+                && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat());
     }
 
     /**

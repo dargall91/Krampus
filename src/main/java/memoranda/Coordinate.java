@@ -11,12 +11,12 @@ package main.java.memoranda;
  * @version 2021-04-01
  */
 public class Coordinate {
-    private Double lat;
-    private Double lon;
     public static final double LON_MIN = -180;
     public static final double LON_MAX = 180;
     public static final double LAT_MIN = -90;
     public static final double LAT_MAX = 90;
+    private final Double lat;
+    private final Double lon;
 
     /**
      * immutable object; must use this constructor.
@@ -157,13 +157,13 @@ public class Coordinate {
             String long2 = c.lat.toString();
             return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
         }
-        
+
         return false;
     }
-    
+
     /**
      * Override of hashCode for equals method.
-     * 
+     *
      * @return an arbitrary constant
      */
     public int hashCode() {

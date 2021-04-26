@@ -1,10 +1,8 @@
 /**
- * CurrentProject.java
- * Created on 13.02.2003, 13:16:52 Alex
- * Package: net.sf.memoranda
+ * CurrentProject.java Created on 13.02.2003, 13:16:52 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- *         Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 
 package main.java.memoranda;
@@ -19,7 +17,6 @@ import main.java.memoranda.ui.AppFrame;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
 
 /**
@@ -32,7 +29,7 @@ import main.java.memoranda.util.Storage;
 public class CurrentProject {
 
     private static Project _project = null;
-    private static Vector projectListeners = new Vector();
+    private static final Vector projectListeners = new Vector();
     private static DriverColl _drivers = null;
     private static TourColl _tours = null;
     private static RouteColl _routes = null;
@@ -80,7 +77,7 @@ public class CurrentProject {
 
     /**
      * Gets the project.
-     * 
+     *
      * @return the current project
      */
     public static Project get() {
@@ -135,7 +132,7 @@ public class CurrentProject {
 
     /**
      * Sets the current project.
-     * 
+     *
      * @param project The project to set
      */
     public static void set(Project project) {
@@ -148,7 +145,7 @@ public class CurrentProject {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         DriverColl newDriverColl = null;
         TourColl newTourColl = null;
         NodeColl newNodeColl = null;
@@ -163,7 +160,7 @@ public class CurrentProject {
         } catch (Exception e) {
             new ExceptionDialog(e);
         }
-        
+
         notifyListenersBefore(project);
         _project = project;
         _drivers = newDriverColl;
@@ -176,7 +173,7 @@ public class CurrentProject {
 
     /**
      * Adds an event listener to this project.
-     * 
+     *
      * @param pl The ProjectListener to add
      */
     public static void addProjectListener(ProjectListener pl) {

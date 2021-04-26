@@ -1,10 +1,8 @@
 /**
- * ProjectImpl.java
- * Created on 11.02.2003, 23:06:22 Alex
- * Package: net.sf.memoranda
+ * ProjectImpl.java Created on 11.02.2003, 23:06:22 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 

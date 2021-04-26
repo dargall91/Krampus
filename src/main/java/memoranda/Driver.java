@@ -1,26 +1,25 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
- * Driver object representing a driver in the MTB scheduling system.  Drivers can be associated with tours.
+ * Driver object representing a driver in the MTB scheduling system.  Drivers can be associated with
+ * tours.
  *
  * @author Brian Pape
  * @version 2021-04-01
  */
 public class Driver extends IndexedObject {
+    @JsonIgnore
+    private final HashMap<Integer, Tour> tours;
     private String name;
     private String phoneNumber;
-
-    @JsonIgnore
-    private HashMap<Integer, Tour> tours;
 
 
     /**
@@ -57,7 +56,8 @@ public class Driver extends IndexedObject {
      */
     public Driver(TourColl tc, DriverLoader newDriver) throws DuplicateKeyException {
         this(newDriver.getID());
-        System.out.println("Adding tour driver " + newDriver.getID() + " to tours " + newDriver.getTourIDs());
+        System.out.println(
+                "Adding tour driver " + newDriver.getID() + " to tours " + newDriver.getTourIDs());
         //WIP
         this.name = newDriver.getName();
         this.phoneNumber = newDriver.getPhoneNumber();
@@ -129,6 +129,14 @@ public class Driver extends IndexedObject {
         return li;
     }
 
+    /**
+     * name getter.
+     *
+     * @return driver's name
+     */
+    public String getName() {
+        return name;
+    }
 
     /**
      * name setter.
@@ -140,31 +148,21 @@ public class Driver extends IndexedObject {
     }
 
     /**
-     * phonenumber setter.
-     *
-     * @param phoneNumber the driver's phone number
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-
-    /**
-     * name getter.
-     *
-     * @return driver's name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * phonenumber getter.
      *
      * @return driver's phone number
      */
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    /**
+     * phonenumber setter.
+     *
+     * @param phoneNumber the driver's phone number
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     /**
