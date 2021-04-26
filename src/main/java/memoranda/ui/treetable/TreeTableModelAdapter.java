@@ -13,19 +13,17 @@ package main.java.memoranda.ui.treetable;
  * you entered into with Sun.
  */
 
-import javax.swing.JTree;
-import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.tree.TreePath;
+import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.TreePath;
 
 /**
- * This is a wrapper class takes a TreeTableModel and implements
- * the table model interface. The implementation is trivial, with
- * all of the event dispatching support provided by the superclass:
+ * This is a wrapper class takes a TreeTableModel and implements the table model interface. The
+ * implementation is trivial, with all of the event dispatching support provided by the superclass:
  * the AbstractTableModel.
  *
  * @author Philip Milne
@@ -111,8 +109,8 @@ public class TreeTableModelAdapter extends AbstractTableModel {
     }
 
     /**
-     * Invokes fireTableDataChanged after all the pending events have been
-     * processed. SwingUtilities.invokeLater is used to handle this.
+     * Invokes fireTableDataChanged after all the pending events have been processed.
+     * SwingUtilities.invokeLater is used to handle this.
      */
     protected void delayedFireTableDataChanged() {
         SwingUtilities.invokeLater(new Runnable() {
