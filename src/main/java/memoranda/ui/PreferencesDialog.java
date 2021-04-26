@@ -494,7 +494,7 @@ public class PreferencesDialog extends JDialog {
             // this.askConfirmChB.setEnabled(false);
         }
 
-        String onmin = Configuration.get("ON_MINIMIZE").toString();
+        //String onmin = Configuration.get("ON_MINIMIZE").toString();
         this.minTaskbarRB.setSelected(true);
 
         if (!System.getProperty("os.name").startsWith("Win")) {
