@@ -1,8 +1,8 @@
 /**
  * RouteStop creates stops and connections for RouteMap.
  *
- * @author Kevin Dolan
- * @version 1.0
+ * @author Kevin Dolan, John Thurstonson
+ * @version 2021-04-25
  */
 package main.java.memoranda.ui;
 
@@ -24,17 +24,19 @@ public class RouteStop {
     private final double y;
     private final Point2D busStop;
     private final int id;
+    private final String name;
 
     /**
      * Constructor for RouteStop.
      *
      * @param point the coordinate
      */
-    public RouteStop(int id, Point2D point) {
+    public RouteStop(int id, Point2D point, String name) {
         this.id = id;
         busStop = point;
         this.x = point.getX();
         this.y = point.getY();
+        this.name = name;
     }
 
     /**
@@ -50,7 +52,7 @@ public class RouteStop {
 
         g2d.setColor(Color.BLUE);
         g2d.fill(circle);
-        g2d.drawString("Stop", xAxis, yaxis);
+        g2d.drawString(name, xAxis, yaxis);
     }
 
     /**
