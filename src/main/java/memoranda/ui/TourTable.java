@@ -38,7 +38,6 @@ public class TourTable extends JTable {
     }
 
     private void initTable() {
-
         tours = CurrentProject.getTourColl();
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
@@ -74,9 +73,7 @@ public class TourTable extends JTable {
                 return comp;
             }
         };
-
     }
-
 
     /**
      * Creates tour table.
@@ -117,6 +114,10 @@ public class TourTable extends JTable {
             } else if (col == 2) {
                 return tour.getRoute().getName();
             } else if (col == 3) {
+                if (tour.getBus() == null) {
+                    return "";
+                }
+                
                 return tour.getBus().getNumber();
             } else if (col == 4) {
                 if (tour.getDriver() == null) {

@@ -18,8 +18,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
-import main.java.memoranda.Task;
-
 import javax.swing.table.*;
 
 import java.awt.Color;
@@ -214,9 +212,7 @@ public class JTreeTable extends JTable {
             } else {
                 setBackground(table.getBackground());
             }
-            if (value instanceof Task) {
-
-            }
+ 
             visibleRow = row;
             return this;
         }

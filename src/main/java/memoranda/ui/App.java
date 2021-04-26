@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import main.java.memoranda.BuildVersion;
-import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
 
 /**
@@ -18,9 +17,10 @@ import main.java.memoranda.util.Configuration;
 
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
-    // boolean packFrame = false;
-
-    private static AppFrame frame = null;
+    private static final String VERSION_INFO = BuildVersion.getVersion();
+    private static final String BUILD_INFO = BuildVersion.getBuild();
+    
+    private static AppFrame frame = new AppFrame();
 
     private static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
     private static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
@@ -28,9 +28,6 @@ public class App {
     private static int state;
 
     private JFrame splash = null;
-
-    private static final String VERSION_INFO = BuildVersion.getVersion();
-    private static final String BUILD_INFO = BuildVersion.getBuild();
 
     /*========================================================================*/
 
@@ -92,8 +89,6 @@ public class App {
             System.out.println("[DEBUG] first day of week is set to " + fdow);
         }
 
-        EventsScheduler.init();
-        frame = new AppFrame();
         if (fullmode) {
             init();
         }

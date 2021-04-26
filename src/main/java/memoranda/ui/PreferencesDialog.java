@@ -67,10 +67,6 @@ public class PreferencesDialog extends JDialog {
 
     JCheckBox firstdow = new JCheckBox();
 
-    JPanel resourcePanel = new JPanel(new BorderLayout());
-
-    ResourceTypePanel resourceTypePanel = new ResourceTypePanel();
-
     Border rstPanelBorder;
 
     JPanel rsBottomPanel = new JPanel(new GridBagLayout());
@@ -124,19 +120,6 @@ public class PreferencesDialog extends JDialog {
     JRadioButton soundCustomRB = new JRadioButton();
 
     BorderLayout borderLayout2 = new BorderLayout();
-
-    JPanel editorConfigPanel = new JPanel(new BorderLayout());
-    JPanel econfPanel = new JPanel(new GridLayout(5, 2));
-    Vector fontnames = getFontNames();
-    JComboBox normalFontCB = new JComboBox(fontnames);
-    JComboBox headerFontCB = new JComboBox(fontnames);
-    JComboBox monoFontCB = new JComboBox(fontnames);
-    JSpinner baseFontSize = new JSpinner();
-    JCheckBox antialiasChB = new JCheckBox();
-    JLabel normalFontLabel = new JLabel();
-    JLabel headerFontLabel = new JLabel();
-    JLabel monoFontLabel = new JLabel();
-    JLabel baseFontSizeLabel = new JLabel();
 
     public PreferencesDialog(Frame frame) {
         super(frame, Local.getString("Preferences"), true);
@@ -241,64 +224,6 @@ public class PreferencesDialog extends JDialog {
         gbc.insets = new Insets(2, 0, 0, 10);
         gbc.anchor = GridBagConstraints.WEST;
         GeneralPanel.add(closeHideRB, gbc);
-        
-        /*jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-        jLabel3.setText(Local.getString("Look and feel:"));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.insets = new Insets(2, 10, 0, 15);
-        gbc.anchor = GridBagConstraints.EAST;
-        GeneralPanel.add(jLabel3, gbc);
-
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.insets = new Insets(2, 0, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        gbc.insets = new Insets(2, 0, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        GeneralPanel.add(lfSystemRB, gbc);
-
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        gbc.insets = new Insets(2, 0, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        GeneralPanel.add(lfJavaRB, gbc);
-        lfGroup.add(lfCustomRB);
-        lfCustomRB.setText(Local.getString("Custom"));
-        lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                lfCustomRB_actionPerformed(e);
-            }
-        });
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        gbc.insets = new Insets(2, 0, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        GeneralPanel.add(lfCustomRB, gbc);
-        classNameLabel.setEnabled(false);
-        classNameLabel.setText(Local.getString("L&F class name:"));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 8;
-        gbc.insets = new Insets(2, 20, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        GeneralPanel.add(classNameLabel, gbc);
-        lfClassName.setEnabled(false);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 9;
-        gbc.insets = new Insets(7, 20, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        GeneralPanel.add(lfClassName, gbc);*/
 
         jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
         jLabel4.setText(Local.getString("Startup:"));
@@ -366,70 +291,9 @@ public class PreferencesDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         GeneralPanel.add(askConfirmChB, gbc);
 
-        // Build Tab2
-        rstPanelBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-        resourceTypePanel.setBorder(rstPanelBorder);
-        resourcePanel.add(resourceTypePanel, BorderLayout.CENTER);
-        rsbpBorder = new TitledBorder(BorderFactory.createEmptyBorder(5, 5, 5,
-                5), Local.getString("Web browser executable"));
-        rsBottomPanel.setBorder(rsbpBorder);
-        jLabel5.setText(Local.getString("Path") + ":");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(0, 5, 0, 5);
-        gbc.anchor = GridBagConstraints.WEST;
-        rsBottomPanel.add(jLabel5, gbc);
-        browserPath.setPreferredSize(new Dimension(250, 25));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(0, 5, 0, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        rsBottomPanel.add(browserPath, gbc);
-        browseB.setText(Local.getString("Browse"));
-        browseB.setPreferredSize(new Dimension(110, 25));
-        browseB.addActionListener(e -> browseB_actionPerformed(e));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        // gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.anchor = GridBagConstraints.EAST;
-        rsBottomPanel.add(browseB, gbc);
-
-        resourcePanel.add(rsBottomPanel, BorderLayout.SOUTH);
-
-        // Build editorConfigPanel
-        normalFontLabel.setText(Local.getString("Normal text font"));
-        normalFontLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        headerFontLabel.setText(Local.getString("Header font"));
-        headerFontLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        monoFontLabel.setText(Local.getString("Monospaced font"));
-        monoFontLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        baseFontSizeLabel.setText(Local.getString("Base font size"));
-        baseFontSizeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        antialiasChB.setText(Local.getString("Antialias text"));
-        JPanel bfsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        bfsPanel.add(baseFontSize);
-        econfPanel.add(normalFontLabel);
-        econfPanel.add(normalFontCB);
-        econfPanel.add(headerFontLabel);
-        econfPanel.add(headerFontCB);
-        econfPanel.add(monoFontLabel);
-        econfPanel.add(monoFontCB);
-        econfPanel.add(baseFontSizeLabel);
-        econfPanel.add(bfsPanel);
-        econfPanel.add(antialiasChB);
-        econfPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 10));
-        ((GridLayout) econfPanel.getLayout()).setHgap(10);
-        ((GridLayout) econfPanel.getLayout()).setVgap(5);
-        editorConfigPanel.add(econfPanel, BorderLayout.NORTH);
         // Build TabbedPanel
         tabbedPanel.add(GeneralPanel, Local.getString("General"));
-        tabbedPanel.add(resourcePanel, Local.getString("Resource types"));
         tabbedPanel.add(soundPanel, Local.getString("Sound"));
-        tabbedPanel.add(editorConfigPanel, Local.getString("Editor"));
 
         // Build TopPanel
         topPanel.add(tabbedPanel, BorderLayout.CENTER);
@@ -526,29 +390,6 @@ public class PreferencesDialog extends JDialog {
             this.enableCustomSound(true);
         }
         this.enableSound(enableSnd);
-
-        antialiasChB.setSelected(Configuration.get("ANTIALIAS_TEXT")
-                .toString().equalsIgnoreCase("yes"));
-        if (Configuration.get("NORMAL_FONT").toString().length() > 0) {
-            normalFontCB.setSelectedItem(Configuration.get("NORMAL_FONT").toString());
-        } else {
-            normalFontCB.setSelectedItem("serif");
-        }
-        if (Configuration.get("HEADER_FONT").toString().length() > 0) {
-            headerFontCB.setSelectedItem(Configuration.get("HEADER_FONT").toString());
-        } else {
-            headerFontCB.setSelectedItem("sans-serif");
-        }
-        if (Configuration.get("MONO_FONT").toString().length() > 0) {
-            monoFontCB.setSelectedItem(Configuration.get("MONO_FONT").toString());
-        } else {
-            monoFontCB.setSelectedItem("monospaced");
-        }
-        if (Configuration.get("BASE_FONT_SIZE").toString().length() > 0) {
-            baseFontSize.setValue(Integer.decode(Configuration.get("BASE_FONT_SIZE").toString()));
-        } else {
-            baseFontSize.setValue(16);
-        }
     }
 
     void apply() {
@@ -649,21 +490,6 @@ public class PreferencesDialog extends JDialog {
                 && (this.soundFile.getText().trim().length() > 0)) {
             Configuration.put("NOTIFY_SOUND", this.soundFile.getText().trim());
         }
-
-        if (antialiasChB.isSelected()) {
-            Configuration.put("ANTIALIAS_TEXT", "yes");
-        } else {
-            Configuration.put("ANTIALIAS_TEXT", "no");
-        }
-
-        Configuration.put("NORMAL_FONT", normalFontCB.getSelectedItem());
-        Configuration.put("HEADER_FONT", headerFontCB.getSelectedItem());
-        Configuration.put("MONO_FONT", monoFontCB.getSelectedItem());
-        Configuration.put("BASE_FONT_SIZE", baseFontSize.getValue());
-        App.getFrame().getDailyItemsPanel().editorPanel.editor.editor
-                .setAntiAlias(antialiasChB.isSelected());
-        App.getFrame().getDailyItemsPanel().editorPanel.initCSS();
-        App.getFrame().getDailyItemsPanel().editorPanel.editor.repaint();
 
         Configuration.saveConfig();
 

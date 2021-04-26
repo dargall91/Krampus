@@ -27,11 +27,6 @@ public class HistoryItem {
         _project = project;
     }
 
-    public HistoryItem(Note note) {
-        _date = note.getDate();
-        _project = note.getProject();
-    }
-
     public CalendarDate getDate() {
         return _date;
     }

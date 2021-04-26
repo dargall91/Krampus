@@ -12,11 +12,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.Local;
@@ -191,14 +188,13 @@ public class JNCalendarPanel extends JPanel {
 
         yearSpin.addChangeListener(e -> yearSpin_actionPerformed());
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p) {
             }
 
             public void projectWasChanged() {
                 jnCalendar.updateUI();
             }
         });
-
 
         refreshView();
         yearSpin.setBorder(border2);

@@ -30,7 +30,6 @@ import main.java.memoranda.util.Local;
  *
  */
 public class WorkPanel extends JPanel {
-    private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toolBar = new JToolBar();
     private JPanel panel = new JPanel();
     private CardLayout cardLayout1 = new CardLayout();
@@ -41,7 +40,6 @@ public class WorkPanel extends JPanel {
     private JButton toursB = new JButton();
     private JButton mapB = new JButton();
     private JButton currentB = null;
-    private Border border1;
 
     /**
      * Creates a new WorkPanel.
@@ -55,17 +53,7 @@ public class WorkPanel extends JPanel {
     }
 
     private void jbInit() throws Exception {
-        border1 =
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createBevelBorder(
-                                BevelBorder.LOWERED,
-                                Color.white,
-                                Color.white,
-                                new Color(124, 124, 124),
-                                new Color(178, 178, 178)),
-                        BorderFactory.createEmptyBorder(0, 2, 0, 0));
-
-        this.setLayout(borderLayout1);
+        this.setLayout(new BorderLayout());
         toolBar.setOrientation(JToolBar.VERTICAL);
         toolBar.setBackground(Color.white);
 
@@ -195,6 +183,11 @@ public class WorkPanel extends JPanel {
 
     }
 
+    /**
+     * Sets the selected panel.
+     * 
+     * @param pan The name of the panel to select
+     */
     public void selectPanel(String pan) {
         if (pan != null) {
             if (pan.equals("BUSES")) {
@@ -207,35 +200,35 @@ public class WorkPanel extends JPanel {
         }
     }
 
-    public void driverB_actionPerformed(ActionEvent e) {
+    private void driverB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "DAILYITEMS");
         dailyItemsPanel.selectPanel("DRIVERS");
         setCurrentButton(driverB);
         Context.put("CURRENT_PANEL", "DRIVERS");
     }
 
-    public void busB_actionPerformed(ActionEvent e) {
+    private void busB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "DAILYITEMS");
         dailyItemsPanel.selectPanel("BUSES");
         setCurrentButton(busesB);
         Context.put("CURRENT_PANEL", "BUSES");
     }
 
-    public void toursB_actionPerformed(ActionEvent e) {
+    private void toursB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "DAILYITEMS");
         dailyItemsPanel.selectPanel("TOURS");
         setCurrentButton(toursB);
         Context.put("CURRENT_PANEL", "TOURS");
     }
 
-    public void mapB_actionPerformed(ActionEvent e) {
+    private void mapB_actionPerformed(ActionEvent e) {
         cardLayout1.show(panel, "MAP");
         dailyItemsPanel.selectPanel("MAP");
         setCurrentButton(mapB);
         Context.put("CURRENT_PANEL", "MAP");
     }
 
-    void setCurrentButton(JButton cb) {
+    private void setCurrentButton(JButton cb) {
         currentB.setBackground(Color.white);
         currentB.setOpaque(false);
         currentB = cb;
