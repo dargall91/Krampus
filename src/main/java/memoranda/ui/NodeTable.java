@@ -1,13 +1,14 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Route;
-import main.java.memoranda.Node;
-
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
-import java.awt.*;
+
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Node;
+import main.java.memoranda.Route;
+
 
 /**
  * JTable to display nodes from a selected route in the system.
@@ -34,7 +35,7 @@ public class NodeTable extends JTable {
     private void initTable() {
         //todo NPE
         route = (Route) CurrentProject.getRouteColl().getRoutes().toArray()
-                [(routeTable.getSelectedRow() != -1) ? routeTable.getSelectedRow() : 0];
+            [(routeTable.getSelectedRow() != -1) ? routeTable.getSelectedRow() : 0];
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
         updateUI();
@@ -55,12 +56,12 @@ public class NodeTable extends JTable {
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
-                    JTable table,
-                    Object value,
-                    boolean isSelected,
-                    boolean hasFocus,
-                    int row,
-                    int column) {
+                JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column) {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 comp.setForeground(java.awt.Color.gray);
@@ -77,8 +78,7 @@ public class NodeTable extends JTable {
      * @version 2021-04-16
      */
     private class NodeTableModel extends AbstractTableModel {
-        private final String[] COLUMN_NAMES = {"Node ID", "Name", "Lat", "Long"};
-
+        private final String[] columnNames = {"Node ID", "Name", "Lat", "Long"};
 
         /**
          * Returns the row count of the table.
@@ -142,7 +142,7 @@ public class NodeTable extends JTable {
          * @return the name as a string
          */
         public String getColumnName(int columnIndex) {
-            return COLUMN_NAMES[columnIndex];
+            return columnNames[columnIndex];
         }
     }
 

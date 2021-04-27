@@ -4,12 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.*;
 
-import main.java.memoranda.Coordinate;
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Node;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteOptimizer;
 import main.java.memoranda.Tour;
@@ -20,35 +17,33 @@ import main.java.memoranda.util.Local;
 /**
  * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of the Route Map.
  *
- * @version 2021-04-25
- * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
+ * @author alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
+ * @version 2021-04-27
  */
 public class RouteMapPanel extends JPanel {
     private static final int BUTTON_HEIGHT = 30;
     private static final int BUTTON_WIDTH = 150;
 
-    private BorderLayout borderLayout1 = new BorderLayout();
-    private BorderLayout borderLayout2 = new BorderLayout();
-    private JToolBar toolBar = new JToolBar();
-    private JScrollPane scrollPane = new JScrollPane();
-    private RouteTable routeTable = new RouteTable(this);
-    private JScrollPane rScrollPane = new JScrollPane();
-    private NodeTable nodeTable = new NodeTable(routeTable);
-    private JScrollPane nScrollPane = new JScrollPane();
-    private RouteMap map = new RouteMap(this);
+    private final BorderLayout borderLayout1 = new BorderLayout();
+    private final JToolBar toolBar = new JToolBar();
+    private final JScrollPane scrollPane = new JScrollPane();
+    private final RouteTable routeTable = new RouteTable(this);
+    private final JScrollPane routeScrollPane = new JScrollPane();
+    private final NodeTable nodeTable = new NodeTable(routeTable);
+    private final JScrollPane nodeScrollPane = new JScrollPane();
+    private final RouteMap map = new RouteMap(this);
 
-
-    private JButton newRouteB = new JButton();
-    private JButton removeRouteB = new JButton();
-    private JButton optRouteB = new JButton();
-    private JButton optRouteWithStartB = new JButton();
-    private JButton refreshB = new JButton();
+    private final JButton newRouteB = new JButton();
+    private final JButton removeRouteB = new JButton();
+    private final JButton optRouteB = new JButton();
+    private final JButton optRouteWithStartB = new JButton();
+    private final JButton refreshB = new JButton();
     //private JButton debugAddNodesB = new JButton();
 
-    private JPopupMenu resPPMenu = new JPopupMenu();
-    private JMenuItem ppRemoveRes = new JMenuItem();
-    private JMenuItem ppNewRes = new JMenuItem();
-    private JMenuItem ppRefresh = new JMenuItem();
+    private final JPopupMenu resPopMenu = new JPopupMenu();
+    private final JMenuItem ppRemoveRes = new JMenuItem();
+    private final JMenuItem ppNewRes = new JMenuItem();
+    private final JMenuItem ppRefresh = new JMenuItem();
 
     private DailyItemsPanel parentPanel;
 
@@ -67,7 +62,7 @@ public class RouteMapPanel extends JPanel {
     /**
      * Initiates the JButtons on the panel.
      *
-     * @throws Exception
+     * @throws Exception    exception
      */
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
@@ -76,8 +71,6 @@ public class RouteMapPanel extends JPanel {
         routeTable.setNodeTable(nodeTable);
 
         /* New Route Button */
-        newRouteB.setIcon(
-                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         newRouteB.setText("New");
         newRouteB.setEnabled(true);
         newRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -90,8 +83,6 @@ public class RouteMapPanel extends JPanel {
         newRouteB.addActionListener((e) -> newRouteB_actionPerformed(e));
 
         /* Remove Route Button */
-        removeRouteB.setIcon(
-                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         removeRouteB.setText("Remove");
         removeRouteB.setEnabled(true);
         removeRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -101,11 +92,9 @@ public class RouteMapPanel extends JPanel {
         removeRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         removeRouteB.setFocusable(false);
         removeRouteB.setBorderPainted(true);
-        removeRouteB.addActionListener((e) -> removeRouteB_actionPerformed(e)); //todo
+        removeRouteB.addActionListener((e) -> removeRouteB_actionPerformed(e));
 
         /* Optimize Button */
-        optRouteB.setIcon(
-                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         optRouteB.setText("Optimize");
         optRouteB.setEnabled(true);
         optRouteB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -118,8 +107,6 @@ public class RouteMapPanel extends JPanel {
         optRouteB.addActionListener((e) -> optRouteB_actionPerformed(e));
 
         /* Optimize w/ Start Button */
-        optRouteWithStartB.setIcon(
-                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         optRouteWithStartB.setText("Optimize w/Start");
         optRouteWithStartB.setEnabled(true);
         optRouteWithStartB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -132,8 +119,6 @@ public class RouteMapPanel extends JPanel {
         optRouteWithStartB.addActionListener((e) -> optRouteWithStartB_actionPerformed(e));
 
         /* Refresh Button */
-        refreshB.setIcon(
-                new ImageIcon(AppFrame.class.getResource("/ui/icons/addresource.png")));
         refreshB.setText("Refresh");
         refreshB.setEnabled(true);
         refreshB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -143,9 +128,7 @@ public class RouteMapPanel extends JPanel {
         refreshB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         refreshB.setFocusable(false);
         refreshB.setBorderPainted(true);
-        refreshB.addActionListener((e) -> {
-            refresh();
-        });
+        refreshB.addActionListener((e) -> refresh());
 
         /* Fancy Debugger Button */
         /* Removed for release
@@ -165,16 +148,16 @@ public class RouteMapPanel extends JPanel {
         /* Route Table */
         routeTable.setMaximumSize(new Dimension(32767, 32767));
         routeTable.setRowHeight(24);
-        rScrollPane.getViewport().setBackground(Color.lightGray);
-        rScrollPane.getViewport().add(routeTable, null);
-        rScrollPane.setPreferredSize(new Dimension(400, 32767));
+        routeScrollPane.getViewport().setBackground(Color.lightGray);
+        routeScrollPane.getViewport().add(routeTable, null);
+        routeScrollPane.setPreferredSize(new Dimension(400, 32767));
 
         /* Node Table */
         nodeTable.setMaximumSize(new Dimension(32767, 32767));
         nodeTable.setRowHeight(24);
-        nScrollPane.getViewport().setBackground(Color.gray);
-        nScrollPane.getViewport().add(nodeTable, null);
-        nScrollPane.setPreferredSize(new Dimension(400, 32767));
+        nodeScrollPane.getViewport().setBackground(Color.gray);
+        nodeScrollPane.getViewport().add(nodeTable, null);
+        nodeScrollPane.setPreferredSize(new Dimension(400, 32767));
 
         toolBar.add(newRouteB, null);
         toolBar.addSeparator();
@@ -188,20 +171,19 @@ public class RouteMapPanel extends JPanel {
         toolBar.addSeparator();
         //toolBar.add(debugAddNodesB, null);
 
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppNewRes);
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppRemoveRes);
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppRefresh);
+        resPopMenu.addSeparator();
+        resPopMenu.add(ppNewRes);
+        resPopMenu.addSeparator();
+        resPopMenu.add(ppRemoveRes);
+        resPopMenu.addSeparator();
+        resPopMenu.add(ppRefresh);
 
         scrollPane.getViewport().add(map, null);
         scrollPane.setPreferredSize(new Dimension(1120, 32767));
 
-
         this.add(scrollPane, BorderLayout.WEST);
-        this.add(nScrollPane, BorderLayout.CENTER);
-        this.add(rScrollPane, BorderLayout.EAST);
+        this.add(nodeScrollPane, BorderLayout.CENTER);
+        this.add(routeScrollPane, BorderLayout.EAST);
         this.add(toolBar, BorderLayout.NORTH);
     }
 
@@ -216,8 +198,8 @@ public class RouteMapPanel extends JPanel {
         //do nothing if there is no route selected
         if (route != null) {
             int result = JOptionPane
-                    .showConfirmDialog(null, "Delete " + route.getName() + "?", "Delete Route",
-                            JOptionPane.OK_CANCEL_OPTION);
+                .showConfirmDialog(null, "Delete " + route.getName() + "?", "Delete Route",
+                    JOptionPane.OK_CANCEL_OPTION);
 
             if (result == JOptionPane.OK_OPTION) {
                 //get list of associated tours, remove their drivers and buses, then remove them.
@@ -240,7 +222,7 @@ public class RouteMapPanel extends JPanel {
                 CurrentProject.getRouteColl().del(route.getID());
                 try {
                     CurrentStorage.get()
-                            .storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                        .storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -260,8 +242,8 @@ public class RouteMapPanel extends JPanel {
         Point loc = App.getFrame().getLocation();
 
         dialog.setLocation(
-                (frmSize.width - dialog.getSize().width) / 2 + loc.x,
-                (frmSize.height - dialog.getSize().height) / 2 + loc.y);
+            (frmSize.width - dialog.getSize().width) / 2 + loc.x,
+            (frmSize.height - dialog.getSize().height) / 2 + loc.y);
         dialog.setVisible(dialog.getError() != 1);
 
         if (dialog.isComplete()) {
@@ -271,7 +253,7 @@ public class RouteMapPanel extends JPanel {
             try {
                 CurrentProject.getRouteColl().add(route);
                 CurrentStorage.get()
-                        .storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                    .storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
                 refresh();
             } catch (DuplicateKeyException | IOException exception) {
                 exception.printStackTrace();
@@ -305,13 +287,13 @@ public class RouteMapPanel extends JPanel {
             return;
         }
         Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
-                .getSelectedRow()];
+            .getSelectedRow()];
         new RouteOptimizer(r).optimizeWithStart();
         refresh();
     }
 
 
-    /**
+    /*
      * Debugging utility while the functionality to select nodes is being developed.
      * Removed for release.
     public void debugAddNodesB_actionPerformed(ActionEvent e) {
