@@ -926,23 +926,23 @@ public class TestDataCollections {
 
         // total lat range = -0.1 - 0.9 = 1.0
         // total lon range = -1.0 - 1.0 = 2.0
-        Coordinate c1 = new Coordinate(-0.1, 0.5);
+        Coordinate c1 = new Coordinate(0.1, 0.5);
         Node n1 = nc.newItem();
         n1.setCoords(c1);
 
-        Coordinate c2 = new Coordinate(0.1, -1.0);
+        Coordinate c2 = new Coordinate(-0.1, -1.0);
         Node n2 = nc.newItem();
         n2.setCoords(c2);
 
-        Coordinate c3 = new Coordinate(0.9, 0.5);
+        Coordinate c3 = new Coordinate(-0.9, 0.5);
         Node n3 = nc.newItem();
         n3.setCoords(c3);
 
-        Coordinate c4 = new Coordinate(0.1, 1.0);
+        Coordinate c4 = new Coordinate(-0.1, 1.0);
         Node n4 = nc.newItem();
         n4.setCoords(c4);
 
-        Coordinate c5 = new Coordinate(0.4, 0.5);
+        Coordinate c5 = new Coordinate(-0.4, 0.5);
         Node n5 = nc.newItem();
         n5.setCoords(c5);
 
@@ -1005,7 +1005,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test mapper inset
+     * test mapper inset.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -1019,7 +1019,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test mapper inset
+     * test mapper inset.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -1033,7 +1033,7 @@ public class TestDataCollections {
     }
 
     /**
-     * test mapper inset
+     * test mapper inset.
      *
      * @throws DuplicateKeyException if duplicate key used
      */
@@ -1044,6 +1044,34 @@ public class TestDataCollections {
         NodeColl nc = nm.getNodeColl();
 
         assertEquals(new Point(749, 10), nm.getScaled(nc.get(MAPPER_TOP)));
+    }
+
+
+    /**
+     * test creating a new scaled node based on map coordinate.
+     *
+     * @throws DuplicateKeyException if dup key used
+     */
+    @Test
+    void testNodeMapperNewScaledNode() throws DuplicateKeyException {
+        NodeMapper nm = setupMapperNodes();
+        NodeColl nc = nm.getNodeColl();
+        Node n = nodeColl.newItem();
+        Point p0 = new Point(749, 119);
+        for (Node nn : nc) {
+            System.out.println("node=" + nn);
+        }
+        n = nm.newScaledNode(n, p0);
+        //System.out.println("node=" + n);
+        assertEquals(0.4995, n.getLon(), 0.01);
+        assertEquals(-0.09866, n.getLat(), 0.01);
+        System.out.println("new scaled node=" + n);
+        Point p1 = new Point(990, 590);
+        n = nm.newScaledNode(n, p1);
+        //System.out.println("node=" + n);
+        assertEquals(0.98198, n.getLon(), 0.01);
+        assertEquals(-0.88497, n.getLat(), 0.01);
+        System.out.println("new scaled node=" + n);
     }
 
     /**
@@ -1115,7 +1143,7 @@ public class TestDataCollections {
      * test getting a new database
      */
     @Test
-    void testDatabaseExists() throws InterruptedException {
+    void testDatabaseExists() throws InterruptedException, DuplicateKeyException {
         Database db = Database.getDatabase(stg, prj);
         assertNotNull(db);
     }
@@ -1137,8 +1165,7 @@ public class TestDataCollections {
 
 
     /**
-     * Test that the route contains all original nodes with no losses after optimization with start
-     * selection.
+     * Test that the route contains all original nodes with no losses after optimization with start selection.
      */
     @Test
     void testRouteOptimizeWithStartForDataIntegrity() {
@@ -1170,8 +1197,8 @@ public class TestDataCollections {
 
 
     /**
-     * Test that the optimization with start selection results in a path at least as short as a
-     * non-start selected path.
+     * Test that the optimization with start selection results in a path at least as short as a non-start selected
+     * path.
      */
     @Test
     void testRouteOptimizerWithStartSuccess() {
@@ -1215,8 +1242,7 @@ public class TestDataCollections {
 
 
     /**
-     * Test that the optimization with start selection results in a deterministic output for a given
-     * set
+     * Test that the optimization with start selection results in a deterministic output for a given set
      */
     @Test
     void testRouteOptimizerWithStartSpecificOutcome() {
@@ -1281,7 +1307,7 @@ public class TestDataCollections {
      * @throws IOException if file I/O error occurs
      */
     @Test
-    void testDatabaseLoad() throws IOException, InterruptedException {
+    void testDatabaseLoad() throws IOException, InterruptedException, DuplicateKeyException {
 
         System.out.println("Before all test methods");
         Project prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);

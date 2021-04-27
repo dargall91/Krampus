@@ -42,7 +42,7 @@ public class Database {
      *
      * @param prj Project to use (uses default Storage)
      */
-    private Database(Project prj) throws InterruptedException {
+    private Database(Project prj) throws InterruptedException, DuplicateKeyException {
         this(CurrentStorage.get(), prj);
     }
 
@@ -52,7 +52,7 @@ public class Database {
      * @param stg Storage to use
      * @param prj Project to use
      */
-    private Database(Storage stg, Project prj) throws InterruptedException {
+    private Database(Storage stg, Project prj) throws InterruptedException, DuplicateKeyException {
         if (databases == null) {
             databases = new HashMap<>();
         }
@@ -69,7 +69,7 @@ public class Database {
      * @return handle to this database
      * @throws InterruptedException the thread was interrupted
      */
-    public static Database getDatabase(Project prj) throws InterruptedException {
+    public static Database getDatabase(Project prj) throws InterruptedException, DuplicateKeyException {
         return getDatabase(CurrentStorage.get(), prj);
     }
 
@@ -82,7 +82,7 @@ public class Database {
      * @return handle to this database
      * @throws InterruptedException the thread was interrupted
      */
-    public static Database getDatabase(Storage stg, Project prj) throws InterruptedException {
+    public static Database getDatabase(Storage stg, Project prj) throws InterruptedException, DuplicateKeyException {
         if (!exists(prj)) {
             Database newdb = new Database(stg, prj);
             databases.put(prj.getID(), newdb);
@@ -146,12 +146,31 @@ public class Database {
     }
 
 
+    private void createDefaultRoute() throws DuplicateKeyException {
+        if (nodeColl==null || nodeColl.size()<1) {
+            Node node1=nodeColl.newItem();
+            node1.setName("ASU NW");
+            node1.setCoords(new Coordinate(33.431245, -111.943588));
+            Node node2=nodeColl.newItem();
+            node2.setName("ASU SE");
+            node2.setCoords(new Coordinate(33.411095, -111.926076));
+            nodeColl.add(node1);
+            nodeColl.add(node2);
+            Route route=routeColl.newItem();
+            route.setName("ASU Route");
+            route.addNode(node1);
+            route.addNode(node2);
+            routeColl.add(route);
+        }
+
+    }
+
     /**
      * Load database files.
      *
      * @throws InterruptedException the thread was interrupted
      */
-    public void load() throws InterruptedException {
+    public void load() throws InterruptedException, DuplicateKeyException {
 
         while (isBusy()) {
             Thread.sleep(100);
@@ -165,17 +184,19 @@ public class Database {
         } catch (IOException | DuplicateKeyException e) {
             initialize();
         }
+        createDefaultRoute();
     }
 
     /**
      * Initialize empty collections.
      */
-    private void initialize() {
+    private void initialize() throws DuplicateKeyException {
         nodeColl = new NodeColl();
         routeColl = new RouteColl();
         tourColl = new TourColl();
         driverColl = new DriverColl();
         busColl = new BusColl();
+        createDefaultRoute();
     }
 
     /**

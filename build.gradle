@@ -80,12 +80,14 @@ tasks.withType(Checkstyle) {
 
 
 spotbugsTest {
+    excludeFilter = file('config/spotbugs/exclude.xml')
     reports {
         xml.enabled = false
         html.enabled = true
     }
 }
 spotbugsMain {
+    excludeFilter = file('config/spotbugs/exclude.xml')
     reports {
         xml.enabled = false
         html.enabled = true
@@ -98,5 +100,6 @@ spotbugs {
     showProgress = true
     effort = 'default'
     maxHeapSize = '2g'
+
 }
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import main.java.memoranda.ui.RouteMap;
 import main.java.memoranda.ui.RouteStop;
+import main.java.memoranda.util.DuplicateKeyException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,11 @@ class RouteMapTest {
     private RouteMap map;
 
     public RouteMapTest() {
-        map = new RouteMap();
+        try {
+            map = new RouteMap();
+        } catch (DuplicateKeyException e) {
+            e.printStackTrace();
+        }
     }
 
     @BeforeAll
@@ -36,10 +41,10 @@ class RouteMapTest {
     void tearDown() {
     }
 
-    @Test
     /**
      * Check to be sure list is populated with the correct number of elements.
      */
+    @Test
     void testCheckPopulatedListAmount() {
         testRouteMapList = new ArrayList<>();
 
@@ -62,20 +67,20 @@ class RouteMapTest {
         assertEquals(expected, 5);
     }
 
-    @Test
     /**
      * Validate that Points are correctly created
      */
+    @Test
     void testCreatePoint() {
         Point2D point = map.createPoint(100, 100);
 
         assertEquals(point.getX(), 100);
     }
 
-    @Test
     /**
      * Test that stops are loaded correctly by validating X.
      */
+    @Test
     void testListPopulatedCorrectlyX() {
         testRouteMapList = new ArrayList<>();
 
@@ -118,10 +123,10 @@ class RouteMapTest {
         assertEquals(expected, 420);
     }
 
-    @Test
     /**
      * Test that stops are loaded correctly by validating Y.
      */
+    @Test
     void testListPopulatedCorrectlyY() {
         testRouteMapList = new ArrayList<>();
 

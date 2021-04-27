@@ -14,7 +14,7 @@ import main.java.memoranda.RouteColl;
 /**
  * JTable to display routes in the system.
  *
- * @author Chris Boveda, John Thurstonson
+ * @author Chris Boveda, John Thurstonson, Brian Pape
  * @version 2021-04-25
  */
 public class RouteTable extends JTable implements MouseListener {
@@ -38,7 +38,10 @@ public class RouteTable extends JTable implements MouseListener {
         getColumnModel().getColumn(0).setMaxWidth(60);
         updateUI();
 
-        if (routes.size() > 0) {
+        //if (routes.size() > 0) {
+        if (getSelectedRow() >= 0 && getSelectedRow() < routes.size()) {
+            setRowSelectionInterval(getSelectedRow(), getSelectedRow());
+        } else {
             setRowSelectionInterval(0, 0);
         }
 
