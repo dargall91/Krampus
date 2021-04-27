@@ -20,6 +20,7 @@ import main.java.memoranda.RouteColl;
 public class RouteTable extends JTable implements MouseListener {
     private RouteColl routes;
     private RouteMapPanel parentPanel;
+    private NodeTable nodeTable;
 
     /**
      * Default CTor for RouteTable.
@@ -46,6 +47,10 @@ public class RouteTable extends JTable implements MouseListener {
         }
 
         addMouseListener(this);
+    }
+
+    public void setNodeTable(NodeTable nodeTable) {
+        this.nodeTable = nodeTable;
     }
 
 
@@ -112,8 +117,7 @@ public class RouteTable extends JTable implements MouseListener {
      */
     @Override
     public void mousePressed(MouseEvent e) {
-
-
+        nodeTable.refresh();
     }
 
     /**
@@ -193,7 +197,7 @@ public class RouteTable extends JTable implements MouseListener {
             } else if (columnIndex == 2) {
                 return (r.getRoute().size() == 0) ? null : r.getRoute().getFirst().getName();
             } else if (columnIndex == 3) {
-                return r.length();
+                return Double.parseDouble(String.format("%.2f", r.length()));
             } else {
                 return r;
             }

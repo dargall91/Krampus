@@ -10,10 +10,10 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 /**
- * JTable to display nodes from a selected route in the system
+ * JTable to display nodes from a selected route in the system.
  *
  * @author Chris Boveda
- * @version 2021-04-16
+ * @version 2021-04-27
  */
 public class NodeTable extends JTable {
     private Route route;
@@ -21,7 +21,7 @@ public class NodeTable extends JTable {
 
 
     /**
-     * Default CTor for RouteTable
+     * Default CTor for RouteTable.
      */
     public NodeTable(RouteTable routeTable) {
         super();
@@ -42,7 +42,7 @@ public class NodeTable extends JTable {
 
 
     /**
-     * Refreshes the table
+     * Refreshes the table.
      */
     public void refresh() {
         initTable();
@@ -50,7 +50,7 @@ public class NodeTable extends JTable {
 
 
     /**
-     * Setup Cells for Table
+     * Setup Cells for Table.
      */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -71,7 +71,7 @@ public class NodeTable extends JTable {
 
 
     /**
-     * Node Table Builder
+     * Node Table Builder.
      *
      * @author Chris Boveda
      * @version 2021-04-16
@@ -93,7 +93,7 @@ public class NodeTable extends JTable {
 
 
         /**
-         * Returns the column count of the table
+         * Returns the column count of the table.
          *
          * @return int col count
          */
@@ -104,7 +104,7 @@ public class NodeTable extends JTable {
 
 
         /**
-         * Returns object located in a cell index
+         * Returns object located in a cell index.
          *
          * @param rowIndex    row index of the object
          * @param columnIndex col index of the object
@@ -113,16 +113,22 @@ public class NodeTable extends JTable {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             //todo NPE
-            Node n = route.getRoute().get(rowIndex);
+
+            Node n;
+            if (route.getRoute().isEmpty()) {
+                n = new Node(0, "Please add nodes to the route", 0.0, 0.0);
+            } else {
+                n = route.getRoute().get(rowIndex);
+            }
 
             if (columnIndex == 0) {
                 return n.getID();
             } else if (columnIndex == 1) {
                 return n.getName();
             } else if (columnIndex == 2) {
-                return n.getCoords().getLat();
+                return Double.parseDouble(String.format("%.2f", n.getCoords().getLat()));
             } else if (columnIndex == 3) {
-                return n.getCoords().getLon();
+                return Double.parseDouble(String.format("%.2f", n.getCoords().getLon()));
             } else {
                 return n;
             }
@@ -130,7 +136,7 @@ public class NodeTable extends JTable {
 
 
         /**
-         * Returns the name of the specific column
+         * Returns the name of the specific column.
          *
          * @param columnIndex the column to fetch
          * @return the name as a string
