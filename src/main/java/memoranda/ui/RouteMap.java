@@ -64,7 +64,7 @@ public class RouteMap extends JPanel {
                     nodeColl.add(node);
                     route.addNode(node);
                     CurrentProject.save();
-                    refresh();
+                    parentPanel.refresh();
                 } catch (DuplicateKeyException duplicateKeyException) {
                     duplicateKeyException.printStackTrace();
                 }
