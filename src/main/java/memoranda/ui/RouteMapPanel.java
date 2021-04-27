@@ -20,8 +20,8 @@ import main.java.memoranda.util.Local;
 /**
  * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of the Route Map.
  *
- * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
  * @version 2021-04-25
+ * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
  */
 public class RouteMapPanel extends JPanel {
     private static final int BUTTON_HEIGHT = 30;
@@ -273,8 +273,7 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
-                .getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         new RouteOptimizer(r).optimize();
         map.refresh();
         routeTable.refresh();
@@ -307,8 +306,7 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
-                .getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
         Node node = CurrentProject.getNodeColl().newItem();
 
         Random rand = new Random();

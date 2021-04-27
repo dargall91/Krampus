@@ -31,16 +31,16 @@ public class RouteMap extends JPanel {
     private int id;
     private Route route;
     private RouteMapPanel parentPanel;
-    private NodeMapper nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
+    private final NodeMapper nodeMapper;
 
     /**
      * Constructor for TESTING ONLY.
      */
-    public RouteMap() {
+    public RouteMap() throws DuplicateKeyException {
         id = 1;
         stops = new ArrayList<>();
-        nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
 
+        nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
     }
 
     /**
@@ -68,12 +68,12 @@ public class RouteMap extends JPanel {
 
                 try {
                     nodeColl.add(node);
+                    route.addNode(node);
+                    CurrentProject.save();
+                    refresh();
                 } catch (DuplicateKeyException duplicateKeyException) {
                     duplicateKeyException.printStackTrace();
                 }
-                route.addNode(node);
-                CurrentProject.save();
-                refresh();
             }
 
             @Override
@@ -119,10 +119,10 @@ public class RouteMap extends JPanel {
         if (parentPanel.getRouteTable().getRoute() != null) {
             route = parentPanel.getRouteTable().getRoute();
         } else {
-            return;
+            //throw new IllegalArgumentException("Parent must own a route");
         }
 
-        setPreferredSize(new Dimension(1000, 1000));
+        setPreferredSize(new Dimension(800, 600));
 
         setBackground(Color.WHITE);
 
@@ -195,7 +195,7 @@ public class RouteMap extends JPanel {
             nodeMapper.setMapSize(dim);
         }
 
-        nodeMapper.setInsets(new Insets(40, 40, 20, 20));
+        nodeMapper.setInsets(new Insets(40, 40, 40, 40));
 
         for (Node n : nodes) {
             addStop(stops, nodeMapper.getScaled(n), n.getName());
