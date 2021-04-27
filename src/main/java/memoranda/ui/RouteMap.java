@@ -53,7 +53,7 @@ public class RouteMap extends JPanel {
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getPoint());
+                //System.out.println(e.getPoint());
                 NodeColl nodeColl = CurrentProject.getNodeColl();
 
                 Node node = CurrentProject.getNodeColl().newItem();
