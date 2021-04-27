@@ -42,9 +42,14 @@ public class RouteMap extends JPanel {
         addStop(stops, s3.getBusStop());
         addStop(stops, s4.getBusStop());
         addStop(stops, s5.getBusStop());
-
+        //Size of the map 1000 pixels x 1000 pixels
         setPreferredSize(new Dimension(1000, 1000));
+
+        //****BACKGROUND OPTIONS******
+        //Option 1: Simple solid color
         setBackground(Color.WHITE);
+        //Option 2: Use map image and arrange points on the map
+        setBackground();
     }
 
     /**
