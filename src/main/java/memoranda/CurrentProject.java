@@ -17,6 +17,7 @@ import main.java.memoranda.ui.AppFrame;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Storage;
 
 /**
@@ -64,7 +65,7 @@ public class CurrentProject {
             _routes = db.getRouteColl();
             _tours = db.getTourColl();
             _drivers = db.getDriverColl();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | DuplicateKeyException e) {
             new ExceptionDialog(e);
         }
         AppFrame.addExitListener(new ActionListener() {
@@ -141,7 +142,7 @@ public class CurrentProject {
         }
         try {
             db = Database.getDatabase(project);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException|DuplicateKeyException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
