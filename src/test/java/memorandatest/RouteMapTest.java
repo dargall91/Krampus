@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+// note: 2021-04-26 test passes locally with ./gradlew clean build test
+// failed TCI build, unknown problem.
 class RouteMapTest {
     private List<RouteStop> testRouteMapList;
     private RouteMap map;
