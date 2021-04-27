@@ -164,7 +164,7 @@ class RouteMapTest {
 
         map.buildStopList(testRouteMapList);
 
-        double expected = map.getStops().get(11).getY();
+        double expected = map.getStops().get(11).getyPoint();
 
         assertEquals(expected, 89);
     }

@@ -7,18 +7,17 @@ import java.awt.geom.Point2D;
 
 
 /**
+ * Route Stop creates the graphical representation of RouteStops on the RouteMap.
+ *
  * @author Kevin Dolan, John Thurstonson
  * @version 2021-04-25
  */
 public class RouteStop {
-    /**
-     * RouteStop creates the graphical representation of bus stops.
-     */
 
     protected static final double RADIUS = 10;
 
-    private final double x;
-    private final double y;
+    private final double xPoint;
+    private final double yPoint;
     private final Point2D busStop;
     private final int id;
     private final String name;
@@ -31,8 +30,8 @@ public class RouteStop {
     public RouteStop(int id, Point2D point, String name) {
         this.id = id;
         busStop = point;
-        this.x = point.getX();
-        this.y = point.getY();
+        this.xPoint = point.getX();
+        this.yPoint = point.getY();
         this.name = name;
     }
 
@@ -43,9 +42,9 @@ public class RouteStop {
      */
     public void drawStop(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        Ellipse2D.Double circle = new Ellipse2D.Double(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
-        int xaxis = (int) x;
-        int yaxis = (int) y;
+        Ellipse2D.Double circle = new Ellipse2D.Double(xPoint - RADIUS, yPoint - RADIUS, RADIUS * 2, RADIUS * 2);
+        int xaxis = (int) xPoint;
+        int yaxis = (int) yPoint;
 
         g2d.setColor(Color.BLUE);
         g2d.fill(circle);
@@ -71,7 +70,7 @@ public class RouteStop {
      * @return x
      */
     public double getX() {
-        return x;
+        return xPoint;
     }
 
     /**
@@ -79,8 +78,8 @@ public class RouteStop {
      *
      * @return y
      */
-    public double getY() {
-        return y;
+    public double getyPoint() {
+        return yPoint;
     }
 
     /**

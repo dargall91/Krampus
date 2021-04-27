@@ -33,6 +33,7 @@ public class RouteMap extends JPanel {
 
     /**
      * Constructor for TESTING ONLY.
+     * @throws DuplicateKeyException e
      */
     public RouteMap() throws DuplicateKeyException {
         id = 1;
@@ -52,7 +53,7 @@ public class RouteMap extends JPanel {
         this.addComponentListener(new ResizeListener());
         nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
 
-        try{
+        try {
             defaultMap = ImageIO.read(new File("src/main/resources/ui/map_background.png"));
         } catch (IOException ex) {
             ex.printStackTrace();

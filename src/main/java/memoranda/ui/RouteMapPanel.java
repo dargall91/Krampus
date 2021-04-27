@@ -59,7 +59,7 @@ public class RouteMapPanel extends JPanel {
     /**
      * Initiates the JButtons on the panel.
      *
-     * @throws Exception
+     * @throws Exception e
      */
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
