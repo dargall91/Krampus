@@ -1,9 +1,3 @@
-/**
- * RouteMap plots the stops on the map to visualize the nodes.
- *
- * @author Kevin Dolan, John Thurstonson, Brian Pape
- * @version 2021-04-25
- */
 package main.java.memoranda.ui;
 
 import main.java.memoranda.*;
@@ -167,10 +161,10 @@ public class RouteMap extends JPanel {
         this.id = id;
     }
 
-    @Override
     /**
      * paintComponent draws the graphics to JPanel.
      */
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -198,7 +192,7 @@ public class RouteMap extends JPanel {
         if (!dim.equals(new Dimension(0, 0))) {
             nodeMapper.setMapSize(dim);
         }
-        ;
+
         nodeMapper.setInsets(new Insets(40, 40, 20, 20));
 
         for (Node n : nodes) {
@@ -235,8 +229,7 @@ public class RouteMap extends JPanel {
      * @return new point2D
      */
     public Point2D createPoint(double x, double y) {
-        Point2D p = new Point2D.Double(x, y);
-        return p;
+        return new Point2D.Double(x, y);
     }
 
     /**
@@ -268,12 +261,4 @@ public class RouteMap extends JPanel {
         return n;
     }
 
-    /**
-     * adjust scaling on resize.
-     */
-    class ResizeListener extends ComponentAdapter {
-        public void componentResized(ComponentEvent e) {
-            initMap();
-        }
-    }
 }
