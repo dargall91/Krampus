@@ -1,16 +1,13 @@
 /**
  * RouteMap plots the stops on the map to visualize the nodes.
  *
- * @author Kevin Dolan, John Thurstonson
+ * @author Kevin Dolan, John Thurstonson, Brian Pape
  * @version 2021-04-25
  */
 package main.java.memoranda.ui;
 
-import main.java.memoranda.Coordinate;
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Node;
-import main.java.memoranda.NodeMapper;
-import main.java.memoranda.Route;
+import main.java.memoranda.*;
+import main.java.memoranda.util.DuplicateKeyException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +17,17 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 
 public class RouteMap extends JPanel {
     private List<RouteStop> stops;
     private int id;
     private Route route;
     private RouteMapPanel parentPanel;
-    
+    private NodeMapper nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
+
     /**
      * Constructor for TESTING ONLY.
      */
@@ -44,7 +45,51 @@ public class RouteMap extends JPanel {
         this.parentPanel = parentPanel;
 
         this.addComponentListener(new ResizeListener());
+        nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
+
         initMap();
+
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println(e.getPoint());
+                NodeColl nodeColl = CurrentProject.getNodeColl();
+
+                Node node = CurrentProject.getNodeColl().newItem();
+                node.setName("New stop");
+                node = nodeMapper.newScaledNode(node, e.getPoint());
+
+                try {
+                    nodeColl.add(node);
+                } catch (DuplicateKeyException duplicateKeyException) {
+                    duplicateKeyException.printStackTrace();
+                }
+                route.addNode(node);
+                CurrentProject.save();
+                refresh();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
     }
 
 
@@ -64,7 +109,7 @@ public class RouteMap extends JPanel {
     private void initMap() {
         id = 1;
         stops = new ArrayList<>();
-        
+
         if (parentPanel.getRouteTable().getRoute() != null) {
             route = parentPanel.getRouteTable().getRoute();
         } else {
@@ -74,10 +119,10 @@ public class RouteMap extends JPanel {
         setPreferredSize(new Dimension(1000, 1000));
 
         setBackground(Color.WHITE);
-        
+
         populateStops(route.getRoute());
     }
-    
+
     /**
      * Refresh RouteMap.
      */
@@ -132,23 +177,22 @@ public class RouteMap extends JPanel {
     }
 
     /**
-     * populateStops retrieves stops from the Route and stores
-     * them in the list for mapping.
-     * Updated to accept linked list of nodes
+     * populateStops retrieves stops from the Route and stores them in the list for mapping. Updated to accept linked
+     * list of nodes
      *
      * @param nodes
      */
     public void populateStops(LinkedList<Node> nodes) {
-        NodeMapper mapper = new NodeMapper(CurrentProject.getNodeColl());
 
-        Dimension dim=this.getSize();
-        if (!dim.equals(new Dimension(0,0))){
-            mapper.setMapSize(dim);
-        };
-        mapper.setInsets(new Insets(40,40,20,20));
+        Dimension dim = this.getSize();
+        if (!dim.equals(new Dimension(0, 0))) {
+            nodeMapper.setMapSize(dim);
+        }
+        ;
+        nodeMapper.setInsets(new Insets(40, 40, 20, 20));
 
         for (Node n : nodes) {
-            addStop(stops, mapper.getScaled(n), n.getName());
+            addStop(stops, nodeMapper.getScaled(n), n.getName());
         }
         repaint();
 
@@ -174,8 +218,7 @@ public class RouteMap extends JPanel {
     }
 
     /**
-     * createPoint is a utility method for testing. It creates a Point2D point
-     * from x and y coordinates.
+     * createPoint is a utility method for testing. It creates a Point2D point from x and y coordinates.
      *
      * @param x
      * @param y
@@ -187,8 +230,7 @@ public class RouteMap extends JPanel {
     }
 
     /**
-     * buildStopList is a utility method for testing. It loads data into
-     * the stops list.
+     * buildStopList is a utility method for testing. It loads data into the stops list.
      *
      * @param stopList
      */
