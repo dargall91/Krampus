@@ -22,17 +22,17 @@ public class AppList {
 
     public Element _root = null;
 
-    public static String OS_WINDOWS = "windows";
-    public static String OS_LINUX = "linux";
-    public static String OS_SOLARIS = "solaris";
+    public static final String OS_WINDOWS = "windows";
+    public static final String OS_LINUX = "linux";
+    public static final String OS_SOLARIS = "solaris";
 
     public static String getPlafCode(String osName) {
         osName = osName.toLowerCase();
-        if (osName.indexOf(OS_WINDOWS) > -1) {
+        if (osName.contains(OS_WINDOWS)) {
             return OS_WINDOWS;
-        } else if (osName.indexOf(OS_LINUX) > -1) {
+        } else if (osName.contains(OS_LINUX)) {
             return OS_LINUX;
-        } else if (osName.indexOf(OS_SOLARIS) > -1) {
+        } else if (osName.contains(OS_SOLARIS)) {
             return OS_SOLARIS;
         }
         return "unknown";

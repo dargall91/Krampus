@@ -1,14 +1,8 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -64,12 +58,12 @@ public class ElementDialog extends JDialog {
     void jbInit() throws Exception {
         this.setResizable(false);
         headerPanel.setBackground(Color.WHITE);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Object properties"));
         header.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ElementDialog.class.getResource(
-                        "/htmleditor/icons/textbig.png")));
+                Objects.requireNonNull(ElementDialog.class.getResource(
+                        "/htmleditor/icons/textbig.png"))));
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
@@ -123,20 +117,12 @@ public class ElementDialog extends JDialog {
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);

@@ -1,12 +1,10 @@
 package main.java.memoranda.ui.treetable;
 
-import java.awt.Component;
-import java.awt.event.*;
-import java.awt.AWTEvent;
-import javax.swing.*;
-import javax.swing.event.*;
 import java.util.EventObject;
-import java.io.Serializable;
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
 
 public class AbstractCellEditor implements CellEditor {
 

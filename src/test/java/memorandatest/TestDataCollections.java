@@ -2,14 +2,13 @@ package memorandatest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import main.java.memoranda.Bus;
 import main.java.memoranda.BusColl;
 import main.java.memoranda.Coordinate;
@@ -30,7 +29,10 @@ import main.java.memoranda.TourColl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.FileStorage;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -41,36 +43,31 @@ import org.junit.jupiter.api.Test;
  */
 public class TestDataCollections {
 
-    private static Project prj;
-    private static FileStorage stg;
-
-    private static NodeColl nodeColl;
-    private static RouteColl routeColl;
-    private static TourColl tourColl;
-    private static DriverColl driverColl;
-    private static BusColl busColl;
-
-    private static NodeMapper nodeMapper;
-
-
+    public static final int MAPPER_TOP = 1;
+    public static final int MAPPER_RIGHT = 4;
+    public static final int MAPPER_BOTTOM = 3;
+    public static final int MAPPER_LEFT = 2;
     // constants used for consistent testing
     private static final int NODE1 = 1;
     private static final int NODE2 = 2;
     private static final int NODE3 = 3;
     private static final int NODE4 = 4;
-
     private static final int DRIVER1 = 1;
     private static final int DRIVER2 = 2;
-
     private static final int ROUTE1 = 1;
     private static final int ROUTE2 = 2;
-
     private static final int TOUR1 = 1;
     private static final int TOUR2 = 2;
-
     private static final int BUS1 = 1;
     private static final int BUS2 = 2;
-
+    private static Project prj;
+    private static FileStorage stg;
+    private static NodeColl nodeColl;
+    private static RouteColl routeColl;
+    private static TourColl tourColl;
+    private static DriverColl driverColl;
+    private static BusColl busColl;
+    private static NodeMapper nodeMapper;
 
     /**
      * Run before all test methods.
@@ -83,6 +80,17 @@ public class TestDataCollections {
         prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);
         stg = new FileStorage();
         stg.createProjectStorage(prj);
+    }
+
+    /**
+     * Run after all test methods.
+     *
+     * <p>Need to remove temporary project storage
+     */
+    @AfterAll
+    static void afterAll() {
+        System.out.println("After all test methods");
+        //stg.removeProjectStorage(prj);
     }
 
     /**
@@ -112,18 +120,6 @@ public class TestDataCollections {
     }
 
     /**
-     * Run after all test methods.
-     *
-     * <p>Need to remove temporary project storage
-     */
-    @AfterAll
-    static void afterAll() {
-        System.out.println("After all test methods");
-        //stg.removeProjectStorage(prj);
-    }
-
-
-    /**
      * test error handling for duplicate driver in collection.
      */
     @Test
@@ -136,7 +132,6 @@ public class TestDataCollections {
             nc.add(n);
         });
     }
-
 
     /**
      * Utility method: Create a generic driver with a name.
@@ -180,7 +175,6 @@ public class TestDataCollections {
 
         return d;
     }
-
 
     /**
      * validate that adding a tour to a driver adds the driver to the tour.
@@ -263,7 +257,6 @@ public class TestDataCollections {
         });
     }
 
-
     /**
      * Test the basic node constructor.
      */
@@ -273,7 +266,6 @@ public class TestDataCollections {
         Node n = new Node(ID, "busstop1", 1.23, 3.24);
         assertEquals(ID, n.getID());
     }
-
 
     /**
      * Utility method: Create a node collection.
@@ -308,12 +300,28 @@ public class TestDataCollections {
         bc.add(b1);
         bc.add(b2);
 
-        System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc.get(BUS2));
+        //System.out.println("In createBusColl: Bus list contains " + bc.get(BUS1) + ", " + bc
+        // .get(BUS2));
 
-        busColl=bc;
+        busColl = bc;
         return busColl;
     }
 
+
+    /**
+     * test creating a driver with multiple tours.
+     *
+     * @throws DuplicateKeyException if duplicate IDs are added to collection
+     */
+    /*
+    @Test
+    void testCreateDriverTourIDs() throws DuplicateKeyException{
+        Driver d=createGenericDriverWithTour(DRIVER1);
+        System.out.println("Tour ids="+d.getTourIDs());
+
+        assertEquals(2, d.getTours().size());
+    }
+     */
 
     /**
      * test creating a bus object.
@@ -326,7 +334,6 @@ public class TestDataCollections {
         assertEquals(BUS1, b1.getNumber());
     }
 
-
     /**
      * test creating a bus collection.
      */
@@ -335,7 +342,6 @@ public class TestDataCollections {
         assertNotNull(busColl);
     }
 
-
     /**
      * test adding several buses to a bus collection.
      */
@@ -343,7 +349,6 @@ public class TestDataCollections {
     void testBusCollStatus() {
         assertEquals(2, busColl.size());
     }
-
 
     /**
      * test serializing a bus collection.
@@ -369,22 +374,6 @@ public class TestDataCollections {
         assertEquals(2, count);
     }
 
-
-    /**
-     * test creating a driver with multiple tours.
-     *
-     * @throws DuplicateKeyException if duplicate IDs are added to collection
-     */
-    /*
-    @Test
-    void testCreateDriverTourIDs() throws DuplicateKeyException{
-        Driver d=createGenericDriverWithTour(DRIVER1);
-        System.out.println("Tour ids="+d.getTourIDs());
-
-        assertEquals(2, d.getTours().size());
-    }
-     */
-
     /**
      * test creating a driver with multiple tours.
      *
@@ -397,7 +386,6 @@ public class TestDataCollections {
         assertEquals(2, d.getTours().size());
     }
 
-
     /**
      * test creating a driver collection.
      *
@@ -408,18 +396,18 @@ public class TestDataCollections {
 
         // tourColl created in @beforeEach
 
-        System.out.println("TourColl=" + tourColl);
-        System.out.println("TourColl.size()=" + tourColl.size());
-        System.out.println("tour1=" + tourColl.get(TOUR1));
-        System.out.println("tour2=" + tourColl.get(TOUR2));
+        //System.out.println("TourColl=" + tourColl);
+        //System.out.println("TourColl.size()=" + tourColl.size());
+        //System.out.println("tour1=" + tourColl.get(TOUR1));
+        //System.out.println("tour2=" + tourColl.get(TOUR2));
 
         Driver d1 = createNamedDriver(DRIVER1, "Driver 1");
         d1.addTour(tourColl.get(TOUR1));
-        System.out.println("Tour1 driver=" + tourColl.get(TOUR1).getDriver());
+        //System.out.println("Tour1 driver=" + tourColl.get(TOUR1).getDriver());
 
         Driver d2 = createNamedDriver(DRIVER2, "Driver 2");
         d2.addTour(tourColl.get(TOUR2));
-        System.out.println("Tour2 driver=" + tourColl.get(TOUR2).getDriver());
+        //System.out.println("Tour2 driver=" + tourColl.get(TOUR2).getDriver());
 
         DriverColl dc = new DriverColl();
         dc.add(d1);
@@ -473,7 +461,6 @@ public class TestDataCollections {
         assertEquals(3, count);
     }
 
-
     /**
      * test creating a route collection.
      *
@@ -493,7 +480,6 @@ public class TestDataCollections {
         return routeColl;
     }
 
-
     /**
      * test ability to create a route.
      *
@@ -505,7 +491,6 @@ public class TestDataCollections {
 
         assertEquals(2, rc.size());
     }
-
 
     /**
      * test ability to add a route to a collection.
@@ -531,7 +516,6 @@ public class TestDataCollections {
         System.out.println("tour end time=" + tour.getEndTime());
         assertEquals(LocalTime.of(20, 42, 24), tour.getEndTime());
     }
-
 
     /**
      * Test ability to read and write JSON values.
@@ -560,7 +544,6 @@ public class TestDataCollections {
 
     }
 
-
     /**
      * Utility function to create a tour.
      *
@@ -579,7 +562,6 @@ public class TestDataCollections {
     Tour createNamedTour(String name) {
         return createNamedTourAtTime(name, 12, 0);
     }
-
 
     /**
      * Utility function: create a named tour at a particular time.
@@ -628,7 +610,6 @@ public class TestDataCollections {
         assertNotNull(createTour());
     }
 
-
     /**
      * Utility function: test creating a tour collection.
      *
@@ -636,7 +617,7 @@ public class TestDataCollections {
      * @throws DuplicateKeyException if duplicate id is added to collection
      */
     TourColl createTourColl() throws DuplicateKeyException {
-        System.out.println("in createTourColl");
+        //System.out.println("in createTourColl");
         tourColl = new TourColl();
 
         Tour tour1 = createTour();
@@ -650,7 +631,6 @@ public class TestDataCollections {
         return tourColl;
     }
 
-
     /**
      * test creating a tour collection.
      */
@@ -658,7 +638,6 @@ public class TestDataCollections {
     void testCreateTourColl() {
         assertNotNull(tourColl);
     }
-
 
     /**
      * test serializing/deserializing a Tour collection.
@@ -685,7 +664,6 @@ public class TestDataCollections {
 
         assertEquals(2, count);
     }
-
 
     /**
      * test serializing/deserializing a Tour collection with no route.
@@ -772,7 +750,6 @@ public class TestDataCollections {
 
     }
 
-
     /**
      * test serializing/deserializing a Tour collection with no time.
      *
@@ -817,7 +794,6 @@ public class TestDataCollections {
 
     }
 
-
     /**
      * test ability to add a node.
      */
@@ -842,7 +818,8 @@ public class TestDataCollections {
 
         // node collection create in @BeforeEach
 
-        System.out.println("After adding two entries, list contains " + nodeColl.size() + " elements.");
+        System.out.println(
+                "After adding two entries, list contains " + nodeColl.size() + " elements.");
 
         stg.storeNodeList(prj, nodeColl);
 
@@ -873,7 +850,6 @@ public class TestDataCollections {
         stg.removeProjectStorage(prj);
     }
 
-
     /**
      * Test haversine distance formula calculations.
      */
@@ -889,7 +865,6 @@ public class TestDataCollections {
         System.out.println("distance=" + c1.distanceTo(c2));
         assertEquals(c1.distanceTo(c2), 347.3, 0.1);
     }
-
 
     /**
      * A Test distance to a null coordinate.
@@ -939,11 +914,6 @@ public class TestDataCollections {
         assertFalse(c1.equals(c2));
     }
 
-    public static final int MAPPER_TOP = 1;
-    public static final int MAPPER_RIGHT = 4;
-    public static final int MAPPER_BOTTOM = 3;
-    public static final int MAPPER_LEFT = 2;
-
     /**
      * utility function to set up nodes/coordinates for scale testing.
      *
@@ -956,23 +926,23 @@ public class TestDataCollections {
 
         // total lat range = -0.1 - 0.9 = 1.0
         // total lon range = -1.0 - 1.0 = 2.0
-        Coordinate c1 = new Coordinate(-0.1, 0.5);
+        Coordinate c1 = new Coordinate(0.1, 0.5);
         Node n1 = nc.newItem();
         n1.setCoords(c1);
 
-        Coordinate c2 = new Coordinate(0.1, -1.0);
+        Coordinate c2 = new Coordinate(-0.1, -1.0);
         Node n2 = nc.newItem();
         n2.setCoords(c2);
 
-        Coordinate c3 = new Coordinate(0.9, 0.5);
+        Coordinate c3 = new Coordinate(-0.9, 0.5);
         Node n3 = nc.newItem();
         n3.setCoords(c3);
 
-        Coordinate c4 = new Coordinate(0.1, 1.0);
+        Coordinate c4 = new Coordinate(-0.1, 1.0);
         Node n4 = nc.newItem();
         n4.setCoords(c4);
 
-        Coordinate c5 = new Coordinate(0.4, 0.5);
+        Coordinate c5 = new Coordinate(-0.4, 0.5);
         Node n5 = nc.newItem();
         n5.setCoords(c5);
 
@@ -1032,6 +1002,76 @@ public class TestDataCollections {
         NodeColl nc = nm.getNodeColl();
 
         assertEquals(new Point(749, 0), nm.getScaled(nc.get(MAPPER_TOP)));
+    }
+
+    /**
+     * test mapper inset.
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperInsetLeft() throws DuplicateKeyException {
+        NodeMapper nm = setupMapperNodes();
+        nm.setInsets(new Insets(0, 10, 0, 0));
+        NodeColl nc = nm.getNodeColl();
+
+        assertEquals(new Point(10, 119), nm.getScaled(nc.get(MAPPER_LEFT)));
+    }
+
+    /**
+     * test mapper inset.
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperInsetRight() throws DuplicateKeyException {
+        NodeMapper nm = setupMapperNodes();
+        nm.setInsets(new Insets(0, 0, 0, 10));
+        NodeColl nc = nm.getNodeColl();
+
+        assertEquals(new Point(989, 119), nm.getScaled(nc.get(MAPPER_RIGHT)));
+    }
+
+    /**
+     * test mapper inset.
+     *
+     * @throws DuplicateKeyException if duplicate key used
+     */
+    @Test
+    void testNodeMapperInsetTop() throws DuplicateKeyException {
+        NodeMapper nm = setupMapperNodes();
+        nm.setInsets(new Insets(10, 0, 0, 0));
+        NodeColl nc = nm.getNodeColl();
+
+        assertEquals(new Point(749, 10), nm.getScaled(nc.get(MAPPER_TOP)));
+    }
+
+
+    /**
+     * test creating a new scaled node based on map coordinate.
+     *
+     * @throws DuplicateKeyException if dup key used
+     */
+    @Test
+    void testNodeMapperNewScaledNode() throws DuplicateKeyException {
+        NodeMapper nm = setupMapperNodes();
+        NodeColl nc = nm.getNodeColl();
+        Node n = nodeColl.newItem();
+        Point p0 = new Point(749, 119);
+        for (Node nn : nc) {
+            System.out.println("node=" + nn);
+        }
+        n = nm.newScaledNode(n, p0);
+        //System.out.println("node=" + n);
+        assertEquals(0.4995, n.getLon(), 0.01);
+        assertEquals(-0.09866, n.getLat(), 0.01);
+        System.out.println("new scaled node=" + n);
+        Point p1 = new Point(990, 590);
+        n = nm.newScaledNode(n, p1);
+        //System.out.println("node=" + n);
+        assertEquals(0.98198, n.getLon(), 0.01);
+        assertEquals(-0.88497, n.getLat(), 0.01);
+        System.out.println("new scaled node=" + n);
     }
 
     /**
@@ -1103,7 +1143,7 @@ public class TestDataCollections {
      * test getting a new database
      */
     @Test
-    void testDatabaseExists() throws InterruptedException {
+    void testDatabaseExists() throws InterruptedException, DuplicateKeyException {
         Database db = Database.getDatabase(stg, prj);
         assertNotNull(db);
     }
@@ -1125,8 +1165,7 @@ public class TestDataCollections {
 
 
     /**
-     * Test that the route contains all original nodes with no losses after optimization with
-     * start selection.
+     * Test that the route contains all original nodes with no losses after optimization with start selection.
      */
     @Test
     void testRouteOptimizeWithStartForDataIntegrity() {
@@ -1157,9 +1196,9 @@ public class TestDataCollections {
     }
 
 
-     /**
-     * Test that the optimization with start selection results in a path at least
-     * as short as a non-start selected path.
+    /**
+     * Test that the optimization with start selection results in a path at least as short as a non-start selected
+     * path.
      */
     @Test
     void testRouteOptimizerWithStartSuccess() {
@@ -1182,9 +1221,9 @@ public class TestDataCollections {
     void testRouteOptimizerSpecificOutcome() {
         Route r = routeColl.get(ROUTE1);
 
-        r.getRoute().get(0).setCoords(new Coordinate (0.0, 0.0));
+        r.getRoute().get(0).setCoords(new Coordinate(0.0, 0.0));
         Node n1 = r.getRoute().get(0);
-        r.getRoute().get(1).setCoords(new Coordinate (40.0, 0.0));
+        r.getRoute().get(1).setCoords(new Coordinate(40.0, 0.0));
         Node n2 = r.getRoute().get(1);
 
         Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
@@ -1203,16 +1242,15 @@ public class TestDataCollections {
 
 
     /**
-     * Test that the optimization with start selection results in a deterministic
-     * output for a given set
+     * Test that the optimization with start selection results in a deterministic output for a given set
      */
     @Test
     void testRouteOptimizerWithStartSpecificOutcome() {
         Route r = routeColl.get(ROUTE1);
 
-        r.getRoute().get(0).setCoords(new Coordinate (10.0, 0.0));
+        r.getRoute().get(0).setCoords(new Coordinate(10.0, 0.0));
         Node n1 = r.getRoute().get(0);
-        r.getRoute().get(1).setCoords(new Coordinate (0.0, 0.0));
+        r.getRoute().get(1).setCoords(new Coordinate(0.0, 0.0));
         Node n2 = r.getRoute().get(1);
 
         Node n3 = new Node(NODE3, "node3", 20.0, 0.0);
@@ -1263,12 +1301,13 @@ public class TestDataCollections {
         assertFalse(routeColl.get(ROUTE1).setStart(n));
     }
 
-    /** test writing/reading database
+    /**
+     * test writing/reading database
      *
      * @throws IOException if file I/O error occurs
      */
     @Test
-    void testDatabaseLoad() throws IOException, InterruptedException {
+    void testDatabaseLoad() throws IOException, InterruptedException, DuplicateKeyException {
 
         System.out.println("Before all test methods");
         Project prj = ProjectManager.createProject("Test project", CalendarDate.today(), null);
@@ -1280,7 +1319,7 @@ public class TestDataCollections {
         Thread.sleep(1000);
         for (int i = 0; i < 1000; i++) {
 
-            Runnable runnable1= () -> {
+            Runnable runnable1 = () -> {
                 try {
                     db.write();
                 } catch (IOException e) {

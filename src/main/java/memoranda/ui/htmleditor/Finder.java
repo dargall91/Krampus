@@ -23,9 +23,9 @@ import main.java.memoranda.ui.htmleditor.util.Local;
 public class Finder extends Thread {
 
     Pattern pattern;
-    String _find = null;
-    String dispText = "";
-    String _replace = null;
+    String _find;
+    String dispText;
+    String _replace;
     HTMLEditor editor;
 
     /**

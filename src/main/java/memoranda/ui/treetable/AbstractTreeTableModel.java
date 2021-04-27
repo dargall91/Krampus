@@ -13,14 +13,15 @@ package main.java.memoranda.ui.treetable;
  * you entered into with Sun.
  */
 
-import javax.swing.tree.*;
-import javax.swing.event.*;
+import javax.swing.event.EventListenerList;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreePath;
 
 /**
  * @author Philip Milne
- * @version 1.2 10/27/98
- * An abstract implementation of the TreeTableModel interface, handling the list
- * of listeners.
+ * @version 1.2 10/27/98 An abstract implementation of the TreeTableModel interface, handling the
+ * list of listeners.
  */
 
 public abstract class AbstractTreeTableModel implements TreeTableModel {
@@ -181,9 +182,9 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
     }
 
     /**
-     * By default, make the column with the Tree in it the only editable one.
-     * Making this column editable causes the JTable to forward mouse
-     * and keyboard events in the Tree column to the underlying JTree.
+     * By default, make the column with the Tree in it the only editable one. Making this column
+     * editable causes the JTable to forward mouse and keyboard events in the Tree column to the
+     * underlying JTree.
      */
     public boolean isCellEditable(Object node, int column) {
         return getColumnClass(column) == TreeTableModel.class;

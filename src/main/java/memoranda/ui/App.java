@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 
-import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.BuildVersion;
 import main.java.memoranda.util.Configuration;
 
 /**
@@ -17,23 +17,17 @@ import main.java.memoranda.util.Configuration;
 
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
-    // boolean packFrame = false;
+    private static final String VERSION_INFO = BuildVersion.getVersion();
+    private static final String BUILD_INFO = BuildVersion.getBuild();
+    
+    private static AppFrame frame = new AppFrame();
 
-    static AppFrame frame = null;
-
-    public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
-    public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
-    public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+    private static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
+    private static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
+    private static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+    private static int state;
 
     private JFrame splash = null;
-
-    /*========================================================================*/
-    /* Note: Please DO NOT edit the version/build info manually!
-       The actual values are substituted by the Ant build script using 
-       'version' property and datestamp.*/
-
-    public static final String VERSION_INFO = "@VERSION@";
-    public static final String BUILD_INFO = "@BUILD@";
 
     /*========================================================================*/
 
@@ -52,6 +46,8 @@ public class App {
 
     public App(boolean fullmode) {
         super();
+
+        final String LOOK_AND_FEEL="LOOK_AND_FEEL";
         if (fullmode) {
             fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
         }
@@ -63,22 +59,24 @@ public class App {
             showSplash();
         }
         System.out.println(VERSION_INFO);
-        System.out.println(Configuration.get("LOOK_AND_FEEL"));
+        System.out.println(Configuration.get(LOOK_AND_FEEL));
         try {
-            if (Configuration.get("LOOK_AND_FEEL").equals("system")) {
+            if (Configuration.get(LOOK_AND_FEEL).equals("system")) {
                 UIManager.setLookAndFeel(
                         UIManager.getSystemLookAndFeelClassName());
-            } else if (Configuration.get("LOOK_AND_FEEL").equals("default")) {
+            } else if (Configuration.get(LOOK_AND_FEEL).equals("default")) {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
             } else if (
-                    Configuration.get("LOOK_AND_FEEL").toString().length() > 0) {
+                    Configuration.get(LOOK_AND_FEEL).toString().length() > 0) {
                 UIManager.setLookAndFeel(
-                        Configuration.get("LOOK_AND_FEEL").toString());
+                        Configuration.get(LOOK_AND_FEEL).toString());
             }
 
         } catch (Exception e) {
-            new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
+            new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. " 
+                    + "Default LF will be used.", "Make sure that specified look-and-feel library "
+                    + "classes are on the CLASSPATH.");
         }
         if (Configuration.get("FIRST_DAY_OF_WEEK").equals("")) {
             String fdow;
@@ -93,8 +91,6 @@ public class App {
             System.out.println("[DEBUG] first day of week is set to " + fdow);
         }
 
-        EventsScheduler.init();
-        frame = new AppFrame();
         if (fullmode) {
             init();
         }
@@ -121,13 +117,10 @@ public class App {
          */
         /* Used to maximize the screen if the JVM Version if 1.4 or higher */
         /* --------------------------------------------------------------- */
-        double JVMVer =
-                Double
-                        .valueOf(System.getProperty("java.version").substring(0, 3))
-                        .doubleValue();
+        double jvmver = Double.parseDouble(System.getProperty("java.version").substring(0, 3));
 
         frame.pack();
-        if (JVMVer >= 1.4) {
+        if (jvmver >= 1.4) {
             frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         } else {
             frame.setExtendedState(Frame.NORMAL);
@@ -142,18 +135,33 @@ public class App {
 
     }
 
+    /**
+     * Iconifies the application window when clicking the minimize button.
+     */
     public static void closeWindow() {
         if (frame == null) {
             return;
         }
+
+        state = frame.getExtendedState();
         frame.setExtendedState(JFrame.ICONIFIED);
     }
 
+    /**
+     * Defines what state the application window will take when the window is opened.
+     */
+    @SuppressWarnings("deprecation")
     public static void openWindow() {
         if (frame == null) {
             return;
         }
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        if (state == Frame.NE_RESIZE_CURSOR) {
+            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        } else {
+            frame.setExtendedState(Frame.NORMAL);
+        }
+        
     }
 
     /**
@@ -176,5 +184,50 @@ public class App {
                 (screenSize.height - 450) / 2);
         splash.setUndecorated(true);
         splash.setVisible(true);
+    }
+    
+    /**
+     * Gets the Guide URL String.
+     * 
+     * @return The Guide URL
+     */
+    public static String getGuideUrl() {
+        return GUIDE_URL;
+    }
+    
+    /**
+     * Gets the Bug Tracker URL.
+     * 
+     * @return The Bug Tracker URL
+     */
+    public static String getBugsTrackerUrl() {
+        return BUGS_TRACKER_URL;
+    }
+    
+    /**
+     * Gets the Website URL.
+     * 
+     * @return The Website URL
+     */
+    public static String getWebsiteUrl() {
+        return WEBSITE_URL;
+    }
+    
+    /**
+     * Gets the Version Number.
+     * 
+     * @return The Version Number
+     */
+    public static String getVersionInfo() {
+        return VERSION_INFO;
+    }
+    
+    /**
+     * Gets the Build Number.
+     * 
+     * @return The Build Number
+     */
+    public static String getBuildInfo() {
+        return BUILD_INFO;
     }
 }

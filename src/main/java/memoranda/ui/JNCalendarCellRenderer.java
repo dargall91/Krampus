@@ -11,6 +11,7 @@ package main.java.memoranda.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,8 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.EventsManager;
-import main.java.memoranda.Task;
 import main.java.memoranda.date.CalendarDate;
 
 /**
@@ -28,17 +27,8 @@ import main.java.memoranda.date.CalendarDate;
 /*$Id: JNCalendarCellRenderer.java,v 1.5 2004/10/11 08:48:20 alexeya Exp $*/
 public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRenderer {
     private CalendarDate d = null;
-    boolean disabled = false;
-    ImageIcon evIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/en.png"));
-    Task t = null;
-
-    public void setTask(Task _t) {
-        t = _t;
-    }
-
-    public Task getTask() {
-        return t;
-    }
+    ImageIcon evIcon = new ImageIcon(
+            Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/en.png")));
 
     public Component getTableCellRendererComponent(
             JTable table,
@@ -49,7 +39,7 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
             int column) {
 
         JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        String currentPanel = ((AppFrame) App.getFrame()).workPanel.dailyItemsPanel.getCurrentPanel();
+        String currentPanel = App.getFrame().getDailyItemsPanel().getCurrentPanel();
 
         if (d == null) {
             label.setEnabled(false);
@@ -86,25 +76,11 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         // set background color
         if (currentPanel == null) {
             label.setBackground(Color.WHITE);
-        } else if (currentPanel.equals("TASKS") && (t != null) &&
-                (d.inPeriod(t.getStartDate(), t.getEndDate()))) {
-            label.setBackground(new Color(230, 255, 230));
-        } else if (currentPanel.equals("NOTES") &&
-                CurrentProject.getNoteList().getNoteForDate(d) != null) {
-            label.setBackground(new Color(255, 245, 200));
-        } else if (currentPanel.equals("EVENTS") &&
-                (!(EventsManager.getEventsForDate(d).isEmpty()))) {
-            label.setBackground(new Color(255, 230, 230));
         } else if (!isSelected) {
             label.setBackground(Color.WHITE);
         }
-
-        // always display NREvents
-        if (EventsManager.isNREventsForDate(d)) {
-            label.setIcon(evIcon);
-        } else {
-            label.setIcon(null);
-        }
+        
+        label.setIcon(null);
 
         return label;
     }

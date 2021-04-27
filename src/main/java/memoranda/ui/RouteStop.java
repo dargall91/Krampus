@@ -1,46 +1,46 @@
-/**
- * RouteStop creates stops and connections for RouteMap.
- *
- * @author Kevin Dolan
- * @version 1.0
- */
 package main.java.memoranda.ui;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.lang.String;
+
 
 /**
- * Constructor for RouteStop.
+ * RouteStop creates stops and connections for RouteMap.
+ *
+ * @author Kevin Dolan, John Thurstonson
+ * @version 2021-04-25
  */
 public class RouteStop {
     /**
      * RouteStop creates the graphical representation of bus stops.
      */
-    protected final double RADIUS = 10;
+
+    protected static final double RADIUS = 10;
     private final double x;
     private final double y;
     private final Point2D busStop;
     private final int id;
+    private final String name;
 
     /**
      * Constructor for RouteStop.
      *
      * @param point the coordinate
      */
-    public RouteStop(int id, Point2D point) {
+    public RouteStop(int id, Point2D point, String name) {
         this.id = id;
         busStop = point;
         this.x = point.getX();
         this.y = point.getY();
+        this.name = name;
     }
 
     /**
      * Draws the stop on the map.
      *
-     * @param g
+     * @param g graphics obj
      */
     public void drawStop(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -50,15 +50,15 @@ public class RouteStop {
 
         g2d.setColor(Color.BLUE);
         g2d.fill(circle);
-        g2d.drawString("Stop", xAxis, yaxis);
+        g2d.drawString(name, xAxis, yaxis);
     }
 
     /**
      * Draws the connections between stops.
      *
-     * @param g
-     * @param p1
-     * @param p2
+     * @param g  graphics object
+     * @param p1 first point
+     * @param p2 second point
      */
     public void drawConnection(Graphics g, Point2D p1, Point2D p2) {
         Graphics2D g2d = (Graphics2D) g;
@@ -69,7 +69,7 @@ public class RouteStop {
     /**
      * Getter for x.
      *
-     * @return
+     * @return x
      */
     public double getX() {
         return x;
@@ -78,7 +78,7 @@ public class RouteStop {
     /**
      * Getter for y.
      *
-     * @return
+     * @return y
      */
     public double getY() {
         return y;
@@ -87,7 +87,7 @@ public class RouteStop {
     /**
      * Getter for BusStop.
      *
-     * @return
+     * @return point for bus stop
      */
     public Point2D getBusStop() {
         return busStop;
@@ -96,7 +96,7 @@ public class RouteStop {
     /**
      * Getter for id.
      *
-     * @return
+     * @return id
      */
     public int getId() {
         return id;

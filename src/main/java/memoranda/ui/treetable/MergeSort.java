@@ -20,8 +20,7 @@ package main.java.memoranda.ui.treetable;
  */
 
 /**
- * An implementation of MergeSort, needs to be subclassed to
- * compare the terms.
+ * An implementation of MergeSort, needs to be subclassed to compare the terms.
  *
  * @author Scott Violet
  */

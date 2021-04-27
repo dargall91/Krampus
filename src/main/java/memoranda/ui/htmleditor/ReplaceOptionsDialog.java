@@ -91,19 +91,11 @@ public class ReplaceOptionsDialog extends JDialog {
         panel1.setLayout(borderLayout1);
 
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         // cancelB.setFocusable(false);
 
         yesAllB.setText(Local.getString("Yes to all"));
-        yesAllB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                yesAllB_actionPerformed(e);
-            }
-        });
+        yesAllB.addActionListener(e -> yesAllB_actionPerformed(e));
         //yesAllB.setFocusable(false);
         buttonsPanel.setLayout(flowLayout1);
         panel1.setBorder(border1);
@@ -112,11 +104,7 @@ public class ReplaceOptionsDialog extends JDialog {
         borderLayout3.setHgap(5);
         borderLayout3.setVgap(5);
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        yesB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                yesB_actionPerformed(e);
-            }
-        });
+        yesB.addActionListener(e -> yesB_actionPerformed(e));
         yesB.setText(Local.getString("Yes"));
 
         //yesB.setFocusable(false);
@@ -124,11 +112,7 @@ public class ReplaceOptionsDialog extends JDialog {
 
 
         noB.setText(Local.getString("No"));
-        noB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                noB_actionPerformed(e);
-            }
-        });
+        noB.addActionListener(e -> noB_actionPerformed(e));
         // noB.setFocusable(false);
         buttonsPanel.add(yesB, null);
         getContentPane().add(panel1);
