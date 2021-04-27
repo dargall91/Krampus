@@ -20,8 +20,6 @@ import java.util.List;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.*;
-
 import main.java.memoranda.Coordinate;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Node;
