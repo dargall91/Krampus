@@ -1,24 +1,18 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.*;
-import main.java.memoranda.util.DuplicateKeyException;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.*;
 
-import main.java.memoranda.Coordinate;
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Node;
-import main.java.memoranda.NodeMapper;
-import main.java.memoranda.Route;
+import main.java.memoranda.*;
+import main.java.memoranda.util.DuplicateKeyException;
 
 /**
  * RouteMap plots the stops on the map to visualize the nodes.

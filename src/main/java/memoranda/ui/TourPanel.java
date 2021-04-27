@@ -1,21 +1,10 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Objects;
-
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -33,9 +22,8 @@ import main.java.memoranda.util.Local;
  * @author John Thurstonson
  * @version 04/10/2021
  * <p>
- *      References:
- *      Used EventsPanel.java as base, v 1.25 2005/02/19 10:06:25 rawsushi Exp
- *      Referenced DriverPanel.java, Author: Derek Argall, Version: 04/05/2021
+ * References: Used EventsPanel.java as base, v 1.25 2005/02/19 10:06:25 rawsushi Exp Referenced DriverPanel.java,
+ * Author: Derek Argall, Version: 04/05/2021
  * </p>
  */
 public class TourPanel extends JPanel {
@@ -230,17 +218,17 @@ public class TourPanel extends JPanel {
             tour.setName(dlg.getName());
             tour.setRoute(dlg.getRoute());
             tour.setTime(dlg.getTime());
-            
+
             try {
                 if (tour.getBus() != null) {
                     tour.getBus().delTour(tour);
                 }
-                
+
                 dlg.getBus().addTour(tour);
             } catch (DuplicateKeyException e2) {
                 e2.printStackTrace();
             }
-            
+
             if (dlg.getDriver() != null && tour.getDriver() == null) {
                 try {
                     dlg.getDriver().addTour(tour);
@@ -264,7 +252,7 @@ public class TourPanel extends JPanel {
                 tourTable.refresh();
                 parentPanel.getDriverScheduleTable().tableChanged();
                 parentPanel.getBusScheduleTable().tableChanged();
-                
+
             } catch (Exception f) {
                 f.printStackTrace();
             }
@@ -289,7 +277,7 @@ public class TourPanel extends JPanel {
                 tour.getDriver().delTour(tour);
                 parentPanel.getDriverScheduleTable().tableChanged();
             }
-            
+
             if (tour.getBus() != null) {
                 tour.getBus().delTour(tour);
                 parentPanel.getBusScheduleTable().tableChanged();
@@ -383,7 +371,7 @@ public class TourPanel extends JPanel {
     public void ppNewTour_actionPerformed(ActionEvent e) {
         newTourB_actionPerformed(e);
     }
-    
+
     /**
      * Refreshes the table. Should be called when changes are made in another tab.
      */

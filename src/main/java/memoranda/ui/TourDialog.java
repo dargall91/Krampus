@@ -1,13 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -16,26 +9,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
-
-import main.java.memoranda.Bus;
-import main.java.memoranda.BusColl;
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.DriverColl;
-import main.java.memoranda.Route;
-import main.java.memoranda.RouteColl;
-import main.java.memoranda.Tour;
+import main.java.memoranda.*;
 import main.java.memoranda.util.Local;
 
 
@@ -44,14 +20,11 @@ import main.java.memoranda.util.Local;
  *
  * @author John Thurstonson
  * @version 04/10/2021
- * 
+ *
  * <p>
- *      References:
- *      Used EventDialog.java as base, v 1.28 2005/02/19 10:06:25 rawsushi Exp
- *      Referenced DriverTourDialog.java, Author: Derek Argall, Version: 04/05/2021
- *      https://stackoverflow.com/questions/63502597/
- *          how-to-set-the-value-of-a-jspinner-using-a-localtime-object
- *          for Time spinner
+ * References: Used EventDialog.java as base, v 1.28 2005/02/19 10:06:25 rawsushi Exp Referenced DriverTourDialog.java,
+ * Author: Derek Argall, Version: 04/05/2021 https://stackoverflow.com/questions/63502597/
+ * how-to-set-the-value-of-a-jspinner-using-a-localtime-object for Time spinner
  * </p>
  */
 public class TourDialog extends JDialog {
@@ -99,7 +72,7 @@ public class TourDialog extends JDialog {
         }
 
     }
-    
+
     /**
      * TourDialog constructor when editing an existing Tour.
      *
@@ -120,11 +93,11 @@ public class TourDialog extends JDialog {
     private int jbInit() throws Exception {
         routes = CurrentProject.getRouteColl();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
+
         if (routes.size() < 1) {
             int result = JOptionPane.showConfirmDialog(null, "No Routes In System", "Need Route",
                     JOptionPane.OK_CANCEL_OPTION);
-            
+
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
                 return ERROR_VALUE;
@@ -133,22 +106,22 @@ public class TourDialog extends JDialog {
                 return ERROR_VALUE;
             }
         }
-        
+
         for (Route r : routes) {
             routeCB.addItem(r);
-            
+
             if (tour != null) {
                 routeCB.setSelectedItem(tour.getRoute());
             }
         }
-        
+
         routeCB.setRenderer(new RouteListCellRenderer());
         buses = CurrentProject.getBusColl();
-        
+
         if (buses.size() < 1) {
             int result = JOptionPane.showConfirmDialog(null, "No Buses In System", "Need Bus",
                     JOptionPane.OK_CANCEL_OPTION);
-            
+
             if (result == JOptionPane.OK_OPTION) {
                 cancelled = true;
                 return ERROR_VALUE;
@@ -160,21 +133,21 @@ public class TourDialog extends JDialog {
 
         for (Bus b : buses) {
             busCB.addItem("Bus No. " + b.getNumber());
-            
+
             if (tour != null && tour.getBus() != null) {
                 busCB.setSelectedItem("Bus No. " + tour.getBus().getNumber());
             }
         }
-        
+
         if (tour != null && tour.getDriver() != null) {
             drivers = CurrentProject.getDriverColl();
 
             for (Driver d : drivers) {
                 driverCB.addItem(d.getName());
             }
-            
+
             if (tour.getDriver() != null) {
-                driverCB.setSelectedItem(tour.getDriver().getName());                
+                driverCB.setSelectedItem(tour.getDriver().getName());
             }
         } else {
             drivers = null;
@@ -203,7 +176,7 @@ public class TourDialog extends JDialog {
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
         tourPanel.add(timeSpin, gbc);
-        
+
         tourLabel = new JLabel("Tour Name:");
         tourLabel.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
@@ -224,7 +197,7 @@ public class TourDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(nameField, gbc);
-        
+
         routeLabel = new JLabel("Route Name:");
         routeLabel.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
@@ -234,7 +207,7 @@ public class TourDialog extends JDialog {
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         tourPanel.add(routeLabel, gbc);
-        
+
         routeCB.setPreferredSize(new Dimension(100, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -244,7 +217,7 @@ public class TourDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(routeCB, gbc);
-        
+
         busLabel = new JLabel("Bus Number:");
         busLabel.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
@@ -264,7 +237,7 @@ public class TourDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tourPanel.add(busCB, gbc);
-        
+
         if (tour != null && tour.getDriver() != null) {
             driverLabel = new JLabel("Driver:");
             driverLabel.setMinimumSize(new Dimension(120, 24));
@@ -275,7 +248,7 @@ public class TourDialog extends JDialog {
             gbc.insets = new Insets(5, 10, 5, 10);
             gbc.anchor = GridBagConstraints.WEST;
             tourPanel.add(driverLabel, gbc);
-            
+
             driverCB.setPreferredSize(new Dimension(100, 25));
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
@@ -286,7 +259,7 @@ public class TourDialog extends JDialog {
             gbc.fill = GridBagConstraints.HORIZONTAL;
             tourPanel.add(driverCB, gbc);
         }
-        
+
 
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
@@ -297,14 +270,14 @@ public class TourDialog extends JDialog {
                 okButton_actionPerformed(e);
             }
         });
-        
+
         this.getRootPane().setDefaultButton(okB);
         cancelB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cancelButton_actionPerformed(e);
             }
         });
-        
+
         cancelB.setText(Local.getString("Cancel"));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setMinimumSize(new Dimension(100, 26));
@@ -369,8 +342,8 @@ public class TourDialog extends JDialog {
     }
 
     /**
-     * Sets current name
-     *.
+     * Sets current name .
+     *
      * @param name tour name
      */
     public void setName(String name) {
@@ -403,7 +376,7 @@ public class TourDialog extends JDialog {
     public Bus getBus() {
         return buses.getBuses().toArray(new Bus[buses.size()])[busCB.getSelectedIndex()];
     }
-    
+
     /**
      * Gets the Driver when editing a Tour with a Driver.
      *
@@ -413,7 +386,7 @@ public class TourDialog extends JDialog {
         if (drivers == null) {
             return null;
         }
-        
+
         return drivers.getDrivers().toArray(new Driver[drivers.size()])[driverCB.getSelectedIndex()];
     }
 

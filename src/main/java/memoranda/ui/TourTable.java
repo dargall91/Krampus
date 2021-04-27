@@ -1,9 +1,7 @@
 package main.java.memoranda.ui;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JTable;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -17,9 +15,8 @@ import main.java.memoranda.TourColl;
  *
  * @author John Thurstonson
  * @version 04/10/2021
- * <p>
- *      References:
- *      Used EventsTable.java as base, v 1.6 2004/10/11 08:48:20 alexeya Exp
+ *
+ * <p>References: Used EventsTable.java as base, v 1.6 2004/10/11 08:48:20 alexeya Exp
  * </p>
  */
 public class TourTable extends JTable {
@@ -117,13 +114,13 @@ public class TourTable extends JTable {
                 if (tour.getBus() == null) {
                     return "";
                 }
-                
+
                 return tour.getBus().getNumber();
             } else if (col == 4) {
                 if (tour.getDriver() == null) {
                     return "";
                 }
-                
+
                 return tour.getDriver().getName();
             } else {
                 return tour;
