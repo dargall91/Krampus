@@ -12,7 +12,7 @@ import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 
 /**
- * JTable to display routes in the system
+ * JTable to display routes in the system.
  *
  * @author Chris Boveda, John Thurstonson
  * @version 2021-04-25
@@ -22,7 +22,7 @@ public class RouteTable extends JTable implements MouseListener {
     private RouteMapPanel parentPanel;
 
     /**
-     * Default CTor for RouteTable
+     * Default CTor for RouteTable.
      */
     public RouteTable(RouteMapPanel parentPanel) {
         super();
@@ -55,7 +55,7 @@ public class RouteTable extends JTable implements MouseListener {
 
 
     /**
-     * Setup Cells for Table
+     * Setup Cells for Table.
      *
      * @param row    row
      * @param column column
@@ -141,7 +141,7 @@ public class RouteTable extends JTable implements MouseListener {
     }
 
     /**
-     * Route Table Builder
+     * Route Table Builder.
      *
      * @author Chris Boveda
      * @version 2021-04-11
