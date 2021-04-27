@@ -152,13 +152,13 @@ public class Database {
             start.setCoords(new Coordinate(41.9543,-87.66899));
             Node node1 = nodeColl.newItem();
             node1.setName("Stop 1");
-            node1.setCoords(new Coordinate(41.9543,-87.6623));
+            node1.setCoords(new Coordinate(41.9543,-87.6633));
             Node node2 = nodeColl.newItem();
             node2.setName("Stop 2");
-            node2.setCoords(new Coordinate(41.94905,-87.6581));
+            node2.setCoords(new Coordinate(41.94905,-87.6597));
             Node node3 = nodeColl.newItem();
             node3.setName("Stop 3");
-            node3.setCoords(new Coordinate(41.94728,-87.65673));
+            node3.setCoords(new Coordinate(41.94728,-87.656));
             Node node4 = nodeColl.newItem();
             node4.setName("Stop 4");
             node4.setCoords(new Coordinate(41.94363,-87.65373));
@@ -208,7 +208,7 @@ public class Database {
             nodeColl.add(node13);
             nodeColl.add(terminus);
             Route route = routeColl.newItem();
-            route.setName("ASU Route");
+            route.setName("Krampus Route");
             route.addNode(start);
             route.addNode(node1);
             route.addNode(node2);

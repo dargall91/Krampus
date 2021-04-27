@@ -14,8 +14,8 @@ import java.awt.*;
  */
 
 public class NodeMapper {
-    private static final int MAP_DEFAULT_WIDTH = 640;
-    private static final int MAP_DEFAULT_HEIGHT = 480;
+    private static final int MAP_DEFAULT_WIDTH = 800;
+    private static final int MAP_DEFAULT_HEIGHT = 600;
     private final NodeColl nodeColl;
     private Dimension dim;
     private Dimension mapSize;
