@@ -1,24 +1,22 @@
-/**
- * RouteStop creates stops and connections for RouteMap.
- *
- * @author Kevin Dolan, John Thurstonson
- * @version 2021-04-25
- */
 package main.java.memoranda.ui;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.lang.String;
+
 
 /**
- * Constructor for RouteStop.
+ * RouteStop creates stops and connections for RouteMap.
+ *
+ * @author Kevin Dolan, John Thurstonson
+ * @version 2021-04-25
  */
 public class RouteStop {
     /**
      * RouteStop creates the graphical representation of bus stops.
      */
+
     protected final static double RADIUS = 10;
     private final double x;
     private final double y;
@@ -58,9 +56,9 @@ public class RouteStop {
     /**
      * Draws the connections between stops.
      *
-     * @param g
-     * @param p1
-     * @param p2
+     * @param g  graphics object
+     * @param p1 first point
+     * @param p2 second point
      */
     public void drawConnection(Graphics g, Point2D p1, Point2D p2) {
         Graphics2D g2d = (Graphics2D) g;
@@ -71,7 +69,7 @@ public class RouteStop {
     /**
      * Getter for x.
      *
-     * @return
+     * @return x
      */
     public double getX() {
         return x;
@@ -80,7 +78,7 @@ public class RouteStop {
     /**
      * Getter for y.
      *
-     * @return
+     * @return y
      */
     public double getY() {
         return y;
@@ -89,7 +87,7 @@ public class RouteStop {
     /**
      * Getter for BusStop.
      *
-     * @return
+     * @return point for bus stop
      */
     public Point2D getBusStop() {
         return busStop;
@@ -98,7 +96,7 @@ public class RouteStop {
     /**
      * Getter for id.
      *
-     * @return
+     * @return id
      */
     public int getId() {
         return id;

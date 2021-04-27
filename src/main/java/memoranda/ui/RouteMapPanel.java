@@ -1,10 +1,3 @@
-/**
- * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of
- * the Route Map.
- *
- * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
- * @version 2021-04-25
- */
 package main.java.memoranda.ui;
 
 import java.awt.*;
@@ -12,21 +5,24 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-
-import main.java.memoranda.*;
+import main.java.memoranda.Coordinate;
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Node;
+import main.java.memoranda.Route;
+import main.java.memoranda.RouteOptimizer;
+import main.java.memoranda.Tour;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
+/**
+ * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of the Route Map.
+ *
+ * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
+ * @version 2021-04-25
+ */
 public class RouteMapPanel extends JPanel {
     private static final int BUTTON_HEIGHT = 30;
     private static final int BUTTON_WIDTH = 150;
@@ -50,11 +46,11 @@ public class RouteMapPanel extends JPanel {
     private JMenuItem ppRemoveRes = new JMenuItem();
     private JMenuItem ppNewRes = new JMenuItem();
     private JMenuItem ppRefresh = new JMenuItem();
-    
+
     private DailyItemsPanel parentPanel;
 
     /**
-     * Constructor for RouteMapPanel
+     * Constructor for RouteMapPanel.
      */
     public RouteMapPanel(DailyItemsPanel parentPanel) {
         try {
@@ -101,7 +97,7 @@ public class RouteMapPanel extends JPanel {
         removeRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         removeRouteB.setFocusable(false);
         removeRouteB.setBorderPainted(true);
-        removeRouteB.addActionListener((e)->removeRouteB_actionPerformed(e)); //todo
+        removeRouteB.addActionListener((e) -> removeRouteB_actionPerformed(e)); //todo
 
         /* Optimize Button */
         optRouteB.setIcon(
@@ -153,7 +149,8 @@ public class RouteMapPanel extends JPanel {
         debugAddNodesB.setEnabled(true);
         debugAddNodesB.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         debugAddNodesB.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        debugAddNodesB.setToolTipText(Local.getString("Adds random nodes to the currently selected route"));
+        debugAddNodesB.setToolTipText(
+                Local.getString("Adds random nodes to the currently selected route"));
         debugAddNodesB.setRequestFocusEnabled(false);
         debugAddNodesB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         debugAddNodesB.setFocusable(false);
@@ -198,11 +195,13 @@ public class RouteMapPanel extends JPanel {
      */
     private void removeRouteB_actionPerformed(ActionEvent e) {
         Route route = routeTable.getRoute();
-        
+
         //do nothing if there is no route selected
         if (route != null) {
-            int result = JOptionPane.showConfirmDialog(null, "Delete " + route.getName() + "?", "Delete Route", JOptionPane.OK_CANCEL_OPTION);
-            
+            int result = JOptionPane
+                    .showConfirmDialog(null, "Delete " + route.getName() + "?", "Delete Route",
+                            JOptionPane.OK_CANCEL_OPTION);
+
             if (result == JOptionPane.OK_OPTION) {
                 //get list of associated tours, remove their drivers and buses, then remove them.
                 //A Tour cannot exist without a route, buses and drivers can't be scheduled for
@@ -213,25 +212,24 @@ public class RouteMapPanel extends JPanel {
                     if (tours.get(i).getDriver() != null) {
                         tours.get(i).getDriver().delTour(tours.get(i));
                     }
-                    
+
                     if (tours.get(i).getBus() != null) {
                         tours.get(i).getBus().delTour(tours.get(i));
                     }
-                    
+
                     CurrentProject.getTourColl().del(tours.get(i).getID());
                 }
-                
+
                 CurrentProject.getRouteColl().del(route.getID());
                 try {
-                    CurrentStorage.get().storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                    CurrentStorage.get()
+                            .storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
                 routeTable.refresh();
                 parentPanel.refresh();
             }
-        } else {
-            
         }
     }
 
@@ -256,7 +254,8 @@ public class RouteMapPanel extends JPanel {
 
             try {
                 CurrentProject.getRouteColl().add(route);
-                CurrentStorage.get().storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
+                CurrentStorage.get()
+                        .storeRouteList(CurrentProject.get(), CurrentProject.getRouteColl());
                 routeTable.refresh();
             } catch (DuplicateKeyException | IOException exception) {
                 exception.printStackTrace();
@@ -266,7 +265,7 @@ public class RouteMapPanel extends JPanel {
 
 
     /**
-     * Event handler for the "Optimize" button
+     * Event handler for the "Optimize" button.
      *
      * @param e action event
      */
@@ -274,7 +273,8 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
+                .getSelectedRow()];
         new RouteOptimizer(r).optimize();
         map.refresh();
         routeTable.refresh();
@@ -283,7 +283,7 @@ public class RouteMapPanel extends JPanel {
 
 
     /**
-     * Event handler for the "Optimize w/ Start" button
+     * Event handler for the "Optimize w/ Start" button.
      *
      * @param e action event
      */
@@ -291,7 +291,8 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
+                .getSelectedRow()];
         new RouteOptimizer(r).optimizeWithStart();
         map.refresh();
         routeTable.refresh();
@@ -306,11 +307,12 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
+                .getSelectedRow()];
         Node node = CurrentProject.getNodeColl().newItem();
-        
+
         Random rand = new Random();
-        
+
         node.setCoords(new Coordinate(
                 rand.nextDouble() * 90,
                 rand.nextDouble() * 90));
@@ -325,19 +327,19 @@ public class RouteMapPanel extends JPanel {
         }
 
     }
-    
+
     /**
      * Getter for RouteTable.
-     * 
+     *
      * @return routeTable
      */
     public RouteTable getRouteTable() {
         return routeTable;
     }
-    
+
     /**
      * Getter for RouteMap.
-     * 
+     *
      * @return map
      */
     public RouteMap getRouteMap() {
@@ -347,10 +349,12 @@ public class RouteMapPanel extends JPanel {
     //TODO: Review all of the following for usefulness
 
 //        void newResB_actionPerformed(ActionEvent e) {
-//        AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New resource"));
+//        AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New
+//        resource"));
 //        Dimension frmSize = App.getFrame().getSize();
 //        Point loc = App.getFrame().getLocation();
-//        dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
+//        dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height -
+//        dlg.getSize().height) / 2 + loc.y);
 //        dlg.setVisible(true);
 //        if (dlg.CANCELLED)
 //            return;
@@ -393,7 +397,8 @@ public class RouteMapPanel extends JPanel {
 //                    + "'";
 //
 //        else
-//            msg = Local.getString("Remove") + " " + toRemove.length + " " + Local.getString("shortcuts");
+//            msg = Local.getString("Remove") + " " + toRemove.length + " " + Local.getString
+//            ("shortcuts");
 //        msg +=
 //            "\n"
 //            + Local.getString("Are you sure?");
@@ -407,18 +412,21 @@ public class RouteMapPanel extends JPanel {
 //            return;
 //        for (int i = 0; i < toRemove.length; i++) {
 //                CurrentProject.getResourcesList().removeResource(
-//                        ((Resource) map.getModel().getValueAt(toRemove[i], ResourcesTable._RESOURCE)).getPath());
+//                        ((Resource) map.getModel().getValueAt(toRemove[i], ResourcesTable
+//                        ._RESOURCE)).getPath());
 //        }
 //        map.tableChanged();
 //    }
 //
 //    MimeType addResourceType(String fpath) {
-//        ResourceTypeDialog dlg = new ResourceTypeDialog(App.getFrame(), Local.getString("Resource type"));
+//        ResourceTypeDialog dlg = new ResourceTypeDialog(App.getFrame(), Local.getString
+//        ("Resource type"));
 //        Dimension dlgSize = new Dimension(420, 300);
 //        dlg.setSize(dlgSize);
 //        Dimension frmSize = App.getFrame().getSize();
 //        Point loc = App.getFrame().getLocation();
-//        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+//        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize
+//        .height) / 2 + loc.y);
 //        dlg.ext = MimeTypesList.getExtension(fpath);
 //        dlg.setVisible(true);
 //        if (dlg.CANCELLED)
@@ -449,12 +457,14 @@ public class RouteMapPanel extends JPanel {
 //        SetAppDialog dlg =
 //            new SetAppDialog(
 //                App.getFrame(),
-//                Local.getString(Local.getString("Select the application to open files of type")+" '" + mt.getLabel() + "'"));
+//                Local.getString(Local.getString("Select the application to open files of type")
+//                +" '" + mt.getLabel() + "'"));
 //        Dimension dlgSize = new Dimension(420, 300);
 //        dlg.setSize(dlgSize);
 //        Dimension frmSize = App.getFrame().getSize();
 //        Point loc = App.getFrame().getLocation();
-//        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+//        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize
+//        .height) / 2 + loc.y);
 //        dlg.setDirectory(d);
 //        dlg.appPanel.argumentsField.setText("$1");
 //        dlg.setVisible(true);
@@ -494,7 +504,8 @@ public class RouteMapPanel extends JPanel {
 //        }
 //        catch (Exception ex) {
 //            new ExceptionDialog(ex, "Failed to run an external application <br><code>"
-//                    +command[0]+"</code>", "Check the application path and command line parameters for this resource type " +
+//                    +command[0]+"</code>", "Check the application path and command line
+//                    parameters for this resource type " +
 //                            "(File-&gt;Preferences-&gt;Resource types).");
 //        }
 //    }
@@ -573,7 +584,8 @@ public class RouteMapPanel extends JPanel {
 //      String destStr = JN_DOCPATH + CurrentProject.get().getID()
 //                         + File.separator + "_projectFiles" + File.separator + baseName;
 //
-//      File f = new File(JN_DOCPATH + CurrentProject.get().getID() + File.separator + "_projectFiles");
+//      File f = new File(JN_DOCPATH + CurrentProject.get().getID() + File.separator +
+//      "_projectFiles");
 //      if (!f.exists()) {
 //          f.mkdirs();
 //      }
