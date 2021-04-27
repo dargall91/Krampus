@@ -120,8 +120,9 @@ public class SetApplicationPanel extends JPanel {
             if (lastSel != null)
                 chooser.setCurrentDirectory(lastSel);
         */
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             applicationField.setText(chooser.getSelectedFile().getPath());
+        }
     }
 
     void argumentsField_caretUpdate(CaretEvent e) {

@@ -6,12 +6,30 @@ plugins {
     id 'java'
     id "com.github.spotbugs" version "4.7.0"
     id 'checkstyle'
-
 }
 
 mainClassName = 'main/java/memoranda/Start'
 
 compileJava.options.encoding = 'UTF-8'
+
+def krampusVersion = '2.0'
+def krampusBuild = '1.0'
+
+//create a .properties file with the version and build
+task createProperties(dependsOn: processResources) {
+  doLast {
+    new File("src/main/resources/util/version.properties").withWriter { w ->
+        Properties p = new Properties()
+        p['version'] = krampusVersion.toString()
+        p['build'] = krampusBuild.toString()
+        p.store w, null
+    }
+  }
+}
+
+classes {
+    dependsOn createProperties
+}
 
 // Repositories and dependencies for code go here
 repositories {
@@ -62,12 +80,14 @@ tasks.withType(Checkstyle) {
 
 
 spotbugsTest {
+    excludeFilter = file('config/spotbugs/exclude.xml')
     reports {
         xml.enabled = false
         html.enabled = true
     }
 }
 spotbugsMain {
+    excludeFilter = file('config/spotbugs/exclude.xml')
     reports {
         xml.enabled = false
         html.enabled = true
@@ -80,5 +100,6 @@ spotbugs {
     showProgress = true
     effort = 'default'
     maxHeapSize = '2g'
+
 }
 

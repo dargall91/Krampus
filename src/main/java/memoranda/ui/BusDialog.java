@@ -1,22 +1,10 @@
 package main.java.memoranda.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  * BusDialog is a JDialog that has fields to enter and edit a bus's number. This dialog will not
@@ -26,18 +14,18 @@ import javax.swing.JTextField;
  * @version 04/09/2020
  */
 public class BusDialog extends JDialog {
+    private static final Dimension BUTTON_SIZE = new Dimension(100, 25);
+    private static final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
+    private static final Dimension VERTICAL_GAP = new Dimension(0, 5);
+    private static final int FIELD_WIDTH = 5;
+    private static final int NO_NUMBER = -1;
     private boolean cancelled;
     private JPanel errorPanel;
     private JTextField numberField;
-    private final Dimension BUTTON_SIZE = new Dimension(100, 25);
-    private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
-    private final Dimension VERTICAL_GAP = new Dimension(0, 5);
-    private static final int FIELD_WIDTH = 5;
-    private static final int NO_NUMBER = -1;
 
     /**
-     * Creates a JDialog window that allows the user to add a new Bus to the system
-     * or edit an existing one
+     * Creates a JDialog window that allows the user to add a new Bus to the system or edit an
+     * existing one.
      *
      * @param frame         The main application Frame
      * @param title         The title for this JDialog
@@ -80,19 +68,17 @@ public class BusDialog extends JDialog {
             //Do not allow non-numeric characters to be entered into this field
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE
-                        || e.getKeyCode() == KeyEvent.VK_DELETE))
-                    numberField.setEditable(true);
-
-                else
-                    numberField.setEditable(false);
+                numberField.setEditable(e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || (
+                        e.getKeyCode() == KeyEvent.VK_BACK_SPACE
+                                || e.getKeyCode() == KeyEvent.VK_DELETE));
             }
 
             //If the bus number is multiple digits and the first digit is 0, drop the the 0
             @Override
             public void keyReleased(KeyEvent e) {
-                if (numberField.getText().length() > 1 && numberField.getText().charAt(0) == '0')
+                if (numberField.getText().length() > 1 && numberField.getText().charAt(0) == '0') {
                     numberField.setText(numberField.getText().substring(1));
+                }
             }
         });
 
@@ -106,22 +92,12 @@ public class BusDialog extends JDialog {
         JButton posButton = new JButton(posButtonName);
         posButton.setHorizontalAlignment(JButton.CENTER);
         posButton.setMaximumSize(BUTTON_SIZE);
-        posButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                posButton_actionPerformed(e);
-            }
-        });
+        posButton.addActionListener(e -> posButton_actionPerformed(e));
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
         cancelButton.setMaximumSize(BUTTON_SIZE);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelButton_actionPerformed(e);
-            }
-        });
+        cancelButton.addActionListener(e -> cancelButton_actionPerformed(e));
 
         buttonPanel.add(posButton);
         buttonPanel.add(Box.createRigidArea(HORIZONTAL_GAP));
@@ -154,7 +130,7 @@ public class BusDialog extends JDialog {
     }
 
     /**
-     * Checks if this JDialog was exited via the cancel button or not
+     * Checks if this JDialog was exited via the cancel button or not.
      *
      * @return True if exited via Cancel button, false if not
      */
@@ -163,7 +139,7 @@ public class BusDialog extends JDialog {
     }
 
     /**
-     * New Bus number getter
+     * New Bus number getter.
      *
      * @return The bus's number, or -1 if no number is entered
      */
@@ -176,7 +152,7 @@ public class BusDialog extends JDialog {
     }
 
     /**
-     * Sets the bus number field when editing a Bus
+     * Sets the bus number field when editing a Bus.
      *
      * @param number The bus's number
      */

@@ -1,18 +1,16 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
- * Bus object representing a bus in the MTB scheduling system.
- * Buses can be part of tours
+ * Bus object representing a bus in the MTB scheduling system. Buses can be part of tours
  *
  * @author Brian Pape
  * @version 2021-04-01
@@ -21,7 +19,7 @@ public class Bus extends IndexedObject {
     private int number;
 
     @JsonIgnore
-    private HashMap<Integer, Tour> tours;
+    private final HashMap<Integer, Tour> tours;
 
     /**
      * Standard constructor. Sets id for this bus.
@@ -51,6 +49,7 @@ public class Bus extends IndexedObject {
      * Add a tour to this bus.
      *
      * @param tour the tour to add
+     * @throws DuplicateKeyException if the tour is already associated with a bus
      */
     public void addTour(Tour tour) throws DuplicateKeyException {
         if (tour.getBus() != this && tour.getBus() != null) {
@@ -111,15 +110,6 @@ public class Bus extends IndexedObject {
     }
 
     /**
-     * number setter.
-     *
-     * @param number bus number
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    /**
      * number getter.
      *
      * @return bus number
@@ -128,6 +118,14 @@ public class Bus extends IndexedObject {
         return number;
     }
 
+    /**
+     * number setter.
+     *
+     * @param number bus number
+     */
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     /**
      * standard toString() returns string repr of obj.
