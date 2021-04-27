@@ -149,7 +149,7 @@ public class Database {
         if (nodeColl.size() < 1) {
             Node start = nodeColl.newItem();
             start.setName("Start");
-            start.setCoords(new Coordinate(41.95422, -87.6623));
+            start.setCoords(new Coordinate(41.9543,-87.66899));
             Node node1 = nodeColl.newItem();
             node1.setName("Stop 1");
             node1.setCoords(new Coordinate(41.9543,-87.6623));
@@ -191,8 +191,21 @@ public class Database {
             node13.setCoords(new Coordinate(41.95306,-87.64501));
             Node terminus = nodeColl.newItem();
             terminus.setName("End");
-            terminus.setCoords(new Coordinate(41.95462, -87.6623));
+            terminus.setCoords(new Coordinate(41.9543,-87.64521));
             nodeColl.add(start);
+            nodeColl.add(node1);
+            nodeColl.add(node2);
+            nodeColl.add(node3);
+            nodeColl.add(node4);
+            nodeColl.add(node5);
+            nodeColl.add(node6);
+            nodeColl.add(node7);
+            nodeColl.add(node8);
+            nodeColl.add(node9);
+            nodeColl.add(node10);
+            nodeColl.add(node11);
+            nodeColl.add(node12);
+            nodeColl.add(node13);
             nodeColl.add(terminus);
             Route route = routeColl.newItem();
             route.setName("ASU Route");
