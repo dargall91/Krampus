@@ -19,29 +19,9 @@ import java.io.IOException;
 /*$Id: Storage.java,v 1.4 2004/01/30 12:17:42 alexeya Exp $*/
 public interface Storage {
 
-    TaskList openTaskList(Project prj);
-
-    void storeTaskList(TaskList tl, Project prj);
-
-    NoteList openNoteList(Project prj);
-
-    void storeNoteList(NoteList nl, Project prj);
-
-    void storeNote(Note note, javax.swing.text.Document doc);
-
-    javax.swing.text.Document openNote(Note note);
-
-    void removeNote(Note note);
-
-    String getNoteURL(Note note);
-
     void openProjectManager();
 
     void storeProjectManager();
-
-    void openEventsManager();
-
-    void storeEventsManager();
 
     void openMimeTypesList();
 
@@ -50,10 +30,6 @@ public interface Storage {
     void createProjectStorage(Project prj);
 
     void removeProjectStorage(Project prj);
-
-    ResourcesList openResourcesList(Project prj);
-
-    void storeResourcesList(ResourcesList rl, Project prj);
 
     public void storeNodeList(Project prj, NodeColl nodeColl) throws JsonProcessingException, IOException;
 

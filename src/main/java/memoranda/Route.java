@@ -1,15 +1,16 @@
 package main.java.memoranda;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
- * Route object representing a route in the MTB scheduling system.
- * Routes contain an ordered list of Nodes
+ * Route object representing a route in the MTB scheduling system. Routes contain an ordered list of
+ * Nodes.
  *
  * @author Brian Pape, Chris Boveda
  * @version 2021-04-10
@@ -17,6 +18,7 @@ import java.util.List;
 public class Route extends IndexedObject {
     private String name;
     private LinkedList<Node> route;
+    private final ArrayList<Tour> tours;
 
 
     /**
@@ -27,6 +29,7 @@ public class Route extends IndexedObject {
     public Route(int id) {
         super(id);
         route = new LinkedList<>();
+        tours = new ArrayList<>();
     }
 
 
@@ -131,17 +134,6 @@ public class Route extends IndexedObject {
         return false;
     }
 
-
-    /**
-     * Sets the route to the given route.
-     *
-     * @param newRoute the new route to set
-     */
-    public void setRoute(LinkedList<Node> newRoute) {
-        this.route = newRoute;
-    }
-
-
     /**
      * standard getter for name.
      *
@@ -151,16 +143,14 @@ public class Route extends IndexedObject {
         return name;
     }
 
-
     /**
-     * Standard setter for name
+     * Standard setter for name.
      *
      * @param name new name
      */
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * returns an ordered list of the nodes in the route.
@@ -172,6 +162,33 @@ public class Route extends IndexedObject {
         return route;
     }
 
+    /**
+     * Sets the route to the given route.
+     *
+     * @param newRoute the new route to set
+     */
+    public void setRoute(LinkedList<Node> newRoute) {
+        this.route = newRoute;
+    }
+
+    /**
+     * Adds a Tour to this Route.
+     *
+     * @param tour The Tour to add
+     */
+    public void addTour(Tour tour) {
+        tours.add(tour);
+    }
+
+    /**
+     * Gets the list of Tours associated with this Route.
+     *
+     * @return The list of Tours
+     */
+    @JsonIgnore
+    public ArrayList<Tour> getTours() {
+        return tours;
+    }
 
     /**
      * Returns an ordered list of only the IDs of the nodes in this route for json serialization.

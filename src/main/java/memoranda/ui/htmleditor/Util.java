@@ -38,8 +38,9 @@ public class Util {
 
 
     public static Color getColorForName(String name, Color defaultColor) {
-        if (HTMLColors.contains(name.toLowerCase()))
+        if (HTMLColors.contains(name.toLowerCase())) {
             return (Color) HTMLColors.get(name.toLowerCase());
+        }
         return defaultColor;
     }
 
@@ -47,15 +48,18 @@ public class Util {
         String colorVal = "";
         if (color.length() > 0) {
             colorVal = color.trim();
-            if (colorVal.startsWith("#"))
+            if (colorVal.startsWith("#")) {
                 colorVal = colorVal.substring(1);
+            }
             try {
                 colorVal = new Integer(Integer.parseInt(colorVal, 16)).toString();
                 return Color.decode(colorVal.toLowerCase());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else return defaultColor;
+        } else {
+            return defaultColor;
+        }
         return getColorForName(color, defaultColor);
     }
 

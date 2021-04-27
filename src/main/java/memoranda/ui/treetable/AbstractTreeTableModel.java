@@ -1,6 +1,6 @@
 package main.java.memoranda.ui.treetable;
 /*
- * @(#)AbstractTreeTableModel.java	1.2 98/10/27
+ * @(#)AbstractTreeTableModel.java    1.2 98/10/27
  *
  * Copyright 1997, 1998 by Sun Microsystems, Inc.,
  * 901 San Antonio Road, Palo Alto, California, 94303, U.S.A.
@@ -13,14 +13,15 @@ package main.java.memoranda.ui.treetable;
  * you entered into with Sun.
  */
 
-import javax.swing.tree.*;
-import javax.swing.event.*;
+import javax.swing.event.EventListenerList;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreePath;
 
 /**
  * @author Philip Milne
- * @version 1.2 10/27/98
- * An abstract implementation of the TreeTableModel interface, handling the list
- * of listeners.
+ * @version 1.2 10/27/98 An abstract implementation of the TreeTableModel interface, handling the
+ * list of listeners.
  */
 
 public abstract class AbstractTreeTableModel implements TreeTableModel {
@@ -82,9 +83,10 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == TreeModelListener.class) {
                 // Lazily create the event:
-                if (e == null)
+                if (e == null) {
                     e = new TreeModelEvent(source, path,
                             childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeNodesChanged(e);
             }
         }
@@ -108,9 +110,10 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == TreeModelListener.class) {
                 // Lazily create the event:
-                if (e == null)
+                if (e == null) {
                     e = new TreeModelEvent(source, path,
                             childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeNodesInserted(e);
             }
         }
@@ -134,9 +137,10 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == TreeModelListener.class) {
                 // Lazily create the event:
-                if (e == null)
+                if (e == null) {
                     e = new TreeModelEvent(source, path,
                             childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeNodesRemoved(e);
             }
         }
@@ -160,9 +164,10 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == TreeModelListener.class) {
                 // Lazily create the event:
-                if (e == null)
+                if (e == null) {
                     e = new TreeModelEvent(source, path,
                             childIndices, children);
+                }
                 ((TreeModelListener) listeners[i + 1]).treeStructureChanged(e);
             }
         }
@@ -177,9 +182,9 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
     }
 
     /**
-     * By default, make the column with the Tree in it the only editable one.
-     * Making this column editable causes the JTable to forward mouse
-     * and keyboard events in the Tree column to the underlying JTree.
+     * By default, make the column with the Tree in it the only editable one. Making this column
+     * editable causes the JTable to forward mouse and keyboard events in the Tree column to the
+     * underlying JTree.
      */
     public boolean isCellEditable(Object node, int column) {
         return getColumnClass(column) == TreeTableModel.class;

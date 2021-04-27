@@ -23,9 +23,9 @@ import main.java.memoranda.ui.htmleditor.util.Local;
 public class Finder extends Thread {
 
     Pattern pattern;
-    String _find = null;
-    String dispText = "";
-    String _replace = null;
+    String _find;
+    String dispText;
+    String _replace;
     HTMLEditor editor;
 
     /**
@@ -42,13 +42,16 @@ public class Finder extends Thread {
         editor = theEditor;
         dispText = find;
         int flags = Pattern.DOTALL;
-        if (!matchCase)
+        if (!matchCase) {
             flags = flags + Pattern.CASE_INSENSITIVE + Pattern.UNICODE_CASE;
+        }
         _find = find;
-        if (!regexp)
+        if (!regexp) {
             _find = "\\Q" + _find + "\\E";
-        if (wholeWord)
+        }
+        if (wholeWord) {
             _find = "[\\s\\p{Punct}]" + _find + "[\\s\\p{Punct}]";
+        }
         try {
             pattern = Pattern.compile(_find, flags);
         } catch (Exception ex) {
@@ -63,8 +66,9 @@ public class Finder extends Thread {
     }
 
     public void findAll() {
-        if (pattern == null)
+        if (pattern == null) {
             return;
+        }
         String text = "";
         try {
             text = editor.editor.getDocument().getText(0, editor.editor.getDocument().getLength() - 1);
@@ -101,10 +105,11 @@ public class Finder extends Thread {
                         editor.editor.replaceSelection(_replace);
                         start = matcher.start() + _replace.length();
                         replaceAll = true;
-                    } else if (op == ReplaceOptionsDialog.CANCEL_OPTION)
+                    } else if (op == ReplaceOptionsDialog.CANCEL_OPTION) {
                         return;
-                    else
+                    } else {
                         start = matcher.end();
+                    }
                 } else {
                     editor.editor.replaceSelection(_replace);
                     start = matcher.start() + _replace.length();
@@ -124,8 +129,9 @@ public class Finder extends Thread {
 
                 if (cdlg.cancel) {
                     editor.toolsPanel.remove(cdlg);
-                    if (editor.toolsPanel.getTabCount() == 0)
+                    if (editor.toolsPanel.getTabCount() == 0) {
                         editor.hideToolsPanel();
+                    }
                     return;
                 }
                 start = matcher.end();
@@ -142,8 +148,9 @@ public class Finder extends Thread {
         JOptionPane.showMessageDialog(null, Local.getString("Search complete") + ".");
         if (showCdlg) {
             editor.toolsPanel.remove(cdlg);
-            if (editor.toolsPanel.getTabCount() == 0)
+            if (editor.toolsPanel.getTabCount() == 0) {
                 editor.hideToolsPanel();
+            }
         }
 
     }

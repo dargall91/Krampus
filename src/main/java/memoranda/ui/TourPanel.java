@@ -1,21 +1,10 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Objects;
-
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -23,6 +12,7 @@ import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Driver;
 import main.java.memoranda.Tour;
 import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
 
@@ -32,31 +22,29 @@ import main.java.memoranda.util.Local;
  * @author John Thurstonson
  * @version 04/10/2021
  * <p>
- * References:
- * Used EventsPanel.java as base, v 1.25 2005/02/19 10:06:25 rawsushi Exp
- * Referenced DriverPanel.java, Author: Derek Argall, Version: 04/05/2021
+ * References: Used EventsPanel.java as base, v 1.25 2005/02/19 10:06:25 rawsushi Exp Referenced DriverPanel.java,
+ * Author: Derek Argall, Version: 04/05/2021
+ * </p>
  */
 public class TourPanel extends JPanel {
     private BorderLayout borderLayout1 = new BorderLayout();
     private JToolBar toursToolBar = new JToolBar();
     private JScrollPane scrollPane = new JScrollPane();
     private TourTable tourTable = new TourTable();
-    private JPopupMenu tourPPMenu = new JPopupMenu();
+    private JPopupMenu tourMenu = new JPopupMenu();
     private JMenuItem ppEditTour = new JMenuItem();
     private JMenuItem ppRemoveTour = new JMenuItem();
     private JMenuItem ppNewTour = new JMenuItem();
     private DailyItemsPanel parentPanel = null;
-    //private DriverScheduleTable scheduleTable;
 
     /**
-     * TourPanel Constructor
-     * Creates TourPanel with current tour information
+     * TourPanel Constructor. Creates TourPanel with current tour information.
      *
-     * @param _parentPanel DailyItemsPanel
+     * @param parentPanel DailyItemsPanel
      */
-    public TourPanel(DailyItemsPanel _parentPanel) {
+    public TourPanel(DailyItemsPanel parentPanel) {
         try {
-            parentPanel = _parentPanel;
+            this.parentPanel = parentPanel;
             jbInit();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -103,7 +91,6 @@ public class TourPanel extends JPanel {
             }
         });
 
-
         scrollPane.getViewport().setBackground(Color.white);
         tourTable.setMaximumSize(new Dimension(32767, 32767));
         tourTable.setRowHeight(24);
@@ -115,14 +102,12 @@ public class TourPanel extends JPanel {
             }
         });
 
-
         ppRemoveTour.setText("Remove Tour");
         ppRemoveTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ppRemoveTour_actionPerformed(e);
             }
         });
-
 
         ppNewTour.setText("New Tour");
         ppNewTour.addActionListener(new java.awt.event.ActionListener() {
@@ -161,23 +146,20 @@ public class TourPanel extends JPanel {
 
         ppEditTour.setEnabled(false);
         ppRemoveTour.setEnabled(false);
-        tourPPMenu.add(ppNewTour);
-        tourPPMenu.addSeparator();
-        tourPPMenu.add(ppEditTour);
-        tourPPMenu.addSeparator();
-        tourPPMenu.add(ppRemoveTour);
-
-
+        tourMenu.add(ppNewTour);
+        tourMenu.addSeparator();
+        tourMenu.add(ppEditTour);
+        tourMenu.addSeparator();
+        tourMenu.add(ppRemoveTour);
     }
 
-
     /**
-     * Attempts to create new tour when new tour action is performed
+     * Attempts to create new tour when new tour action is performed.
      *
      * @param e new tour ActionEvent
      */
     public void newTourB_actionPerformed(ActionEvent e) {
-        TourDialog dlg = new TourDialog(App.getFrame(), "Add Tour");
+        TourDialog dlg = new TourDialog(App.getFrame());
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
 
@@ -196,11 +178,13 @@ public class TourPanel extends JPanel {
             tour.setName(dlg.getName());
             tour.setRoute(dlg.getRoute());
             tour.setTime(dlg.getTime());
-            tour.setBus(dlg.getBus());
+
             try {
+                dlg.getBus().addTour(tour);
                 CurrentProject.getTourColl().add(tour);
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
                 tourTable.refresh();
+                parentPanel.getBusScheduleTable().tableChanged();
             } catch (Exception f) {
                 f.printStackTrace();
             }
@@ -208,13 +192,13 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * Allows user to edit tour
+     * Allows user to edit tour.
      *
      * @param e edit tour ActionEvent
      */
     public void editTourB_actionPerformed(ActionEvent e) {
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
-        TourDialog dlg = new TourDialog(App.getFrame(), "Edit Tour");
+        TourDialog dlg = new TourDialog(App.getFrame(), tour);
         dlg.setName(tour.getName());
         dlg.setRoute(tour.getRoute());
         dlg.setTime(tour.getTime());
@@ -234,11 +218,40 @@ public class TourPanel extends JPanel {
             tour.setName(dlg.getName());
             tour.setRoute(dlg.getRoute());
             tour.setTime(dlg.getTime());
-            tour.setBus(dlg.getBus());
+
+            try {
+                if (tour.getBus() != null) {
+                    tour.getBus().delTour(tour);
+                }
+
+                dlg.getBus().addTour(tour);
+            } catch (DuplicateKeyException e2) {
+                e2.printStackTrace();
+            }
+
+            if (dlg.getDriver() != null && tour.getDriver() == null) {
+                try {
+                    dlg.getDriver().addTour(tour);
+                } catch (DuplicateKeyException e1) {
+                    e1.printStackTrace();
+                }
+            } else if (dlg.getDriver() != null && tour.getDriver() != null) {
+                try {
+                    tour.getDriver().delTour(tour);
+                    dlg.getDriver().addTour(tour);
+                } catch (DuplicateKeyException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
             try {
 
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
+                CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
+                CurrentStorage.get().storeBusList(CurrentProject.get(), CurrentProject.getBusColl());
                 tourTable.refresh();
+                parentPanel.getDriverScheduleTable().tableChanged();
+                parentPanel.getBusScheduleTable().tableChanged();
 
             } catch (Exception f) {
                 f.printStackTrace();
@@ -247,47 +260,27 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * Allows user to delete tour
+     * Allows user to delete tour.
      *
      * @param e remove tour ActionEvent
      */
     public void removeTourB_actionPerformed(ActionEvent e) {
         Driver driver;
         Tour tour = (Tour) tourTable.getModel().getValueAt(tourTable.getSelectedRow(), TourTable.TOUR);
-        int result = JOptionPane.showConfirmDialog(null, "Delete " + tour.getName() +
-                "?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Delete " + tour.getName()
+                + "?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
 
 
-            //TODO Fix to remove tour without having to remove from driver schedule first
-            if (Objects.nonNull(tour.getDriver())) {
-                driver = tour.getDriver();
-                int result2 = JOptionPane.showConfirmDialog(null, "Must Remove " + tour.getName() +
-                                " From " + driver.getName() + " Schedule First "
-                        , "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
-                if (result2 == JOptionPane.OK_OPTION) {
-                    parentPanel.selectPanel("DriverPanel");
-                    return;
-                } else {
-                    return;
-                }
-                
-                /*if (driver.getTours().size() > 1) {
-                    System.out.println(driver.getTours().size());
-                }
-                
-                
-                driver.delTour(tour);
-                if (Objects.isNull(driver.getTours())) {
-                    //CurrentProject.getTourColl().del(tour.getID());
-                    scheduleTable = new DriverScheduleTable();
-                } else {
-                    int result2 = JOptionPane.showConfirmDialog(null,  "Must Remove " + tour.getName() + 
-                            "From " + driver.getName() +"Schedule First " 
-                            , "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
-                }
-                */
+            if (tour.getDriver() != null) {
+                tour.getDriver().delTour(tour);
+                parentPanel.getDriverScheduleTable().tableChanged();
+            }
+
+            if (tour.getBus() != null) {
+                tour.getBus().delTour(tour);
+                parentPanel.getBusScheduleTable().tableChanged();
             }
 
             CurrentProject.getTourColl().del(tour.getID());
@@ -297,7 +290,6 @@ public class TourPanel extends JPanel {
                 CurrentStorage.get().storeTourList(CurrentProject.get(), CurrentProject.getTourColl());
                 CurrentStorage.get().storeDriverList(CurrentProject.get(), CurrentProject.getDriverColl());
                 tourTable.refresh();
-
             } catch (Exception f) {
                 f.printStackTrace();
             }
@@ -310,7 +302,7 @@ public class TourPanel extends JPanel {
 
 
     /**
-     * PopupListener for mouse on specific tour
+     * PopupListener for mouse on specific tour.
      *
      * @author John Thurstonson
      * @version 04/10/2021
@@ -318,42 +310,43 @@ public class TourPanel extends JPanel {
     private class PopupListener extends MouseAdapter {
 
         /**
-         * Double click for edit
+         * Double click for edit.
          */
         public void mouseClicked(MouseEvent e) {
-            if ((e.getClickCount() == 2) && (tourTable.getSelectedRow() > -1))
+            if ((e.getClickCount() == 2) && (tourTable.getSelectedRow() > -1)) {
                 editTourB_actionPerformed(null);
+            }
         }
 
         /**
-         * Mouse clicked
+         * Mouse clicked.
          */
         public void mousePressed(MouseEvent e) {
             maybeShowPopup(e);
         }
 
         /**
-         * Mouse released
+         * Mouse released.
          */
         public void mouseReleased(MouseEvent e) {
             maybeShowPopup(e);
         }
 
         /**
-         * Shows pop up for add, edit, remove
+         * Shows pop up for add, edit, remove.
          *
          * @param e mouse click
          */
         private void maybeShowPopup(MouseEvent e) {
             if (e.isPopupTrigger()) {
-                tourPPMenu.show(e.getComponent(), e.getX(), e.getY());
+                tourMenu.show(e.getComponent(), e.getX(), e.getY());
             }
         }
 
     }
 
     /**
-     * Edit tour selected
+     * Edit tour selected.
      *
      * @param e edit even
      */
@@ -362,7 +355,7 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * Remove tour selected
+     * Remove tour selected.
      *
      * @param e remove tour
      */
@@ -371,11 +364,18 @@ public class TourPanel extends JPanel {
     }
 
     /**
-     * New tour selected
+     * New tour selected.
      *
      * @param e new tour
      */
     public void ppNewTour_actionPerformed(ActionEvent e) {
         newTourB_actionPerformed(e);
+    }
+
+    /**
+     * Refreshes the table. Should be called when changes are made in another tab.
+     */
+    public void refresh() {
+        tourTable.refresh();
     }
 }

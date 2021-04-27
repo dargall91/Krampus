@@ -1,10 +1,9 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Collection;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import main.java.memoranda.util.DuplicateKeyException;
 
 /**
@@ -14,7 +13,7 @@ import main.java.memoranda.util.DuplicateKeyException;
  * @version 2021-04-01
  */
 public abstract class DataCollection<T extends IndexedObject> implements Iterable<T> {
-    private HashMap<Integer, IndexedObject> coll;
+    private final HashMap<Integer, IndexedObject> coll;
     private int maxID = 0;
 
 
@@ -150,8 +149,8 @@ public abstract class DataCollection<T extends IndexedObject> implements Iterabl
     }
 
     /**
-     * registers the provided ID as the maximum ID utilized in this collection (if greater than
-     * the current one).
+     * registers the provided ID as the maximum ID utilized in this collection (if greater than the
+     * current one).
      *
      * @param id id to register
      */

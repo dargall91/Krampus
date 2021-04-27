@@ -1,29 +1,10 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 import java.util.Vector;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import main.java.memoranda.ui.htmleditor.util.Local;
@@ -39,20 +20,20 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  */
 
 public class FontDialog extends JDialog {
-    JPanel areaPanel = new JPanel(new GridBagLayout());
-    GridBagConstraints gbc;
-    JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-    JButton cancelB = new JButton();
-    JButton okB = new JButton();
-    JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     public JLabel header = new JLabel();
     public boolean CANCELLED = false;
     public JComboBox fontSizeCB = new JComboBox(new Object[]
             {"", "1", "2", "3", "4", "5", "6", "7"});
     public JComboBox fontFamilyCB;
     public JLabel sample = new JLabel();
-    JPanel samplePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     public JTextField colorField = new JTextField();
+    JPanel areaPanel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc;
+    JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    JButton cancelB = new JButton();
+    JButton okB = new JButton();
+    JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel samplePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     JLabel lblTextColor = new JLabel();
     JButton colorB = new JButton();
 
@@ -80,17 +61,18 @@ public class FontDialog extends JDialog {
         fonts.add("serif");
         fonts.add("sans-serif");
         fonts.add("monospaced");
-        for (int i = 0; i < envfonts.length; i++)
+        for (int i = 0; i < envfonts.length; i++) {
             fonts.add(envfonts[i]);
+        }
         fontFamilyCB = new JComboBox(fonts);
 
         headerPanel.setBackground(Color.WHITE);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Text properties"));
         header.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                        "/htmleditor/icons/fontbig.png")));
+                Objects.requireNonNull(ImageDialog.class.getResource(
+                        "/htmleditor/icons/fontbig.png"))));
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
@@ -101,11 +83,7 @@ public class FontDialog extends JDialog {
                 BorderFactory.createEmptyBorder(),
                 Local.getString("Font family")));
         fontFamilyCB.setPreferredSize(new Dimension(200, 50));
-        fontFamilyCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                fontChanged(e);
-            }
-        });
+        fontFamilyCB.addActionListener(e -> fontChanged(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -114,11 +92,7 @@ public class FontDialog extends JDialog {
         gbc.insets = new Insets(10, 10, 5, 5);
         areaPanel.add(fontFamilyCB, gbc);
         fontSizeCB.setEditable(true);
-        fontSizeCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                fontChanged(e);
-            }
-        });
+        fontSizeCB.addActionListener(e -> fontChanged(e));
         fontSizeCB.setBorder(new TitledBorder(
                 BorderFactory.createEmptyBorder(), Local.getString("Font size")));
         fontSizeCB.setPreferredSize(new Dimension(60, 50));
@@ -142,14 +116,10 @@ public class FontDialog extends JDialog {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(5, 5, 5, 5);
         areaPanel.add(colorField, gbc);
-        colorB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                colorB_actionPerformed(e);
-            }
-        });
+        colorB.addActionListener(e -> colorB_actionPerformed(e));
         colorB.setIcon(new ImageIcon(
-                main.java.memoranda.ui.htmleditor.FontDialog.class.getResource(
-                        "/htmleditor/icons/color.png")));
+                Objects.requireNonNull(FontDialog.class.getResource(
+                        "/htmleditor/icons/color.png"))));
         colorB.setPreferredSize(new Dimension(25, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -179,20 +149,12 @@ public class FontDialog extends JDialog {
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText(Local.getString("Ok"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         buttonsPanel.add(okB, null);
         buttonsPanel.add(cancelB, null);
@@ -213,11 +175,14 @@ public class FontDialog extends JDialog {
         int size = 16;
         String face;
         Font font = sample.getFont();
-        if (fontSizeCB.getSelectedIndex() > 0)
+        if (fontSizeCB.getSelectedIndex() > 0) {
             size = sizes[fontSizeCB.getSelectedIndex() - 1];
-        if (fontFamilyCB.getSelectedIndex() > 0)
+        }
+        if (fontFamilyCB.getSelectedIndex() > 0) {
             face = (String) fontFamilyCB.getSelectedItem();
-        else face = font.getName();
+        } else {
+            face = font.getName();
+        }
         sample.setFont(new Font(face, Font.PLAIN, size));
     }
 
@@ -251,7 +216,9 @@ public class FontDialog extends JDialog {
         UIManager.put("ColorChooser.rgbBlueText", Local.getString("Blue"));
         Color c = JColorChooser.showDialog(this, Local.getString("Font color"),
                 Util.decodeColor(colorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         colorField.setText(Util.encodeColor(c));
         Util.setColorField(colorField);
         sample.setForeground(c);

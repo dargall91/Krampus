@@ -36,8 +36,9 @@ public class Util {
 
     public static String generateId() {
         long seed1 = System.currentTimeMillis();
-        while (seed1 == seed)
+        while (seed1 == seed) {
             seed1 = System.currentTimeMillis(); // Make sure we'll don't get the same seed twice
+        }
         seed = seed1;
         Random r = new Random(seed);
         return Integer.toString(r.nextInt(), 16) +
@@ -86,7 +87,9 @@ public class Util {
         // Now system-related path-separator is used
         String p = System.getProperty("user.home") + File.separator
                 + ".jnotes2" + File.separator;
-        if (new File(p).isDirectory()) return p;
+        if (new File(p).isDirectory()) {
+            return p;
+        }
         return System.getProperty("user.home") + File.separator
                 + ".memoranda" + File.separator;
     }
@@ -96,8 +99,9 @@ public class Util {
     }
 
     public static void runBrowser(String url) {
-        if (!checkBrowser())
+        if (!checkBrowser()) {
             return;
+        }
         String commandLine = MimeTypesList.getAppList().getBrowserExec() + " " + url;
         System.out.println("Run: " + commandLine);
         try {
@@ -113,9 +117,11 @@ public class Util {
     public static boolean checkBrowser() {
         AppList appList = MimeTypesList.getAppList();
         String bpath = appList.getBrowserExec();
-        if (bpath != null)
-            if (new File(bpath).isFile())
+        if (bpath != null) {
+            if (new File(bpath).isFile()) {
                 return true;
+            }
+        }
         JFileChooser chooser = new JFileChooser();
         chooser.setFileHidingEnabled(false);
         chooser.setDialogTitle(Local.getString("Select the web-browser executable"));
@@ -124,8 +130,9 @@ public class Util {
         /*java.io.File lastSel = (java.io.File) Context.get("LAST_SELECTED_RESOURCE_FILE");
         if (lastSel != null)
             chooser.setCurrentDirectory(lastSel);*/
-        if (chooser.showOpenDialog(App.getFrame()) != JFileChooser.APPROVE_OPTION)
+        if (chooser.showOpenDialog(App.getFrame()) != JFileChooser.APPROVE_OPTION) {
             return false;
+        }
         appList.setBrowserExec(chooser.getSelectedFile().getPath());
         CurrentStorage.get().storeMimeTypesList();
         return true;
@@ -152,8 +159,9 @@ public class Util {
         AppFrame.addExitListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                for (Iterator i = tempFiles.iterator(); i.hasNext(); )
+                for (Iterator i = tempFiles.iterator(); i.hasNext(); ) {
                     ((File) i.next()).delete();
+                }
             }
         });
     }

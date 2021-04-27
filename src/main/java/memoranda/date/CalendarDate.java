@@ -21,9 +21,9 @@ import main.java.memoranda.util.Util;
 /*$Id: CalendarDate.java,v 1.3 2004/01/30 12:17:41 alexeya Exp $*/
 public class CalendarDate {
 
-    private int _year;
-    private int _month;
-    private int _day;
+    private final int _year;
+    private final int _month;
+    private final int _day;
 
     public static Calendar dateToCalendar(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -43,10 +43,11 @@ public class CalendarDate {
         cal.set(Calendar.MONTH, _month);
         cal.getTime();
         int dmax = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        if (day <= dmax)
+        if (day <= dmax) {
             _day = day;
-        else
+        } else {
             _day = dmax;
+        }
 
     }
 
@@ -122,6 +123,9 @@ public class CalendarDate {
     }
 
     public boolean equals(Object object) {
+        if (object==null){
+            return false;
+        }
         if (object.getClass().isInstance(CalendarDate.class)) {
             CalendarDate d2 = (CalendarDate) object;
             return ((d2.getDay() == getDay()) && (d2.getMonth() == getMonth()) && (d2.getYear() == getYear()));
@@ -136,17 +140,23 @@ public class CalendarDate {
     }
 
     public boolean equals(CalendarDate date) {
-        if (date == null) return false;
+        if (date == null) {
+            return false;
+        }
         return ((date.getDay() == getDay()) && (date.getMonth() == getMonth()) && (date.getYear() == getYear()));
     }
 
     public boolean before(CalendarDate date) {
-        if (date == null) return true;
+        if (date == null) {
+            return true;
+        }
         return this.getCalendar().before(date.getCalendar());
     }
 
     public boolean after(CalendarDate date) {
-        if (date == null) return true;
+        if (date == null) {
+            return true;
+        }
         return this.getCalendar().after(date.getCalendar());
     }
 

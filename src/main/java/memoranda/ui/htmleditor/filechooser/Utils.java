@@ -4,10 +4,10 @@ import java.io.File;
 
 public class Utils {
 
-    public final static String jpeg = "jpeg";
-    public final static String jpg = "jpg";
-    public final static String gif = "gif";
-    public final static String png = "png";
+    public static final String jpeg = "jpeg";
+    public static final String jpg = "jpg";
+    public static final String gif = "gif";
+    public static final String png = "png";
 
     /*
      * Get the extension of a file.
