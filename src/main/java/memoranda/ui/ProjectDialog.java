@@ -1,32 +1,14 @@
 package main.java.memoranda.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
+import java.util.Objects;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectManager;
@@ -37,6 +19,10 @@ import main.java.memoranda.util.Local;
 /*$Id: ProjectDialog.java,v 1.26 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ProjectDialog extends JDialog {
     public boolean CANCELLED = true;
+    public JTextField prTitleField = new JTextField();
+    public JSpinner startDate = new JSpinner(new SpinnerDateModel());
+    public JCheckBox endDateChB = new JCheckBox();
+    public JSpinner endDate = new JSpinner(new SpinnerDateModel());
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
     CalendarFrame endCalFrame = new CalendarFrame();
@@ -46,12 +32,8 @@ public class ProjectDialog extends JDialog {
     JLabel header = new JLabel();
     JPanel centerPanel = new JPanel(new GridBagLayout());
     JLabel titleLabel = new JLabel();
-    public JTextField prTitleField = new JTextField();
     JLabel sdLabel = new JLabel();
-    public JSpinner startDate = new JSpinner(new SpinnerDateModel());
     JButton sdButton = new JButton();
-    public JCheckBox endDateChB = new JCheckBox();
-    public JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton edButton = new JButton();
     //public JCheckBox freezeChB = new JCheckBox();
     JPanel bottomPanel = new JPanel();
@@ -68,6 +50,31 @@ public class ProjectDialog extends JDialog {
         }
     }
 
+    public static void newProject() {
+        ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
+
+        Dimension dlgSize = dlg.getSize();
+        //dlg.setSize(dlgSize);
+        Dimension frmSize = App.getFrame().getSize();
+        Point loc = App.getFrame().getLocation();
+        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x,
+                (frmSize.height - dlgSize.height) / 2 + loc.y);
+        dlg.setVisible(true);
+        if (dlg.CANCELLED) {
+            return;
+        }
+        String title = dlg.prTitleField.getText();
+        CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
+        CalendarDate endD = null;
+        if (dlg.endDateChB.isSelected()) {
+            endD = new CalendarDate((Date) dlg.endDate.getModel().getValue());
+        }
+        Project prj = ProjectManager.createProject(title, startD, endD);
+        /*if (dlg.freezeChB.isSelected())
+            prj.freeze();*/
+        CurrentStorage.get().storeProjectManager();
+    }
+
     void jbInit() throws Exception {
         this.setResizable(false);
         getContentPane().setLayout(new GridBagLayout());
@@ -77,8 +84,8 @@ public class ProjectDialog extends JDialog {
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Project"));
         //header.setHorizontalAlignment(SwingConstants.CENTER);
-        header.setIcon(new ImageIcon(main.java.memoranda.ui.ProjectDialog.class.getResource(
-                "/ui/icons/project48.png")));
+        header.setIcon(new ImageIcon(Objects.requireNonNull(ProjectDialog.class.getResource(
+                "/ui/icons/project48.png"))));
         topPanel.add(header);
 
         centerPanel.setBorder(new EtchedBorder());
@@ -122,21 +129,21 @@ public class ProjectDialog extends JDialog {
         startDate.setEditor(new JSpinner.DateEditor(startDate,
                 sdf.toPattern()));
         //---------------------------------------------------
-        startDate.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (ignoreStartChanged) return;
-                ignoreStartChanged = true;
-                Date sd = (Date) startDate.getModel().getValue();
-                if (endDate.isEnabled()) {
-                    Date ed = (Date) endDate.getModel().getValue();
-                    if (sd.after(ed)) {
-                        startDate.getModel().setValue(ed);
-                        sd = ed;
-                    }
-                }
-                startCalFrame.cal.set(new CalendarDate(sd));
-                ignoreStartChanged = false;
+        startDate.addChangeListener(e -> {
+            if (ignoreStartChanged) {
+                return;
             }
+            ignoreStartChanged = true;
+            Date sd = (Date) startDate.getModel().getValue();
+            if (endDate.isEnabled()) {
+                Date ed = (Date) endDate.getModel().getValue();
+                if (sd.after(ed)) {
+                    startDate.getModel().setValue(ed);
+                    sd = ed;
+                }
+            }
+            startCalFrame.cal.set(new CalendarDate(sd));
+            ignoreStartChanged = false;
         });
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -146,12 +153,9 @@ public class ProjectDialog extends JDialog {
 
         sdButton.setMinimumSize(new Dimension(20, 20));
         sdButton.setPreferredSize(new Dimension(20, 20));
-        sdButton.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
-        sdButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sdButton_actionPerformed(e);
-            }
-        });
+        sdButton.setIcon(new ImageIcon(
+                Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/calendar.png"))));
+        sdButton.addActionListener(e -> sdButton_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -161,11 +165,7 @@ public class ProjectDialog extends JDialog {
 
         endDateChB.setForeground(Color.gray);
         endDateChB.setText(Local.getString("End date"));
-        endDateChB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                endDateChB_actionPerformed(e);
-            }
-        });
+        endDateChB.addActionListener(e -> endDateChB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
@@ -181,19 +181,19 @@ public class ProjectDialog extends JDialog {
         endDate.setEditor(new JSpinner.DateEditor(endDate,
                 sdf.toPattern()));
         //---------------------------------------------------
-        endDate.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (ignoreEndChanged) return;
-                ignoreEndChanged = true;
-                Date sd = (Date) startDate.getModel().getValue();
-                Date ed = (Date) endDate.getModel().getValue();
-                if (sd.after(ed)) {
-                    endDate.getModel().setValue(sd);
-                    ed = sd;
-                }
-                endCalFrame.cal.set(new CalendarDate(ed));
-                ignoreEndChanged = false;
+        endDate.addChangeListener(e -> {
+            if (ignoreEndChanged) {
+                return;
             }
+            ignoreEndChanged = true;
+            Date sd = (Date) startDate.getModel().getValue();
+            Date ed = (Date) endDate.getModel().getValue();
+            if (sd.after(ed)) {
+                endDate.getModel().setValue(sd);
+                ed = sd;
+            }
+            endCalFrame.cal.set(new CalendarDate(ed));
+            ignoreEndChanged = false;
         });
         //((JSpinner.DateEditor) endDate.getEditor()).setLocale(Local.getCurrentLocale());
         gbc = new GridBagConstraints();
@@ -207,12 +207,9 @@ public class ProjectDialog extends JDialog {
         edButton.setMinimumSize(new Dimension(20, 20));
         edButton.setMaximumSize(new Dimension(20, 20));
         edButton.setPreferredSize(new Dimension(20, 20));
-        edButton.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
-        edButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                edButton_actionPerformed(e);
-            }
-        });
+        edButton.setIcon(new ImageIcon(
+                Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/calendar.png"))));
+        edButton.addActionListener(e -> edButton_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 5;
         gbc.gridy = 2;
@@ -225,21 +222,13 @@ public class ProjectDialog extends JDialog {
         okButton.setMinimumSize(new Dimension(100, 25));
         okButton.setPreferredSize(new Dimension(100, 25));
         okButton.setText(Local.getString("Ok"));
-        okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okButton_actionPerformed(e);
-            }
-        });
+        okButton.addActionListener(e -> okButton_actionPerformed(e));
         this.getRootPane().setDefaultButton(okButton);
         cancelButton.setMaximumSize(new Dimension(100, 25));
         cancelButton.setMinimumSize(new Dimension(100, 25));
         cancelButton.setPreferredSize(new Dimension(100, 25));
         cancelButton.setText(Local.getString("Cancel"));
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelButton_actionPerformed(e);
-            }
-        });
+        cancelButton.addActionListener(e -> cancelButton_actionPerformed(e));
         bottomPanel.add(okButton);
         bottomPanel.add(cancelButton);
 
@@ -262,19 +251,17 @@ public class ProjectDialog extends JDialog {
         gbc.anchor = GridBagConstraints.EAST;
         getContentPane().add(bottomPanel, gbc);
 
-        startCalFrame.cal.addSelectionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (ignoreStartChanged)
-                    return;
-                startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
+        startCalFrame.cal.addSelectionListener(e -> {
+            if (ignoreStartChanged) {
+                return;
             }
+            startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
         });
-        endCalFrame.cal.addSelectionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (ignoreEndChanged)
-                    return;
-                endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
+        endCalFrame.cal.addSelectionListener(e -> {
+            if (ignoreEndChanged) {
+                return;
             }
+            endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
         });
     }
 
@@ -293,7 +280,9 @@ public class ProjectDialog extends JDialog {
         if (endDateChB.isSelected()) {
             endDateChB.setForeground(Color.BLACK);
             endDate.getModel().setValue(startDate.getModel().getValue());
-        } else endDateChB.setForeground(Color.GRAY);
+        } else {
+            endDateChB.setForeground(Color.GRAY);
+        }
     }
 
     void sdButton_actionPerformed(ActionEvent e) {
@@ -313,27 +302,5 @@ public class ProjectDialog extends JDialog {
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.setTitle(Local.getString("End date"));
         endCalFrame.show();
-    }
-
-    public static void newProject() {
-        ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
-
-        Dimension dlgSize = dlg.getSize();
-        //dlg.setSize(dlgSize);
-        Dimension frmSize = App.getFrame().getSize();
-        Point loc = App.getFrame().getLocation();
-        dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
-        dlg.setVisible(true);
-        if (dlg.CANCELLED)
-            return;
-        String title = dlg.prTitleField.getText();
-        CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
-        CalendarDate endD = null;
-        if (dlg.endDateChB.isSelected())
-            endD = new CalendarDate((Date) dlg.endDate.getModel().getValue());
-        Project prj = ProjectManager.createProject(title, startD, endD);
-        /*if (dlg.freezeChB.isSelected())
-            prj.freeze();*/
-        CurrentStorage.get().storeProjectManager();
     }
 }

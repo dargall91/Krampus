@@ -1,27 +1,27 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Driver;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
-import main.java.memoranda.util.Local;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.util.ArrayList;
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Driver;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
+import main.java.memoranda.util.Local;
 
 /**
  * DriverTourDialogTable is a JTable that displays unscheduled tours to be scheduled to a driver.
- * This table is intended to be used in the DriverTourDialog component
+ * This table is intended to be used in the DriverTourDialog component.
  *
  * @author Derek Argall
  * @version 04/05/2020
@@ -33,7 +33,7 @@ public class DriverTourDialogTable extends JTable {
     private static final int HEIGHT = 24;
 
     /**
-     * Constructor to the DriverTourDialogTable
+     * Constructor to the DriverTourDialogTable.
      */
     public DriverTourDialogTable() {
         super();
@@ -93,7 +93,7 @@ public class DriverTourDialogTable extends JTable {
     }
 
     /**
-     * Repaints the table to reflect any changes to the data
+     * Repaints the table to reflect any changes to the data.
      */
     public void tableChanged() {
         init();
@@ -101,9 +101,6 @@ public class DriverTourDialogTable extends JTable {
         updateUI();
     }
 
-    /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
-     */
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -114,7 +111,8 @@ public class DriverTourDialogTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
@@ -129,7 +127,7 @@ public class DriverTourDialogTable extends JTable {
         private String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("Tour ID"),
-                Local.getString("Bus ID"),
+                Local.getString("Bus Number"),
                 //Local.getString("Date"),
                 Local.getString("Time")};
 
@@ -159,17 +157,13 @@ public class DriverTourDialogTable extends JTable {
             }
 
             if (col == 2) {
-                return tourArray.get(row).getBusID();
+                return tourArray.get(row).getBus().getNumber();
             }
 
             if (col == 3) {
                 return tourArray.get(row).getTime();
             }
             
-            /*if (col == 4) {
-            	return tour.get(row).getDate();
-            }*/
-
             return null;
         }
 
@@ -190,7 +184,7 @@ public class DriverTourDialogTable extends JTable {
     }
 
     /**
-     * Gets the currently selected tour
+     * Gets the currently selected tour.
      *
      * @return the Tour
      */

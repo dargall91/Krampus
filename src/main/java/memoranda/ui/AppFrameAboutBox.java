@@ -7,6 +7,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,41 +22,45 @@ import main.java.memoranda.util.Local;
  */
 
 /*$Id: AppFrame_AboutBox.java,v 1.13 2005/11/09 22:38:07 alexeya Exp $*/
-public class AppFrame_AboutBox extends JDialog implements ActionListener {
+public class AppFrameAboutBox extends JDialog implements ActionListener {
 
     JButton button1 = new JButton();
-    JLabel imageLabel = new JLabel();
+    //JLabel imageLabel = new JLabel();
     JLabel lblText = new JLabel();
 
-    String product = "Version " + App.VERSION_INFO + " (Build " + App.BUILD_INFO + ")";
+    String product = "Version: " + App.getVersionInfo() + " (Build: " + App.getBuildInfo() + ")";
     String copyright = "Copyright (c) 2003, 2004 Memoranda team";
-    String url = App.WEBSITE_URL;
+    String url = App.getWebsiteUrl();
     String developersHead = Local.getString("Developers") + ":";
     String[] developers = {
-            "Alex Alishevskikh (alexeya@users.sourceforge.net)",
-            "Patrick Bielen (bielen@stafa.nl)",
-            "Ryan Ho (rawsushi@users.sourceforge.net)",
-            "Ivan Ribas (ivanrise@users.sourceforge.net)",
-            "Jyrki Velhonoja (velhonoja@kapsi.fi>)",
-            "Jeremy Whitlock (jwhitlock@starprecision.com)"
+        "Alex Alishevskikh (alexeya@users.sourceforge.net)",
+        "Patrick Bielen (bielen@stafa.nl)", "Ryan Ho (rawsushi@users.sourceforge.net)",
+        "Ivan Ribas (ivanrise@users.sourceforge.net)",
+        "Jyrki Velhonoja (velhonoja@kapsi.fi>)",
+        "Jeremy Whitlock (jwhitlock@starprecision.com)",
+        "Derek Argall",
+        "Brian Pape",
+        "Chris Bodeva",
+        "Kevin Dolan",
+        "John Thurston"
     };
     String othersHead = Local.getString("Other contributors") + ":";
     String[] others = {
-            "Thomas Chuffart (informatique@pierrelouiscarlier.fr)",
-            "Willy Dobe (wdobe@gmx.de)",
-            "Yunjie Liu (liu-610@163.com)",
-            "Kenneth J. Pouncey (kjpou@pt.lu)",
-            "Michael Radtke (mradtke@abigale.de)",
-            "Carel-J Rischmuller (carel-j.rischmuller@epiuse.com)",
-            "Milena Vitali-Charewicz (milo22370@yahoo.com)",
-            "Toru Watanabe (t-wata@cablenet.ne.jp)"
+        "Thomas Chuffart (informatique@pierrelouiscarlier.fr)",
+        "Willy Dobe (wdobe@gmx.de)",
+        "Yunjie Liu (liu-610@163.com)",
+        "Kenneth J. Pouncey (kjpou@pt.lu)",
+        "Michael Radtke (mradtke@abigale.de)",
+        "Carel-J Rischmuller (carel-j.rischmuller@epiuse.com)",
+        "Milena Vitali-Charewicz (milo22370@yahoo.com)",
+        "Toru Watanabe (t-wata@cablenet.ne.jp)"
     };
 
     JLayeredPane layeredPane;
     ImageIcon image;
     JLabel imgLabel;
 
-    public AppFrame_AboutBox(Frame parent) {
+    public AppFrameAboutBox(Frame parent) {
         super(parent);
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
@@ -72,15 +77,17 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
         text += "<b>" + product + "</b><br><br>";
         text += copyright + "<br>" + url + "<br><br>";
         text += "<b>" + developersHead + "</b><br>";
-        for (int i = 0; i < developers.length; i++)
-            text += developers[i] + "<br>";
+        for (String developer : developers) {
+            text += developer + "<br>";
+        }
         text += "<br><b>" + othersHead + "</b><br>";
-        for (int i = 0; i < others.length; i++)
-            text += others[i] + "<br>";
+        for (String other : others) {
+            text += other + "<br>";
+        }
 
         text += "</html>";
 
-        image = new ImageIcon(AppFrame_AboutBox.class.getResource("/ui/memoranda.png"));
+        image = new ImageIcon(Objects.requireNonNull(AppFrameAboutBox.class.getResource("/ui/memoranda.png")));
         this.setTitle(Local.getString("About Memoranda"));
         setResizable(false);
         // Initialize Objects
@@ -99,9 +106,9 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
         //layeredPane.setPreferredSize(new Dimension(300, 300));
         imgLabel = new JLabel(image);
         imgLabel.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
-        layeredPane.add(imgLabel, new Integer(1));
-        layeredPane.add(lblText, new Integer(2));
-        layeredPane.add(button1, new Integer(2));
+        layeredPane.add(imgLabel, Integer.valueOf(1));
+        layeredPane.add(lblText, Integer.valueOf(2));
+        layeredPane.add(button1, Integer.valueOf(2));
         this.getContentPane().setBackground(new Color(251, 197, 63));
     }
 

@@ -1,14 +1,8 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -66,13 +60,13 @@ public class FindDialog extends JDialog {
         this.setResizable(false);
         // Build Header and its layout
 
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Find & replace"));
         header.setIcon(
                 new ImageIcon(
-                        main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource(
-                                "/htmleditor/icons/findbig.png")));
+                        Objects.requireNonNull(ImageDialog.class.getResource(
+                                "/htmleditor/icons/findbig.png"))));
         headerPanel.setBackground(Color.WHITE);
         headerPanel.add(header);
         this.getContentPane().add(headerPanel, BorderLayout.NORTH);
@@ -116,11 +110,7 @@ public class FindDialog extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         areaPanel.add(chkCaseSens, gbc);
         chkReplace.setText(Local.getString("Replace with") + ":");
-        chkReplace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                replaceChB_actionPerformed(e);
-            }
-        });
+        chkReplace.addActionListener(e -> replaceChB_actionPerformed(e));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -146,20 +136,12 @@ public class FindDialog extends JDialog {
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText(Local.getString("Find"));
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         // build button-panel
         buttonsPanel.add(okB);

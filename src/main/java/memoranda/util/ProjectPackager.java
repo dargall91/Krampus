@@ -56,8 +56,9 @@ public class ProjectPackager {
             PackDirectory(prDir.getPath(), prDir, zip);
             zip.putNextEntry(new ZipEntry("__PROJECT_INFO__"));
             String prInfo = prj.getID() + "\n" + prj.getTitle() + "\n" + prj.getStartDate().toString() + "\n";
-            if (prj.getEndDate() != null)
+            if (prj.getEndDate() != null) {
                 prInfo += prj.getEndDate().toString();
+            }
             zip.write(prInfo.getBytes("UTF-8"));
             zip.closeEntry();
 
@@ -91,8 +92,9 @@ public class ProjectPackager {
                 ProjectManager.removeProject(pId);
             }
             Project prj = ProjectManager.createProject(pId, pTitle, new CalendarDate(pStartD), null);
-            if (pEndD != null)
+            if (pEndD != null) {
                 prj.setEndDate(new CalendarDate(pEndD));
+            }
             //File prDir = new File(JN_DOCPATH + prj.getID());
             Enumeration files;
             for (files = zip.entries(); files.hasMoreElements(); ) {
@@ -110,8 +112,9 @@ public class ProjectPackager {
                     byte[] buffer = new byte[1024];
                     int len;
 
-                    while ((len = inp.read(buffer)) >= 0)
+                    while ((len = inp.read(buffer)) >= 0) {
                         out.write(buffer, 0, len);
+                    }
 
                     inp.close();
                     out.close();

@@ -131,7 +131,9 @@ public class TableSorter extends TableMap {
 
                 Integer s1 = (Integer) priority.get((String) data.getValueAt(row1, column));
                 Integer s2 = (Integer) priority.get((String) data.getValueAt(row2, column));
-                if (s1 == null || s2 == null) return 0;
+                if (s1 == null || s2 == null) {
+                    return 0;
+                }
                 result = s1.compareTo(s2);
             } else if (data.getColumnName(column).equals(Local.getString("Status"))) {
                 Hashtable priority = new Hashtable();
@@ -143,7 +145,9 @@ public class TableSorter extends TableMap {
 
                 Integer s1 = (Integer) priority.get((String) data.getValueAt(row1, column));
                 Integer s2 = (Integer) priority.get((String) data.getValueAt(row2, column));
-                if (s1 == null || s2 == null) return 0;
+                if (s1 == null || s2 == null) {
+                    return 0;
+                }
                 result = s1.compareTo(s2);
             } else {
                 String s1 = (String) data.getValueAt(row1, column);
@@ -358,10 +362,11 @@ public class TableSorter extends TableMap {
                     //System.out.println("Sorting ..."); 
                     //int shiftPressed = e.getModifiers()&InputEvent.SHIFT_MASK; 
                     //boolean ascending = (shiftPressed == 0);
-                    if (column == sortBy)
+                    if (column == sortBy) {
                         ascending = !ascending;
-                    else
+                    } else {
                         ascending = true;
+                    }
                     sorter.sortByColumn(column, ascending);
                     tableView.getTableHeader().updateUI();
                 }

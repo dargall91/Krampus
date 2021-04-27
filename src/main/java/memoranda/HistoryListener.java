@@ -1,10 +1,8 @@
 /**
- * HistoryListener.java
- * Created on 23.02.2003, 1:56:52 Alex
- * Package: net.sf.memoranda
+ * HistoryListener.java Created on 23.02.2003, 1:56:52 Alex Package: net.sf.memoranda
  *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * @author Alex V. Alishevskikh, alex@openmechanics.net Copyright (c) 2003 Memoranda Team.
+ * http://memoranda.sf.net
  */
 package main.java.memoranda;
 

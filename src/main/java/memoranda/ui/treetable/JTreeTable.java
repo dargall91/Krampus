@@ -1,7 +1,7 @@
 package main.java.memoranda.ui.treetable;
 
 /*
- * @(#)JTreeTable.java	1.2 98/10/27
+ * @(#)JTreeTable.java    1.2 98/10/27
  *
  * Copyright 1997, 1998 by Sun Microsystems, Inc.,
  * 901 San Antonio Road, Palo Alto, California, 94303, U.S.A.
@@ -14,28 +14,23 @@ package main.java.memoranda.ui.treetable;
  * you entered into with Sun.
  */
 
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-
-import main.java.memoranda.Task;
-
-import javax.swing.table.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
+import java.awt.*;
 import java.awt.event.MouseEvent;
-
 import java.util.EventObject;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeSelectionModel;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
- * This example shows how to create a simple JTreeTable component, by using a
- * JTree as a renderer (and editor) for the cells in a particular column in the
- * JTable.
+ * This example shows how to create a simple JTreeTable component, by using a JTree as a renderer
+ * (and editor) for the cells in a particular column in the JTable.
  *
  * @author Philip Milne
  * @author Scott Violet
@@ -85,9 +80,9 @@ public class JTreeTable extends JTable {
     }
 
     /**
-     * Overridden to message super and forward the method to the tree. Since the
-     * tree is not actually in the component hieachy it will never receive this
-     * unless we forward it in this manner.
+     * Overridden to message super and forward the method to the tree. Since the tree is not
+     * actually in the component hieachy it will never receive this unless we forward it in this
+     * manner.
      */
     public void updateUI() {
         super.updateUI();
@@ -149,8 +144,8 @@ public class JTreeTable extends JTable {
         }
 
         /**
-         * updateUI is overridden to set the colors of the Tree's renderer to
-         * match that of the table.
+         * updateUI is overridden to set the colors of the Tree's renderer to match that of the
+         * table.
          */
         public void updateUI() {
             super.updateUI();
@@ -174,8 +169,7 @@ public class JTreeTable extends JTable {
         }
 
         /**
-         * Sets the row height of the tree, and forwards the row height to the
-         * table.
+         * Sets the row height of the tree, and forwards the row height to the table.
          */
         public void setRowHeight(int rowHeight) {
             if (rowHeight > 0) {
@@ -195,8 +189,8 @@ public class JTreeTable extends JTable {
         }
 
         /**
-         * Sublcassed to translate the graphics such that the last visible row
-         * will be drawn at 0,0.
+         * Sublcassed to translate the graphics such that the last visible row will be drawn at
+         * 0,0.
          */
         public void paint(Graphics g) {
             g.translate(0, -visibleRow * getRowHeight());
@@ -207,15 +201,15 @@ public class JTreeTable extends JTable {
          * TreeCellRenderer method. Overridden to update the visible row.
          */
         public Component getTableCellRendererComponent(JTable table,
-                                                       Object value, boolean isSelected, boolean hasFocus, int row,
+                                                       Object value, boolean isSelected,
+                                                       boolean hasFocus, int row,
                                                        int column) {
-            if (isSelected)
+            if (isSelected) {
                 setBackground(table.getSelectionBackground());
-            else
+            } else {
                 setBackground(table.getBackground());
-            if (value instanceof Task) {
-
             }
+
             visibleRow = row;
             return this;
         }
@@ -227,28 +221,26 @@ public class JTreeTable extends JTable {
     public class TreeTableCellEditor extends AbstractCellEditor implements
             TableCellEditor {
         public Component getTableCellEditorComponent(JTable table,
-                                                     Object value, boolean isSelected, int r, int c) {
+                                                     Object value, boolean isSelected, int r,
+                                                     int c) {
             return tree;
         }
 
         /**
-         * Overridden to return false, and if the event is a mouse event it is
-         * forwarded to the tree.
+         * Overridden to return false, and if the event is a mouse event it is forwarded to the
+         * tree.
          * <p>
-         * The behavior for this is debatable, and should really be offered as a
-         * property. By returning false, all keyboard actions are implemented in
-         * terms of the table. By returning true, the tree would get a chance to
-         * do something with the keyboard events. For the most part this is ok.
-         * But for certain keys, such as left/right, the tree will
-         * expand/collapse where as the table focus should really move to a
-         * different column. Page up/down should also be implemented in terms of
-         * the table. By returning false this also has the added benefit that
-         * clicking outside of the bounds of the tree node, but still in the
-         * tree column will select the row, whereas if this returned true that
-         * wouldn't be the case.
+         * The behavior for this is debatable, and should really be offered as a property. By
+         * returning false, all keyboard actions are implemented in terms of the table. By returning
+         * true, the tree would get a chance to do something with the keyboard events. For the most
+         * part this is ok. But for certain keys, such as left/right, the tree will expand/collapse
+         * where as the table focus should really move to a different column. Page up/down should
+         * also be implemented in terms of the table. By returning false this also has the added
+         * benefit that clicking outside of the bounds of the tree node, but still in the tree
+         * column will select the row, whereas if this returned true that wouldn't be the case.
          * <p>
-         * By returning false we are also enforcing the policy that the tree
-         * will never be editable (at least by a key sequence).
+         * By returning false we are also enforcing the policy that the tree will never be editable
+         * (at least by a key sequence).
          */
         public boolean isCellEditable(EventObject e) {
             if (e instanceof MouseEvent) {
@@ -269,10 +261,9 @@ public class JTreeTable extends JTable {
     }
 
     /**
-     * ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel to
-     * listen for changes in the ListSelectionModel it maintains. Once a change
-     * in the ListSelectionModel happens, the paths are updated in the
-     * DefaultTreeSelectionModel.
+     * ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel to listen for changes in
+     * the ListSelectionModel it maintains. Once a change in the ListSelectionModel happens, the
+     * paths are updated in the DefaultTreeSelectionModel.
      */
     public class ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel {
         /**
@@ -287,18 +278,16 @@ public class JTreeTable extends JTable {
         }
 
         /**
-         * Returns the list selection model. ListToTreeSelectionModelWrapper
-         * listens for changes to this model and updates the selected paths
-         * accordingly.
+         * Returns the list selection model. ListToTreeSelectionModelWrapper listens for changes to
+         * this model and updates the selected paths accordingly.
          */
         public ListSelectionModel getListSelectionModel() {
             return listSelectionModel;
         }
 
         /**
-         * This is overridden to set <code>updatingListSelectionModel</code>
-         * and message super. This is the only place DefaultTreeSelectionModel
-         * alters the ListSelectionModel.
+         * This is overridden to set <code>updatingListSelectionModel</code> and message super. This
+         * is the only place DefaultTreeSelectionModel alters the ListSelectionModel.
          */
         public void resetRowSelection() {
             if (!updatingListSelectionModel) {
@@ -324,9 +313,8 @@ public class JTreeTable extends JTable {
         }
 
         /**
-         * If <code>updatingListSelectionModel</code> is false, this will
-         * reset the selected paths from the selected rows in the list selection
-         * model.
+         * If <code>updatingListSelectionModel</code> is false, this will reset the selected paths
+         * from the selected rows in the list selection model.
          */
         protected void updateSelectedPathsFromSelectedRows() {
             if (!updatingListSelectionModel) {
@@ -356,8 +344,8 @@ public class JTreeTable extends JTable {
         }
 
         /**
-         * Class responsible for calling updateSelectedPathsFromSelectedRows
-         * when the selection of the list changse.
+         * Class responsible for calling updateSelectedPathsFromSelectedRows when the selection of
+         * the list changse.
          */
         class ListSelectionHandler implements ListSelectionListener {
             public void valueChanged(ListSelectionEvent e) {

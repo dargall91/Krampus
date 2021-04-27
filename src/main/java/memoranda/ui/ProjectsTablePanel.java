@@ -1,9 +1,6 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,7 +21,7 @@ public class ProjectsTablePanel extends JPanel {
     JScrollPane scrollPane = new JScrollPane();
     public JTable projectsTable = new JTable() {
         public TableCellRenderer getCellRenderer(int row, int column) {
-            if (((String) getModel().getValueAt(row, PROJECT_ID)).equals(CurrentProject.get().getID())) {
+            if (getModel().getValueAt(row, PROJECT_ID).equals(CurrentProject.get().getID())) {
                 return new javax.swing.table.DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(
                             JTable table,
@@ -35,9 +32,10 @@ public class ProjectsTablePanel extends JPanel {
                             int column) {
                         Component comp =
                                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                        comp.setFont(new java.awt.Font("Dialog", 1, 11));
-                        if (((row % 2) > 0) && (!isSelected))
+                        comp.setFont(new java.awt.Font("Dialog", Font.BOLD, 11));
+                        if (((row % 2) > 0) && (!isSelected)) {
                             comp.setBackground(new Color(230, 240, 255));
+                        }
                         return comp;
                     }
                 };
@@ -53,8 +51,9 @@ public class ProjectsTablePanel extends JPanel {
                             int column) {
                         Component comp =
                                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                        if (isSelected)
+                        if (isSelected) {
                             return comp;
+                        }
                         comp.setBackground(new Color(230, 240, 255));
                         return comp;
                     }
@@ -67,7 +66,9 @@ public class ProjectsTablePanel extends JPanel {
     boolean activeOnly = false;
 
     public void updateUI() {
-        if (projectsTable != null) projectsTable.updateUI();
+        if (projectsTable != null) {
+            projectsTable.updateUI();
+        }
         super.updateUI();
     }
 
@@ -80,8 +81,8 @@ public class ProjectsTablePanel extends JPanel {
     }
 
     void jbInit() throws Exception {
-        projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
-        projectsTable.setFont(new java.awt.Font("Dialog", 0, 11));
+        projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
+        projectsTable.setFont(new java.awt.Font("Dialog", Font.PLAIN, 11));
         projectsTable.setMinimumSize(new Dimension(200, 100));
         projectsTable.setMaximumSize(new Dimension(32767, 32767));
         //projectsTable.setPreferredSize(new Dimension(400, 100));
@@ -145,12 +146,15 @@ public class ProjectsTablePanel extends JPanel {
         }
 
         public Object getValueAt(int row, int col) {
-            if (row == -1) return "";
+            if (row == -1) {
+                return "";
+            }
             Project pr;
-            if (activeOnly)
+            if (activeOnly) {
                 pr = (Project) ProjectManager.getActiveProjects().get(row);
-            else
+            } else {
                 pr = (Project) ProjectManager.getAllProjects().get(row);
+            }
             switch (col) {
                 case 0:
                     return pr.getTitle();
@@ -158,10 +162,11 @@ public class ProjectsTablePanel extends JPanel {
                     return pr.getStartDate().getShortDateString();
                 case 2:
                     CalendarDate d = pr.getEndDate();
-                    if (d == null)
+                    if (d == null) {
                         return "-";
-                    else
+                    } else {
                         return d.getShortDateString();
+                    }
                     //case 3 :   return pr.getProgress() + "%";
                 case 3:
                     return getStatusString(pr.getStatus());
@@ -174,8 +179,9 @@ public class ProjectsTablePanel extends JPanel {
         }
 
         public int getRowCount() {
-            if (activeOnly)
+            if (activeOnly) {
                 return ProjectManager.getActiveProjectsNumber();
+            }
             return ProjectManager.getAllProjectsNumber();
         }
 

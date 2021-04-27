@@ -1,12 +1,6 @@
 package main.java.memoranda.ui.htmleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -168,20 +162,12 @@ public class TdDialog extends JDialog {
         cancelB.setMinimumSize(new Dimension(100, 26));
         cancelB.setPreferredSize(new Dimension(100, 26));
         cancelB.setText(Local.getString("Cancel"));
-        cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        cancelB.addActionListener(e -> cancelB_actionPerformed(e));
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
         okB.setPreferredSize(new Dimension(100, 26));
         okB.setText("Ok");
-        okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
-        });
+        okB.addActionListener(e -> okB_actionPerformed(e));
         this.getRootPane().setDefaultButton(okB);
         buttonsPanel.setLayout(flowLayout1);
         flowLayout1.setAlignment(FlowLayout.RIGHT);
@@ -191,7 +177,7 @@ public class TdDialog extends JDialog {
         headerPanel.setMinimumSize(new Dimension(159, 52));
         headerPanel.setPreferredSize(new Dimension(159, 52));
         headerPanel.setLayout(flowLayout7);
-        header.setFont(new java.awt.Font("Dialog", 0, 20));
+        header.setFont(new java.awt.Font("Dialog", Font.PLAIN, 20));
         header.setForeground(new Color(0, 0, 124));
         header.setText(Local.getString("Table properties"));
         header.setIcon(new ImageIcon(main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource("/htmleditor/icons/tablebig.png")));
@@ -218,7 +204,7 @@ public class TdDialog extends JDialog {
         tdWidthField.setMinimumSize(new Dimension(30, 25));
         jPanel6.setLayout(flowLayout5);
         tdAlignCB.setBackground(new Color(230, 230, 230));
-        tdAlignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        tdAlignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         tdAlignCB.setPreferredSize(new Dimension(63, 25));
         jLabel6.setText(Local.getString("Col span"));
         jLabel6.setPreferredSize(new Dimension(70, 16));
@@ -244,7 +230,7 @@ public class TdDialog extends JDialog {
         jLabel20.setMinimumSize(new Dimension(50, 16));
         jLabel20.setMaximumSize(new Dimension(70, 16));
         tdValignCB.setPreferredSize(new Dimension(63, 25));
-        tdValignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        tdValignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         tdValignCB.setBackground(new Color(230, 230, 230));
         flowLayout12.setAlignment(FlowLayout.LEFT);
         tdBgcolorField.setPreferredSize(new Dimension(70, 25));
@@ -257,17 +243,13 @@ public class TdDialog extends JDialog {
         tdBgcolorB.setMinimumSize(new Dimension(25, 25));
         tdBgcolorB.setPreferredSize(new Dimension(25, 25));
         tdBgcolorB.setIcon(new ImageIcon(main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource("/htmleditor/icons/color.png")));
-        tdBgcolorB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tdBgcolorB_actionPerformed(e);
-            }
-        });
+        tdBgcolorB.addActionListener(e -> tdBgcolorB_actionPerformed(e));
         tdNowrapChB.setText(Local.getString("No text wrapping"));
         trAlignCB.setPreferredSize(new Dimension(100, 25));
-        trAlignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        trAlignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         trAlignCB.setBackground(new Color(230, 230, 230));
         trValignCB.setBackground(new Color(230, 230, 230));
-        trValignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        trValignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         trValignCB.setPreferredSize(new Dimension(100, 25));
         jLabel22.setMaximumSize(new Dimension(50, 16));
         jLabel22.setMinimumSize(new Dimension(50, 16));
@@ -290,11 +272,7 @@ public class TdDialog extends JDialog {
         trBgcolorB.setMinimumSize(new Dimension(25, 25));
         trBgcolorB.setPreferredSize(new Dimension(25, 25));
         trBgcolorB.setIcon(new ImageIcon(main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource("/htmleditor/icons/color.png")));
-        trBgcolorB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                trBgcolorB_actionPerformed(e);
-            }
-        });
+        trBgcolorB.addActionListener(e -> trBgcolorB_actionPerformed(e));
         tdColspan.setBorder(border5);
         tdColspan.setPreferredSize(new Dimension(50, 24));
         tdRowspan.setBorder(border5);
@@ -324,7 +302,7 @@ public class TdDialog extends JDialog {
         jPanel10.setLayout(flowLayout4);
         jPanel12.setLayout(flowLayout11);
         vAlignCB.setPreferredSize(new Dimension(63, 25));
-        vAlignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        vAlignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         vAlignCB.setBackground(new Color(230, 230, 230));
         bgcolorField.setPreferredSize(new Dimension(70, 25));
         bgcolorField.setMinimumSize(new Dimension(60, 25));
@@ -344,11 +322,7 @@ public class TdDialog extends JDialog {
         jLabel25.setMinimumSize(new Dimension(70, 16));
         jLabel25.setPreferredSize(new Dimension(70, 16));
         jLabel25.setText(Local.getString("Fill color"));
-        bgColorB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                bgColorB_actionPerformed(e);
-            }
-        });
+        bgColorB.addActionListener(e -> bgColorB_actionPerformed(e));
         bgColorB.setIcon(new ImageIcon(main.java.memoranda.ui.htmleditor.ImageDialog.class.getResource("/htmleditor/icons/color.png")));
         bgColorB.setPreferredSize(new Dimension(25, 25));
         bgColorB.setMinimumSize(new Dimension(25, 25));
@@ -357,7 +331,7 @@ public class TdDialog extends JDialog {
         flowLayout11.setAlignment(FlowLayout.LEFT);
         jPanel13.setLayout(flowLayout8);
         alignCB.setBackground(new Color(230, 230, 230));
-        alignCB.setFont(new java.awt.Font("Dialog", 1, 10));
+        alignCB.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
         alignCB.setPreferredSize(new Dimension(63, 25));
         jLabel14.setText(Local.getString("Cell padding"));
         jLabel14.setPreferredSize(new Dimension(70, 16));
@@ -453,21 +427,27 @@ public class TdDialog extends JDialog {
 
     void tdBgcolorB_actionPerformed(ActionEvent e) {
         Color c = JColorChooser.showDialog(this, Local.getString("Table cell background color"), Util.decodeColor(tdBgcolorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         tdBgcolorField.setText(Util.encodeColor(c));
         Util.setBgcolorField(tdBgcolorField);
     }
 
     void trBgcolorB_actionPerformed(ActionEvent e) {
         Color c = JColorChooser.showDialog(this, Local.getString("Table row background color"), Util.decodeColor(trBgcolorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         trBgcolorField.setText(Util.encodeColor(c));
         Util.setBgcolorField(trBgcolorField);
     }
 
     void bgColorB_actionPerformed(ActionEvent e) {
         Color c = JColorChooser.showDialog(this, Local.getString("Table background color"), Util.decodeColor(bgcolorField.getText()));
-        if (c == null) return;
+        if (c == null) {
+            return;
+        }
         bgcolorField.setText(Util.encodeColor(c));
         Util.setBgcolorField(bgcolorField);
     }

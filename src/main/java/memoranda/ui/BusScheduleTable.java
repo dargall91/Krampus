@@ -1,25 +1,5 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Bus;
-import main.java.memoranda.BusColl;
-import main.java.memoranda.Tour;
-import main.java.memoranda.TourColl;
-import main.java.memoranda.util.CurrentStorage;
-import main.java.memoranda.util.Local;
-
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -29,8 +9,29 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+import main.java.memoranda.Bus;
+import main.java.memoranda.BusColl;
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Tour;
+import main.java.memoranda.TourColl;
+import main.java.memoranda.util.CurrentStorage;
+import main.java.memoranda.util.Local;
+
 /**
- * BusScheduleTable is a JTable that contains the data related to a Bus's Schedule (Tour Name, bus ID, tour ID, date, time)
+ * BusScheduleTable is a JTable that contains the data related to a Bus's Schedule (Tour Name, bus
+ * ID, tour ID, date, time).
  *
  * @author Derek Argall
  * @version 04/09/2020
@@ -40,12 +41,11 @@ public class BusScheduleTable extends JTable {
     private Bus bus;
     private TourColl tourColl;
     private BusColl busColl;
-    private TableRowSorter<TableModel> sorter;
     private static final int HEIGHT = 24;
-    private DriverScheduleTable driverTable;
+    private final DriverScheduleTable driverTable;
 
     /**
-     * Constructor for BusScheduleTable. Sets a default bus
+     * Constructor for BusScheduleTable. Sets a default bus.
      *
      * @param bus The default bus who's schedule will be displayed
      */
@@ -57,7 +57,7 @@ public class BusScheduleTable extends JTable {
     }
 
     /**
-     * Constructor for BusScheduleTable to be used when BusColl is empty
+     * Constructor for BusScheduleTable to be used when BusColl is empty.
      */
     public BusScheduleTable(DriverScheduleTable driverTable) {
         super();
@@ -73,7 +73,7 @@ public class BusScheduleTable extends JTable {
         tourColl = CurrentProject.getTourColl();
 
         JPopupMenu optionsMenu = new JPopupMenu();
-        optionsMenu.setFont(new Font("Dialog", 1, 10));
+        optionsMenu.setFont(new Font("Dialog", Font.BOLD, 10));
 
         JMenuItem removeTour = new JMenuItem("Remove Tour");
         removeTour.addActionListener(new ActionListener() {
@@ -107,7 +107,7 @@ public class BusScheduleTable extends JTable {
         ScheduleTableModel model = new ScheduleTableModel();
         setModel(model);
 
-        sorter = new TableRowSorter<>(model);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
         setRowSorter(sorter);
 
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -144,16 +144,14 @@ public class BusScheduleTable extends JTable {
     }
 
     /**
-     * Repaints the table to reflect any changes to the data
+     * Repaints the table to reflect any changes to the data.
      */
     public void tableChanged() {
+        setBus(getBus());
         init();
         updateUI();
     }
 
-    /**
-     * @see https://docs.oracle.com/javase/7/docs/api/javax/swing/table/TableCellRenderer.html
-     */
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -164,7 +162,8 @@ public class BusScheduleTable extends JTable {
                     boolean hasFocus,
                     int row,
                     int column) {
-                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
 
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
@@ -238,7 +237,8 @@ public class BusScheduleTable extends JTable {
 
     private void removeActionEvent(ActionEvent e) {
         Tour tour = getTour();
-        int result = JOptionPane.showConfirmDialog(null, "Remove Tour from " + bus.getNumber() + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Remove Tour from " + bus.getNumber()
+                + "'s Schedule?", "Delete Tour", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             //A driver cannot be scheduled for a tour without a bus. Check if the tour has a driver, then unschedule
@@ -262,7 +262,7 @@ public class BusScheduleTable extends JTable {
     }
 
     /**
-     * Sets the bus who's schedule is to be displayed
+     * Sets the bus who's schedule is to be displayed.
      *
      * @param bus The bus to display the schedule for
      */
@@ -270,23 +270,23 @@ public class BusScheduleTable extends JTable {
         this.bus = bus;
 
         if (bus == null) {
-            tours = new ArrayList<Tour>();
+            tours = new ArrayList<>();
         } else {
-            tours = new ArrayList<Tour>(bus.getTours());
+            tours = new ArrayList<>(bus.getTours());
         }
     }
 
     /**
-     * Gets the bus who's schedule is being displayed
+     * Gets the bus who's schedule is being displayed.
      *
-     * @param bus The bus to display the schedule for
+     * @return The bus to display the schedule for
      */
     public Bus getBus() {
         return bus;
     }
 
     /**
-     * Gets the currently selected tour
+     * Gets the currently selected tour.
      *
      * @return the Tour
      */
@@ -295,7 +295,7 @@ public class BusScheduleTable extends JTable {
     }
 
     /**
-     * Add a tour to this table
+     * Add a tour to this table.
      *
      * @param tour The tour  to be added
      */

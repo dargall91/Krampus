@@ -44,8 +44,9 @@ public class CurrentStorage {
     }
 
     private static void storageChanged() {
-        for (int i = 0; i < actionListeners.size(); i++)
+        for (int i = 0; i < actionListeners.size(); i++) {
             ((ActionListener) actionListeners.get(i)).actionPerformed(new ActionEvent(null, 0, "Current storage changed"));
+        }
     }
 
 }

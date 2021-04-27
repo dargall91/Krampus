@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import main.java.memoranda.Tour;
 
 /**
- * BusTourDialog is a JDialog that allows the user to schedule a Bus for a Tour
+ * BusTourDialog is a JDialog that allows the user to schedule a Bus for a Tour.
  *
  * @author Derek Argall
  * @version 04/09/2020
@@ -26,18 +26,16 @@ public class BusTourDialog extends JDialog {
     private boolean cancelled;
     private JPanel errorPanel;
     private BusTourDialogTable tourTable;
-    private final Dimension BUTTON_SIZE = new Dimension(100, 25);
-    private final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
-    private final Dimension VERTICAL_GAP = new Dimension(0, 5);
+    private static final Dimension BUTTON_SIZE = new Dimension(100, 25);
+    private static final Dimension HORIZONTAL_GAP = new Dimension(5, 0);
+    private static final Dimension VERTICAL_GAP = new Dimension(0, 5);
     private int bus;
 
     /**
-     * Creates a JDialog window that allows the user to add a new Bus to the system
-     * or edit an existing one
+     * Creates a JDialog window that allows the user to schedule a Bus for a Tour.
      *
      * @param frame         The main application Frame
-     * @param title         The title for this JDialog
-     * @param posButtonName The name for the positive button
+     * @param bus The Bus for which to schedule a Tour
      */
     public BusTourDialog(Frame frame, int bus) {
         super(frame);
@@ -133,7 +131,7 @@ public class BusTourDialog extends JDialog {
     }
 
     /**
-     * Checks if this JDialog was exited via the cancel button or not
+     * Checks if this JDialog was exited via the cancel button or not.
      *
      * @return True if exited via Cancel button, false if not
      */
@@ -142,7 +140,7 @@ public class BusTourDialog extends JDialog {
     }
 
     /**
-     * Gets the tour selected in the BusTourDialogTable
+     * Gets the tour selected in the BusTourDialogTable.
      */
     public Tour getTour() {
         return tourTable.getTour();

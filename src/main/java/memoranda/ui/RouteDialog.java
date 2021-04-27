@@ -1,30 +1,12 @@
 package main.java.memoranda.ui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 import main.java.memoranda.util.Local;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 /**
@@ -51,7 +33,7 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Ctor for RouteDialog
+     * Ctor for RouteDialog.
      *
      * @param frame The parent frame
      * @param title Title of the dialog box
@@ -68,12 +50,14 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Initializes the dialog box
+     * Initializes the dialog box.
      *
      * @return 0 if successful
      */
     private int jbInit() {
         routes = CurrentProject.getRouteColl();
+
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setResizable(false);
         headerPanel.setBackground(Color.WHITE);
@@ -136,7 +120,7 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * OK button pressed
+     * OK button pressed.
      *
      * @param e ok button ActionEvent
      */
@@ -145,25 +129,25 @@ public class RouteDialog extends JDialog {
             pack();
             validate();
         } else {
-            complete = false;
+            complete = true;
             this.dispose();
         }
     }
 
 
     /**
-     * Cancel button pressed
+     * Cancel button pressed.
      *
      * @param e cancel button ActionEvent
      */
     private void cancelButton_actionPerformed(ActionEvent e) {
-        complete = true;
+        complete = false;
         this.dispose();
     }
 
 
     /**
-     * Return if complete or not
+     * Return if complete or not.
      *
      * @return true if complete
      */
@@ -173,7 +157,7 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Returns the error code
+     * Returns the error code.
      *
      * @return error int
      */
@@ -183,7 +167,7 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Returns the nameField text
+     * Returns the nameField text.
      *
      * @return string name
      */

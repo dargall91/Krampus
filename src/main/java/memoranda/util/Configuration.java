@@ -44,8 +44,9 @@ public class Configuration {
 
     static String getConfigPath() {
         String p = Util.getEnvDir() + "memoranda.properties";
-        if (new File(p).exists())
+        if (new File(p).exists()) {
             return p;
+        }
         String p1 = Util.getEnvDir() + "jnotes2.properties";
         if (new File(p1).exists()) {
             /*DEBUG*/
