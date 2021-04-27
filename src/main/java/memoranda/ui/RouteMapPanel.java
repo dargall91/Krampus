@@ -10,6 +10,7 @@ import javax.swing.*;
 import main.java.memoranda.Coordinate;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Node;
+import main.java.memoranda.NodeColl;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteOptimizer;
 import main.java.memoranda.Tour;
@@ -251,16 +252,20 @@ public class RouteMapPanel extends JPanel {
         if (dialog.isComplete()) {
             Route route = CurrentProject.getRouteColl().newItem();
             route.setName(dialog.getName());
-            Node node=CurrentProject.getNodeColl().newItem();
+
+            NodeColl nodeColl=CurrentProject.getNodeColl();
+            Node node=nodeColl.newItem();
             node.setCoords(new Coordinate(33.431245, -111.943588));
             node.setName("origin");
             node.hide();
             route.addNode(node);
+            nodeColl.add(node);
 
             node.setCoords(new Coordinate(33.411095, -111.926076));
             node.setName("outlier");
             node.hide();
             route.addNode(node);
+            nodeColl.add(node);
 
             try {
                 CurrentProject.getRouteColl().add(route);
