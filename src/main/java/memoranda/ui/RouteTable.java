@@ -1,17 +1,15 @@
 package main.java.memoranda.ui;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 
 /**
  * JTable to display routes in the system
@@ -39,7 +37,7 @@ public class RouteTable extends JTable implements MouseListener {
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
         updateUI();
-        
+
         if (routes.size() > 0) {
             setRowSelectionInterval(0, 0);
         }
@@ -49,7 +47,7 @@ public class RouteTable extends JTable implements MouseListener {
 
 
     /**
-     * Refreshes the table
+     * Refreshes the table.
      */
     public void refresh() {
         initTable();
@@ -58,6 +56,10 @@ public class RouteTable extends JTable implements MouseListener {
 
     /**
      * Setup Cells for Table
+     *
+     * @param row    row
+     * @param column column
+     * @return new renderer
      */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -69,17 +71,74 @@ public class RouteTable extends JTable implements MouseListener {
                     int row,
                     int column) {
                 Component comp;
-                comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                
+                comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+
                 if (((row % 2) > 0) && (!isSelected)) {
                     comp.setBackground(new Color(230, 240, 255));
                 }
-                
+
                 return comp;
             }
         };
     }
 
+    /**
+     * Gets the currently selected Route.
+     *
+     * @return The selected Route
+     */
+    public Route getRoute() {
+        if (getSelectedRow() < 0) {
+            return null;
+        }
+
+        return routes.getRoutes().toArray(new Route[routes.size()])[getSelectedRow()];
+    }
+
+    /**
+     * Action for mouse clicked. Refreshes RouteMap.
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        parentPanel.getRouteMap().refresh();
+    }
+
+    /**
+     * Action for mouse pressed. Currently no action.
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Action for mouse released. Currently no action.
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Action for mouse entered. Currently no action.
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Action for mouse exited. Currently no action.
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+
+    }
 
     /**
      * Route Table Builder
@@ -103,7 +162,7 @@ public class RouteTable extends JTable implements MouseListener {
 
 
         /**
-         * Returns the column count of the table
+         * Returns the column count of the table.
          *
          * @return int col count
          */
@@ -114,7 +173,7 @@ public class RouteTable extends JTable implements MouseListener {
 
 
         /**
-         * Returns object located in a cell index
+         * Returns object located in a cell index.
          *
          * @param rowIndex    row index of the object
          * @param columnIndex col index of the object
@@ -139,7 +198,7 @@ public class RouteTable extends JTable implements MouseListener {
 
 
         /**
-         * Returns the name of the specific column
+         * Returns the name of the specific column.
          *
          * @param columnIndex the column to fetch
          * @return the name as a string
@@ -147,67 +206,5 @@ public class RouteTable extends JTable implements MouseListener {
         public String getColumnName(int columnIndex) {
             return COLUMN_NAMES[columnIndex];
         }
-    }
-    
-    /**
-     * Gets the currently selected Route
-     * 
-     * @return The selected Route
-     */
-    public Route getRoute() {
-        if (getSelectedRow() < 0) {
-            return null;
-        }
-        
-        return routes.getRoutes().toArray(new Route[routes.size()])[getSelectedRow()];
-    }
-
-    /**
-     * Action for mouse clicked.
-     * Refreshes RouteMap.
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        parentPanel.getRouteMap().refresh();
-    }
-
-    /**
-     * Action for mouse pressed.
-     * Currently no action.
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-        
-        
-    }
-
-    /**
-     * Action for mouse released.
-     * Currently no action.
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-        
-    }
-
-    /**
-     * Action for mouse entered.
-     * Currently no action.
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-        
-    }
-
-    /**
-     * Action for mouse exited.
-     * Currently no action.
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-        
     }
 }
