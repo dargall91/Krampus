@@ -39,6 +39,8 @@ public class RouteMap extends JPanel {
     public RouteMap() {
         id = 1;
         stops = new ArrayList<>();
+        nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
+
     }
 
     /**
