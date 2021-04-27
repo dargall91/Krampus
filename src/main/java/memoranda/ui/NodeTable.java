@@ -112,8 +112,6 @@ public class NodeTable extends JTable {
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            //todo NPE
-
             Node n;
             if (route.getRoute().isEmpty()) {
                 n = new Node(0, "Please add nodes to the route", 0.0, 0.0);
@@ -126,12 +124,22 @@ public class NodeTable extends JTable {
             } else if (columnIndex == 1) {
                 return n.getName();
             } else if (columnIndex == 2) {
-                return Double.parseDouble(String.format("%.2f", n.getCoords().getLat()));
+                return coordinateDecimalToString(n.getCoords().getLat());
             } else if (columnIndex == 3) {
-                return Double.parseDouble(String.format("%.2f", n.getCoords().getLon()));
+                return coordinateDecimalToString(n.getCoords().getLon());
             } else {
                 return n;
             }
+        }
+
+
+        private String coordinateDecimalToString(Double value) {
+            int degrees = (int) Math.floor(value);
+            double minutesDouble = (value - degrees) * 60;
+            int minutes = (int) Math.floor(minutesDouble);
+            double secondsDouble = (minutesDouble - minutes) * 60;
+            int seconds = (int) Math.floor(secondsDouble);
+            return String.format("%d, %d', %d\"", degrees, minutes, seconds);
         }
 
 
