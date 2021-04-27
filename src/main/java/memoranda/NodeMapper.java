@@ -148,7 +148,7 @@ public class NodeMapper {
             throw new IllegalArgumentException("Point out of range of map size.");
         }
         double newLon = ((p.getX() - inset.left) / scale.getLonScale() + origin.getLon());
-        double newLat = ((p.getY() - inset.top) / scale.getLatScale() + origin.getLat());
+        double newLat = origin.getLat() - ((p.getY() - inset.top) / scale.getLatScale());
         n.setCoords(new Coordinate(newLat, newLon));
         return n;
     }
@@ -161,17 +161,17 @@ public class NodeMapper {
      */
     private boolean inRange(Coordinate coord) {
         return (coord.getLon() >= origin.getLon() && coord.getLon() <= outlier.getLon())
-                && (coord.getLat() >= origin.getLat() && coord.getLat() <= outlier.getLat());
+                && (coord.getLat() <= origin.getLat() && coord.getLat() >= outlier.getLat());
     }
 
     /**
      * Find the farthest "west" and "north" nodes. Based on 0,-180 (lat/lon) being west
      */
     private void findBaseline() {
-        double lat = Coordinate.LAT_MAX;
+        double lat = Coordinate.LAT_MIN;
         double lon = Coordinate.LON_MAX;
         for (Node n : nodeColl) {
-            if (n.getLat() < lat) {
+            if (n.getLat() > lat) {
                 lat = n.getLat();
             }
             if (n.getLon() < lon) {
@@ -185,10 +185,10 @@ public class NodeMapper {
      * Find the farthest "east" and "south" nodes. Based on 0,-180 (lat/lon) being west
      */
     private void findOutlier() {
-        double lat = Coordinate.LAT_MIN;
+        double lat = Coordinate.LAT_MAX;
         double lon = Coordinate.LON_MIN;
         for (Node n : nodeColl) {
-            if (n.getLat() > lat) {
+            if (n.getLat() < lat) {
                 lat = n.getLat();
             }
             if (n.getLon() > lon) {
