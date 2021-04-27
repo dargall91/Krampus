@@ -84,7 +84,13 @@ public class RouteMapPanel extends JPanel {
         newRouteB.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         newRouteB.setFocusable(false);
         newRouteB.setBorderPainted(true);
-        newRouteB.addActionListener((e) -> newRouteB_actionPerformed(e));
+        newRouteB.addActionListener((e) -> {
+            try {
+                newRouteB_actionPerformed(e);
+            } catch (DuplicateKeyException duplicateKeyException) {
+                duplicateKeyException.printStackTrace();
+            }
+        });
 
         /* Remove Route Button */
         removeRouteB.setIcon(
@@ -239,7 +245,7 @@ public class RouteMapPanel extends JPanel {
      *
      * @param e action event
      */
-    public void newRouteB_actionPerformed(ActionEvent e) {
+    public void newRouteB_actionPerformed(ActionEvent e) throws DuplicateKeyException {
         RouteDialog dialog = new RouteDialog(App.getFrame(), "New Route");
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -253,14 +259,15 @@ public class RouteMapPanel extends JPanel {
             Route route = CurrentProject.getRouteColl().newItem();
             route.setName(dialog.getName());
 
-            NodeColl nodeColl=CurrentProject.getNodeColl();
-            Node node=nodeColl.newItem();
+            NodeColl nodeColl = CurrentProject.getNodeColl();
+            Node node = nodeColl.newItem();
             node.setCoords(new Coordinate(33.431245, -111.943588));
             node.setName("origin");
             node.hide();
             route.addNode(node);
             nodeColl.add(node);
 
+            node=nodeColl.newItem();
             node.setCoords(new Coordinate(33.411095, -111.926076));
             node.setName("outlier");
             node.hide();
@@ -288,7 +295,8 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
+                .getSelectedRow()];
         new RouteOptimizer(r).optimize();
         map.refresh();
         routeTable.refresh();
@@ -321,7 +329,8 @@ public class RouteMapPanel extends JPanel {
         if (routeTable.getSelectedRow() == -1) {
             return;
         }
-        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable.getSelectedRow()];
+        Route r = (Route) CurrentProject.getRouteColl().getRoutes().toArray()[routeTable
+                .getSelectedRow()];
         Node node = CurrentProject.getNodeColl().newItem();
 
         Random rand = new Random();

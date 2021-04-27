@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Node extends IndexedObject {
     private String name;
     private Coordinate coords;
-    private boolean visible=true;
+    private boolean visible = true;
 
 
     /**
@@ -57,22 +57,23 @@ public class Node extends IndexedObject {
     /**
      * show node.
      */
-    public void hide(){
-        visible=false;
+    public void hide() {
+        visible = false;
     }
 
     /**
      * hide node.
      */
-    public void show(){
-        visible=true;
+    public void show() {
+        visible = true;
     }
 
     /**
      * node visibility.
+     *
      * @return visibility
      */
-    public boolean isVisible(){
+    public boolean isVisible() {
         return visible;
     }
 
