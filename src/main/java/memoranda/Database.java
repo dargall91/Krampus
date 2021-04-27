@@ -11,14 +11,13 @@ import main.java.memoranda.util.Storage;
  * Database control multi-singleton (per project) class.
  *
  * <p>
- * Use: Database db = Database.getDatabase(storage,project) when MTB opens to read persisted
- * serialized data. After making changes, commit them to disk with db.write(). All parts of of the
- * program will get the same collection instances because Database acts as a multi-singleton class -
- * it will return one Database per (storage, project) tuple.
+ * Use: Database db = Database.getDatabase(storage,project) when MTB opens to read persisted serialized data. After
+ * making changes, commit them to disk with db.write(). All parts of of the program will get the same collection
+ * instances because Database acts as a multi-singleton class - it will return one Database per (storage, project)
+ * tuple.
  * </p>
- * This code is mildly thread-safe and will try to eliminate race conditions on read/write, but
- * cannot compensate for filesystem-level race conditions under hundreds of simultaneous reads/
- * writes.  Concurrent writes are safe.
+ * This code is mildly thread-safe and will try to eliminate race conditions on read/write, but cannot compensate for
+ * filesystem-level race conditions under hundreds of simultaneous reads/ writes.  Concurrent writes are safe.
  *
  * @author Brian Pape
  * @version 2021-04-06
@@ -147,16 +146,16 @@ public class Database {
 
 
     private void createDefaultRoute() throws DuplicateKeyException {
-        if (nodeColl==null || nodeColl.size()<1) {
-            Node node1=nodeColl.newItem();
+        if (nodeColl.size() < 1) {
+            Node node1 = nodeColl.newItem();
             node1.setName("ASU NW");
             node1.setCoords(new Coordinate(33.431245, -111.943588));
-            Node node2=nodeColl.newItem();
+            Node node2 = nodeColl.newItem();
             node2.setName("ASU SE");
             node2.setCoords(new Coordinate(33.411095, -111.926076));
             nodeColl.add(node1);
             nodeColl.add(node2);
-            Route route=routeColl.newItem();
+            Route route = routeColl.newItem();
             route.setName("ASU Route");
             route.addNode(node1);
             route.addNode(node2);

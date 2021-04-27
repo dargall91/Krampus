@@ -17,7 +17,7 @@ public class RouteStop {
      * RouteStop creates the graphical representation of bus stops.
      */
 
-    protected final static double RADIUS = 10;
+    protected static final double RADIUS = 10;
     private final double x;
     private final double y;
     private final Point2D busStop;
@@ -40,7 +40,7 @@ public class RouteStop {
     /**
      * Draws the stop on the map.
      *
-     * @param g
+     * @param g graphics obj
      */
     public void drawStop(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
