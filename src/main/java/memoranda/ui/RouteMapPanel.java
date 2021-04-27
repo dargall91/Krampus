@@ -42,11 +42,6 @@ public class RouteMapPanel extends JPanel {
     private JButton refreshB = new JButton();
     private JButton debugAddNodesB = new JButton();
 
-    private JPopupMenu resPPMenu = new JPopupMenu();
-    private JMenuItem ppRemoveRes = new JMenuItem();
-    private JMenuItem ppNewRes = new JMenuItem();
-    private JMenuItem ppRefresh = new JMenuItem();
-
     private DailyItemsPanel parentPanel;
 
     /**
@@ -69,7 +64,7 @@ public class RouteMapPanel extends JPanel {
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
-        map.setMaximumSize(new Dimension(32767, 32767));
+        map.setMaximumSize(new Dimension(800, 600));
 
         /* New Route Button */
         newRouteB.setIcon(
@@ -174,13 +169,6 @@ public class RouteMapPanel extends JPanel {
         toolBar.add(refreshB, null);
         toolBar.addSeparator();
         toolBar.add(debugAddNodesB, null);
-
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppNewRes);
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppRemoveRes);
-        resPPMenu.addSeparator();
-        resPPMenu.add(ppRefresh);
 
         scrollPane.getViewport().add(map, null);
         this.add(scrollPane, BorderLayout.CENTER);

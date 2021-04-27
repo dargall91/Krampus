@@ -44,12 +44,12 @@ public class RouteStop {
     public void drawStop(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         Ellipse2D.Double circle = new Ellipse2D.Double(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
-        int xAxis = (int) x;
+        int xaxis = (int) x;
         int yaxis = (int) y;
 
         g2d.setColor(Color.BLUE);
         g2d.fill(circle);
-        g2d.drawString(name, xAxis, yaxis);
+        g2d.drawString(name, xaxis + 15, yaxis + 15);
     }
 
     /**
