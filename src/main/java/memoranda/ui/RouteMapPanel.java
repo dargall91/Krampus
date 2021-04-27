@@ -251,6 +251,16 @@ public class RouteMapPanel extends JPanel {
         if (dialog.isComplete()) {
             Route route = CurrentProject.getRouteColl().newItem();
             route.setName(dialog.getName());
+            Node node=CurrentProject.getNodeColl().newItem();
+            node.setCoords(new Coordinate(33.431245, -111.943588));
+            node.setName("origin");
+            node.hide();
+            route.addNode(node);
+
+            node.setCoords(new Coordinate(33.411095, -111.926076));
+            node.setName("outlier");
+            node.hide();
+            route.addNode(node);
 
             try {
                 CurrentProject.getRouteColl().add(route);

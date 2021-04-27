@@ -192,7 +192,9 @@ public class RouteMap extends JPanel {
         nodeMapper.setInsets(new Insets(40, 40, 40, 40));
 
         for (Node n : nodes) {
-            addStop(stops, nodeMapper.getScaled(n), n.getName());
+            if (n.isVisible()) {
+                addStop(stops, nodeMapper.getScaled(n), n.getName());
+            }
         }
         repaint();
 
