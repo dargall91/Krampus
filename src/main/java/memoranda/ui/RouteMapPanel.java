@@ -267,7 +267,7 @@ public class RouteMapPanel extends JPanel {
             route.addNode(node);
             nodeColl.add(node);
 
-            node=nodeColl.newItem();
+            node = nodeColl.newItem();
             node.setCoords(new Coordinate(33.411095, -111.926076));
             node.setName("outlier");
             node.hide();
