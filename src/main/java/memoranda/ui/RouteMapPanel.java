@@ -1,9 +1,3 @@
-/**
- * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of the Route Map.
- *
- * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
- * @version 2021-04-25
- */
 package main.java.memoranda.ui;
 
 import java.awt.*;
@@ -23,6 +17,12 @@ import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.DuplicateKeyException;
 import main.java.memoranda.util.Local;
 
+/**
+ * RouteMapPanel is the panel for accessing the RouteMap to see the visualization of the Route Map.
+ *
+ * @autor alexeya, Kevin Dolan, Chris Boveda, John Thurstonson
+ * @version 2021-04-25
+ */
 public class RouteMapPanel extends JPanel {
     private static final int BUTTON_HEIGHT = 30;
     private static final int BUTTON_WIDTH = 150;
@@ -50,7 +50,7 @@ public class RouteMapPanel extends JPanel {
     private DailyItemsPanel parentPanel;
 
     /**
-     * Constructor for RouteMapPanel
+     * Constructor for RouteMapPanel.
      */
     public RouteMapPanel(DailyItemsPanel parentPanel) {
         try {
@@ -230,8 +230,6 @@ public class RouteMapPanel extends JPanel {
                 routeTable.refresh();
                 parentPanel.refresh();
             }
-        } else {
-
         }
     }
 
@@ -267,7 +265,7 @@ public class RouteMapPanel extends JPanel {
 
 
     /**
-     * Event handler for the "Optimize" button
+     * Event handler for the "Optimize" button.
      *
      * @param e action event
      */
@@ -285,7 +283,7 @@ public class RouteMapPanel extends JPanel {
 
 
     /**
-     * Event handler for the "Optimize w/ Start" button
+     * Event handler for the "Optimize w/ Start" button.
      *
      * @param e action event
      */

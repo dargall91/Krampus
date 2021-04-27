@@ -16,6 +16,7 @@ public class RouteStop {
     /**
      * RouteStop creates the graphical representation of bus stops.
      */
+
     protected final static double RADIUS = 10;
     private final double x;
     private final double y;

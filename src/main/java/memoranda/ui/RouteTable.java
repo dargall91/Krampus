@@ -147,7 +147,7 @@ public class RouteTable extends JTable implements MouseListener {
      * @version 2021-04-11
      */
     private class RouteTableModel extends AbstractTableModel {
-        private final String[] COLUMN_NAMES = {"Route ID", "Name", "Start", "Length"};
+        private final String[] columnNames = {"Route ID", "Name", "Start", "Length"};
 
 
         /**
@@ -204,7 +204,7 @@ public class RouteTable extends JTable implements MouseListener {
          * @return the name as a string
          */
         public String getColumnName(int columnIndex) {
-            return COLUMN_NAMES[columnIndex];
+            return columnNames[columnIndex];
         }
     }
 }

@@ -1,9 +1,3 @@
-/**
- * RouteMap plots the stops on the map to visualize the nodes.
- *
- * @author Kevin Dolan, John Thurstonson
- * @version 2021-04-25
- */
 package main.java.memoranda.ui;
 
 import java.awt.*;
@@ -21,6 +15,12 @@ import main.java.memoranda.Node;
 import main.java.memoranda.NodeMapper;
 import main.java.memoranda.Route;
 
+/**
+ * RouteMap plots the stops on the map to visualize the nodes.
+ *
+ * @author Kevin Dolan, John Thurstonson, Brian Pape
+ * @version 2021-04-25
+ */
 public class RouteMap extends JPanel {
     private List<RouteStop> stops;
     private int id;
