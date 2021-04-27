@@ -186,7 +186,7 @@ public class RouteMapPanel extends JPanel {
         toolBar.addSeparator();
         toolBar.add(refreshB, null);
         toolBar.addSeparator();
-        toolBar.add(debugAddNodesB, null);
+        //toolBar.add(debugAddNodesB, null);
 
         resPPMenu.addSeparator();
         resPPMenu.add(ppNewRes);
