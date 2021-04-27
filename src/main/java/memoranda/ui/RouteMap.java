@@ -20,7 +20,20 @@ import java.util.List;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.*;
 
+import main.java.memoranda.Coordinate;
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Node;
+import main.java.memoranda.NodeMapper;
+import main.java.memoranda.Route;
+
+/**
+ * RouteMap plots the stops on the map to visualize the nodes.
+ *
+ * @author Kevin Dolan, John Thurstonson, Brian Pape
+ * @version 2021-04-25
+ */
 public class RouteMap extends JPanel {
     private List<RouteStop> stops;
     private int id;
@@ -39,7 +52,7 @@ public class RouteMap extends JPanel {
     /**
      * Constructor for RouteMap.
      *
-     * @param parentPanel
+     * @param parentPanel parent panel for this route map
      */
     public RouteMap(RouteMapPanel parentPanel) {
         this.parentPanel = parentPanel;
@@ -102,7 +115,6 @@ public class RouteMap extends JPanel {
         }
     }
 
-
     /**
      * Initiate RouteMap.
      */
@@ -133,7 +145,7 @@ public class RouteMap extends JPanel {
     /**
      * Getter for stops list.
      *
-     * @return
+     * @return list of stops
      */
     public List<RouteStop> getStops() {
         return stops;
@@ -142,7 +154,7 @@ public class RouteMap extends JPanel {
     /**
      * Getter for id.
      *
-     * @return
+     * @return id
      */
     public int getId() {
         return id;
@@ -151,7 +163,7 @@ public class RouteMap extends JPanel {
     /**
      * Setter for ID.
      *
-     * @param id
+     * @param id id to set
      */
     public void setId(int id) {
         this.id = id;
@@ -180,7 +192,7 @@ public class RouteMap extends JPanel {
      * populateStops retrieves stops from the Route and stores them in the list for mapping. Updated to accept linked
      * list of nodes
      *
-     * @param nodes
+     * @param nodes list od noes to populate
      */
     public void populateStops(LinkedList<Node> nodes) {
 
@@ -207,9 +219,9 @@ public class RouteMap extends JPanel {
     /**
      * addStop adds a stop to the list for mapping.
      *
-     * @param list
-     * @param point
-     * @param name
+     * @param list  list of routes
+     * @param point point to add
+     * @param name  name of stop
      */
     public void addStop(List<RouteStop> list, Point2D point, String name) {
         list.add(new RouteStop(getId(), point, name));
@@ -220,9 +232,9 @@ public class RouteMap extends JPanel {
     /**
      * createPoint is a utility method for testing. It creates a Point2D point from x and y coordinates.
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x x point
+     * @param y y point
+     * @return new point2D
      */
     public Point2D createPoint(double x, double y) {
         Point2D p = new Point2D.Double(x, y);
@@ -232,7 +244,7 @@ public class RouteMap extends JPanel {
     /**
      * buildStopList is a utility method for testing. It loads data into the stops list.
      *
-     * @param stopList
+     * @param stopList list of stops to add
      */
     public void buildStopList(List<RouteStop> stopList) {
         stops.clear();
@@ -246,9 +258,9 @@ public class RouteMap extends JPanel {
     /**
      * createNode is a utility method for testing. it creates a node.
      *
-     * @param lat
-     * @param lon
-     * @return
+     * @param lat latitude
+     * @param lon longitude
+     * @return new node
      */
     public Node createNode(double lat, double lon) {
         Node n = new Node(1);
@@ -256,5 +268,14 @@ public class RouteMap extends JPanel {
         Coordinate c = new Coordinate(lat, lon);
         n.setCoords(c);
         return n;
+    }
+
+    /**
+     * adjust scaling on resize.
+     */
+    class ResizeListener extends ComponentAdapter {
+        public void componentResized(ComponentEvent e) {
+            initMap();
+        }
     }
 }
