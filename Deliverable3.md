@@ -50,7 +50,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 ### Meeting Summary:
 
 | Name | Meeting Attended This Sprint | Sprint 2 | Sprint 1 | Project Total |
-|---|---|---|---|
+|---|---|---|---|---|
 |Brian Pape| 1 | 5| 8| 13|
 |Chris Boveda| 1 | 3| 8| 11|
 |Derek Argall| 1 |5| 8| 13|
@@ -204,24 +204,23 @@ Answer as a team!
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
- -
+ - [Fix so selected route is displayed on map](https://github.com/amehlhase316/Krampus/commit/e3c50515f142649462a20259a32035078cececf0)
+ - [Add icons to work panel](https://github.com/amehlhase316/Krampus/commit/9aa3d99f74c8b39143c123d2aaaf98cf94822f37)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - N/A
- - 
+ - None, all UI related work.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- -
- - 
+ - [US134-Task155: Make map resize when window resizes](https://github.com/amehlhase316/Krampus/pull/113)
+ - [Us133 task156 Nodemapper utility function to map map coords to new Node](https://github.com/amehlhase316/Krampus/pull/114)
+ - [US133 Task137 Click to add node](https://github.com/amehlhase316/Krampus/pull/115)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - [Reduce Checkstyle errors in AppFrame](https://github.com/amehlhase316/Krampus/commit/5b2b929c75122cd273ce134253ce7097509403d8)
+ - [Remove Checkstyle errors from WorkPanel](https://github.com/amehlhase316/Krampus/commit/cd51f9b5ddbe2b63bdc05ea1cb644f6a801736d1)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -263,7 +262,7 @@ Answer as a team!
   - [ ] Brian Pape|
   - [x] Chris Boveda
   - [X] Derek Argall
-  - [ ] John Thurstonson
+  - [x] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
