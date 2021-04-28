@@ -1,6 +1,7 @@
 package main.java.memoranda.ui;
 
 import java.awt.*;
+import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -19,6 +20,7 @@ import main.java.memoranda.Route;
  */
 public class NodeTable extends JTable {
     private Route route;
+    private LinkedList<Node> trimmedRoute;
     private final RouteTable routeTable;
 
 
@@ -29,6 +31,7 @@ public class NodeTable extends JTable {
         super();
         setModel(new NodeTableModel());
         this.routeTable = routeTable;
+        trimmedRoute = new LinkedList<>();
         initTable();
         this.setShowGrid(false);
     }
@@ -37,6 +40,15 @@ public class NodeTable extends JTable {
         //todo NPE
         route = (Route) CurrentProject.getRouteColl().getRoutes().toArray()
             [(routeTable.getSelectedRow() != -1) ? routeTable.getSelectedRow() : 0];
+        trimmedRoute = new LinkedList<>();
+        for (Node n : route.getRoute()) {
+            if (n.isVisible()) {
+                trimmedRoute.add(n);
+            }
+        }
+
+
+
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
 
@@ -116,7 +128,7 @@ public class NodeTable extends JTable {
         @Override
         public int getRowCount() {
             //todo NPE
-            return (route != null && route.getRoute().size() != 0) ? route.getRoute().size() : 1;
+            return (route != null && trimmedRoute.size() != 0) ? trimmedRoute.size() : 1;
         }
 
 
@@ -141,10 +153,10 @@ public class NodeTable extends JTable {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Node n;
-            if (route.getRoute().isEmpty()) {
+            if (trimmedRoute.isEmpty()) {
                 n = new Node(0, "Please add nodes to the route", 0.0, 0.0);
             } else {
-                n = route.getRoute().get(rowIndex);
+                n = trimmedRoute.get(rowIndex);
             }
 
             if (columnIndex == 0) {
