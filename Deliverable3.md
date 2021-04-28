@@ -63,7 +63,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 ### Sprint Review
 Answer as a team!
 
-**Screen Cast link**:
+**Screen Cast link**: [https://youtu.be/Hv-IImZZKg0](https://youtu.be/Hv-IImZZKg0)
 
 >
 
@@ -86,11 +86,11 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
->  # sprint2 # Yes, all User Stories were completed, and we implemented all the functionality requirements. (Except Routes shows static data?)
+> 
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> # sprint2 # Yes, we completed all the user stories.
+> 
 
 **If not, what went wrong?**
 
@@ -98,19 +98,19 @@ Answer as a team!
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> # sprint2 # No, there were a few days were no stories or tasks were completed.
+>  
 
 **Did you deliver business value?**
 
-> # sprint2 # Yes, basics of the Bus Scheduling system were implemented and working.
+> 
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> # sprint2 # Work more consistently, communicate better with the team when a problem arrives
+> 
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> # sprint2 # Our team feels good about our progress so far and we're confident we can improve the system in the next Sprint.
+> 
 
 ### Contributions:
 
