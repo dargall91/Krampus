@@ -123,6 +123,7 @@ Answer as a team!
  - [Map inset capability](https://github.com/amehlhase316/Krampus/commit/1cbafc228526b1efac0c6c9a5bcf3f52761bb490)
  - [Map scaling from interactive map coordinates](https://github.com/amehlhase316/Krampus/commit/76ae4f61bc223ff7c1b2fe9d76b145c2fad20796)
  - [Click to add node](https://github.com/amehlhase316/Krampus/commit/8849dbd258cfa05ac3ee90956ff07184860b6859)
+ - [Invisible nodes](https://github.com/amehlhase316/Krampus/commit/e4795845b2dcaac5a434dc53b3313a7f845a2700)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
