@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import main.java.memoranda.Coordinate;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Node;
 import main.java.memoranda.NodeColl;
