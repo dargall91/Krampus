@@ -51,11 +51,13 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 | Name | Meeting Attended This Sprint | Sprint 2 | Sprint 1 | Project Total |
 |---|---|---|---|---|
-|Brian Pape| 1 | 5| 8| 13|
-|Chris Boveda| 1 | 3| 8| 11|
-|Derek Argall| 1 |5| 8| 13|
-|John Thurstonson| 1 |3| 7| 10|
-|Kevin Dolan| 1 |2| 8| 10|
+|Brian Pape| 			6 | 5| 8| 19|
+|Chris Boveda| 			5 | 5| 8| 18|
+|Derek Argall| 			6 |5| 8| 19|
+|John Thurstonson| 		6 |5| 7| 18|
+|Kevin Dolan| 			6 |5| 8| 19|
+
+**Note:** Attendance count is based on slack updates on the scheduled stand-up days. 
 
 
 ## 3: After the Sprint
@@ -65,19 +67,17 @@ Answer as a team!
 
 **Screen Cast link**: [https://youtu.be/Hv-IImZZKg0](https://youtu.be/Hv-IImZZKg0)
 
->
-
 **What do you think is the value you created this Sprint?**
 
->
+>  The code that was implemented in this sprint is high quality, and was built on a foundation of quality code from previous sprints. 
 
 **Do you think you worked enough and that you did what was expected of you?**
 
->
+> Our team worked enough, as evidenced by the 100% completion of our Sprint 3 user stories. 
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
->
+> Yes, we met all of the customer's expectations. All of the requirements from the original prompt have been fulfilled, and the program is stable and usable.
 
 
 ### Sprint Retrospective
@@ -86,31 +86,31 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
-> 
+> Yes, we met our sprint goal -- the program has full functionality in an aesthetically pleasing interface, and the code base quality has been drastically improved.
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> 
+> Yes, we completed all of the stories in our sprint backlog. The burndown chart cuts off at 4/27 due to the end of the sprint settings in Taiga, but all of our work was completed before the final review and retrospective meeting on the 27th.
 
 **If not, what went wrong?**
 
->
+> n/a
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
->  
+>  While our burndown chart is not perfect, it is reasonably good given the context of finals and assignment workload, and considering that one of the user stories was worth over a quarter of the points in the sprint backlog.
 
 **Did you deliver business value?**
 
-> 
+> Yes, the software meets all of the customer requirements, is stable, and is easy to use.
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> 
+> n/a
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> 
+> Everyone on our team is very happy with our accomplishments over the course of the project. Emphasizing the need for quality code from the beginning, as detailed in our quality policy, helped to lay the foundation for a successful and efficient workflow.
 
 ### Contributions:
 
@@ -257,17 +257,17 @@ Answer as a team!
 
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
-- [ ] Read the kickoff again to make sure you have all the details
+- [x] Read the kickoff again to make sure you have all the details
 - [x] User Stories that were not completed, were left in the Sprint and a copy created
-- [ ] Your Quality Policies are accurate and up to date
-- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Brian Pape|
+- [x] Your Quality Policies are accurate and up to date
+- [x] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [x] Brian Pape|
   - [x] Chris Boveda
   - [X] Derek Argall
   - [x] John Thurstonson
-  - [ ] Kevin Dolan
+  - [x] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
+  - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
+  - [x] All User Stories have acceptance tests
+  - [x] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [x] You know how to proceed
