@@ -16,9 +16,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @version 2021-04-10
  */
 public class Route extends IndexedObject {
+    private final ArrayList<Tour> tours;
     private String name;
     private LinkedList<Node> route;
-    private final ArrayList<Tour> tours;
 
 
     /**
@@ -87,24 +87,30 @@ public class Route extends IndexedObject {
     public Double length() {
         double len = 0.0;
 
-        // a route of 0 or 1 nodes has a length of 0
-        if (route.size() < 2) {
-            return 0.0;
-        } else {
-            boolean load = true;
-            Node tmp = null;
-            for (Node n : route) {
-                if (load) {
-                    tmp = n;
-                    load = false;
-                } else {
+        int nodeCount = 0;
+        boolean load = true;
+        Node tmp = null;
+        for (Node n : route) {
+            if (load && n.isVisible()) {
+                nodeCount++;
+                tmp = n;
+                load = false;
+            } else {
+                if (n.isVisible()) {
+                    nodeCount++;
                     len += (tmp.distanceTo(n));
                     tmp = n;
                 }
-
             }
+
         }
-        return len;
+
+        if (nodeCount >= 2) {
+            return len;
+        } else {
+            // a route of 0 or 1 nodes has a length of 0
+            return 0.0;
+        }
     }
 
 
