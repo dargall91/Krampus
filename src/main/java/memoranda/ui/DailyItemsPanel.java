@@ -310,5 +310,6 @@ public class DailyItemsPanel extends JPanel {
         driverPanel.refresh();
         busPanel.refresh();
         tourPanel.refresh();
+        routeMapPanel.refresh();
     }
 }

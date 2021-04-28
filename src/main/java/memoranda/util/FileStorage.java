@@ -139,8 +139,8 @@ public class FileStorage implements Storage {
      */
     public void storeProjectManager() {
         /*DEBUG*/
-        System.out.println(
-                "[DEBUG] Save project manager: " + JN_DOCPATH + ".projects");
+        //System.out.println(
+        //        "[DEBUG] Save project manager: " + JN_DOCPATH + ".projects");
         saveDocument(ProjectManager._doc, JN_DOCPATH + ".projects");
     }
 
