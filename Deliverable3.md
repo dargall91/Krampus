@@ -149,23 +149,23 @@ Answer as a team!
 #### Chris Boveda:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
+ - [Completion of main AC's for US119](https://github.com/amehlhase316/Krampus/commit/76027a8e4556579a25e48595035df539168a912b)
+ - 
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- -
- - 
+- None this sprint, all work was done on UI related task.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- -
- -
- -
+- [Merge Dev into Master](https://github.com/amehlhase316/Krampus/pull/117)
+- [Preserve window size on minimize...](https://github.com/amehlhase316/Krampus/pull/100)
+- [Add invisible nodes](https://github.com/amehlhase316/Krampus/pull/120)
+
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
-    -
+- I paid close attention to the checkstyle and spotbugs reports for the code reviews I performed, and for my own commits. This is evidenced by the 0 spotbugs and checkstyle errors in my code, and my comments in code reviews.
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -258,7 +258,7 @@ Answer as a team!
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Brian Pape|
-  - [ ] Chris Boveda
+  - [x] Chris Boveda
   - [ ] Derek Argall
   - [ ] John Thurstonson
   - [ ] Kevin Dolan
