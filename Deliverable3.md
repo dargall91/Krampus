@@ -46,16 +46,22 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  | Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 14APR21 | All | Sprint2 retrospective and Sprint3 planning | n/a | n/a | via Slack/Zoom, no blockers |
+| 16APR21 | All | Slack check-in | On track | All builds are good | via Slack, no blockers |
+| 18APR21 | All | Slack check-in | On track | All builds are good | via Slack, no blockers |
+| 21APR21 | Brian, Derek, John, Kevin | Discussing progress of project: Brian, Derek, John on zoom | On track | All builds are good | via Slack/Zoom, no blockers |
+| 23APR21 | All | Slack check-in | Catch-up required | All builds are good | via Slack, finals |
+| 25APR21 | All | Discussing progress of project: Brian, Derek, John on zoom | Catch-up required | All builds are good | via Slack/Zoom, finals |
+| 27APR21 | All | End of sprint meeting: All on zoom | All US completed | All builds are good | via Slack/Zoom, no blockers |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended This Sprint | Sprint 2 | Sprint 1 | Project Total |
 |---|---|---|---|---|
-|Brian Pape| 			6 | 5| 8| 19|
-|Chris Boveda| 			5 | 5| 8| 18|
-|Derek Argall| 			6 |5| 8| 19|
-|John Thurstonson| 		6 |5| 7| 18|
-|Kevin Dolan| 			6 |5| 8| 19|
+|Brian Pape| 			7 | 5| 8| 20|
+|Chris Boveda| 			6 | 5| 8| 19|
+|Derek Argall| 			7 |5| 8| 20|
+|John Thurstonson| 		7 |5| 7| 19|
+|Kevin Dolan| 			7 |5| 8| 20|
 
 **Note:** Attendance count is based on slack updates on the scheduled stand-up days. 
 
