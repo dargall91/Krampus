@@ -1,30 +1,12 @@
 package main.java.memoranda.ui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 import main.java.memoranda.util.Local;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 /**
@@ -51,7 +33,8 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Ctor for RouteDialog
+     * Ctor for RouteDialog.
+     *
      * @param frame The parent frame
      * @param title Title of the dialog box
      */
@@ -60,19 +43,21 @@ public class RouteDialog extends JDialog {
         try {
             error = jbInit();
             pack();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             new ExceptionDialog(e);
         }
     }
 
 
     /**
-     * Initializes the dialog box
+     * Initializes the dialog box.
+     *
      * @return 0 if successful
      */
     private int jbInit() {
         routes = CurrentProject.getRouteColl();
+
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setResizable(false);
         headerPanel.setBackground(Color.WHITE);
@@ -84,7 +69,8 @@ public class RouteDialog extends JDialog {
         lblText.setText("Name");
         lblText.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -93,7 +79,8 @@ public class RouteDialog extends JDialog {
         nameField.setMinimumSize(new Dimension(375, 24));
         nameField.setPreferredSize(new Dimension(375, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         gbc.gridwidth = 6;
         gbc.insets = new Insets(5, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -133,7 +120,7 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * OK button pressed
+     * OK button pressed.
      *
      * @param e ok button ActionEvent
      */
@@ -142,25 +129,25 @@ public class RouteDialog extends JDialog {
             pack();
             validate();
         } else {
-            complete = false;
+            complete = true;
             this.dispose();
         }
     }
 
 
     /**
-     * Cancel button pressed
+     * Cancel button pressed.
      *
      * @param e cancel button ActionEvent
      */
     private void cancelButton_actionPerformed(ActionEvent e) {
-        complete = true;
+        complete = false;
         this.dispose();
     }
 
 
     /**
-     * Return if complete or not
+     * Return if complete or not.
      *
      * @return true if complete
      */
@@ -170,7 +157,8 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Returns the error code
+     * Returns the error code.
+     *
      * @return error int
      */
     public int getError() {
@@ -179,7 +167,8 @@ public class RouteDialog extends JDialog {
 
 
     /**
-     * Returns the nameField text
+     * Returns the nameField text.
+     *
      * @return string name
      */
     public String getName() {

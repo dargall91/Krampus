@@ -1,33 +1,35 @@
 package main.java.memoranda.ui;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
 
-import java.awt.Component;
-
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-
 /**
- * JTable to display routes in the system
+ * JTable to display routes in the system.
  *
- * @author Chris Boveda
- * @version 2021-04-11
+ * @author Chris Boveda, John Thurstonson, Brian Pape
+ * @version 2021-04-25
  */
-public class RouteTable extends JTable {
+public class RouteTable extends JTable implements MouseListener {
     private RouteColl routes;
-
+    private RouteMapPanel parentPanel;
 
     /**
-     * Default CTor for RouteTable
+     * Default CTor for RouteTable.
      */
-    public RouteTable () {
+    public RouteTable(RouteMapPanel parentPanel) {
         super();
         setModel(new RouteTableModel());
         initTable();
         this.setShowGrid(false);
+        this.parentPanel = parentPanel;
     }
 
     private void initTable() {
@@ -35,11 +37,20 @@ public class RouteTable extends JTable {
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
         updateUI();
+
+        //if (routes.size() > 0) {
+        if (getSelectedRow() >= 0 && getSelectedRow() < routes.size()) {
+            setRowSelectionInterval(getSelectedRow(), getSelectedRow());
+        } else {
+            setRowSelectionInterval(0, 0);
+        }
+
+        addMouseListener(this);
     }
 
 
     /**
-     * Refreshes the table
+     * Refreshes the table.
      */
     public void refresh() {
         initTable();
@@ -47,7 +58,11 @@ public class RouteTable extends JTable {
 
 
     /**
-     * Setup Cells for Table
+     * Setup Cells for Table.
+     *
+     * @param row    row
+     * @param column column
+     * @return new renderer
      */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -59,26 +74,88 @@ public class RouteTable extends JTable {
                     int row,
                     int column) {
                 Component comp;
-                comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                comp.setForeground(java.awt.Color.gray);
+                comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                        column);
+
+                if (((row % 2) > 0) && (!isSelected)) {
+                    comp.setBackground(new Color(230, 240, 255));
+                }
+
                 return comp;
             }
         };
     }
 
+    /**
+     * Gets the currently selected Route.
+     *
+     * @return The selected Route
+     */
+    public Route getRoute() {
+        if (getSelectedRow() < 0) {
+            return null;
+        }
+
+        return routes.getRoutes().toArray(new Route[routes.size()])[getSelectedRow()];
+    }
 
     /**
-     * Route Table Builder
+     * Action for mouse clicked. Refreshes RouteMap.
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        parentPanel.getRouteMap().refresh();
+    }
+
+    /**
+     * Action for mouse pressed. Currently no action.
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Action for mouse released. Currently no action.
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Action for mouse entered. Currently no action.
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Action for mouse exited. Currently no action.
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+
+    }
+
+    /**
+     * Route Table Builder.
      *
      * @author Chris Boveda
      * @version 2021-04-11
      */
     private class RouteTableModel extends AbstractTableModel {
-        private final String[] COLUMN_NAMES = {"Route ID", "Name", "Start", "Length"};
+        private final String[] columnNames = {"Route ID", "Name", "Start", "Length"};
 
 
         /**
          * Returns the row count of the table.
+         *
          * @return int row count
          */
         @Override
@@ -88,7 +165,8 @@ public class RouteTable extends JTable {
 
 
         /**
-         * Returns the column count of the table
+         * Returns the column count of the table.
+         *
          * @return int col count
          */
         @Override
@@ -98,10 +176,11 @@ public class RouteTable extends JTable {
 
 
         /**
-         * Returns object located in a cell index
-         * @param rowIndex  row index of the object
-         * @param columnIndex   col index of the object
-         * @return  the object located in that cell
+         * Returns object located in a cell index.
+         *
+         * @param rowIndex    row index of the object
+         * @param columnIndex col index of the object
+         * @return the object located in that cell
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -122,13 +201,13 @@ public class RouteTable extends JTable {
 
 
         /**
-         * Returns the name of the specific column
+         * Returns the name of the specific column.
+         *
          * @param columnIndex the column to fetch
          * @return the name as a string
          */
         public String getColumnName(int columnIndex) {
-            return COLUMN_NAMES[columnIndex];
+            return columnNames[columnIndex];
         }
     }
-
 }
