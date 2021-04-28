@@ -212,15 +212,15 @@ public class Database {
             route.addNode(start);
             route.addNode(node1);
             route.addNode(node2);
+            route.addNode(node11);
             route.addNode(node3);
             route.addNode(node4);
             route.addNode(node5);
             route.addNode(node6);
-            route.addNode(node7);
-            route.addNode(node8);
             route.addNode(node9);
+            route.addNode(node8);
+            route.addNode(node7);
             route.addNode(node10);
-            route.addNode(node11);
             route.addNode(node12);
             route.addNode(node13);
             route.addNode(terminus);

@@ -65,7 +65,7 @@ public class RouteMap extends JPanel {
 
         this.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 //System.out.println(e.getPoint());
                 NodeColl nodeColl = CurrentProject.getNodeColl();
 
@@ -84,7 +84,7 @@ public class RouteMap extends JPanel {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
 
             }
 
@@ -129,7 +129,7 @@ public class RouteMap extends JPanel {
             //throw new IllegalArgumentException("Parent must own a route");
         }
 
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(640 , 480));
 
         setBackground(Color.WHITE);
 
