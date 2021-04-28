@@ -119,27 +119,29 @@ Answer as a team!
 #### Brian Pape:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
- -
- -
- -
+ - [Massive spotbugs/checkstyle fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Map inset capability](https://github.com/amehlhase316/Krampus/commit/1cbafc228526b1efac0c6c9a5bcf3f52761bb490)
+ - [Map scaling from interactive map coordinates](https://github.com/amehlhase316/Krampus/commit/76ae4f61bc223ff7c1b2fe9d76b145c2fad20796)
+ - [Click to add node](https://github.com/amehlhase316/Krampus/commit/8849dbd258cfa05ac3ee90956ff07184860b6859)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
--
--
+- [Map inset tests](https://github.com/amehlhase316/Krampus/commit/56f0e43a435fe605d5d8b5da154e5901bf82288b)
+- [Node scaling from map coordinates](https://github.com/amehlhase316/Krampus/commit/0d19bb45e3b5bd362da6191fbbb87d69044229d8)
 -
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - 
- -
+ - [Code review](https://github.com/amehlhase316/Krampus/pull/104)
+ - [Local testing of branch prior to PR approval](https://github.com/amehlhase316/Krampus/pull/108#pullrequestreview-644230061)
+ - [Another CR](https://github.com/amehlhase316/Krampus/pull/108#pullrequestreview-644272517)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - I removed several hundred spotbugs errors and thousands of checkstyle issues.
+ - [Massive spotbugs/checkstyle fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Spotbugs/checkstyle fixes](https://github.com/amehlhase316/Krampus/commit/1db325ca19946186a5aac3a911b8f34857839443)
+ - [Checkstyle](https://github.com/amehlhase316/Krampus/commit/68e6840eaf9d1b7080947e4813af9e75ac35c1ff)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
