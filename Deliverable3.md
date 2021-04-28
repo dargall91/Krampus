@@ -237,27 +237,27 @@ Answer as a team!
 #### Kevin Dolan:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- - link1
- - link2
+- [US134](https://github.com/amehlhase316/Krampus/commit/631c53e39ad5f6020d56f4e2f1f3011a65fe56d9)
+- [US134-Task135](https://github.com/amehlhase316/Krampus/commit/05b49b4cbb8f7c103ed867865a383e515cc2b5d6)
+- [US134-Task140](https://github.com/amehlhase316/Krampus/commit/05b49b4cbb8f7c103ed867865a383e515cc2b5d6)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - I did all UI work in this Sprint, under out QP no unit testing was required.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+- [US120](https://github.com/amehlhase316/Krampus/pull/122)
+- [US134](https://github.com/amehlhase316/Krampus/pull/118)
+- [Final Code Review]()
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - [Fix Checkstyle Errors in RouteMapPanel, MapPanel, RouteStop, RouteMapTest](https://github.com/amehlhase316/Krampus/commit/aff85bda9e1bdd48633d6483a03d7aae38a62581)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+- Our team worked together to produce our quality policy.
 
 
 
