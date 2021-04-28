@@ -129,7 +129,7 @@ public class RouteMap extends JPanel {
             //throw new IllegalArgumentException("Parent must own a route");
         }
 
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(640 , 480));
 
         setBackground(Color.WHITE);
 
