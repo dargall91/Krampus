@@ -35,6 +35,7 @@ public class RouteMapPanel extends JPanel {
     private final NodeTable nodeTable = new NodeTable(routeTable);
     private final JScrollPane nodeScrollPane = new JScrollPane();
     private final RouteMap map = new RouteMap(this);
+    private final JSplitPane tablesPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 
     private final JButton newRouteB = new JButton();
     private final JButton removeRouteB = new JButton();
@@ -159,14 +160,20 @@ public class RouteMapPanel extends JPanel {
         routeTable.setRowHeight(24);
         routeScrollPane.getViewport().setBackground(Color.lightGray);
         routeScrollPane.getViewport().add(routeTable, null);
-        routeScrollPane.setPreferredSize(new Dimension(400, 32767));
+        routeScrollPane.setPreferredSize(new Dimension(420, 32767));
 
         /* Node Table */
         nodeTable.setMaximumSize(new Dimension(32767, 32767));
         nodeTable.setRowHeight(24);
         nodeScrollPane.getViewport().setBackground(Color.gray);
         nodeScrollPane.getViewport().add(nodeTable, null);
-        nodeScrollPane.setPreferredSize(new Dimension(400, 32767));
+        nodeScrollPane.setPreferredSize(new Dimension(420, 32767));
+
+        tablesPane.add(routeScrollPane);
+        tablesPane.add(nodeScrollPane);
+        tablesPane.setDividerLocation(0.5);
+        tablesPane.setResizeWeight(0.5);
+
 
         toolBar.add(newRouteB, null);
         toolBar.addSeparator();
@@ -188,11 +195,10 @@ public class RouteMapPanel extends JPanel {
         resPopMenu.add(ppRefresh);
 
         scrollPane.getViewport().add(map, null);
-        scrollPane.setPreferredSize(new Dimension(1120, 32767));
 
-        this.add(scrollPane, BorderLayout.WEST);
-        this.add(nodeScrollPane, BorderLayout.CENTER);
-        this.add(routeScrollPane, BorderLayout.EAST);
+        //this.add(routeScrollPane, BorderLayout.WEST);
+        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(tablesPane, BorderLayout.EAST);
         this.add(toolBar, BorderLayout.NORTH);
     }
 

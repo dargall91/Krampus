@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import javax.swing.table.TableColumn;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteColl;
@@ -47,10 +48,35 @@ public class RouteTable extends JTable implements MouseListener {
         }
 
         addMouseListener(this);
+        setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+        initColumnsWidth();
     }
 
     public void setNodeTable(NodeTable nodeTable) {
         this.nodeTable = nodeTable;
+    }
+
+    private void initColumnsWidth() {
+        //dynamically set column width
+        for (int i = 0; i < getColumnCount(); i++) {
+            TableColumn tableColumn = getColumnModel().getColumn(i);
+            int preferredWidth = tableColumn.getMinWidth();
+            int maxWidth = tableColumn.getMaxWidth();
+
+            for (int j = 0; j < getRowCount(); j++) {
+                TableCellRenderer cellRenderer = getCellRenderer(j, i);
+                Component comp = prepareRenderer(cellRenderer, j, i);
+                int width = comp.getPreferredSize().width + getIntercellSpacing().width;
+                preferredWidth = Math.max(preferredWidth, width);
+
+                if (preferredWidth >= maxWidth) {
+                    preferredWidth = maxWidth;
+                    break;
+                }
+            }
+
+            tableColumn.setMinWidth(preferredWidth);
+        }
     }
 
 
