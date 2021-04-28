@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import main.java.memoranda.Coordinate;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Route;
 import main.java.memoranda.RouteOptimizer;
@@ -32,6 +33,7 @@ public class RouteMapPanel extends JPanel {
     private final NodeTable nodeTable = new NodeTable(routeTable);
     private final JScrollPane nodeScrollPane = new JScrollPane();
     private final RouteMap map = new RouteMap(this);
+    private final JSplitPane tablesPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 
     private final JButton newRouteB = new JButton();
     private final JButton removeRouteB = new JButton();
@@ -150,14 +152,20 @@ public class RouteMapPanel extends JPanel {
         routeTable.setRowHeight(24);
         routeScrollPane.getViewport().setBackground(Color.lightGray);
         routeScrollPane.getViewport().add(routeTable, null);
-        routeScrollPane.setPreferredSize(new Dimension(300, 32767));
+        routeScrollPane.setPreferredSize(new Dimension(420, 32767));
 
         /* Node Table */
         nodeTable.setMaximumSize(new Dimension(32767, 32767));
         nodeTable.setRowHeight(24);
         nodeScrollPane.getViewport().setBackground(Color.gray);
         nodeScrollPane.getViewport().add(nodeTable, null);
-        nodeScrollPane.setPreferredSize(new Dimension(300, 32767));
+        nodeScrollPane.setPreferredSize(new Dimension(420, 32767));
+
+        tablesPane.add(routeScrollPane);
+        tablesPane.add(nodeScrollPane);
+        tablesPane.setDividerLocation(0.5);
+        tablesPane.setResizeWeight(0.5);
+
 
         toolBar.add(newRouteB, null);
         toolBar.addSeparator();
@@ -180,9 +188,9 @@ public class RouteMapPanel extends JPanel {
 
         scrollPane.getViewport().add(map, null);
 
-        this.add(routeScrollPane, BorderLayout.WEST);
+        //this.add(routeScrollPane, BorderLayout.WEST);
         this.add(scrollPane, BorderLayout.CENTER);
-        this.add(nodeScrollPane, BorderLayout.EAST);
+        this.add(tablesPane, BorderLayout.EAST);
         this.add(toolBar, BorderLayout.NORTH);
     }
 
