@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import javax.swing.table.TableColumn;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Node;
 import main.java.memoranda.Route;
@@ -38,7 +39,34 @@ public class NodeTable extends JTable {
             [(routeTable.getSelectedRow() != -1) ? routeTable.getSelectedRow() : 0];
         getColumnModel().getColumn(0).setPreferredWidth(60);
         getColumnModel().getColumn(0).setMaxWidth(60);
+
+
+        setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+        initColumnsWidth();
         updateUI();
+    }
+
+    private void initColumnsWidth() {
+        //dynamically set column width
+        for (int i = 0; i < getColumnCount(); i++) {
+            TableColumn tableColumn = getColumnModel().getColumn(i);
+            int preferredWidth = tableColumn.getMinWidth();
+            int maxWidth = tableColumn.getMaxWidth();
+
+            for (int j = 0; j < getRowCount(); j++) {
+                TableCellRenderer cellRenderer = getCellRenderer(j, i);
+                Component comp = prepareRenderer(cellRenderer, j, i);
+                int width = comp.getPreferredSize().width + getIntercellSpacing().width;
+                preferredWidth = Math.max(preferredWidth, width);
+
+                if (preferredWidth >= maxWidth) {
+                    preferredWidth = maxWidth;
+                    break;
+                }
+            }
+
+            tableColumn.setMinWidth(preferredWidth);
+        }
     }
 
 
