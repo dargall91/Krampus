@@ -20,8 +20,8 @@ import main.java.memoranda.util.DuplicateKeyException;
 /**
  * RouteMap plots the stops on the map to visualize the nodes.
  *
- * @author Kevin Dolan, John Thurstonson, Brian Pape
- * @version 2021-04-25
+ * @author Kevin Dolan, John Thurstonson, Brian Pape, Chris Boveda
+ * @version 2021-04-27
  */
 public class RouteMap extends JPanel {
     private List<RouteStop> stops;
@@ -33,7 +33,8 @@ public class RouteMap extends JPanel {
 
     /**
      * Constructor for TESTING ONLY.
-     * @throws DuplicateKeyException e
+     *
+     * @throws DuplicateKeyException    exception
      */
     public RouteMap() throws DuplicateKeyException {
         id = 1;
@@ -76,7 +77,7 @@ public class RouteMap extends JPanel {
                     nodeColl.add(node);
                     route.addNode(node);
                     CurrentProject.save();
-                    refresh();
+                    parentPanel.refresh();
                 } catch (DuplicateKeyException duplicateKeyException) {
                     duplicateKeyException.printStackTrace();
                 }
