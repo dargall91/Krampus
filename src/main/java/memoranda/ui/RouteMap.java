@@ -6,9 +6,12 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import main.java.memoranda.*;
@@ -26,6 +29,7 @@ public class RouteMap extends JPanel {
     private Route route;
     private RouteMapPanel parentPanel;
     private final NodeMapper nodeMapper;
+    private Image defaultMap;
 
     /**
      * Constructor for TESTING ONLY.
@@ -49,6 +53,13 @@ public class RouteMap extends JPanel {
 
         this.addComponentListener(new ResizeListener());
         nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
+
+        try {
+            defaultMap = ImageIO.read(RouteMap.class.getResource("/ui/map_background.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
 
         initMap();
 
@@ -130,6 +141,7 @@ public class RouteMap extends JPanel {
      */
     public void refresh() {
         initMap();
+
     }
 
     /**
@@ -159,12 +171,15 @@ public class RouteMap extends JPanel {
         this.id = id;
     }
 
+
     /**
      * paintComponent draws the graphics to JPanel.
      */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        g.drawImage(defaultMap, 0,0, getWidth(), getHeight(), this);
 
         for (int i = 0; i < stops.size(); i++) {
             if (i < stops.size() - 1) {

@@ -71,7 +71,7 @@ public class RouteMapPanel extends JPanel {
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
-        map.setMaximumSize(new Dimension(32767, 32767));
+        map.setMaximumSize(new Dimension(800, 600));
         routeTable.setNodeTable(nodeTable);
 
         /* New Route Button */
@@ -186,13 +186,6 @@ public class RouteMapPanel extends JPanel {
         toolBar.add(refreshB, null);
         toolBar.addSeparator();
         //toolBar.add(debugAddNodesB, null);
-
-        resPopMenu.addSeparator();
-        resPopMenu.add(ppNewRes);
-        resPopMenu.addSeparator();
-        resPopMenu.add(ppRemoveRes);
-        resPopMenu.addSeparator();
-        resPopMenu.add(ppRefresh);
 
         scrollPane.getViewport().add(map, null);
 
@@ -370,7 +363,6 @@ public class RouteMapPanel extends JPanel {
     public RouteMap getRouteMap() {
         return map;
     }
-
 
     /**
      * Refreshes the components of this panel.

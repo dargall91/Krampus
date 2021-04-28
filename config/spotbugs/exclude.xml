@@ -13,10 +13,19 @@
 </Match>
 
 <Match>
+    <Class name="main.java.memoranda.ui.RouteMap" />
+    <Or>
+    <Field name= " main.java.memoranda.ui.RouteMap.defaultMap" />
+    </Or>
+    <Bug pattern="SE_BAD_FIELD_STORE" />
+</Match>
+
+<Match>
     <Class name="memorandatest.TestDataCollections" />
     <Method name="~.*testDistanceToNull.*" />
     <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" />
 </Match>
+
 
 </FindBugsFilter>
 
