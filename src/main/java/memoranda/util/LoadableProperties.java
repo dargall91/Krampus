@@ -39,15 +39,15 @@ public class LoadableProperties extends Hashtable {
     }
 
     public void save(OutputStream outStream, boolean sorted) throws IOException {
-    	if (!sorted) {
-    		save(outStream);
-    		return;
-    	}
+        if (!sorted) {
+            save(outStream);
+            return;
+        }
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(outStream, "UTF-8"));
         String aKey;
         Object aValue;
         TreeMap tm = new TreeMap(this);
-        for (Iterator i = tm.keySet().iterator(); i.hasNext();) {
+        for (Iterator i = tm.keySet().iterator(); i.hasNext(); ) {
             aKey = (String) i.next();
             aValue = get(aKey);
             out.write(aKey + " = " + aValue);
@@ -56,12 +56,12 @@ public class LoadableProperties extends Hashtable {
         out.flush();
         out.close();
     }
-    
+
     public void save(OutputStream outStream) throws IOException {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(outStream, "UTF-8"));
         String aKey;
         Object aValue;
-        for (Enumeration e = keys(); e.hasMoreElements();) {
+        for (Enumeration e = keys(); e.hasMoreElements(); ) {
             aKey = (String) e.nextElement();
             aValue = get(aKey);
             out.write(aKey + " = " + aValue);
@@ -72,22 +72,21 @@ public class LoadableProperties extends Hashtable {
     }
 
     private boolean isValid(String str) {
-        if (str == null)
+        if (str == null) {
             return false;
+        }
         if (str.length() > 0) {
             if (str.startsWith("#") || str.startsWith("!")) {
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
 
         int index = str.indexOf("=");
         if (index > 0 && str.length() > index) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -95,8 +94,7 @@ public class LoadableProperties extends Hashtable {
     private String getNextLine(BufferedReader br) {
         try {
             return br.readLine();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
 

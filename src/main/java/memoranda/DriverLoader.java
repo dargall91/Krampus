@@ -1,8 +1,9 @@
 package main.java.memoranda;
 
+import java.util.LinkedList;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.LinkedList;
 
 /**
  * Used to load drivers with numeric IDs from JSON and subsequently be converted into an object
@@ -12,9 +13,9 @@ import java.util.LinkedList;
  * @version 2021-04-01
  */
 public class DriverLoader extends IndexedObject {
-    private String name;
-    private String phoneNumber;
-    private LinkedList<Integer> tourIDs;
+    private final String name;
+    private final String phoneNumber;
+    private final LinkedList<Integer> tourIDs;
 
 
     /**

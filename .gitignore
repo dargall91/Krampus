@@ -31,3 +31,6 @@
 
 # vim swap files
 .swp
+
+##ignore version properties (otherwise you have to add or remove it from git after avery build)
+version.properties

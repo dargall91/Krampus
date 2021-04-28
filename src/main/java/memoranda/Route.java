@@ -1,19 +1,22 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * Route object representing a route in the MTB scheduling system.
- * Routes contain an ordered list of Nodes
+ * Route object representing a route in the MTB scheduling system. Routes contain an ordered list of
+ * Nodes.
  *
  * @author Brian Pape, Chris Boveda
  * @version 2021-04-10
  */
 public class Route extends IndexedObject {
+    private final ArrayList<Tour> tours;
     private String name;
     private LinkedList<Node> route;
 
@@ -26,6 +29,7 @@ public class Route extends IndexedObject {
     public Route(int id) {
         super(id);
         route = new LinkedList<>();
+        tours = new ArrayList<>();
     }
 
 
@@ -83,24 +87,30 @@ public class Route extends IndexedObject {
     public Double length() {
         double len = 0.0;
 
-        // a route of 0 or 1 nodes has a length of 0
-        if (route.size() < 2) {
-            return 0.0;
-        } else {
-            boolean load = true;
-            Node tmp = null;
-            for (Node n : route) {
-                if (load) {
-                    tmp = n;
-                    load = false;
-                } else {
+        int nodeCount = 0;
+        boolean load = true;
+        Node tmp = null;
+        for (Node n : route) {
+            if (load && n.isVisible()) {
+                nodeCount++;
+                tmp = n;
+                load = false;
+            } else {
+                if (n.isVisible()) {
+                    nodeCount++;
                     len += (tmp.distanceTo(n));
                     tmp = n;
                 }
-
             }
+
         }
-        return len;
+
+        if (nodeCount >= 2) {
+            return len;
+        } else {
+            // a route of 0 or 1 nodes has a length of 0
+            return 0.0;
+        }
     }
 
 
@@ -120,7 +130,7 @@ public class Route extends IndexedObject {
      * Sets the given node as the start of the route. May be used in route generation interface.
      *
      * @param n the node to set as the new start
-     * @return  false if the route did not contain the node
+     * @return false if the route did not contain the node
      */
     public boolean setStart(Node n) {
         if (route.removeFirstOccurrence(n)) {
@@ -129,17 +139,6 @@ public class Route extends IndexedObject {
         }
         return false;
     }
-
-
-    /**
-     * Sets the route to the given route.
-     *
-     * @param newRoute  the new route to set
-     */
-    public void setRoute(LinkedList<Node> newRoute) {
-        this.route = newRoute;
-    }
-
 
     /**
      * standard getter for name.
@@ -150,16 +149,14 @@ public class Route extends IndexedObject {
         return name;
     }
 
-
     /**
-     * Standard setter for name
+     * Standard setter for name.
      *
      * @param name new name
      */
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * returns an ordered list of the nodes in the route.
@@ -171,6 +168,33 @@ public class Route extends IndexedObject {
         return route;
     }
 
+    /**
+     * Sets the route to the given route.
+     *
+     * @param newRoute the new route to set
+     */
+    public void setRoute(LinkedList<Node> newRoute) {
+        this.route = newRoute;
+    }
+
+    /**
+     * Adds a Tour to this Route.
+     *
+     * @param tour The Tour to add
+     */
+    public void addTour(Tour tour) {
+        tours.add(tour);
+    }
+
+    /**
+     * Gets the list of Tours associated with this Route.
+     *
+     * @return The list of Tours
+     */
+    @JsonIgnore
+    public ArrayList<Tour> getTours() {
+        return tours;
+    }
 
     /**
      * Returns an ordered list of only the IDs of the nodes in this route for json serialization.

@@ -11,12 +11,12 @@ package main.java.memoranda;
  * @version 2021-04-01
  */
 public class Coordinate {
-    private Double lat;
-    private Double lon;
     public static final double LON_MIN = -180;
     public static final double LON_MAX = 180;
     public static final double LAT_MIN = -90;
     public static final double LAT_MAX = 90;
+    private final Double lat;
+    private final Double lon;
 
     /**
      * immutable object; must use this constructor.
@@ -78,8 +78,8 @@ public class Coordinate {
         return 2 * r * Math.asin(
                 Math.sqrt(
                         Math.pow(Math.sin((lat2 - lat1) / 2), 2)
-                                + Math.cos(lat1) * Math.cos(lat2) *
-                                Math.pow(Math.sin((lon2 - lon1) / 2), 2)
+                                + Math.cos(lat1) * Math.cos(lat2)
+                                * Math.pow(Math.sin((lon2 - lon1) / 2), 2)
                 )
         );
     }
@@ -90,6 +90,7 @@ public class Coordinate {
      *
      * @param c other coordinate
      * @return distance in km to other coordinate
+     * @throws NullPointerException if the Coordinate is null
      */
     public Double distanceTo(Coordinate c) throws NullPointerException {
         return haversine(lat, c.getLat(), lon, c.getLon());
@@ -111,6 +112,7 @@ public class Coordinate {
      *
      * @param c other coordinate
      * @return absolute distance to provided coordinate
+     * @throws NullPointerException if the Coordinate is null
      */
     public Double latDelta(Coordinate c) throws NullPointerException {
         return Math.abs(c.getLat() - lat);
@@ -121,6 +123,7 @@ public class Coordinate {
      *
      * @param c other coordinate
      * @return absolute distance to provided coordinate
+     * @throws NullPointerException if the Coordinate is null
      */
     public Double lonDelta(Coordinate c) throws NullPointerException {
         return Math.abs(c.getLon() - lon);
@@ -143,16 +146,28 @@ public class Coordinate {
      * @param o another coordinate for comparison
      * @return whether supplied coordinate is equal to this one
      */
-    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
+        } else if (o.getClass().equals(this.getClass())) {
+            Coordinate c = (Coordinate) o;
+            String lat1 = lat.toString();
+            String lat2 = c.lat.toString();
+            String long1 = lat.toString();
+            String long2 = c.lat.toString();
+            return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
         }
-        Coordinate c = (Coordinate) o;
-        String lat1 = lat.toString();
-        String lat2 = c.lat.toString();
-        String long1 = lat.toString();
-        String long2 = c.lat.toString();
-        return (this == o) || (lat1.equals(lat2) && long1.equals(long2));
+
+        return false;
+    }
+
+    /**
+     * Override of hashCode for equals method.
+     *
+     * @return an arbitrary constant
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 0;
     }
 }

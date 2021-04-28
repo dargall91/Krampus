@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Node extends IndexedObject {
     private String name;
     private Coordinate coords;
+    private boolean visible = true;
 
 
     /**
@@ -42,34 +43,38 @@ public class Node extends IndexedObject {
         coords = new Coordinate(lat, lon);
     }
 
-
-    /**
-     * name setter.
-     *
-     * @param name name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * coordinate setter.
-     *
-     * @param coords the coordinate to assign to this node
-     */
-    public void setCoords(Coordinate coords) {
-        this.coords = coords;
-    }
-
-
     /**
      * return distance to another node.
      *
      * @param n node to calculate distance to
      * @return distance to provided node
+     * @throws NullPointerException if the Node is null
      */
     public Double distanceTo(Node n) throws NullPointerException {
         return this.coords.distanceTo(n.getCoords());
+    }
+
+    /**
+     * show node.
+     */
+    public void hide() {
+        visible = false;
+    }
+
+    /**
+     * hide node.
+     */
+    public void show() {
+        visible = true;
+    }
+
+    /**
+     * node visibility.
+     *
+     * @return visibility
+     */
+    public boolean isVisible() {
+        return visible;
     }
 
     /**
@@ -101,12 +106,30 @@ public class Node extends IndexedObject {
     }
 
     /**
+     * coordinate setter.
+     *
+     * @param coords the coordinate to assign to this node
+     */
+    public void setCoords(Coordinate coords) {
+        this.coords = coords;
+    }
+
+    /**
      * standard getter for name.
      *
      * @return name of this node
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * name setter.
+     *
+     * @param name name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

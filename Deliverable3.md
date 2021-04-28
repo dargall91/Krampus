@@ -50,7 +50,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 ### Meeting Summary:
 
 | Name | Meeting Attended This Sprint | Sprint 2 | Sprint 1 | Project Total |
-|---|---|---|---|
+|---|---|---|---|---|
 |Brian Pape| 1 | 5| 8| 13|
 |Chris Boveda| 1 | 3| 8| 11|
 |Derek Argall| 1 |5| 8| 13|
@@ -180,47 +180,49 @@ Answer as a team!
  - [Completion of Drivers Tab](https://github.com/amehlhase316/Krampus/commit/953316fe9e433d8cae1e23d2e48e6bd54825bd6d)
  - [Completion of Buses Tab](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
  - [Changing projects reloads Bus and Driver data for the new project](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+ - [Preserve Window Size on Minimize](https://github.com/amehlhase316/Krampus/pull/100/commits/a1b9d5d2cfc0edc33cd2999a9988dc53ac0e0c92)
+ - [Synchronized All Tabs](https://github.com/amehlhase316/Krampus/pull/101/commits/e7968e8f85c51f4339fb4e1341b7cd1adb4022d8)
+ - [Add Version and Build to App Window](https://github.com/amehlhase316/Krampus/pull/104/commits/f930601fd58899d2425915fa906e7578e17fb044)
+ - [SpotBugs and CheckStyle fixes, Removal of Many Memoranda Related Classes)[https://github.com/amehlhase316/Krampus/pull/108/commits/8569171fb4129bad142a620dacedcf21fb1a8a2c]
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - None, all UI related work last 2 sprints
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - [Update App Icons](https://github.com/amehlhase316/Krampus/pull/99)
+ - [SpotBugs and CheckStyle Fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Merge Dev into Master](https://github.com/amehlhase316/Krampus/pull/117)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - I applied CheckStyle and SpotBugs to nearly all the classes our team wrote and several that we worked in. I also removed many of the Memoranda classes that were no longer relevant to the new system.
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+ - I worked together with the rest of the group to create the quality policy.
 
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
- -
+ - [Fix so selected route is displayed on map](https://github.com/amehlhase316/Krampus/commit/e3c50515f142649462a20259a32035078cececf0)
+ - [Add icons to work panel](https://github.com/amehlhase316/Krampus/commit/9aa3d99f74c8b39143c123d2aaaf98cf94822f37)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - N/A
- - 
+ - None, all UI related work.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- -
- - 
+ - [US134-Task155: Make map resize when window resizes](https://github.com/amehlhase316/Krampus/pull/113)
+ - [Us133 task156 Nodemapper utility function to map map coords to new Node](https://github.com/amehlhase316/Krampus/pull/114)
+ - [US133 Task137 Click to add node](https://github.com/amehlhase316/Krampus/pull/115)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - [Reduce Checkstyle errors in AppFrame](https://github.com/amehlhase316/Krampus/commit/5b2b929c75122cd273ce134253ce7097509403d8)
+ - [Remove Checkstyle errors from WorkPanel](https://github.com/amehlhase316/Krampus/commit/cd51f9b5ddbe2b63bdc05ea1cb644f6a801736d1)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -261,8 +263,8 @@ Answer as a team!
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Brian Pape|
   - [x] Chris Boveda
-  - [ ] Derek Argall
-  - [ ] John Thurstonson
+  - [X] Derek Argall
+  - [x] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)

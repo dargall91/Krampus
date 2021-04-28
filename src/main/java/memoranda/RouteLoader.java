@@ -1,19 +1,20 @@
 package main.java.memoranda;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.LinkedList;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * Used to load routes with numeric IDs from JSON and subsequently be converted into an
- * object hierarchy.
+ * Used to load routes with numeric IDs from JSON and subsequently be converted into an object
+ * hierarchy.
  *
  * @author Brian Pape
  * @version 2021-04-01
  */
 public class RouteLoader extends IndexedObject {
-    private String name;
-    private LinkedList<Integer> nodeIDs;
+    private final String name;
+    private final LinkedList<Integer> nodeIDs;
 
     /**
      * constructor for json deserialization.
@@ -23,7 +24,8 @@ public class RouteLoader extends IndexedObject {
      * @param nodeIDs IDs of nodes (ordered list) associated with route
      */
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("nodeIDs") LinkedList<Integer> nodeIDs) {
+    public RouteLoader(@JsonProperty("id") int id, @JsonProperty("name") String name,
+                       @JsonProperty("nodeIDs") LinkedList<Integer> nodeIDs) {
         super(id);
         this.name = name;
         this.nodeIDs = nodeIDs;
