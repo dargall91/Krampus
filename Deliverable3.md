@@ -46,16 +46,24 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  | Meeting notes | Burndown Info  | TravisCI info  | Additional Info  |
 |---|---|---|---|---|---|
 | 14APR21 | All | Sprint2 retrospective and Sprint3 planning | n/a | n/a | via Slack/Zoom, no blockers |
+| 16APR21 | All | Slack check-in | On track | All builds are good | via Slack, no blockers |
+| 18APR21 | All | Slack check-in | On track | All builds are good | via Slack, no blockers |
+| 21APR21 | Brian, Derek, John, Kevin | Discussing progress of project: Brian, Derek, John on zoom | On track | All builds are good | via Slack/Zoom, no blockers |
+| 23APR21 | All | Slack check-in | Catch-up required | All builds are good | via Slack, finals |
+| 25APR21 | All | Discussing progress of project: Brian, Derek, John on zoom | Catch-up required | All builds are good | via Slack/Zoom, finals |
+| 27APR21 | All | End of sprint meeting: All on zoom | All US completed | All builds are good | via Slack/Zoom, no blockers |
 
 ### Meeting Summary:
 
 | Name | Meeting Attended This Sprint | Sprint 2 | Sprint 1 | Project Total |
-|---|---|---|---|
-|Brian Pape| 1 | 5| 8| 13|
-|Chris Boveda| 1 | 3| 8| 11|
-|Derek Argall| 1 |5| 8| 13|
-|John Thurstonson| 1 |3| 7| 10|
-|Kevin Dolan| 1 |2| 8| 10|
+|---|---|---|---|---|
+|Brian Pape| 			7 | 5| 8| 20|
+|Chris Boveda| 			6 | 5| 8| 19|
+|Derek Argall| 			7 |5| 8| 20|
+|John Thurstonson| 		7 |5| 7| 19|
+|Kevin Dolan| 			7 |5| 8| 20|
+
+**Note:** Attendance count is based on slack updates on the scheduled stand-up days. 
 
 
 ## 3: After the Sprint
@@ -63,21 +71,19 @@ I would also advise you to already fill out the Contributions section (End of sp
 ### Sprint Review
 Answer as a team!
 
-**Screen Cast link**:
-
->
+**Screen Cast link**: [https://youtu.be/Hv-IImZZKg0](https://youtu.be/Hv-IImZZKg0)
 
 **What do you think is the value you created this Sprint?**
 
->
+>  The code that was implemented in this sprint is high quality, and was built on a foundation of quality code from previous sprints. 
 
 **Do you think you worked enough and that you did what was expected of you?**
 
->
+> Our team worked enough, as evidenced by the 100% completion of our Sprint 3 user stories. 
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
->
+> Yes, we met all of the customer's expectations. All of the requirements from the original prompt have been fulfilled, and the program is stable and usable.
 
 
 ### Sprint Retrospective
@@ -86,31 +92,31 @@ Answer as a team!
 
 **Did you meet your sprint goal?**
 
->  # sprint2 # Yes, all User Stories were completed, and we implemented all the functionality requirements. (Except Routes shows static data?)
+> Yes, we met our sprint goal -- the program has full functionality in an aesthetically pleasing interface, and the code base quality has been drastically improved.
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> # sprint2 # Yes, we completed all the user stories.
+> Yes, we completed all of the stories in our sprint backlog. The burndown chart cuts off at 4/27 due to the end of the sprint settings in Taiga, but all of our work was completed before the final review and retrospective meeting on the 27th.
 
 **If not, what went wrong?**
 
->
+> n/a
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> # sprint2 # No, there were a few days were no stories or tasks were completed.
+>  While our burndown chart is not perfect, it is reasonably good given the context of finals and assignment workload, and considering that one of the user stories was worth over a quarter of the points in the sprint backlog.
 
 **Did you deliver business value?**
 
-> # sprint2 # Yes, basics of the Bus Scheduling system were implemented and working.
+> Yes, the software meets all of the customer requirements, is stable, and is easy to use.
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> # sprint2 # Work more consistently, communicate better with the team when a problem arrives
+> n/a
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> # sprint2 # Our team feels good about our progress so far and we're confident we can improve the system in the next Sprint.
+> Everyone on our team is very happy with our accomplishments over the course of the project. Emphasizing the need for quality code from the beginning, as detailed in our quality policy, helped to lay the foundation for a successful and efficient workflow.
 
 ### Contributions:
 
@@ -119,27 +125,29 @@ Answer as a team!
 #### Brian Pape:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
- -
- -
- -
+ - [Massive spotbugs/checkstyle fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Map inset capability](https://github.com/amehlhase316/Krampus/commit/1cbafc228526b1efac0c6c9a5bcf3f52761bb490)
+ - [Map scaling from interactive map coordinates](https://github.com/amehlhase316/Krampus/commit/76ae4f61bc223ff7c1b2fe9d76b145c2fad20796)
+ - [Click to add node](https://github.com/amehlhase316/Krampus/commit/8849dbd258cfa05ac3ee90956ff07184860b6859)
+ - [Invisible nodes](https://github.com/amehlhase316/Krampus/commit/e4795845b2dcaac5a434dc53b3313a7f845a2700)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
--
--
--
+- [Map inset tests](https://github.com/amehlhase316/Krampus/commit/56f0e43a435fe605d5d8b5da154e5901bf82288b)
+- [Node scaling from map coordinates](https://github.com/amehlhase316/Krampus/commit/0d19bb45e3b5bd362da6191fbbb87d69044229d8)
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - 
- -
+ - [Code review](https://github.com/amehlhase316/Krampus/pull/104)
+ - [Local testing of branch prior to PR approval](https://github.com/amehlhase316/Krampus/pull/108#pullrequestreview-644230061)
+ - [Another CR](https://github.com/amehlhase316/Krampus/pull/108#pullrequestreview-644272517)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - I removed several hundred spotbugs errors and thousands of checkstyle issues.
+ - [Massive spotbugs/checkstyle fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Spotbugs/checkstyle fixes](https://github.com/amehlhase316/Krampus/commit/1db325ca19946186a5aac3a911b8f34857839443)
+ - [Checkstyle](https://github.com/amehlhase316/Krampus/commit/68e6840eaf9d1b7080947e4813af9e75ac35c1ff)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -149,23 +157,23 @@ Answer as a team!
 #### Chris Boveda:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
+ - [Completion of main AC's for US119](https://github.com/amehlhase316/Krampus/commit/76027a8e4556579a25e48595035df539168a912b)
+ - 
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- -
- - 
+- None this sprint, all work was done on UI related task.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- -
- -
- -
+- [Merge Dev into Master](https://github.com/amehlhase316/Krampus/pull/117)
+- [Preserve window size on minimize...](https://github.com/amehlhase316/Krampus/pull/100)
+- [Add invisible nodes](https://github.com/amehlhase316/Krampus/pull/120)
+
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
-    -
+- I paid close attention to the checkstyle and spotbugs reports for the code reviews I performed, and for my own commits. This is evidenced by the 0 spotbugs and checkstyle errors in my code, and my comments in code reviews.
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -178,47 +186,49 @@ Answer as a team!
  - [Completion of Drivers Tab](https://github.com/amehlhase316/Krampus/commit/953316fe9e433d8cae1e23d2e48e6bd54825bd6d)
  - [Completion of Buses Tab](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
  - [Changing projects reloads Bus and Driver data for the new project](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+ - [Preserve Window Size on Minimize](https://github.com/amehlhase316/Krampus/pull/100/commits/a1b9d5d2cfc0edc33cd2999a9988dc53ac0e0c92)
+ - [Synchronized All Tabs](https://github.com/amehlhase316/Krampus/pull/101/commits/e7968e8f85c51f4339fb4e1341b7cd1adb4022d8)
+ - [Add Version and Build to App Window](https://github.com/amehlhase316/Krampus/pull/104/commits/f930601fd58899d2425915fa906e7578e17fb044)
+ - [SpotBugs and CheckStyle fixes, Removal of Many Memoranda Related Classes)[https://github.com/amehlhase316/Krampus/pull/108/commits/8569171fb4129bad142a620dacedcf21fb1a8a2c]
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - None, all UI related work last 2 sprints
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - [Update App Icons](https://github.com/amehlhase316/Krampus/pull/99)
+ - [SpotBugs and CheckStyle Fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Merge Dev into Master](https://github.com/amehlhase316/Krampus/pull/117)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - I applied CheckStyle and SpotBugs to nearly all the classes our team wrote and several that we worked in. I also removed many of the Memoranda classes that were no longer relevant to the new system.
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+ - I worked together with the rest of the group to create the quality policy.
 
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- -
- -
- -
+ - [Fix so selected route is displayed on map](https://github.com/amehlhase316/Krampus/commit/e3c50515f142649462a20259a32035078cececf0)
+ - [Add icons to work panel](https://github.com/amehlhase316/Krampus/commit/9aa3d99f74c8b39143c123d2aaaf98cf94822f37)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - N/A
- - 
+ - None, all UI related work.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- -
- - 
+ - [US134-Task155: Make map resize when window resizes](https://github.com/amehlhase316/Krampus/pull/113)
+ - [Us133 task156 Nodemapper utility function to map map coords to new Node](https://github.com/amehlhase316/Krampus/pull/114)
+ - [US133 Task137 Click to add node](https://github.com/amehlhase316/Krampus/pull/115)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - [Reduce Checkstyle errors in AppFrame](https://github.com/amehlhase316/Krampus/commit/5b2b929c75122cd273ce134253ce7097509403d8)
+ - [Remove Checkstyle errors from WorkPanel](https://github.com/amehlhase316/Krampus/commit/cd51f9b5ddbe2b63bdc05ea1cb644f6a801736d1)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
@@ -227,43 +237,43 @@ Answer as a team!
 #### Kevin Dolan:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
 
- - link1
- - link2
+- [US134](https://github.com/amehlhase316/Krampus/commit/631c53e39ad5f6020d56f4e2f1f3011a65fe56d9)
+- [US134-Task135](https://github.com/amehlhase316/Krampus/commit/05b49b4cbb8f7c103ed867865a383e515cc2b5d6)
+- [US134-Task140](https://github.com/amehlhase316/Krampus/commit/05b49b4cbb8f7c103ed867865a383e515cc2b5d6)
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - I did all UI work in this Sprint, under out QP no unit testing was required.
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+- [US120](https://github.com/amehlhase316/Krampus/pull/122)
+- [US134](https://github.com/amehlhase316/Krampus/pull/118)
+- [Final Code Review]()
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - [Fix Checkstyle Errors in RouteMapPanel, MapPanel, RouteStop, RouteMapTest](https://github.com/amehlhase316/Krampus/commit/aff85bda9e1bdd48633d6483a03d7aae38a62581)
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+- Our team worked together to produce our quality policy.
 
 
 
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
-- [ ] Read the kickoff again to make sure you have all the details
+- [x] Read the kickoff again to make sure you have all the details
 - [x] User Stories that were not completed, were left in the Sprint and a copy created
-- [ ] Your Quality Policies are accurate and up to date
-- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Brian Pape|
-  - [ ] Chris Boveda
-  - [ ] Derek Argall
-  - [ ] John Thurstonson
-  - [ ] Kevin Dolan
+- [x] Your Quality Policies are accurate and up to date
+- [x] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [x] Brian Pape|
+  - [x] Chris Boveda
+  - [X] Derek Argall
+  - [x] John Thurstonson
+  - [x] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
+  - [x] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
+  - [x] All User Stories have acceptance tests
+  - [x] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [x] You know how to proceed

@@ -6,9 +6,12 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import main.java.memoranda.*;
@@ -17,8 +20,8 @@ import main.java.memoranda.util.DuplicateKeyException;
 /**
  * RouteMap plots the stops on the map to visualize the nodes.
  *
- * @author Kevin Dolan, John Thurstonson, Brian Pape
- * @version 2021-04-25
+ * @author Kevin Dolan, John Thurstonson, Brian Pape, Chris Boveda
+ * @version 2021-04-27
  */
 public class RouteMap extends JPanel {
     private List<RouteStop> stops;
@@ -26,9 +29,12 @@ public class RouteMap extends JPanel {
     private Route route;
     private RouteMapPanel parentPanel;
     private final NodeMapper nodeMapper;
+    private Image defaultMap;
 
     /**
      * Constructor for TESTING ONLY.
+     *
+     * @throws DuplicateKeyException    exception
      */
     public RouteMap() throws DuplicateKeyException {
         id = 1;
@@ -48,6 +54,13 @@ public class RouteMap extends JPanel {
         this.addComponentListener(new ResizeListener());
         nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
 
+        try {
+            defaultMap = ImageIO.read(RouteMap.class.getResource("/ui/map_background.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
         initMap();
 
         this.addMouseListener(new MouseListener() {
@@ -64,7 +77,7 @@ public class RouteMap extends JPanel {
                     nodeColl.add(node);
                     route.addNode(node);
                     CurrentProject.save();
-                    refresh();
+                    parentPanel.refresh();
                 } catch (DuplicateKeyException duplicateKeyException) {
                     duplicateKeyException.printStackTrace();
                 }
@@ -128,6 +141,7 @@ public class RouteMap extends JPanel {
      */
     public void refresh() {
         initMap();
+
     }
 
     /**
@@ -157,12 +171,15 @@ public class RouteMap extends JPanel {
         this.id = id;
     }
 
+
     /**
      * paintComponent draws the graphics to JPanel.
      */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        g.drawImage(defaultMap, 0,0, getWidth(), getHeight(), this);
 
         for (int i = 0; i < stops.size(); i++) {
             if (i < stops.size() - 1) {
@@ -192,7 +209,9 @@ public class RouteMap extends JPanel {
         nodeMapper.setInsets(new Insets(40, 40, 40, 40));
 
         for (Node n : nodes) {
-            addStop(stops, nodeMapper.getScaled(n), n.getName());
+            if (n.isVisible()) {
+                addStop(stops, nodeMapper.getScaled(n), n.getName());
+            }
         }
         repaint();
 

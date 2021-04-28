@@ -1,59 +1,61 @@
 package main.java.memoranda.ui;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import javax.swing.table.TableColumn;
 import main.java.memoranda.CurrentProject;
+import main.java.memoranda.Node;
 import main.java.memoranda.Route;
-import main.java.memoranda.RouteColl;
+
 
 /**
- * JTable to display routes in the system.
+ * JTable to display nodes from a selected route in the system.
  *
- * @author Chris Boveda, John Thurstonson, Brian Pape
- * @version 2021-04-25
+ * @author Chris Boveda
+ * @version 2021-04-27
  */
-public class RouteTable extends JTable implements MouseListener {
-    private RouteColl routes;
-    private RouteMapPanel parentPanel;
-    private NodeTable nodeTable;
+public class NodeTable extends JTable {
+    private Route route;
+    private LinkedList<Node> trimmedRoute;
+    private final RouteTable routeTable;
+
 
     /**
      * Default CTor for RouteTable.
      */
-    public RouteTable(RouteMapPanel parentPanel) {
+    public NodeTable(RouteTable routeTable) {
         super();
-        setModel(new RouteTableModel());
+        setModel(new NodeTableModel());
+        this.routeTable = routeTable;
+        trimmedRoute = new LinkedList<>();
         initTable();
         this.setShowGrid(false);
-        this.parentPanel = parentPanel;
     }
 
     private void initTable() {
-        routes = CurrentProject.getRouteColl();
-        getColumnModel().getColumn(0).setPreferredWidth(60);
-        getColumnModel().getColumn(0).setMaxWidth(60);
-        updateUI();
-
-        //if (routes.size() > 0) {
-        if (getSelectedRow() >= 0 && getSelectedRow() < routes.size()) {
-            setRowSelectionInterval(getSelectedRow(), getSelectedRow());
-        } else {
-            setRowSelectionInterval(0, 0);
+        //todo NPE
+        route = (Route) CurrentProject.getRouteColl().getRoutes().toArray()
+            [(routeTable.getSelectedRow() != -1) ? routeTable.getSelectedRow() : 0];
+        trimmedRoute = new LinkedList<>();
+        for (Node n : route.getRoute()) {
+            if (n.isVisible()) {
+                trimmedRoute.add(n);
+            }
         }
 
-        addMouseListener(this);
+
+
+        getColumnModel().getColumn(0).setPreferredWidth(60);
+        getColumnModel().getColumn(0).setMaxWidth(60);
+
+
         setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         initColumnsWidth();
-    }
-
-    public void setNodeTable(NodeTable nodeTable) {
-        this.nodeTable = nodeTable;
+        updateUI();
     }
 
     private void initColumnsWidth() {
@@ -90,98 +92,33 @@ public class RouteTable extends JTable implements MouseListener {
 
     /**
      * Setup Cells for Table.
-     *
-     * @param row    row
-     * @param column column
-     * @return new renderer
      */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(
-                    JTable table,
-                    Object value,
-                    boolean isSelected,
-                    boolean hasFocus,
-                    int row,
-                    int column) {
+                JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column) {
                 Component comp;
-                comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
-                        column);
-
-                if (((row % 2) > 0) && (!isSelected)) {
-                    comp.setBackground(new Color(230, 240, 255));
-                }
-
+                comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                comp.setForeground(java.awt.Color.gray);
                 return comp;
             }
         };
     }
 
-    /**
-     * Gets the currently selected Route.
-     *
-     * @return The selected Route
-     */
-    public Route getRoute() {
-        if (getSelectedRow() < 0) {
-            return null;
-        }
-
-        return routes.getRoutes().toArray(new Route[routes.size()])[getSelectedRow()];
-    }
 
     /**
-     * Action for mouse clicked. Refreshes RouteMap.
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        parentPanel.getRouteMap().refresh();
-    }
-
-    /**
-     * Action for mouse pressed. Currently no action.
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-        nodeTable.refresh();
-    }
-
-    /**
-     * Action for mouse released. Currently no action.
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-
-    }
-
-    /**
-     * Action for mouse entered. Currently no action.
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-
-    }
-
-    /**
-     * Action for mouse exited. Currently no action.
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-
-    }
-
-    /**
-     * Route Table Builder.
+     * Node Table Builder.
      *
      * @author Chris Boveda
-     * @version 2021-04-11
+     * @version 2021-04-16
      */
-    private class RouteTableModel extends AbstractTableModel {
-        private final String[] columnNames = {"Route ID", "Name", "Start", "Length"};
-
+    private class NodeTableModel extends AbstractTableModel {
+        private final String[] columnNames = {"Node ID", "Name", "Lat", "Long"};
 
         /**
          * Returns the row count of the table.
@@ -190,7 +127,8 @@ public class RouteTable extends JTable implements MouseListener {
          */
         @Override
         public int getRowCount() {
-            return (routes != null) ? routes.size() : 1;
+            //todo NPE
+            return (route != null && trimmedRoute.size() != 0) ? trimmedRoute.size() : 1;
         }
 
 
@@ -214,19 +152,34 @@ public class RouteTable extends JTable implements MouseListener {
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Route r = routes.getRoutes().toArray(new Route[routes.size()])[rowIndex];
+            Node n;
+            if (trimmedRoute.isEmpty()) {
+                n = new Node(0, "Please add nodes to the route", 0.0, 0.0);
+            } else {
+                n = trimmedRoute.get(rowIndex);
+            }
 
             if (columnIndex == 0) {
-                return r.getID();
+                return n.getID();
             } else if (columnIndex == 1) {
-                return r.getName();
+                return n.getName();
             } else if (columnIndex == 2) {
-                return (r.getRoute().size() == 0) ? null : r.getRoute().getFirst().getName();
+                return coordinateDecimalToString(n.getCoords().getLat());
             } else if (columnIndex == 3) {
-                return Double.parseDouble(String.format("%.2f", r.length()));
+                return coordinateDecimalToString(n.getCoords().getLon());
             } else {
-                return r;
+                return n;
             }
+        }
+
+
+        private String coordinateDecimalToString(Double value) {
+            int degrees = (int) Math.floor(value);
+            double minutesDouble = (value - degrees) * 60;
+            int minutes = (int) Math.floor(minutesDouble);
+            double secondsDouble = (minutesDouble - minutes) * 60;
+            int seconds = (int) Math.floor(secondsDouble);
+            return String.format("%d, %d', %d\"", degrees, minutes, seconds);
         }
 
 
@@ -240,4 +193,5 @@ public class RouteTable extends JTable implements MouseListener {
             return columnNames[columnIndex];
         }
     }
+
 }
