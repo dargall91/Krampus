@@ -54,7 +54,7 @@ public class RouteMap extends JPanel {
         nodeMapper = new NodeMapper(CurrentProject.getNodeColl());
 
         try {
-            defaultMap = ImageIO.read(new File("src/main/resources/ui/map_background.png"));
+            defaultMap = ImageIO.read(RouteMap.class.getResource("/ui/map_background.png"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
