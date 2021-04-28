@@ -128,7 +128,6 @@ Answer as a team!
 
 - [Map inset tests](https://github.com/amehlhase316/Krampus/commit/56f0e43a435fe605d5d8b5da154e5901bf82288b)
 - [Node scaling from map coordinates](https://github.com/amehlhase316/Krampus/commit/0d19bb45e3b5bd362da6191fbbb87d69044229d8)
--
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
