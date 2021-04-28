@@ -178,25 +178,28 @@ Answer as a team!
  - [Completion of Drivers Tab](https://github.com/amehlhase316/Krampus/commit/953316fe9e433d8cae1e23d2e48e6bd54825bd6d)
  - [Completion of Buses Tab](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
  - [Changing projects reloads Bus and Driver data for the new project](https://github.com/amehlhase316/Krampus/commit/6fbdc2363612a96511678f09918c2f8d7367ae35)
+ - [Preserve Window Size on Minimize](https://github.com/amehlhase316/Krampus/pull/100/commits/a1b9d5d2cfc0edc33cd2999a9988dc53ac0e0c92)
+ - [Synchronized All Tabs](https://github.com/amehlhase316/Krampus/pull/101/commits/e7968e8f85c51f4339fb4e1341b7cd1adb4022d8)
+ - [Add Version and Build to App Window](https://github.com/amehlhase316/Krampus/pull/104/commits/f930601fd58899d2425915fa906e7578e17fb044)
+ - [SpotBugs and CheckStyle fixes, Removal of Many Memoranda Related Classes)[https://github.com/amehlhase316/Krampus/pull/108/commits/8569171fb4129bad142a620dacedcf21fb1a8a2c]
 
 **GitHub links to your Unit Tests (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - None, all UI related work last 2 sprints
 
 **GitHub links to your Code Reviews (up to 3 links) -- Sprint 2 and 3:**
 
- - link1
- - link2
+ - [Update App Icons](https://github.com/amehlhase316/Krampus/pull/99)
+ - [SpotBugs and CheckStyle Fixes](https://github.com/amehlhase316/Krampus/pull/106)
+ - [Merge Dev into Master](https://github.com/amehlhase316/Krampus/pull/117)
 
 **How did you contribute to Static Analysis -- Sprint 3:**
 
- - link1
- - link2
+ - I applied CheckStyle and SpotBugs to nearly all the classes our team wrote and several that we worked in. I also removed many of the Memoranda classes that were no longer relevant to the new system.
 
 **What was your main contribution to the Quality Policy documentation?:**
 
-    - ...
+ - I worked together with the rest of the group to create the quality policy.
 
 #### John Thurstonson:
 **Links to GitHub commits with main code contribution (up to 5 links) - all Sprints:**
@@ -259,7 +262,7 @@ Answer as a team!
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Brian Pape|
   - [x] Chris Boveda
-  - [ ] Derek Argall
+  - [X] Derek Argall
   - [ ] John Thurstonson
   - [ ] Kevin Dolan
 - [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
